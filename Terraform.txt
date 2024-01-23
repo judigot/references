@@ -1,0 +1,97 @@
+Tutorials:
+
+	https://www.youtube.com/watch?v=rwel5eSm89g
+
+	https://www.youtube.com/watch?v=iRaai1IBlB0
+
+Terraform commands:
+	Delete a specific resource:
+		terraform destroy -target aws_db_instance.myDB -auto-approve
+
+	Apply changes to state but doesn't recreate the VPC/Instance:
+		terraform apply -refresh-only
+
+	Override variables:
+		terraform console -var="host_os=unix"
+		
+	Override variables using a variable file (for switching between development and production environment):
+		terraform console -var-file="dev.tfvars"
+		
+	View state:
+		terraform state list
+		terraform state show <vpc.name>
+		
+	View state attribute:
+		terraform state show aws_vpc.main.id
+		
+	View all states:
+		terraform show
+		
+	Destroy a VPC:
+		terraform destroy
+		
+	Destroy a VPC and yes to all:
+		terraform destroy -auto-approve
+		
+	Apply VPC/Instance:
+		terraform apply -auto-approve
+		
+	Replace VPC/Instance:
+		terraform apply -replace="aws_instance.dev_node[0]" -auto-approve
+		terraform apply -replace aws_instance.<name>
+		terraform apply -replace aws_instance.<name> -auto-approve
+		
+	Format .tf files:
+		terraform fmt
+
+Sign in to aws:
+	Create a User:
+		IAM
+		Create a new user
+		Attach policies directly
+		Check AdministratorAccess
+		Create programmatic access
+	Create Access Key:
+		Go to the created user dashboard > Security Credentials
+		Create access key
+		Command Line Interface (CLI)
+		Save the keys
+	Enable console access:
+		Go to the created user dashboard > Security Credentials
+		Click Enable console access
+		Enable
+		Custom password
+		
+Docker Compose:
+	volumes:
+	  - ./terraform:/var/terraform
+      - ~/.aws:/root/.aws
+      - ~/.ssh:/root/.ssh
+		
+VSCode:
+	Install AWS Toolkit extension
+	Run: AWS: Create Credentials Profile in command palette
+	Use access keys to create credential file located in (C:\Users\Jude\.aws)
+	us-west-2 (Oregon)
+	Install HashiCorp Terraform for syntax highlighting
+	
+Terraform Docker Container:
+	*install AWS Toolkit extension
+	terraform init
+	*create VPC
+	terraform plan
+	terraform apply
+	yes
+
+	Run AWS: Show Resources...
+	Check AWS::EC2::VPC
+	Open terraform.tfstate and check if the settings match
+	
+Create EC2 Instance:
+	Select an AMI
+	Then go to EC2 Console > Images > AMIs
+	Set filter to Public images
+	Search for your chosen AMI
+	Copy the following:
+		AMI name
+		Owner

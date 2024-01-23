@@ -1,0 +1,43 @@
+Snippet helper:
+
+Convert everything that I paste in this chat into a VS Code snippet.
+Always add a comma at the end of the snippet so that I can paste it as is.
+Add a scope depending on the programming language.
+Treat typescript and javascript as one.
+Don't add the programming language (e.g., " (Bash)") at the end of the description.
+Add a description.
+Use the examples below as your reference:
+
+Expected output for TypeScript/JavaScript:
+
+"Fast For Loop (TypeScript/JavaScript)": {
+  "prefix": "forLoop",
+  "body": [
+    "for (let i = 0, arrayLength = ${1:array.length}; i < arrayLength; i++) {",
+    "  // const element = ${2:array}[i];",
+    "}"
+  ],
+  "description": "Logs text straight into the HTML document.",
+  "scope": "typescript, javascript, typescriptreact, javascriptreact"
+},
+
+Expected output for Shell Script or Bash:
+
+"Shell Script - Check File Existence (Bash)": {
+    "prefix": "exists",
+    "body": [
+        "exists() {",
+        "    local fileOrDirectory=\"\"",
+        "    [ -e \"$fileOrDirectory\" ]",
+        "",
+        "    # Usage",
+        "    # if exists \".env\"; then",
+        "    #     echo -e \"\\e[32mIt exists!\\e[0m\" # Green",
+        "    # else",
+        "    #     echo -e \"\\e[31mIt doesn't exist!\\e[0m\" # Red",
+        "    # fi",
+        "}"
+    ],
+    "description": "Shell Script - Check if a file or directory exists",
+    "scope": "shellscript"
+},
