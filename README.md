@@ -2583,7 +2583,7 @@ Expected output for Shell Script or Bash:
 - Object Parameter instead of individual arguments for readability
 
   Don't:
-  ```typescript
+  ```tsx
   function calculateRectangleArea(length: number, width: number): number {
     return length * width;
   }
@@ -2593,7 +2593,7 @@ Expected output for Shell Script or Bash:
   ```
   
   Do:
-  ```typescript
+  ```tsx
   function calculateRectangleArea({ length, width }: { length: number, width: number }): number {
       return length * width;
   }
@@ -2636,7 +2636,7 @@ Expected output for Shell Script or Bash:
 - Method chaining or builder pattern
   
   Class:
-  ```typescript
+  ```tsx
   class Calculator {
     private result: number;
 
@@ -2678,7 +2678,7 @@ Expected output for Shell Script or Bash:
   ```
 
   Function:
-  ```typescript
+  ```tsx
   const calculator = (initialValue: number) => {
     let result = initialValue;
     
@@ -2710,7 +2710,7 @@ Expected output for Shell Script or Bash:
   );
   ```
   
-  ```typescript
+  ```tsx
   const modifyString = (initialValue: string) => {
     let result: string = initialValue;
 
@@ -2994,9 +2994,9 @@ element {
 # Custom Fetch API
 
 ## Custom Fetch
-```typescript
-// customFetch.ts
 
+**customFetch.ts**
+```tsx
 type DataBody = BodyInit;
 
 const ROOT_URL: string = 'http://localhost:3000/api/v1';
@@ -3132,9 +3132,8 @@ export const customFetch = {
 
 ## Usage Example
 
-```typescript
-// useFetchAPI.ts
-
+**useFetchAPI.ts**
+```tsx
 import { customFetch } from "./customFetch";
 
 // Example usage of the get method
@@ -5132,7 +5131,7 @@ css should be camel case
 # File Handling Cheat Sheet
 
 File Handling CheatSheet.ts
-```typescript
+```tsx
 import fs from "fs";
 import path from "path";
 
@@ -7224,6 +7223,7 @@ npm uninstall *
 ```
 
 ## Package.json Scripts
+
 ```json
 "dev": "clear && rm -r dist && webpack --mode development",
 "build": "clear && rm -r dist && webpack --mode production && tsc -p .",
