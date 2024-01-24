@@ -6490,3 +6490,222 @@ pg_dump --schema-only -d database_name -h localhost -p 5432 -U root > database_n
 ```bash
 pg_dump --data-only -d database_name -h localhost -p 5432 -U root > database_name_data.sql
 ```
+
+# =====================================
+
+
+# Node.JS & NPM Commands & Configurations
+
+## Set Default Shell
+```bash
+npm config set shell "C:\\apportable\\Programming\\PortableGit\\bin\\bash.exe"
+```
+
+## Install Nest.JS
+```bash
+git clone https://github.com/nestjs/typescript-starter.git .
+pnpm install
+pnpm run start
+```
+## Fix Initial ESLint Errors
+Add this to .eslintrc.js inside **rules**
+```
+"prettier/prettier": [
+  "error",
+  {
+    "endOfLine": "auto"
+  }
+],
+```
+## Project Scaffolding:
+
+### Vite (TypeScript):
+
+#### PNPM
+```bash
+pnpm create vite . --template react-ts
+```
+
+#### NPM
+```bash
+npm create vite@latest . -- --template react-ts
+```
+	
+### Next.js
+
+#### Install On Current Directory
+```bash
+npx create-next-app@latest . --use-pnpm --ts --tailwind --eslint --app --src-dir --import-alias @/*
+```
+	
+#### Install on Current a Different Directory
+```bash
+npx create-next-app@latest bigbang --use-pnpm --ts --tailwind --eslint --app --src-dir --import-alias @/*
+
+# What is your project named? bigbang
+# Would you like to use TypeScript? Yes
+# Would you like to use ESLint? Yes
+# Would you like to use Tailwind CSS? Yes
+# Would you like to use `src/` directory? Yes
+# Would you like to use App Router? (recommended) Yes
+# Would you like to customize the default import alias (@/*)? Yes
+# What import alias would you like configured? @/*
+```
+	
+#### Update Next.js Installation
+```bash
+npm i next@latest react@latest react-dom@latest eslint-config-next@latest
+```
+	
+#### GetServerSideProps
+- use for authentication and conditional rendering
+- render data on request time
+	
+#### GetStaticProps:
+- for SEO
+- for static pages
+- generates static html and json files for caching
+
+## PurgeCSS (Remove Unused CSS)
+https://www.youtube.com/watch?v=y3WQoON6Vfc
+
+## NPM Commands
+### Show Unused Packages
+```bash
+npx depcheck
+```
+
+### Create a package.json
+#### With a wizard
+```bash
+npm init
+```
+
+#### Without a wizard
+```bash
+npm init -y
+```
+
+#### Install All Dependencies from package-lock.json:
+```bash
+npm ci
+```
+
+#### Install Development/Production Dependencies in package-lock.json
+```bash
+npm ci --only=development
+npm ci --only=production
+```
+
+#### Install All Dependencies From package.json:
+```bash
+npm install
+```
+
+#### Install All Production ("dependencies") Dependencies From package.json Globally
+```bash
+npm install --only=production
+```
+
+#### Install All Development ("devDependencies") Dependencies From package.json Globally
+```bash
+npm install --only=development
+```
+
+#### Install Dependencies Globally
+```bash
+npm install -g
+```
+	
+#### Check Package Version; Check Dependency Version
+```bash
+npm view <package-name> version
+```
+
+#### Delete All Dependencies:
+```bash
+npm uninstall *
+```
+
+## Package.json Scripts
+```json
+"dev": "clear && rm -r dist && webpack --mode development",
+"build": "clear && rm -r dist && webpack --mode production && tsc -p .",
+"watch": "clear && rm -r dist && webpack --watch --mode development"
+```
+
+## Global Dependepcies
+
+    pnpm
+    create next-app
+
+## Big Bang Dependepcies
+
+### Production
+```bash
+npm install express
+npm install dotenv
+npm install bcrypt
+npm install sequelize
+
+npm install typescript
+npm install ts-node
+
+npm install @types/node
+
+npm install @types/bcrypt
+npm install @types/express
+
+npm install ejs
+npm install ejs-loader
+npm install mysql2
+
+npm install bootstrap
+npm install @popperjs/core
+npm install jquery
+npm install jquery-ui-dist
+
+npm install bootstrap-timepicker
+
+npm install jquery-contextmenu
+npm install datatables.net-dt
+
+npm install notifyjs
+npm install flipclock
+npm install @fortawesome/fontawesome-free
+```
+
+### Development
+```bash
+npm install -D nodemon
+npm install -D webpack
+npm install -D webpack-cli
+
+npm install -D @babel/core
+npm install -D babel-loader
+npm install -D @babel/preset-env
+
+npm install -D node-sass
+npm install -D sass-loader
+npm install -D css-loader
+npm install -D style-loader
+
+npm install -D mini-css-extract-plugin
+
+npm install -D purgecss-webpack-plugin
+npm install -D file-loader
+
+npm install -D clean-webpack-plugin
+
+npm install -D html-webpack-plugin
+npm install -D copy-webpack-plugin
+
+npm install -D img-loader
+```
+## NVM Installation
+
+1. Download nvm-noinstall.zip from the latest version here: https://github.com/coreybutler/nvm-windows/releases
+2. Extract to a folder named "nvm" in C:\judigot\Programming\Environment\nvm
+3. Run "install.cmd" that's inside the extracted "nvm" folder
+4. Enter "C:\judigot\Programming\Environment\nvm" as the absolute path
+5. Set the "path:" inside "settings.txt" to "C:/judigot/Programming/Environment/nodejs"
