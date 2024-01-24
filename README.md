@@ -1,7 +1,7 @@
 <h1 align="center">References (Cheat Sheet)</h1>
 
 # =====================================
-# Markdown Cheat Sheet
+# Markdown
 
 ## Link
 
@@ -95,8 +95,7 @@ Write-Host "File created successfully at: $file_path"
 ```
 
 # =====================================
-
-## Apportable.sh
+# Apportable.sh
 
 ```bash
 #!/bin/bash
@@ -253,7 +252,6 @@ fi
 ```
 
 # =====================================
-
 # Authentication Flow
 
     Server:
@@ -311,7 +309,6 @@ fi
 **Front-End Application (Receives and Processes Response)**: The front-end application receives the server's response. If authentication is successful, it may store the token for future requests, or handle the error message accordingly.
 
 # =====================================
-
 # Amazon Web Services (AWS)
 
 ## AWS Virtual Machine Scaffolding
@@ -330,7 +327,6 @@ fi
 ## Jenkins Configuration as Code (JCaC)
 
 # =====================================
-
 # Batch Scripting
 
 ```bat
@@ -344,7 +340,6 @@ fi
 ```
 
 # =====================================
-
 # Bash Scripting
 
 ## Delete Folder if It Exists; Check if a Folder Exists
@@ -565,7 +560,6 @@ echo Node.js version: $(node -v)
 ```
 
 # =====================================
-
 # Big Bang Next.js
 
 ```bash
@@ -1558,7 +1552,6 @@ main
 ```
 
 # =====================================
-
 # Big Bang Vite
 
 ```bash
@@ -2461,8 +2454,6 @@ main
 ```
 
 # =====================================
-
-
 # Big Bang Spring Boot
 
 ```bash
@@ -2487,8 +2478,6 @@ read -p "Please ENTER to exit..."
 ```
 
 # =====================================
-
-
 # Build & Run Java
 
 ```bash
@@ -2525,8 +2514,6 @@ java Main
 ```
 
 # =====================================
-
-
 # ChatGPT Prompts
 
 ## Convert Instructions to Markdown
@@ -2590,8 +2577,6 @@ Expected output for Shell Script or Bash:
 ```
 
 # =====================================
-
-
 # Coding Conventions & Best Practices
 
 ## Dos
@@ -2764,8 +2749,6 @@ Expected output for Shell Script or Bash:
 
 
 # =====================================
-
-
 # CSS
 
 ```html
@@ -3008,7 +2991,6 @@ element {
 ```
 
 # =====================================
-
 # Custom Fetch API
 
 ## Custom Fetch
@@ -3200,8 +3182,6 @@ createData({name: 'Jane Doe', email: 'jane@example.com'})
 ```
 
 # =====================================
-
-
 # Dev Environment Setup
 
 ```bash
@@ -3235,8 +3215,6 @@ echo "ssh-add ~/.ssh/jude" >>~/.bashrc
 ```
 
 # =====================================
-
-
 # Directory Tree Cloner
 
 ```bat
@@ -3269,7 +3247,6 @@ pause
 ```
 
 # =====================================
-
 # Docker Commands
 
 ## Containerization Steps
@@ -3406,8 +3383,6 @@ docker image rm *first-3-characters-of-the-image-id
 ```
 
 # =====================================
-
-
 # Edit Context Menu
 
 ## Remove Context Menu Items
@@ -3445,8 +3420,6 @@ HKEY_CLASSES_ROOT\Directory\Background\shellex\ContextMenuHandlers\ACE
 ```
 
 # =====================================
-
-
 # TypeScript/JavaScript
 
 ## React.js
@@ -4996,7 +4969,6 @@ let { removeThis, removeThisAsWell, ...newObject } = originalObject;
 ```
 
 # =====================================
-
 # React.js Learning Roadmap
 
 ```
@@ -5157,7 +5129,6 @@ css should be camel case
 
 
 # =====================================
-
 # File Handling Cheat Sheet
 
 File Handling CheatSheet.ts
@@ -5296,8 +5267,6 @@ Delete:
 ```
 
 # =====================================
-
-
 # File Handling Scripts
 
 File Handling Scripts.sh
@@ -6256,7 +6225,6 @@ main
 ```
 
 # =====================================
-
 # React Form
 ## Form 1
 ```tsx
@@ -6472,8 +6440,6 @@ export default LoginForm;
 ```
 
 # =====================================
-
-
 # Get Git Version
 
 ```bat
@@ -6505,8 +6471,6 @@ pause
 ```
 
 # =====================================
-
-
 # Get Git Version Bash
 
 ```bash
@@ -6526,9 +6490,7 @@ echo "Git version: $version"
 ```
 
 # =====================================
-
-
-# Get Commands
+# Git Commands
 
 ```bash
 # Git
@@ -6679,8 +6641,6 @@ git status
 ```
 
 # =====================================
-
-
 # GraphQL
 
 ```tsx
@@ -6760,7 +6720,6 @@ const order = async () => {
 ```
 
 # =====================================
-
 # Jenkins Commands
 
 ## Setup
@@ -6824,8 +6783,6 @@ Head to [localhost:8080/restart](http://localhost:8080/restart) to restart Jenki
           - Jenkinsfile
 
 # =====================================
-
-
 # Laravel Commands
 
 ```
@@ -6958,8 +6915,6 @@ Views/Pages = (resources>views)
 ```
 
 # =====================================
-
-
 # Line Replacer Batch
 
 ```bat
@@ -6982,8 +6937,6 @@ set "_strInsert=replacement"
 ```
 
 # =====================================
-
-
 # Linux Ubuntu Commands
 
 ## MySQL
@@ -7137,8 +7090,6 @@ pg_dump --data-only -d database_name -h localhost -p 5432 -U root > database_nam
 ```
 
 # =====================================
-
-
 # Node.js & NPM Commands & Configurations
 
 ## Set Default Shell
@@ -7356,8 +7307,6 @@ npm install -D img-loader
 5. Set the "path:" inside "settings.txt" to "C:/judigot/Programming/Environment/nodejs"
 
 # =====================================
-
-
 # PHP Commands
 ```php
 <?php
@@ -7462,8 +7411,6 @@ echo "<pre>" . print_r($array, true) . "</pre>";
 ```
 
 # =====================================
-
-
 # Portable Git Bash
 
 Portable Git Bash.bat
@@ -7474,8 +7421,6 @@ start "C:\apporatable\Programming\PortableGit\git-bash.exe"
 ```
 
 # =====================================
-
-
 # Prisma
 
 ## Installation Steps
@@ -7530,8 +7475,6 @@ npx prisma generate
 ```
 
 # =====================================
-
-
 # SEO (Search Engine Optimization)
 
 ## DNS Set Up
@@ -7600,8 +7543,6 @@ upstream apache2 {
 ```
 
 # =====================================
-
-
 # SQL
 
 ## Database Must-Haves
@@ -7719,8 +7660,6 @@ CREATE TABLE "order_product" (
     - **Context**: Best suited for storing fixed-length character data, ensuring data consistency and efficiency for short, standard-format strings.
 
 # =====================================
-
-
 # Terraform
 
 ```
@@ -7824,8 +7763,6 @@ Create EC2 Instance:
 ```
 
 # =====================================
-
-
 # VIM
 
 ## Search file
@@ -7985,8 +7922,6 @@ Ctrl + Shift + ENTER
 ```
 
 # =====================================
-
-
 # Visual Studio Code Keyboard Shortcuts
 
 ## Default
@@ -8024,7 +7959,6 @@ Ctrl + Shift + Alt =====> ?
 ```
 
 # =====================================
-
 # Web Development
 
 ## Architecture
