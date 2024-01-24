@@ -3472,7 +3472,7 @@ useEffect(() => {
   // Code
 }, [prop, state]);
 
-Iterate data:
+// Iterate data:
 // Iterate an object; iterate an array of objects; iterate array of objects
     {data?.map(({id, firstName}, i) => (
       <div key={id}>{row}</div>
