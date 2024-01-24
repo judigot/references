@@ -1525,13 +1525,13 @@ function createEnv() {
 # See the documentation for all the connection string options: https://pris.ly/d/connection-strings
 
 # Supabase
-DATABASE_URL="postgresql://postgres:<password>@db.<host>.supabase.co:<port>/<database>"
+DATABASE_URL="postgresql://postgres:<password>@db.<host>.supabase.co:5432/<database>"
 
 # Local MySQL
-# DATABASE_URL="mysql://<username>:<password>@<host>:<port>/<database>"
+# DATABASE_URL="mysql://root:123@localhost:3306/<databasename>"
 
 # Local PostgreSQL
-# DATABASE_URL="postgresql://<username>:<password>@<host>:<port>/<database>"
+# DATABASE_URL="postgresql://root:123@localhost:5432/<databasename>"
 
 ACCESS_TOKEN_SECRET=
 REFRESH_TOKEN_SECRET=
@@ -2433,7 +2433,7 @@ function createEnv() {
 DATABASE_URL="mysql://<username>:<password>@<host>:<port>/<database>"
 
 # Local PostgreSQL
-# DATABASE_URL="postgresql://<username>:<password>@<host>:<port>/<database>"
+# DATABASE_URL="postgresql://root:123@localhost:5432/bigbang"
 
 ACCESS_TOKEN_SECRET=
 REFRESH_TOKEN_SECRET=
