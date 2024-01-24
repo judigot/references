@@ -3536,9 +3536,19 @@ export default function App({ name }: Props) {
   );
 }
 ```
+
 ## Common
 ```tsx
 // Pick & Omit to select or remove attributes from object interface/types. Used for reusing interfaces/types
+
+// Copy to clipboard; copy text to clipboard
+(async () => {
+  try {
+    await navigator.clipboard.writeText("Text to copy");
+  } catch (error) {
+    console.error('Failed to copy text to clipboard:', error);
+  }
+})().catch(() => {});
 
 //==========FILTER DATA; FILTER OBJECT==========//
 const StudentYears = {
