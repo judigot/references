@@ -6827,3 +6827,59 @@ Portable Git Bash.bat
 
 start "C:\apporatable\Programming\PortableGit\git-bash.exe"
 ```
+
+# =====================================
+
+
+# Prisma
+
+## Installation Steps
+1. Install Packages
+    ```bash
+    npm init -y
+    npm install typescript ts-node @types/node --save-dev
+    npm install prisma --save-dev
+    npm i @prisma/client
+    npx tsc --init
+    npx prisma init --datasource-provider mysql
+    ```
+2. Add a Custom Prisma Directory in package.json
+    ```json
+    "prisma": {
+      "schema": "src/prisma/schema.prisma"
+    },
+    ```
+3. Move the Prisma Folder to the Custom Prisma Path
+
+4. Set the database_URL in the .Env File to Point to Your Existing Database
+
+## Create a Prisma Schema From an Existing Database
+```bash
+npx prisma db pull && npx prisma generate
+```
+
+## Sync Schema to the Database (When Developing Locally)
+```bash
+npx prisma db push && npx prisma generate
+```
+
+## Draft Migration (Create a Migration File but Don’t Sync)
+
+Can be edited before committing
+
+```bash
+npx prisma migrate dev --name <renamed-firstname-to-firstName> --create-only
+```
+
+## Sync Migration Files; Commit Migration Changes
+```bash
+npx prisma migrate dev
+```
+
+## Sync Schema to Update the Prisma Client in Node_modules
+
+Run this everytime the schema is changed
+
+```bash
+npx prisma generate
+```
