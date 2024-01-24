@@ -256,6 +256,18 @@ fi
 
 # Authentication Flow
 
+    Server:
+    Enable CORS in backend
+    Create auth route
+        - get the form values from client
+        - check if the user exists
+        - if user exists
+            - verify password
+                - if login is successful:
+                    sign jwt
+        - if user doesn't exists
+            - send error
+
 **Front-End Application**: The user interface where the user enters their email and password for authentication.
 
 ↓
