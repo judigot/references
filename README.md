@@ -6815,3 +6815,15 @@ $EventFeeFields = explode("','", preg_replace("/(enum|set)\('(.+?)'\)/", "\\2", 
 //   Display Array:
 echo "<pre>" . print_r($array, true) . "</pre>";
 ```
+
+# =====================================
+
+
+# Portable Git Bash
+
+Portable Git Bash.bat
+```bat
+@echo off
+
+start "C:\apporatable\Programming\PortableGit\git-bash.exe"
+```
