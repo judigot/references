@@ -333,7 +333,7 @@ fi
 
 # Batch Scripting
 
-```batch
+```bat
 @echo off
 
 @REM Get IP address
@@ -3188,7 +3188,7 @@ echo "ssh-add ~/.ssh/jude" >>~/.bashrc
 
 # Directory Tree Cloner
 
-```batch
+```bat
 :: https://pureinfotech.com/exclude-files-folders-robocopy-windows-10/
 
 @echo off
@@ -5831,7 +5831,7 @@ export default LoginForm;
 
 # Get Git Version
 
-```batch
+```bat
 @echo off
 setlocal EnableDelayedExpansion
 
@@ -6317,7 +6317,7 @@ Views/Pages = (resources>views)
 
 # Line Replacer Batch
 
-```batch
+```bat
 @echo off
 
 setlocal disableDelayedExpansion
@@ -6336,3 +6336,157 @@ set "_strInsert=replacement"
 )
 ```
 
+# =====================================
+
+
+# Linux Ubuntu Commands
+
+## MySQL
+### Execute a SQL file from URL; Import SQL file:
+    curl 'https://raw.githubusercontent.com/user/repo/data.sql' | mysql -uroot -p123
+
+### Install mysql-server
+
+```bash
+apt install -y mysql-server
+```
+### Start mysql
+```bash
+usermod -d /var/lib/mysql/ mysql && service mysql start
+```
+
+### Run mysql_secure_installation
+
+`If there's an error running mysql_secure_installation, run the following commands in mysql to enable mysql_secure_installation:`
+
+```bash
+mysql
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123';
+FLUSH PRIVILEGES;
+EXIT;
+```
+    
+## Log In
+```bash
+mysql -u<user> -p<password>
+mysql -uroot -p123
+```
+
+## Log Out
+```bash
+exit;
+```
+
+## MySQL Commands
+
+### Show Databases
+```sql
+SHOW DATABASES;
+```
+
+### Show Tables
+```sql
+SHOW TABLES;
+```
+
+### Show Port
+```sql
+SHOW @@PORT;
+```
+
+### Show Database
+```sql
+USE `databaseName`;
+```
+
+### Show Table Information
+```sql
+DESCRIBE `tableName`;
+```
+
+## PostgreSQL
+### Install PostgreSQL
+```bash
+apt install -y postgresql postgresql-contrib
+```
+
+### Start PostgreSQL
+```bash
+service postgresql start
+```
+    
+### Add password
+```bash
+sudo passwd postgres
+```
+    
+### Enable postgres=# Prompt:
+```bash
+sudo -i -u postgres
+```
+
+### Access postgres=# prompt:
+```bash
+psql
+```
+
+### Shorthand for enabling and accessing postgres=#:
+```bash
+sudo -u postgres psql
+*exit
+\q
+```
+
+### Log out:
+```bash
+\q
+exit
+```
+    
+### Create new role:
+
+```bash
+# If logged in to postgres=#
+createuser --interactive
+```
+```bash
+sudo -u postgres createuser --interactive
+```
+    
+### List databases;
+```bash
+\l
+```
+    
+### List tables:
+```bash
+\dt
+```
+    
+### Delete all tables; remove all tables:
+```postgresql
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA PUBLIC;
+```
+    
+### Use database:
+```bash
+\c database_name
+```
+    
+### Dump database:
+
+#### Dump Everything
+```bash
+pg_dump -d database_name -h localhost -p 5432 -U root > database_name.sql
+```
+
+#### Dump Schema
+```bash
+pg_dump --schema-only -d database_name -h localhost -p 5432 -U root > database_name_schema.sql
+```
+
+#### Dump Data
+```bash
+pg_dump --data-only -d database_name -h localhost -p 5432 -U root > database_name_data.sql
+```
