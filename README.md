@@ -3422,7 +3422,7 @@ HKEY_CLASSES_ROOT\Directory\Background\shellex\ContextMenuHandlers\ACE
 # TypeScript/JavaScript
 
 ## React.js
-```jsx
+```tsx
 /*
 These will not invoke the function on render:
 ✔️ onClick={functionName}
