@@ -309,3 +309,22 @@ fi
 ↓
 
 **Front-End Application (Receives and Processes Response)**: The front-end application receives the server's response. If authentication is successful, it may store the token for future requests, or handle the error message accordingly.
+
+# =====================================
+
+# Amazon Web Services (AWS)
+
+## AWS Virtual Machine Scaffolding
+1. Create instance
+2. Create elastic IP and assign to a network
+
+
+## AWS EC2 for the application
+
+## AWS RDS for the database
+
+## Infastructure-as-code tools
+- AWS CDK
+- Terraform (open-source)
+
+## Jenkins Configuration as Code (JCaC)
