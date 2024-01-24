@@ -4726,3 +4726,24 @@ pause
 :: Now you can use the variable !git_version! in your script
 :: ====================GET THE LATEST GIT VERSION====================
 ```
+
+# =====================================
+
+
+# Get Git Version Bash
+
+```bash
+#!/bin/bash
+
+# URL of the webpage
+url="https://git-scm.com/downloads"
+
+# Class name of the element you want to extract
+className="version"
+
+# Use curl to fetch the webpage content and extract the version using awk
+version=$(curl -s "$url" | awk -F'<[^>]*>' "/class=\"$className\"/{getline; gsub(/[[:space:]]/, \"\"); print }")
+
+# Print the type of element and the extracted version
+echo "Git version: $version"
+```
