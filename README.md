@@ -7027,6 +7027,11 @@ sudo -i -u postgres
 psql
 ```
 
+### Reset Auto-Increment ID
+```bash
+ALTER SEQUENCE tableName_column_id_seq RESTART WITH 1;
+```
+
 ### Shorthand for enabling and accessing postgres=#:
 ```bash
 sudo -u postgres psql
