@@ -1,4 +1,4 @@
-# Dos
+## Dos
 - Object Parameter instead of individual arguments for readability
 
   Don't:
@@ -160,7 +160,7 @@
 - State logic: see React's useReducer
 - Async/await
   
-# Don'ts
+## Don'ts
 - Nested ternary
 - Global namespace pollution
 - Callback hell - use async/await
