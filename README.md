@@ -576,6 +576,7 @@ readonly PRODUCTION_DEPENDENCIES=(
 )
 
 readonly DEV_DEPENDENCIES=(
+    "cross-env"
     "dotenv-cli"
     "prettier"
     "styled-components"
@@ -1568,6 +1569,7 @@ readonly PRODUCTION_DEPENDENCIES=(
 )
 
 readonly DEV_DEPENDENCIES=(
+    "cross-env"
     "dotenv-cli"
     "prettier"
     "styled-components"
