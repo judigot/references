@@ -8311,3 +8311,260 @@ asyncAwaitTryCatch
 thenCatchFinally
 tryCatchFinallyBlock
 ```
+
+# =====================================
+
+
+# API Generator
+
+Tags: `generate rest api`, `generate restful api`, `generate api endpoints`, `generate endpoints`
+
+```bash
+#!/bin/bash
+
+# Docker container details
+CONTAINER_NAME="PostgreSQL"
+DB_NAME="snippeter"
+DB_USER="root"
+DB_PASSWORD="123"
+endpoints=()
+
+# PostgreSQL connection URL (if you want to use URL)
+DB_URL="postgresql://$DB_USER:$DB_PASSWORD@localhost:5432/$DB_NAME"
+
+# Get the container ID of the running PostgreSQL container
+container_id=$(docker ps -q --filter "name=${CONTAINER_NAME}")
+
+# Check if the container is running
+if [ -z "$container_id" ]; then
+    if [ -z "$DB_URL" ]; then
+        echo "PostgreSQL container is not running, and no URL is provided."
+        exit 1
+    fi
+fi
+
+# Determine whether to use URL or container-based connection
+if [ -n "$container_id" ]; then
+    # Using Docker container connection
+    endpoints[0]=$(docker exec -i "$container_id" psql "$DB_URL" -t -c "\dt" | awk -F\| '{print $2}' | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+else
+    # Using URL connection
+    endpoints[0]=$(psql "$DB_URL" -t -c "\dt" | awk -F\| '{print $2}' | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+fi
+
+# table_names=(${endpoints[0]})
+
+# Convert string to array; convert space-separated strings to array; convert space separated strings to array
+mapfile -t table_names <<< "${endpoints[0]}"
+
+rm -rf src
+
+# Base directory for API endpoints
+base_dir="./src/app/api/v1"
+
+# Create the base directory if it doesn't exist
+mkdir -p "$base_dir"
+
+# Function to create endpoint files
+create_endpoint_files() {
+    local endpoint=$1
+
+    local dir_path="$base_dir/$endpoint"
+
+    # Create directory for the endpoint
+    mkdir -p "$dir_path"
+
+    # Create files for CRUD operations
+    # Route handler
+    cat >"$dir_path/route.ts" <<-EOM
+import { NextRequest, NextResponse } from 'next/server';
+
+import GetHandler from './Get';
+import PostHandler from './Post';
+import PatchHandler from './Patch';
+import PutHandler from './Put';
+import DeleteHandler from './Delete';
+
+export async function GET(req: NextRequest, res: NextResponse) {
+  return GetHandler(req, res);
+}
+export async function POST(req: NextRequest, res: NextResponse) {
+  return PostHandler(req, res);
+}
+export async function PATCH(req: NextRequest, res: NextResponse) {
+  PatchHandler(req, res);
+}
+export async function PUT(req: NextRequest, res: NextResponse) {
+  PutHandler(req, res);
+}
+export async function DELETE(req: NextRequest, res: NextResponse) {
+  DeleteHandler(req, res);
+}
+EOM
+
+    # Create
+    cat >"$dir_path/Post.ts" <<-EOM
+import { prisma } from '@/prisma/DatabaseClient';
+import { NextRequest, NextResponse } from 'next/server';
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
+    const data = req.body;
+    try {
+        const result = await prisma.$endpoint.create({ data });
+        res.status(201).json(result);
+    } catch (error) {
+        res.status(500).json({ error: "Failed to create $endpoint." });
+    }
+}
+EOM
+
+    # Read
+    cat >"$dir_path/Get.ts" <<-EOM
+import { prisma } from '@/prisma/DatabaseClient';
+import { NextRequest, NextResponse } from 'next/server';
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
+    try {
+        const results = await prisma.$endpoint.findMany();
+        res.status(200).json(results);
+    } catch (error) {
+        res.status(500).json({ error: "Failed to get $endpoint data." });
+    }
+}
+EOM
+
+    # Update
+    cat >"$dir_path/Patch.ts" <<-EOM
+import { prisma } from '@/prisma/DatabaseClient';
+import { NextRequest, NextResponse } from 'next/server';
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
+    const { id, ...data } = req.body;
+    try {
+        const result = await prisma.$endpoint.update({
+            where: { id },
+            data
+        });
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: "Failed to update $endpoint." });
+    }
+}
+EOM
+
+    cat >"$dir_path/Put.ts" <<-EOM
+import { prisma } from '@/prisma/DatabaseClient';
+import { NextRequest, NextResponse } from 'next/server';
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
+    const { id, ...data } = req.body;
+    try {
+        const result = await prisma.$endpoint.update({
+            where: { id },
+            data
+        });
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: "Failed to update $endpoint." });
+    }
+}
+EOM
+
+    # Delete
+    cat >"$dir_path/Delete.ts" <<-EOM
+import { prisma } from '@/prisma/DatabaseClient';
+import { NextRequest, NextResponse } from 'next/server';
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
+    const { id } = req.body;
+    try {
+        await prisma.$endpoint.delete({ where: { id } });
+        res.status(200).json({ message: "$endpoint deleted successfully." });
+    } catch (error) {
+        res.status(500).json({ error: "Failed to delete $endpoint." });
+    }
+}
+EOM
+}
+
+# Iterate over each endpoint and create necessary files
+for table_name in "${table_names[@]}"; do
+    create_endpoint_files "$table_name"
+done
+
+echo "API endpoint files have been generated."
+```
+
+
+# =====================================
+
+
+# Directory Cloner
+
+Tags: `clone directories`, `clone directory`, `copy directories`, `copy directory`
+
+```bash
+#!/bin/bash
+
+source_folder_name="src"
+ignore_directories=("node_modules" ".next") # Directories to ignore
+
+# Define the directory you want to recreate
+directory_to_recreate="./$source_folder_name"
+
+# Define the name of the script to be generated
+script_name="$source_folder_name Cloner.sh"
+
+# Ensure the directory exists
+if [ -d "$directory_to_recreate" ]; then
+  # Start writing the recreation script
+  echo "#!/bin/bash" > "$script_name"
+  # Echo the shebang line to ensure the script runs in bash
+
+  # Create the top-level clone directory in the recreation script
+  echo "mkdir -p \"${directory_to_recreate}_clone\"" >> "$script_name"
+
+  # Recursively iterate over files and folders in the specified directory
+  while IFS= read -r -d '' file; do
+    skip=0
+    for ignore_dir in "${ignore_directories[@]}"; do
+      if [[ "$file" == *"$ignore_dir"* ]]; then
+        skip=1
+        break
+      fi
+    done
+
+    if [[ $skip -eq 1 ]]; then
+      continue
+    fi
+
+    # Extract the relative path from the original directory
+    relative_path="${file#$directory_to_recreate/}"
+
+    # Create the corresponding path in the cloned directory
+    target_path="${directory_to_recreate}_clone/$relative_path"
+
+    if [ -d "$file" ]; then
+      # Create subdirectory command
+      echo "mkdir -p \"$target_path\"" >> "$script_name"
+    elif [ -f "$file" ]; then
+      # Copy file with content command
+      echo "cat << 'EOF' > \"$target_path\"" >> "$script_name"
+      cat "$file" >> "$script_name"
+      echo "" >> "$script_name" # Ensure there's a newline before EOF
+      echo "EOF" >> "$script_name"
+    fi
+  done < <(find "$directory_to_recreate" -mindepth 1 -type d -print0 -o -type f -print0)
+
+  # Make the recreation script executable
+  chmod +x "$script_name"
+
+  # Inform the user that the script has been generated
+  echo "Directory recreation script '$script_name' has been generated."
+else
+  # Display an error message if the specified directory does not exist
+  echo "Error: Directory '$directory_to_recreate' does not exist."
+fi
+
+sh "$script_name"
+```
