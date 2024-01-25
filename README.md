@@ -7078,17 +7078,7 @@ sudo -u postgres createuser --interactive
 ### Delete All Tables; Remove All Tables
 ```sql
 DROP SCHEMA public CASCADE;
-CREATE SCHEMA PUBLIC;
-```
-
-### Delete All Tables
-```sql
-DO $$DECLARE r RECORD;
-BEGIN
-    FOR r IN SELECT tablename FROM pg_tables WHERE schemaname = 'public' LOOP
-        EXECUTE 'DROP TABLE IF EXISTS ' || quote_ident(r.tablename) || ' CASCADE';
-    END LOOP;
-END$$;
+CREATE SCHEMA public;
 ```
     
 ### Use database:
