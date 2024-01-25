@@ -7075,10 +7075,20 @@ sudo -u postgres createuser --interactive
 \dt
 ```
     
-### Delete all tables; remove all tables:
+### Delete All Tables; Remove All Tables
 ```sql
 DROP SCHEMA public CASCADE;
 CREATE SCHEMA PUBLIC;
+```
+
+### Delete All Tables
+```sql
+DO $$DECLARE r RECORD;
+BEGIN
+    FOR r IN SELECT tablename FROM pg_tables WHERE schemaname = 'public' LOOP
+        EXECUTE 'DROP TABLE IF EXISTS ' || quote_ident(r.tablename) || ' CASCADE';
+    END LOOP;
+END$$;
 ```
     
 ### Use database:
@@ -7101,16 +7111,6 @@ pg_dump --schema-only -d database_name -h localhost -p 5432 -U root > database_n
 #### Dump Data
 ```bash
 pg_dump --data-only -d database_name -h localhost -p 5432 -U root > database_name_data.sql
-```
-
-#### Delete All Tables
-```sql
-DO $$DECLARE r RECORD;
-BEGIN
-    FOR r IN SELECT tablename FROM pg_tables WHERE schemaname = 'public' LOOP
-        EXECUTE 'DROP TABLE IF EXISTS ' || quote_ident(r.tablename) || ' CASCADE';
-    END LOOP;
-END$$;
 ```
 
 # =====================================
