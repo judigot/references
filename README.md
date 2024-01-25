@@ -7075,7 +7075,7 @@ sudo -u postgres createuser --interactive
 \dt
 ```
     
-### Delete All Tables; Remove All Tables
+### Delete All Tables; Delete Tables; Remove All Tables
 ```sql
 DROP SCHEMA public CASCADE;
 CREATE SCHEMA public;
