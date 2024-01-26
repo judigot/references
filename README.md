@@ -8509,20 +8509,30 @@ Tags: `clone directories`, `clone directory`, `copy directories`, `copy director
 source_folder_name="src"
 ignore_directories=("node_modules" ".next") # Directories to ignore
 
+folder_name_prefix="Copy of"
+
 # Define the directory you want to recreate
 directory_to_recreate="./$source_folder_name"
 
 # Define the name of the script to be generated
 script_name="$source_folder_name Cloner.sh"
 
+# Check for existing copy of the directory and rename with incrementing numbers
+copy_name="$folder_name_prefix $source_folder_name"
+counter=1
+while [ -d "$copy_name" ]; do
+  let counter++
+  copy_name="$folder_name_prefix $source_folder_name ($counter)"
+done
+
 # Ensure the directory exists
 if [ -d "$directory_to_recreate" ]; then
   # Start writing the recreation script
-  echo "#!/bin/bash" > "$script_name"
+  echo "#!/bin/bash" >"$script_name"
   # Echo the shebang line to ensure the script runs in bash
 
   # Create the top-level clone directory in the recreation script
-  echo "mkdir -p \"${directory_to_recreate}_clone\"" >> "$script_name"
+  echo "mkdir -p \"$copy_name\"" >>"$script_name"
 
   # Recursively iterate over files and folders in the specified directory
   while IFS= read -r -d '' file; do
@@ -8542,17 +8552,17 @@ if [ -d "$directory_to_recreate" ]; then
     relative_path="${file#$directory_to_recreate/}"
 
     # Create the corresponding path in the cloned directory
-    target_path="${directory_to_recreate}_clone/$relative_path"
+    target_path="$copy_name/$relative_path"
 
     if [ -d "$file" ]; then
       # Create subdirectory command
-      echo "mkdir -p \"$target_path\"" >> "$script_name"
+      echo "mkdir -p \"$target_path\"" >>"$script_name"
     elif [ -f "$file" ]; then
       # Copy file with content command
-      echo "cat << 'EOF' > \"$target_path\"" >> "$script_name"
-      cat "$file" >> "$script_name"
-      echo "" >> "$script_name" # Ensure there's a newline before EOF
-      echo "EOF" >> "$script_name"
+      echo "cat << 'EOF' > \"$target_path\"" >>"$script_name"
+      cat "$file" >>"$script_name"
+      echo "" >>"$script_name" # Ensure there's a newline before EOF
+      echo "EOF" >>"$script_name"
     fi
   done < <(find "$directory_to_recreate" -mindepth 1 -type d -print0 -o -type f -print0)
 
