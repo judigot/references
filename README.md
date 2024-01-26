@@ -8265,6 +8265,8 @@ import
 export
 
 TODOs:
+convertStringsToArray - store every word in a string into an array; et table details using the strings from the array
+convertLinesToArray - get the lines between delimiters and store in an array; check if lines contain specific keywords like UNIQUE NOT NULL
 functionCall
 getType
 namespace
