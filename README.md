@@ -8223,15 +8223,15 @@ feat(api)!: send an email to the customer when a product is shipped
 ### Common
 
 ```
-stringVariable
-numberIntegerVariable
-numberFloatVariable
-booleanVariable
-objectVariable
-objectLiteralVariable; constant; objectConstant
-arrayOfStringsVariable
-arrayOfNumbersVariable
-arrayOfObjectsVariable
+varText; stringVariable
+varNumber; numberIntegerVariable
+varDecimal; numberFloatVariable
+varBoolean; booleanVariable
+varObject; objectVariable
+varEnum; objectLiteralVariable; constant; objectConstant
+varArrayOfText; arrayOfStringsVariable
+varArrayOfNumbers; arrayOfNumbersVariable
+varArrayOfObjects; arrayOfObjectsVariable
 class
 function
 ifStatement
