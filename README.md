@@ -3489,7 +3489,9 @@ useEffect(() => {
     DOG: "DOG",
   } as const;
 
-  const animals = {
+  const animals: {
+    [K in keyof typeof animalsKeys]: string;
+  } = {
     [animalsKeys.CAT]: "Felis catus",
     [animalsKeys.DOG]: "Canis lupus familiaris",
   } as const;
