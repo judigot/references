@@ -8605,7 +8605,6 @@ sh "$script_name"
 
 # Database Relationships: ERD Notation Examples
 
-```
 ## 1. Mandatory One-to-Many (1:M)
 - **Description**: A single entity on the "one" side is associated with multiple entities on the "many" side. This association is mandatory.
 - **Notation**:
@@ -8704,4 +8703,3 @@ sh "$script_name"
     ```
     (Employee) ||-----|| (Manager - also Employee)
     ```
-```
