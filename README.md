@@ -8599,3 +8599,109 @@ fi
 
 sh "$script_name"
 ```
+
+# =====================================
+
+
+# Database Relationships: ERD Notation Examples
+
+```
+## 1. Mandatory One-to-Many (1:M)
+- **Description**: A single entity on the "one" side is associated with multiple entities on the "many" side. This association is mandatory.
+- **Notation**:
+    ```
+    ||-----|<  
+    ```
+- **Example**: Each parent has one or more children.
+    ```
+    (Parent) ||-----|< (Children)
+    ```
+
+## 2. Mandatory Many-to-One (M:1)
+- **Description**: Multiple entities on the "many" side are associated with a single entity on the "one" side. This relationship is mandatory.
+- **Notation**:
+    ```
+    >-----||  
+    ```
+- **Example**: Multiple products are made by a single manufacturer.
+    ```
+    (Products) >-----|| (Manufacturer)
+    ```
+
+## 3. Mandatory Many-to-Many (M:N)
+- **Description**: Entities on both sides can have multiple associations with entities on the other side.
+- **Notation**:
+    ```
+    >-----|<  
+    ```
+- **Example**: Students can enroll in multiple courses, and each course can have multiple students.
+    ```
+    (Students) >-----|< (Courses)
+    ```
+
+## 4. Optional One-to-Many (1:M)
+- **Description**: A single entity on the "one" side is associated with multiple entities on the "many" side, but the association is not mandatory for the "many" side.
+- **Notation**:
+    ```
+    ||-----|o<  
+    ```
+- **Example**: An author may have written multiple books, but it's not mandatory for a book to have an associated author.
+    ```
+    (Author) ||-----|o< (Books)
+    ```
+
+## 5. Optional Many-to-One (M:1)
+- **Description**: Multiple entities on the "many" side are associated with a single entity on the "one" side, but the association is not mandatory for the "many" side.
+- **Notation**:
+    ```
+    >o-----||  
+    ```
+- **Example**: A blog post may have multiple comments, but it's not mandatory for a comment to be associated with a blog post.
+    ```
+    (Comments) >o-----|| (BlogPost)
+    ```
+
+## 6. Optional Many-to-Many (M:N)
+- **Description**: Entities on both sides can have multiple associations with entities on the other side, but these associations are not mandatory.
+- **Notation**:
+    ```
+    >o-----|o<  
+    ```
+- **Example**: Customers can purchase multiple products, and products can be bought by multiple customers, but neither is mandatory.
+    ```
+    (Customers) >o-----|o< (Products)
+    ```
+
+## 7. Mandatory One-to-One (1:1)
+- **Description**: Each entity on one side is associated with exactly one entity on the other side. This relationship is mandatory.
+- **Notation**:
+    ```
+    ||-----||  
+    ```
+- **Example**: Each user has exactly one set of user details.
+    ```
+    (User) ||-----|| (UserDetail)
+    ```
+
+## 8. Optional One-to-One (1:1)
+- **Description**: Each entity on one side may be associated with at most one entity on the other side. This relationship is not mandatory.
+- **Notation**:
+    ```
+    ||-----o||  
+    ```
+- **Example**: A person may have at most one passport, but not everyone has a passport.
+    ```
+    (Person) ||-----o|| (Passport)
+    ```
+
+## 9. Mandatory Self-Referencing Relationship
+- **Description**: An entity is associated with another entity of the same type. This relationship is mandatory.
+- **Notation**:
+    ```
+    ||-----||  
+    ```
+- **Example**: Every employee (except the top executive) reports to a manager, who is also an employee.
+    ```
+    (Employee) ||-----|| (Manager - also Employee)
+    ```
+```
