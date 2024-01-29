@@ -8703,3 +8703,240 @@ sh "$script_name"
     ```
     (Employee) ||-----|| (Manager - also Employee)
     ```
+
+# =====================================
+
+
+# Programming Primitives in English
+
+1. **Variable**
+   - container
+   - bin
+   - box
+   - spot
+   - holder
+   - pocket
+   - storage
+   - location
+   - repository
+   - placeholder
+
+2. **String**
+   - text
+   - name
+   - word
+   - line
+   - note
+   - phrase
+   - message
+   - sentence
+   - statement
+   - expression
+
+3. **Integer**
+   - number
+   - size
+   - count
+   - total
+   - score
+   - figure
+   - amount
+   - value
+   - quantity
+   - magnitude
+
+4. **Float/Double**
+   - decimal
+   - bit
+   - part
+   - piece
+   - point
+   - segment
+   - fraction
+   - smallPart
+   - decimalPoint
+   - numberWithDecimals
+
+5. **Boolean**
+   - flag
+   - on
+   - off
+   - check
+   - marker
+   - switch
+   - toggle
+   - yesNo
+   - indicator
+   - trueFalse
+
+6. **Array**
+   - list
+   - row
+   - chain
+   - series
+   - lineUp
+   - sequence
+   - grouping
+   - collection
+   - assemblage
+   - compilation
+
+7. **Object**
+   - bundle
+   - set
+   - pack
+   - thing
+   - group
+   - bunch
+   - cluster
+   - assembly
+   - collection
+   - composite
+
+8. **Function/Method**
+   - task
+   - job
+   - work
+   - step
+   - duty
+   - chore
+   - action
+   - procedure
+   - operation
+   - activity
+
+9. **Loop**
+   - repeat
+   - again
+   - cycle
+   - redo
+   - goRound
+   - iteration
+   - recurrence
+   - repetition
+   - roundAbout
+   - continuation
+
+10. **IfStatement**
+    - check
+    - pick
+    - maybe
+    - choice
+    - decide
+    - test
+    - question
+    - inquiry
+    - condition
+    - examination
+
+11. **Class**
+    - blueprint
+    - map
+    - plan
+    - idea
+    - guide
+    - pattern
+    - template
+    - design
+    - model
+    - structure
+
+12. **Inheritance**
+    - extension
+    - gift
+    - share
+    - extra
+    - addOn
+    - legacy
+    - passDown
+    - succession
+    - continuity
+    - enhancement
+
+13. **Interface**
+    - agreement
+    - deal
+    - plan
+    - rule
+    - guide
+    - pact
+    - accord
+    - contract
+    - arrangement
+    - understanding
+
+14. **Exception**
+    - error
+    - oops
+    - wrong
+    - uhOh
+    - glitch
+    - fault
+    - mistake
+    - booBoo
+    - oversight
+    - anomaly
+
+15. **Library/Module**
+    - toolkit
+    - set
+    - pack
+    - chest
+    - tricks
+    - collection
+    - assortment
+    - repository
+    - compilation
+    - resourceSet
+
+16. **Constant**
+    - constant
+    - set
+    - bin
+    - stable
+    - fixedValue
+    - permanent
+    - unchangeable
+    - immutable
+    - steady
+    - established
+    - invariant
+
+17. **Enum (Enumeration)**
+    - enum
+    - set
+    - pack
+    - options
+    - choiceSet
+    - itemList
+    - fixedList
+    - valueRange
+    - definedGroup
+    - constantList
+    - selectSet
+    - namedConstants
+
+18. **Queue**
+    - queue
+    - line
+    - fifo
+    - lineup
+    - order
+    - sequence
+    - orderList
+    - waitingLine
+    - processOrder
+    - serviceLine
+    - firstInFirstOut
+
+19. **Stack**
+    - stack
+    - pile
+    - lifo
+    - order
+    - stackTop
+    - collection
+    - stackBottom
+    - reverseOrder
+    - layeredStructure
+    - lastInFirstOut
