@@ -649,9 +649,9 @@ EOF
         cd "$PROJECT_DIRECTORY" && pnpm prisma init --datasource-provider postgresql &&
         mv "$PROJECT_DIRECTORY/prisma" "$PROJECT_DIRECTORY/src" &&
         editJSON "$PROJECT_DIRECTORY/package.json" "append" "scripts" "db:reset" "pnpm dotenv -e .env.local -- pnpm run db:drop && pnpm dotenv -e .env.local -- pnpm run prisma:db:push" &&
-        editJSON "$PROJECT_DIRECTORY/package.json" "append" "scripts" "db:reset-with-data" "pnpm dotenv -e .env.local -- pnpm run db:drop && pnpm dotenv -e .env.local -- pnpm run prisma:db:push && pnpm dotenv -e .env.local -- pnpm run seed" &&
+        editJSON "$PROJECT_DIRECTORY/package.json" "append" "scripts" "db:reset-with-data" "pnpm dotenv -e .env.local -- pnpm run db:drop && pnpm dotenv -e .env.local -- pnpm run prisma:db:push && pnpm dotenv -e .env.local -- pnpm run db:seed" &&
         editJSON "$PROJECT_DIRECTORY/package.json" "append" "scripts" "db:drop" "pnpm dotenv -e .env.local -- ts-node --compilerOptions \\\\\"{\\\\\\\\\\\\\"module\\\\\\\\\\\\\":\\\\\\\\\\\\\"CommonJS\\\\\\\\\\\\\"}\\\\\" ./src/prisma/scripts/DeleteTables.ts" &&
-        editJSON "$PROJECT_DIRECTORY/package.json" "append" "scripts" "seed" "pnpm dotenv -e .env.local -- pnpm prisma db seed" &&
+        editJSON "$PROJECT_DIRECTORY/package.json" "append" "scripts" "db:seed" "pnpm dotenv -e .env.local -- pnpm prisma db seed" &&
         editJSON "$PROJECT_DIRECTORY/package.json" "append" "scripts" "prisma:db:push" "pnpm dotenv -e .env.local -- pnpm prisma db push && pnpm prisma generate" &&
         editJSON "$PROJECT_DIRECTORY/package.json" "append" "scripts" "prisma:db:pull" "pnpm dotenv -e .env.local -- pnpm prisma db pull && pnpm prisma generate" &&
 
