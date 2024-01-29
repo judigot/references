@@ -8620,7 +8620,7 @@ sh "$script_name"
 - **Description**: Multiple entities on the "many" side are associated with a single entity on the "one" side. This relationship is mandatory.
 - **Notation**:
     ```
-    >-----||  
+    >-----||
     ```
 - **Example**: Multiple products are made by a single manufacturer.
     ```
@@ -8642,18 +8642,18 @@ sh "$script_name"
 - **Description**: A single entity on the "one" side is associated with multiple entities on the "many" side, but the association is not mandatory for the "many" side.
 - **Notation**:
     ```
-    ||-----|o<  
+    ||-----o|<  
     ```
 - **Example**: An author may have written multiple books, but it's not mandatory for a book to have an associated author.
     ```
-    (Author) ||-----|o< (Books)
+    (Author) ||-----o|< (Books)
     ```
 
 ## 5. Optional Many-to-One (M:1)
 - **Description**: Multiple entities on the "many" side are associated with a single entity on the "one" side, but the association is not mandatory for the "many" side.
 - **Notation**:
     ```
-    >o-----||  
+    >o-----||
     ```
 - **Example**: A blog post may have multiple comments, but it's not mandatory for a comment to be associated with a blog post.
     ```
@@ -8664,18 +8664,18 @@ sh "$script_name"
 - **Description**: Entities on both sides can have multiple associations with entities on the other side, but these associations are not mandatory.
 - **Notation**:
     ```
-    >o-----|o<  
+    >o-----o|<  
     ```
 - **Example**: Customers can purchase multiple products, and products can be bought by multiple customers, but neither is mandatory.
     ```
-    (Customers) >o-----|o< (Products)
+    (Customers) >o-----o|< (Products)
     ```
 
 ## 7. Mandatory One-to-One (1:1)
 - **Description**: Each entity on one side is associated with exactly one entity on the other side. This relationship is mandatory.
 - **Notation**:
     ```
-    ||-----||  
+    ||-----||
     ```
 - **Example**: Each user has exactly one set of user details.
     ```
@@ -8686,7 +8686,7 @@ sh "$script_name"
 - **Description**: Each entity on one side may be associated with at most one entity on the other side. This relationship is not mandatory.
 - **Notation**:
     ```
-    ||-----o||  
+    ||-----o||
     ```
 - **Example**: A person may have at most one passport, but not everyone has a passport.
     ```
@@ -8697,7 +8697,7 @@ sh "$script_name"
 - **Description**: An entity is associated with another entity of the same type. This relationship is mandatory.
 - **Notation**:
     ```
-    ||-----||  
+    ||-----||
     ```
 - **Example**: Every employee (except the top executive) reports to a manager, who is also an employee.
     ```
