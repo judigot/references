@@ -1544,6 +1544,8 @@ DATABASE_URL="postgresql://postgres:<password>@db.<host>.supabase.co:5432/<datab
 # Local PostgreSQL
 # DATABASE_URL="postgresql://root:123@localhost:5432/<databasename>"
 
+VITE_API_URL="http://localhost:3000/api/v1"
+
 ACCESS_TOKEN_SECRET=
 REFRESH_TOKEN_SECRET=
 EOF
@@ -2454,6 +2456,8 @@ DATABASE_URL="mysql://<username>:<password>@<host>:<port>/<database>"
 # Local PostgreSQL
 # DATABASE_URL="postgresql://root:123@localhost:5432/bigbang"
 
+VITE_API_URL="http://localhost:3000/api/v1"
+
 ACCESS_TOKEN_SECRET=
 REFRESH_TOKEN_SECRET=
 EOF
@@ -2775,7 +2779,14 @@ Expected output for Shell Script or Bash:
 
 /* Center an element vertically and horizontally; center an element horizontally and vertically */
 /* Center element vertically and horizontally; center element horizontally and vertically */
-<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+
+<!-- WHOLE DOCUMENT CENTERED -->
+<body style="display: grid; place-items: center; height: 100vh;">
+	<div>Centered Element</div>
+</body>
+
+<!-- SCOPED STYLE -->
+<div style="display: grid; place-items: center;">
 	<div>Centered Element</div>
 </div>
 
