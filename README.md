@@ -3018,7 +3018,12 @@ element {
 ```tsx
 type DataBody = BodyInit;
 
-const ROOT_URL: string = 'http://localhost:3000/api/v1';
+const FALLBACK_URL = 'http://localhost:3000/api/v1';
+
+const API_URL: string =
+  typeof import.meta.env.API_URL === 'string'
+    ? import.meta.env.API_URL
+    : FALLBACK_URL;
 
 export interface FetchOptions extends RequestInit {
   timeout?: number;
@@ -3110,7 +3115,7 @@ const customFetchInternal = async <T>(
   finalOptions.signal = controller.signal;
 
   try {
-    let response: Response = await fetch(`${ROOT_URL}${url}`, finalOptions);
+    let response: Response = await fetch(`${API_URL}${url}`, finalOptions);
     clearTimeout(id);
 
     if (!response.ok) {
