@@ -1660,10 +1660,80 @@ function main() {
         local serverPackages=("@types/express" "nodemon") &&
         installPackages "development" "serverPackages[@]" &&
         addStartScript &&
+        vite.config.ts__________newBuildOutput true &&
 
         # ==========CUSTOM SETTINGS========== #
         formatCode &&
         echo -e "\e[32mBig Bang was successfully scaffolded.\e[0m"
+}
+
+function vite.config.ts__________newBuildOutput() {
+    cd "$PROJECT_DIRECTORY" || return
+
+    local isTurnedOn="$1"
+
+    local settingID="newBuildOutput"
+    local startDelimiter="// <$settingID>"
+    local endDelimiter="// </$settingID>"
+
+    # File to edit
+    local file="vite.config.ts"
+
+    # Text to append
+    local textToAppend=""
+    textToAppend=$(
+        cat <<EOF
+        $startDelimiter
+        build: {
+            outDir: 'dist/public',
+        },
+        $endDelimiter
+EOF
+    )
+
+    if [ "$isTurnedOn" = true ]; then
+
+        if grep -q "$settingID" "$file"; then
+            echo -e "\e[33mThe following setting is already in $file:\n\n\t$textToAppend\e[0m" # Yellow
+        else
+            # Line number to append text (change this to the line number you want)
+            local line_number=8
+
+            # Create a temporary file
+            tempFile="tempfile"
+
+            # Use 'head' to extract the content up to the target line and redirect it to the temporary file
+            head -n "$((line_number - 1))" "$file" >"$tempFile"
+
+            # Append the multi-line string to the temporary file
+            echo -e "$textToAppend" >>"$tempFile"
+
+            # Use 'tail' to extract the content from the target line to the end and append it to the temporary file
+            tail -n "+$line_number" "$file" >>"$tempFile"
+
+            # Replace the original file with the temporary file
+            mv "$tempFile" "$file"
+
+            echo -e "\e[32mAdded the following setting to $file:\n\n\t$textToAppend\e[0m"
+
+            formatCode
+        fi
+    fi
+
+    if [ "$isTurnedOn" = false ]; then
+
+        if grep -q "$settingID" "$file"; then
+
+            removeSetting $settingID
+
+            echo -e "\e[32mSuccessfully removed the following setting from $file:\n\n\t$textToAppend\e[0m" # Green
+
+            formatCode
+        else
+            echo -e "\e[33mThe following setting is not in $file:\n\n\t$textToAppend\e[0m"
+        fi
+
+    fi
 }
 
 function addStartScript() {
@@ -2506,7 +2576,6 @@ EOF
 main
 
 ```
-
 # =====================================
 # Big Bang Spring Boot
 
