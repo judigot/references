@@ -1654,9 +1654,21 @@ function main() {
         addVitestReference &&
         vite.config.ts__________addTestConfig true &&
 
+        # Express Server
+        local serverPackages=("express") &&
+        installPackages "production" "serverPackages[@]" &&
+        local serverPackages=("@types/express" "nodemon") &&
+        installPackages "development" "serverPackages[@]" &&
+        addStartScript &&
+
         # ==========CUSTOM SETTINGS========== #
         formatCode &&
         echo -e "\e[32mBig Bang was successfully scaffolded.\e[0m"
+}
+
+function addStartScript() {
+    cd "$PROJECT_DIRECTORY" || return
+    appendToTextContentIndex "package.json" 1 "build" '"start": "node dist/index.js",'
 }
 
 function addImportShorthand() {
@@ -2492,6 +2504,7 @@ EOF
 # ====================HELPER FUNCTIONS==================== #
 
 main
+
 ```
 
 # =====================================
