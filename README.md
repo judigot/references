@@ -1874,7 +1874,7 @@ EOF
 function addDevAndStartScripts() {
     cd "$PROJECT_DIRECTORY" || return
     appendToTextContentIndex "package.json" 1 "build" '"start": "node dist/index.js",'
-    replaceLineAfterMatch "package.json" '"dev":' '"concurrently vite \\\"pnpm run dev:backend\\\"",\"dev:backend\": \"nodemon --exec tsx src\/index.ts \&\& pnpm run build\",'
+    replaceLineAfterMatch "package.json" '"dev":' '"concurrently vite \\\"nodemon --exec tsx src\/index.ts\\\"",'
 }
 
 function addImportShorthand() {
