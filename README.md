@@ -1657,14 +1657,150 @@ function main() {
         # Express Server
         local serverPackages=("express") &&
         installPackages "production" "serverPackages[@]" &&
-        local serverPackages=("@types/express" "nodemon") &&
+        local serverPackages=("@types/express" "concurrently" "nodemon" "tsx") &&
         installPackages "development" "serverPackages[@]" &&
-        addStartScript &&
         vite.config.ts__________newBuildOutput true &&
+        addDevAndStartScripts &&
+        editTSConfig &&
+        createServerEntryPoint &&
+        createComponentWithAPICall &&
 
         # ==========CUSTOM SETTINGS========== #
         formatCode &&
         echo -e "\e[32mBig Bang was successfully scaffolded.\e[0m"
+}
+
+function createServerEntryPoint() {
+    cd "$PROJECT_DIRECTORY/src" || return
+
+    local htmlFileName="index.ts"
+    local content=""
+    content=$(
+        cat <<EOF
+import express, { Request, Response } from 'express';
+
+import path from 'path';
+
+const app = express();
+
+const PORT = process.env.PORT || 3000;
+
+const __dirname = path
+  .dirname(new URL(import.meta.url).pathname)
+  .substring(1)
+  .replace(/\\\\/g, '/');
+
+//==========CORS==========//
+// Disable CORS errors; Enable requests from front-end
+app.use(function (req, res, next) {
+  // res.header("Access-Control-Allow-Origin", "*"); // Allow all websites to access the server
+  res.header('Access-Control-Allow-Origin', '*'); // Allow only specific sites to access the server
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+  );
+  if (req.method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Methods', 'GET, POST, DELETE, PUT, PATCH');
+    return res.status(200).json({});
+  }
+  //   if (req.method === "POST") {
+  //     return res.status(404).json({}); // Send a 404 response to the browser
+  //   }
+  next();
+});
+//==========CORS==========//
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/', (_req, res) => {
+  res.sendFile(path.resolve(__dirname, 'public/index.html'));
+});
+
+app.get('/api', (_req: Request, res: Response) => {
+  res.json({
+    message: 'Hello, World!',
+  });
+});
+
+app.listen(PORT, () => {
+  console.log(\`Server is running on http://localhost:\${PORT}\`);
+});
+EOF
+    )
+
+    echo "$content" >"$htmlFileName"
+    # Check if the file was created successfully
+    if [ -e "$htmlFileName" ]; then
+        echo -e "\e[32mFile ($htmlFileName) was successfully created.\e[0m" # Green
+    else
+        echo -e "\e[31mFailed to create $htmlFileName.\e[0m" # Red
+    fi
+}
+
+function createComponentWithAPICall() {
+    cd "$PROJECT_DIRECTORY/src" || return
+
+    local htmlFileName="App.tsx"
+    local content=""
+    content=$(
+        cat <<EOF
+import React, { useEffect } from 'react';
+
+function App(): JSX.Element {
+  const [data, setData] = React.useState<{ message: string } | undefined>(
+    undefined,
+  );
+
+  useEffect(() => {
+    fetch('http://localhost:3000/api', {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        // Success
+        if (result) {
+          setData(result);
+        }
+      })
+      .catch((error) => {
+        // Failure
+        throw new Error(error);
+      });
+  }, []);
+
+  return (
+    <div style={{ zoom: '500%', textAlign: 'center' }}>
+      <pre>
+        <code>{JSON.stringify(data, null, 4)}</code>
+      </pre>
+    </div>
+  );
+}
+
+export default App;
+EOF
+    )
+
+    echo "$content" >"$htmlFileName"
+    # Check if the file was created successfully
+    if [ -e "$htmlFileName" ]; then
+        echo -e "\e[32mFile ($htmlFileName) was successfully created.\e[0m" # Green
+    else
+        echo -e "\e[31mFailed to create $htmlFileName.\e[0m" # Red
+    fi
+}
+
+function editTSConfig() {
+    cd "$PROJECT_DIRECTORY" || return
+    # appendToTextContentIndex "package.json" 1 "build" '"start": "node dist/index.js",'
+    # replaceLineAfterMatch "./tsconfig.json" '"noEmit":' "false,"
+    # replace "tsconfig.json" '"allowImportingTsExtensions": true,' '\/\/ "allowImportingTsExtensions": true,'
+    replaceLineAfterMatch "tsconfig.json" '\"compilerOptions\": {' "\\n\/\/ <server>\\n\"baseUrl\": \".\/src\", \"rootDir\": \".\/src\", \"outDir\": \".\/dist\", \"allowSyntheticDefaultImports\": true, \"esModuleInterop\": true,\\n\/\/ <server\/>"
+    # replaceLineAfterMatch "tsconfig.json" '\"include\": \[\"src\"\],' '\"exclude\": \[\"**\/*.tsx\"\],'
 }
 
 function vite.config.ts__________newBuildOutput() {
@@ -1736,9 +1872,10 @@ EOF
     fi
 }
 
-function addStartScript() {
+function addDevAndStartScripts() {
     cd "$PROJECT_DIRECTORY" || return
     appendToTextContentIndex "package.json" 1 "build" '"start": "node dist/index.js",'
+    replaceLineAfterMatch "package.json" '"dev":' '"concurrently vite \\\"pnpm run dev:backend\\\"",\"dev:backend\": \"nodemon --exec tsx src\/index.ts \&\& pnpm run build\",'
 }
 
 function addImportShorthand() {
