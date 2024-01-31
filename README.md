@@ -342,6 +342,24 @@ fi
 # =====================================
 # Bash Scripting
 
+## HTTP Request
+
+Tags: `fetch`, `curl`
+```bash
+result=$(
+    URL="http://localhost:3000/api/v1/snippets"
+    response=$(curl -X \
+        GET \
+        "$URL" \
+        -H "Accept: application/json, text/plain, */*" \
+        -H "Content-Type: application/json" \
+        -d '{"key1":"value1", "key2":"value2"}') # For POST, PATCH, and PUT requests
+    exitStatus=$?
+    [ $exitStatus -ne 0 ] && echo -e "\e[31mError in curl request with exit status: $exitStatus\e[0m" >&2 && exit 1 || echo $response
+)
+echo "$result"
+```
+
 ## Delete Folder if It Exists; Check if a Folder Exists
 ```bash
 ([ ! -d dist ] || rm -r dist)
