@@ -1796,7 +1796,6 @@ EOF
 
 function editTSConfig() {
     cd "$PROJECT_DIRECTORY" || return
-    appendToTextContentIndex "package.json" 1 "build" '"start": "node dist/index.js",'
     replaceLineAfterMatch "./tsconfig.json" '"noEmit":' "false,"
     replace "tsconfig.json" '"allowImportingTsExtensions": true,' '\/\/ "allowImportingTsExtensions": true,'
     replaceLineAfterMatch "tsconfig.json" '\"compilerOptions\": {' "\\n\/\/ <server>\\n\"baseUrl\": \".\/src\", \"rootDir\": \".\/src\", \"outDir\": \".\/dist\", \"allowSyntheticDefaultImports\": true, \"esModuleInterop\": true,\\n\/\/ <server\/>"
