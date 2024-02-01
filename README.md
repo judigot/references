@@ -1683,11 +1683,13 @@ import path from 'path';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const platform: string = process.platform;
+let __dirname = path.dirname(decodeURI(new URL(import.meta.url).pathname));
 
-// Simplify __dirname and publicDirectory declaration
-const __dirname = path
-  .dirname(decodeURI(new URL(import.meta.url).pathname))
-  .substring(1);
+if (platform === 'win32') {
+  __dirname = __dirname.substring(1);
+}
+
 const publicDirectory = path.join(__dirname, 'public');
 
 // Enable CORS and serve static files
@@ -1695,11 +1697,10 @@ app.use(cors());
 app.use(express.static(publicDirectory));
 
 // Define routes
-app.get('/', (_req, res) =>
-  res.sendFile(path.join(publicDirectory, 'index.html')),
-);
+app.get('/', (_req, res) => res.sendFile(publicDirectory));
+
 app.get('/api', (_req: Request, res: Response) =>
-  res.json({ message: 'Hello, World!' }),
+  res.json({ message: path.join(publicDirectory, 'index.html') }),
 );
 
 // Start server
