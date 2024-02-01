@@ -1705,7 +1705,7 @@ app.get('/api', (_req: Request, res: Response) =>
 
 // Start server
 app.listen(PORT, () => {
-  console.log(\`Server is running on http://localhost:\${PORT}\`);
+  console.log(\`\${platform.charAt(0).toUpperCase() + platform.slice(1)} is running on http://localhost:\${PORT}\`);
 });
 EOF
     )
