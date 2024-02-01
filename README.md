@@ -1657,7 +1657,7 @@ function main() {
         # Express Server
         local serverPackages=("express" "cors") &&
         installPackages "production" "serverPackages[@]" &&
-        local serverPackages=("@types/express" "concurrently" "nodemon" "tsx") &&
+        local serverPackages=("@types/express" "@types/cors" "concurrently" "nodemon" "tsx") &&
         installPackages "development" "serverPackages[@]" &&
         vite.config.ts__________newBuildOutput true &&
         addDevAndStartScripts &&
