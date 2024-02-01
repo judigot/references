@@ -1655,7 +1655,7 @@ function main() {
         vite.config.ts__________addTestConfig true &&
 
         # Express Server
-        local serverPackages=("express") &&
+        local serverPackages=("express" "cors") &&
         installPackages "production" "serverPackages[@]" &&
         local serverPackages=("@types/express" "concurrently" "nodemon" "tsx") &&
         installPackages "development" "serverPackages[@]" &&
