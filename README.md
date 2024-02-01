@@ -1678,50 +1678,31 @@ function createServerEntryPoint() {
     content=$(
         cat <<EOF
 import express, { Request, Response } from 'express';
-
+import cors from 'cors';
 import path from 'path';
 
 const app = express();
-
 const PORT = process.env.PORT || 3000;
 
+// Simplify __dirname and publicDirectory declaration
 const __dirname = path
-  .dirname(new URL(import.meta.url).pathname)
-  .substring(1)
-  .replace(/\\\\/g, '/');
+  .dirname(decodeURI(new URL(import.meta.url).pathname))
+  .substring(1);
+const publicDirectory = path.join(__dirname, 'public');
 
-//==========CORS==========//
-// Disable CORS errors; Enable requests from front-end
-app.use(function (req, res, next) {
-  // res.header("Access-Control-Allow-Origin", "*"); // Allow all websites to access the server
-  res.header('Access-Control-Allow-Origin', '*'); // Allow only specific sites to access the server
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept, Authorization',
-  );
-  if (req.method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', 'GET, POST, DELETE, PUT, PATCH');
-    return res.status(200).json({});
-  }
-  //   if (req.method === "POST") {
-  //     return res.status(404).json({}); // Send a 404 response to the browser
-  //   }
-  next();
-});
-//==========CORS==========//
+// Enable CORS and serve static files
+app.use(cors());
+app.use(express.static(publicDirectory));
 
-app.use(express.static(path.join(__dirname, 'public')));
+// Define routes
+app.get('/', (_req, res) =>
+  res.sendFile(path.join(publicDirectory, 'index.html')),
+);
+app.get('/api', (_req: Request, res: Response) =>
+  res.json({ message: 'Hello, World!' }),
+);
 
-app.get('/', (_req, res) => {
-  res.sendFile(path.resolve(__dirname, 'public/index.html'));
-});
-
-app.get('/api', (_req: Request, res: Response) => {
-  res.json({
-    message: 'Hello, World!',
-  });
-});
-
+// Start server
 app.listen(PORT, () => {
   console.log(\`Server is running on http://localhost:\${PORT}\`);
 });
