@@ -7879,7 +7879,7 @@ CREATE TABLE "order_product" (
 );
 ```
 
-## SQL Datatypes
+## SQL Data Types
 
 1. **BIGSERIAL (BIGINT AUTO_INCREMENT in MySQL)**
     - **Examples**: `order_number`, `invoice_id`, `customer_id`, `ticket_id`, `reservation_id`
