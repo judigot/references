@@ -8421,6 +8421,8 @@ Ctrl + Shift + Alt =====> ?
     
 ## Git Commit Messages (Semantic Commit Messages)
 
+Tags: `git messages`
+
 ### Format
 
 ```
