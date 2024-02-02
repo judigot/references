@@ -6533,8 +6533,14 @@ export function Form() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Add validation logic here before performing any action with the form data
-    // console.log("Form Data:", formData);
+    const areAllInputsFilled = Object.values(formData).every(
+      (value) =>
+        value !== undefined && value !== null && value !== '',
+    );
+
+    if (areAllInputsFilled) {
+      // Submit the form
+    }
   };
 
   return (
@@ -6662,10 +6668,13 @@ const LoginForm = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const { username, password } = formData;
+    const areAllInputsFilled = Object.values(formData).every(
+      (value) =>
+        value !== undefined && value !== null && value !== '',
+    );
 
-    if (username && password) {
-      console.log(JSON.stringify(formData, null, 4));
+    if (areAllInputsFilled) {
+      // Submit the form
     }
   };
 
