@@ -4710,7 +4710,7 @@ javascript: (function () {
   }
 })();
 
-// Prompt; javascript text input; javascript input
+// Prompt; pop up; popup; javascript text input; javascript input
 var name = prompt("Please enter your name", "John Doe");
 if (name) {
   alert(name);
