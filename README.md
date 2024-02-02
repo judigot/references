@@ -4020,7 +4020,10 @@ const people = [
   },
 ];
 const males = people.filter((person) => person.gender === "male");
-console.log(males)
+
+// Filter first result; get first result; filter first object; get first object
+const firstMales = people.find((person) => person.gender === "male");
+console.log(males);
 //==========FILTER OBJECTS; FILTER DATA; SEARCH OBJECTS; SEARCH DATA==========//
 
 // Capitalize first letter of a string
