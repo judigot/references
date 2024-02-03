@@ -5230,10 +5230,26 @@ console.log(mutatedObject);
 
 
 // Extract keys from an object; Extract properties from an object
-let { firstName: firstName, lastName: lastName } = person;
+const { firstName: firstName, lastName: lastName } = person;
+```
 
-// Exclude keys from an object; Exclude properties from an object; filter an object; remove object property; remove object key; mutate object; exclude object key; exclude object property
-let { removeThis, removeThisAsWell, ...newObject } = originalObject;
+## Remove Object Property
+
+Tags: `exclude keys from an object`, `exclude properties from an object`, `filter an object`, `remove object key`, `mutate object`, `exclude object key`, `exclude object property`
+
+```tsx
+const objectVariable = {
+  key1: 1,
+  key2: "Value",
+};
+
+// Version 1
+const { key1, key2, ...restOfTheObject } = objectVariable;
+
+// Version 2
+const propertyToBeRemoved: keyof typeof objectVariable = "key1"
+// const { [propertyToBeRemoved as keyof typeof objectVariable]: _, ...newObject } = objectVariable;
+const { [propertyToBeRemoved]: _, ...newObject } = objectVariable;
 ```
 
 # =====================================
