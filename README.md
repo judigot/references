@@ -9231,3 +9231,35 @@ RUN pnpm run build
 EXPOSE 3000
 CMD node dist/index.js
 ```
+
+
+# =====================================
+
+
+# SQL Generator
+
+```tsx
+const tableInfo = {
+  user: [
+    {
+      user_id: 1,
+      name: "John Doe",
+    },
+  ],
+  post: [
+    {
+      post_id: 1,
+      user_id: 1,
+      post_content: "Lorem Ipsum",
+    },
+  ],
+};
+
+console.log(getForeignKeys(tableInfo));
+
+
+
+
+// prettier-ignore
+function getForeignKeys( SQLTableInfo: Record<string, Record<string, unknown>[]> ) { const foreignKeys: Record<string, string>[] = []; Object.keys(SQLTableInfo).forEach((tableName: string) => { const { [tableName]: _, ...otherTables } = SQLTableInfo; const primaryKey = Object.keys( SQLTableInfo[tableName as keyof typeof SQLTableInfo][0] )[0]; Object.entries(otherTables).forEach( ([otherTableName, otherTableValue]: [ string, (typeof otherTables)[keyof typeof otherTables] ]) => { const otherTableColumnNames: string[] = Object.keys(otherTableValue[0]); if (otherTableColumnNames.includes(primaryKey)) { foreignKeys.push({ table: otherTableName, foreignKey: primaryKey, foreignTable: tableName, }); } } ); }); return foreignKeys; }
+```
