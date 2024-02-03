@@ -4173,6 +4173,12 @@ const arrayClone = structuredClone(array);
 const objectClone = structuredClone(object);
 
 // Check if value exists in an array; check if value exists in array
+const haystack: string[] = ["hay", "needle", "hay"];
+if (haystack.includes("needle")) {
+  console.log("Needle exists in haystack");
+}
+
+// Usage
 if (["string", "number"].includes(typeof value)) {
   console.log(true);
 }
