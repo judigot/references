@@ -3751,9 +3751,11 @@ useEffect(() => {
   ))}
 
   // Raw
-  Object.entries(animals).forEach(([animalEng, animalLatin]: [string, string], i: number) => (
-    <option key={animalEng}>{animalLatin}</option>	
-  ))
+  Object.entries(animals).forEach(
+    ([animalEng, animalLatin]: [string, string], i: number) => {
+      console.log({ animalEng, animalLatin });
+    }
+  );
 
 // Iterate a number of times
 // Loop 5 times
