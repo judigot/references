@@ -9239,24 +9239,26 @@ CMD node dist/index.js
 # SQL Generator
 
 ```tsx
-const tableInfo = {
-  user: [
-    {
-      user_id: 1,
-      name: "John Doe",
-    },
-  ],
-  post: [
-    {
-      post_id: 1,
-      user_id: 1, // Foreign key
-      post_content: "Lorem Ipsum",
-    },
-  ],
-};
+// /* prettier-ignore */ const tableInfo = { customer: [{ customer_id: 1, name: "John Doe" }], order: [{ order_id: 1, customer_id: 1 /* Foreign key */ }], product: [{ product_id: 1, product_name: "Water" }], order_product: [ { order_product_id: 1, order_id: 1 /* Foreign key */, product_id: 1 /* Foreign key */, }, ], };
+/* prettier-ignore */ const tableInfo = { snippet_type: [ { snippet_type_id: 1, snippet_id: 1, snippet_type_name: "global" }, { snippet_type_id: 2, snippet_id: 2, snippet_type_name: "specific" }, ], language: [ { language_id: 1, language_name: "typescript", display_name: "TypeScript" }, { language_id: 2, language_name: "java", display_name: "Java" }, ], prefix: [ { prefix_id: 1, prefix_description: "String Variable" }, { prefix_id: 2, prefix_description: "Integer Number Variable" }, { prefix_id: 3, prefix_description: "Description" }, { prefix_id: 4, prefix_description: "Description" }, { prefix_id: 5, prefix_description: "Description" }, ], prefix_name: [ { prefix_name_id: 1, prefix_id: 1, prefix_name: "varText", is_default: true, }, { prefix_name_id: 2, prefix_id: 1, prefix_name: "stringVariable", is_default: false, }, { prefix_name_id: 3, prefix_id: 2, prefix_name: "varNumber", is_default: true, }, { prefix_name_id: 4, prefix_id: 2, prefix_name: "numberIntegerVariable", is_default: false, }, { prefix_name_id: 5, prefix_id: 3, prefix_name: "varDecimal", is_default: true, }, { prefix_name_id: 6, prefix_id: 3, prefix_name: "numberFloatVariable", is_default: false, }, { prefix_name_id: 7, prefix_id: 4, prefix_name: "varBoolean", is_default: true, }, { prefix_name_id: 8, prefix_id: 4, prefix_name: "booleanVariable", is_default: false, }, { prefix_name_id: 9, prefix_id: 5, prefix_name: "varObject", is_default: true, }, { prefix_name_id: 10, prefix_id: 5, prefix_name: "objectVariable", is_default: false, }, ], snippet: [ { snippet_id: 1, snippet_type_id: 1, prefix_id: 1, snippet_content: 'const ${1:stringVariable}: string = "${2:Hello, World!}";', }, { snippet_id: 2, snippet_type_id: 1, prefix_id: 2, snippet_content: "int ${1:numberIntegerVariable} = ${2:100};", }, ], snippet_language: [ { snippet_language_id: 1, snippet_id: 1, language_id: 1 }, { snippet_language_id: 1, snippet_id: 2, language_id: 2 }, ], };
 
-console.log(getForeignKeys(tableInfo));
+const foreignKeys = getForeignKeys(tableInfo);
 
-// prettier-ignore
-function getForeignKeys( tableInfo: Record<string, Record<string, unknown>[]> ) { const foreignKeys: Record<string, string>[] = []; Object.keys(tableInfo).forEach((tableName: string) => { const { [tableName]: _, ...otherTables } = tableInfo; const primaryKey = Object.keys( tableInfo[tableName as keyof typeof tableInfo][0] )[0]; Object.entries(otherTables).forEach( ([otherTableName, otherTableValue]: [ string, (typeof otherTables)[keyof typeof otherTables] ]) => { const otherTableColumnNames: string[] = Object.keys(otherTableValue[0]); if (otherTableColumnNames.includes(primaryKey)) { foreignKeys.push({ table: otherTableName, foreignKey: primaryKey, foreignTable: tableName, }); } } ); }); return foreignKeys; }
+const oneToManyRelationships = getOneToManyRelationships();
+
+const joins = generateJoinQueries(tableInfo);
+
+const queries = joins.map((join) => {
+  return `SELECT * FROM ${join.sourceTable} JOIN ${join.targetTable} ON ${join.sourceTable}.${join.foreignKey} = ${join.targetTable}.${join.foreignKey};`;
+});
+
+console.log(queries);
+
+//====================FUNCTIONS====================//
+
+/* prettier-ignore */ function getForeignKeys( tableInfo: Record<string, Record<string, unknown>[]> ) { const foreignKeys: Record<string, string>[] = []; Object.keys(tableInfo).forEach((tableName: string) => { const { [tableName]: _, ...otherTables } = tableInfo; const primaryKey = Object.keys( tableInfo[tableName as keyof typeof tableInfo][0] )[0]; Object.entries(otherTables).forEach( ([otherTableName, otherTableValue]: [ string, (typeof otherTables)[keyof typeof otherTables] ]) => { const otherTableColumnNames: string[] = Object.keys(otherTableValue[0]); if (otherTableColumnNames.includes(primaryKey)) { foreignKeys.push({ table: otherTableName, foreignKey: primaryKey, foreignTable: tableName, }); } } ); }); return foreignKeys; }
+/* prettier-ignore */ function getOneToManyRelationships() { return foreignKeys .map((value) => { const currentTableData = tableInfo[value.table as keyof typeof tableInfo]; const foreignTableData = tableInfo[value.foreignTable as keyof typeof tableInfo][0]; const foreignTablePrimaryKey = Object.keys(foreignTableData)[0]; const dataAndOwner = currentTableData.filter((currentTableRow) => { return ( currentTableRow[ foreignTablePrimaryKey as keyof typeof currentTableRow ] === foreignTableData[ foreignTablePrimaryKey as keyof typeof foreignTableData ] ); }); if (dataAndOwner.length) { return { ...foreignTableData, ...{ [`${value.table}s`]: [dataAndOwner] }, }; } }) .filter((entry) => entry !== undefined); }
+/* prettier-ignore */ function generateJoinQueries( tableInfo: Record<string, { [key: string]: unknown }[]> ): { sourceTable: string; targetTable: string; foreignKey: string }[] { let joins: { sourceTable: string; targetTable: string; foreignKey: string; }[] = []; const tableNames = Object.keys(tableInfo); tableNames.forEach((sourceTable) => { const sourceColumns = Object.keys(tableInfo[sourceTable][0]); sourceColumns.forEach((column) => { if (column.endsWith("_id")) { tableNames.forEach((targetTable) => { if ( targetTable !== sourceTable && tableInfo[targetTable][0].hasOwnProperty(column) ) { joins.push({ targetTable, sourceTable, foreignKey: column, }); } }); } }); }); return joins; }
+
+//====================FUNCTIONS====================//
 ```
