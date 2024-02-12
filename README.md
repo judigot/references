@@ -9219,7 +9219,7 @@ sh "$script_name"
 
 # Dockerize Vite
 
-Tags: `dockerize pnpm application`
+Tags: `dockerize pnpm application`, `dockerize node.js application`, `dockerize nodejs application`, `dockerize node application`
 
 ```dockerfile
 FROM node:alpine
