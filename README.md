@@ -9280,7 +9280,7 @@ const tableInfo = {
 const foreignKeys = getForeignKeys(tableInfo);
 const oneToManyRelationships = getOneToManyRelationships(foreignKeys);
 const joins = generateJoinQueries(tableInfo);
-const queries = joins.map((join) => {
+const joinQueries = joins.map((join) => {
   return `SELECT * FROM ${join.sourceTable} JOIN ${join.targetTable} ON ${join.sourceTable}.${join.foreignKey} = ${join.targetTable}.${join.foreignKey};`;
 });
 
