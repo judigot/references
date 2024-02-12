@@ -367,7 +367,7 @@ echo "$result"
 
 ## Generate SSH Key for GitHub
 ```bash
-ssh-keygen -f ~/.ssh/id_rsa -P "" && clear && echo -e "Copy and paste the public key below to your GitHub account:\n\n\e[32m$(cat ~/.ssh/id_rsa.pub) \e[0m\n" # Green
+ssh-keygen -t rsa -f ~/.ssh/id_rsa -P "" && clear && echo -e "Copy and paste the public key below to your GitHub account:\n\n\e[32m$(cat ~/.ssh/id_rsa.pub) \e[0m\n" # Green
 ```
 
 ## Test SSH Key
