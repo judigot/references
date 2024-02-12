@@ -9293,5 +9293,5 @@ console.log(oneToManyRelationships);
 /* prettier-ignore */ function generateJoinQueries( tableInfo: Record<string, { [key: string]: unknown }[]> ): { sourceTable: string; targetTable: string; foreignKey: string }[] { let joins: { sourceTable: string; targetTable: string; foreignKey: string; }[] = []; const tableNames = Object.keys(tableInfo); tableNames.forEach((sourceTable) => { const sourceColumns = Object.keys(tableInfo[sourceTable][0]); sourceColumns.forEach((column) => { if (column.endsWith("_id")) { tableNames.forEach((targetTable) => { if ( targetTable !== sourceTable && tableInfo[targetTable][0].hasOwnProperty(column) ) { joins.push({ targetTable, sourceTable, foreignKey: column, }); } }); } }); }); return joins; }
 
 //====================FUNCTIONS====================//
-// 
+
 ```
