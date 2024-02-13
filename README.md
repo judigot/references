@@ -166,6 +166,7 @@ echo "proxy: none" >>"$NVM_HOME/settings.txt"
 # Install and use latest Node.js version & PNPM
 nvm install latest
 nvm use latest
+npm config set script-shell "C:/apportable/Programming/PortableGit/bin/bash.exe" # Use Git Bash for running scripts in VS Code NPM Scripts panel
 npm install -g pnpm
 #=====NVM=====#
 
@@ -7449,7 +7450,7 @@ pg_dump --data-only -d database_name -h localhost -p 5432 -U root > database_nam
 
 ## Set Default Shell
 ```bash
-npm config set shell "C:\\apportable\\Programming\\PortableGit\\bin\\bash.exe"
+npm config set script-shell "C:/apportable/Programming/PortableGit/bin/bash.exe"
 ```
 
 ## Install Nest.js
