@@ -343,6 +343,34 @@ fi
 ```
 
 # =====================================
+
+# PowerShell Scripting
+
+## Download GitHub Repository
+
+Tags: `download git repository using powershell`, `clone github repository`, `clone git repository`
+
+```powershell
+$repositoryName = "inventory"
+$branchName = "main"
+$githubUser = "judigot"
+$targetDirectory = "C:/apportable"
+$repositoryURL = "https://github.com/$githubUser/$repositoryName"
+
+# Download and extract the ZIP file
+$zipFilePath = "$targetDirectory/$repositoryName.zip"
+curl.exe -L "$repositoryURL/archive/refs/heads/$branchName.zip" -o $zipFilePath
+Expand-Archive -Force -Path $zipFilePath -DestinationPath $targetDirectory
+Remove-Item -Path $zipFilePath
+
+# Move contents and clean up
+$nestedDirPath = Join-Path -Path $targetDirectory -ChildPath "$repositoryName-$branchName"
+Get-ChildItem -Path $nestedDirPath -Recurse | Move-Item -Destination $targetDirectory\$repositoryName -Force
+Remove-Item -Path $nestedDirPath -Force -Recurse
+```
+
+# =====================================
+
 # Bash Scripting
 
 ## Get HTML Attribute From Text Content
