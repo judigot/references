@@ -158,6 +158,11 @@ echo "root: $NVM_HOME" >"$NVM_HOME/settings.txt"
 echo "path: $NVM_SYMLINK" >>"$NVM_HOME/settings.txt"
 echo "arch: $SYS_ARCH" >>"$NVM_HOME/settings.txt"
 echo "proxy: none" >>"$NVM_HOME/settings.txt"
+
+# Install and use latest Node.js version & PNPM
+nvm install latest
+nvm use latest
+npm install -g pnpm
 #=====NVM=====#
 
 #=====JAVA OPENJDK=====#
