@@ -64,22 +64,16 @@ const x = "123";
 $portableFolderName = "apportable"
 $rootDir = "C:\$portableFolderName"
 
-# Get git version; get git lates version
-$url = "https://git-scm.com/downloads"
-$class = "version"
-$element = "span"
-$htmlContent = (Invoke-WebRequest -Uri $url).Content -replace '\s', ''
-
-# Use regex to find the content within the specified class, considering potential whitespace
-$pattern = "<$element[^>]*class=`"$class`"[^>]*>(.*?)</$element>"
-$gitLatestVersion = [regex]::Match($htmlContent, $pattern).Groups[1].Value
+# Extract href attribute for the latest portable git
+$response = Invoke-WebRequest -Uri "https://git-scm.com/download/win"
+$portableGitDownloadLink = ($response.Links | Where-Object { $_.innerText -eq '64-bit Git for Windows Portable' }).href
 
 # Install PortableGit
 $portableGitInstallationDir = "$rootDir\Programming"
 $portableGitFilename = "PortableGit.exe"
 if (!(Test-Path -Path "$portableGitInstallationDir")) {
     New-Item -Path "$portableGitInstallationDir" -ItemType Directory
-    curl -O $portableGitInstallationDir\$portableGitFilename https://github.com/git-for-windows/git/releases/download/v$gitLatestVersion.windows.1/PortableGit-$gitLatestVersion-64-bit.7z.exe
+    curl -O $portableGitInstallationDir\$portableGitFilename $portableGitDownloadLink
     Start-Process $portableGitInstallationDir\$portableGitFilename
 }
 
