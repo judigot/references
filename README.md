@@ -65,8 +65,12 @@ $portableFolderName = "apportable"
 $rootDir = "C:\$portableFolderName"
 
 # Extract href attribute for the latest portable git
-$response = Invoke-WebRequest -Uri "https://git-scm.com/download/win"
-$portableGitDownloadLink = ($response.Links | Where-Object { $_.innerText -eq '64-bit Git for Windows Portable' }).href
+# Fetch the webpage content
+$htmlContent = Invoke-WebRequest -Uri "https://git-scm.com/download/win"
+# Define the text content you're searching for in a variable
+$textContent = '64-bit Git for Windows Portable'
+# Use the textContent variable to filter the links and extract the href attribute
+$portableGitDownloadLink = ($htmlContent.Links | Where-Object { $_.innerText -eq $textContent }).href
 
 # Install PortableGit
 $portableGitInstallationDir = "$rootDir\Programming"
@@ -340,6 +344,24 @@ fi
 
 # =====================================
 # Bash Scripting
+
+## Get HTML Attribute From Text Content
+
+```bash
+#!/bin/bash
+
+# Fetch the webpage content
+htmlContent=$(curl -s https://git-scm.com/download/win)
+
+# Define the text content you're searching for in a variable
+textContent="64-bit Git for Windows Portable"
+
+# Use grep and sed to find the href attribute of the link with the specified text content
+downloadLink=$(echo "$htmlContent" | grep -oP "href=\"\K[^\"]*(?=\"[^>]*>$textContent)" | head -n 1)
+
+# Output the download link
+echo $downloadLink
+```
 
 ## HTTP Request
 
