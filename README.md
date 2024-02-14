@@ -368,7 +368,7 @@ fi
 
 ## Download GitHub Repository
 
-Tags: `download git repository using powershell`, `clone github repository`, `clone git repository`
+Tags: `download git repository using powershell`, `clone github repository`, `clone git repository`, `clone repository using powershell`
 
 ```powershell
 $repositoryName = "inventory"
