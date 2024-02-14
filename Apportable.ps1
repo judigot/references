@@ -2,7 +2,7 @@ $portableFolderName = "apportable"
 $rootDir = "C:\$portableFolderName"
 $portableGitInstallationDir = "$rootDir\Programming"
 
-# Download PATH from github
+# Load PATH from github and use it in powershell session 
 $pathsLinuxFormat = ((Invoke-WebRequest -Uri "https://raw.githubusercontent.com/judigot/references/main/PATH").Content -replace '\r?\n', '')
 $pathsWindowsFormat = ($pathsLinuxFormat -split ':' | ForEach-Object { $_ -replace '^/c', 'C:' -replace '/', '\' } | Where-Object { $_ -ne '' }) -join ';'
 $env:PATH += ";$pathsWindowsFormat"
