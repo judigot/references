@@ -158,14 +158,14 @@ fi
 NVM_HOME="$destinationDir"
 NVM_SYMLINK="$rootDir/$environment/nodejs"
 # Set environment variables
-export NVM_HOME
-export NVM_SYMLINK
+# export NVM_HOME
+# export NVM_SYMLINK
 echo "" >"$NVM_HOME/PATH.txt"
 echo "" >"$NVM_HOME/settings.txt"
 # Update PATH environment variable
 echo "PATH=$PATH" >"$NVM_HOME/PATH.txt"
 # PATH_ENTRY=$(reg query "HKLM\System\CurrentControlSet\Control\Session Manager\Environment" /v Path 2>nul | awk 'NR==3 {print $3}')
-export PATH="$PATH:$NVM_HOME:$NVM_SYMLINK"
+# export PATH="$PATH:$NVM_HOME:$NVM_SYMLINK"
 # System architecture detection
 if [ -d "/c/Program Files (x86)" ]; then
     SYS_ARCH=64
