@@ -389,6 +389,28 @@ Remove-Item -Path $nestedDirPath -Force -Recurse
 
 # Bash Scripting
 
+## Extract Version from GitHub Repository
+
+Tags: `extract version number from github`, `get version number from github`, `get version from github`
+
+```bash
+#!/bin/bash
+
+repository="https://github.com/denoland/deno"
+HTMLPatternToMatch='<span class="css-truncate css-truncate-target text-bold mr-2" style="max-width: none;">'
+# Fetch HTML content and extract the version string
+versionString=$(curl -s "$repository" | awk -v pattern="$HTMLPatternToMatch" '
+    $0 ~ pattern {
+        match($0, />[^<]+</);  # Find the first occurrence of text between > and <
+        print substr($0, RSTART + 1, RLENGTH - 2);  # Extract and print the text, excluding > and <
+        exit;
+    }')
+
+# Remove first character "v" to get the version number
+versionNumber="${versionString:1}"
+echo $versionNumber
+```
+
 ## Get HTML Attribute From Text Content
 
 ```bash
