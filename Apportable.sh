@@ -66,8 +66,8 @@ echo "arch: $SYS_ARCH" >>"$NVM_HOME/settings.txt"
 echo "proxy: none" >>"$NVM_HOME/settings.txt"
 
 # Install and use latest Node.js version & PNPM
-nvm install --lts
-nvm use --lts
+nvm install lts
+nvm use lts
 npm config set script-shell "C:/apportable/Programming/PortableGit/bin/bash.exe" # Use Git Bash for running scripts in VS Code NPM Scripts panel
 npm install -g pnpm
 #=====NVM=====#
