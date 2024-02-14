@@ -369,7 +369,7 @@ fi
 ## Execute Remote Script from GitHub Using PowerShell
 
 ```bash
-curl.exe -L "https://raw.githubusercontent.com/judigot/references/main/Apportable.ps1" | PowerShell.exe -NoProfile -
+curl.exe -L "https://raw.githubusercontent.com/judigot/references/main/Apportable.ps1" | powershell -NoProfile -
 ```
 
 ## Download GitHub Repository
