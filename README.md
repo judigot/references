@@ -63,7 +63,6 @@ const x = "123";
 ```powershell
 $portableFolderName = "apportable"
 $rootDir = "C:\$portableFolderName"
-
 $portableGitInstallationDir = "$rootDir\Programming"
 
 # Create "Programming" folder if it doesn't exist
@@ -82,7 +81,6 @@ Start-Process -FilePath $installerPath -Args "/S /D=$7ZipInstallationDir" -Verb 
 # Cleanup the downloaded installer
 Remove-Item $installerPath
 #==========7-ZIP==========#
-
 
 #==========GIT==========#
 # Extract href attribute for the latest portable git
