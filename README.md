@@ -64,24 +64,40 @@ const x = "123";
 $portableFolderName = "apportable"
 $rootDir = "C:\$portableFolderName"
 
+$portableGitInstallationDir = "$rootDir\Programming"
+
+# Create "Programming" folder if it doesn't exist
+if (!(Test-Path -Path "$portableGitInstallationDir")) {
+    New-Item -Path "$portableGitInstallationDir" -ItemType Directory
+}
+
+#==========7-ZIP==========#
+$downloadURL = 'https://7-zip.org/' + (Invoke-WebRequest -UseBasicParsing -Uri 'https://7-zip.org/' | Select-Object -ExpandProperty Links | Where-Object {($_.outerHTML -match 'Download') -and ($_.href -like "a/*") -and ($_.href -like "*-x64.exe")} | Select-Object -First 1 | Select-Object -ExpandProperty href)
+$7ZipInstallationDir = "$portableGitInstallationDir\7-Zip"
+$installerPath = Join-Path $env:TEMP "7zip-portable.exe"
+# Download the 7-Zip portable version
+Invoke-WebRequest $downloadURL -OutFile $installerPath
+# Extract the installer
+Start-Process -FilePath $installerPath -Args "/S /D=$7ZipInstallationDir" -Verb RunAs -Wait
+# Cleanup the downloaded installer
+Remove-Item $installerPath
+#==========7-ZIP==========#
+
+
+#==========GIT==========#
 # Extract href attribute for the latest portable git
-# Fetch the webpage content
 $htmlContent = Invoke-WebRequest -Uri "https://git-scm.com/download/win"
 # Define the text content you're searching for in a variable
 $textContent = '64-bit Git for Windows Portable'
 # Use the textContent variable to filter the links and extract the href attribute
 $portableGitDownloadLink = ($htmlContent.Links | Where-Object { $_.innerText -eq $textContent }).href
-
-# Install PortableGit
-$portableGitInstallationDir = "$rootDir\Programming"
 $portableGitFilename = "PortableGit.exe"
-if (!(Test-Path -Path "$portableGitInstallationDir")) {
-    New-Item -Path "$portableGitInstallationDir" -ItemType Directory
-    curl -O $portableGitInstallationDir\$portableGitFilename $portableGitDownloadLink
-    Start-Process $portableGitInstallationDir\$portableGitFilename
-}
+# Install PortableGit
+curl -O $portableGitInstallationDir\$portableGitFilename $portableGitDownloadLink
+& "$7ZipInstallationDir\7z.exe" x "$portableGitInstallationDir\$portableGitFilename" -o"$portableGitInstallationDir\PortableGit" -aoa
+#==========GIT==========#
 
-# Set up .bashrc
+#==========.BASHRC==========#
 $filename = ".bashrc"
 $file_path = Join-Path $env:USERPROFILE -ChildPath $filename
 $file_content = @'
@@ -89,7 +105,8 @@ $file_content = @'
 export PATH="$PATH:/c/apportable/Programming/deno:/c/apportable/Programming/jdk/bin:/c/apportable/Programming/PortableGit/cmd:/c/apportable/Programming/Terraform:/c/apportable/Programming/nvm:/c/apportable/Programming/nodejs:/c/apportable/Programming/nodejs/node_modules/npm/bin:/c/apportable/Programming/sqlite:/c/Program Files/Docker/Docker/resources/bin:/c/ProgramData/DockerDesktop/version-bin:/c/Users/Admin/AppData/Local/ComposerSetup/bin:/c/Users/Admin/AppData/Roaming/Composer/vendor/bin"
 '@
 Set-Content -Path $file_path -Value $file_content
-Write-Host "File created successfully at: $file_path"
+Write-Host "$filename created successfully at: $file_path"
+#==========.BASHRC==========#
 ```
 
 # =====================================
