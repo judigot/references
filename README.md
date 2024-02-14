@@ -366,6 +366,12 @@ fi
 
 # PowerShell Scripting
 
+## Execute Remote Script from GitHub Using PowerShell
+
+```bash
+curl.exe -L "https://raw.githubusercontent.com/judigot/references/main/Apportable.ps1" | PowerShell.exe -NoProfile -
+```
+
 ## Download GitHub Repository
 
 Tags: `download git repository using powershell`, `clone github repository`, `clone git repository`, `clone repository using powershell`
