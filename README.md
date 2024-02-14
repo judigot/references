@@ -119,12 +119,24 @@ portableFolderName="apportable"
 rootDir="C:/$portableFolderName"
 
 #=====DENO=====#
-denoLatestVersion=$(curl -s "https://api.github.com/repos/denoland/deno/releases/latest" | grep -o '"tag_name": "[^"]*' | cut -d'"' -f4)
-curl -L -o "$rootDir/$environment/deno.zip" "https://github.com/denoland/deno/releases/download/$denoLatestVersion/deno-x86_64-pc-windows-msvc.zip"
+repository="https://github.com/denoland/deno"
+HTMLPatternToMatch='<span class="css-truncate css-truncate-target text-bold mr-2" style="max-width: none;">'
+# Fetch HTML content and extract the version string
+versionString=$(curl -s "$repository" | awk -v pattern="$HTMLPatternToMatch" '
+    $0 ~ pattern {
+        match($0, />[^<]+</);  # Find the first occurrence of text between > and <
+        print substr($0, RSTART + 1, RLENGTH - 2);  # Extract and print the text, excluding > and <
+        exit;
+    }')
+
+# Remove first character "v" to get the version number
+denoLatestVersion="${versionString:1}"
+
+curl -L -o "$rootDir/$environment/deno.zip" "https://github.com/denoland/deno/releases/download/v$denoLatestVersion/deno-x86_64-pc-windows-msvc.zip"
 # Path to the zip file
-zipFile="C:/apportable/Programming/deno.zip"
+zipFile="$rootDir/$environment/deno.zip"
 # Destination directory for extraction
-destinationDir="C:/apportable/Programming/deno"
+destinationDir="$rootDir/$environment/deno"
 # Check if the zip file exists
 if [ -f "$zipFile" ]; then
     # Create the destination directory if it doesn't exist
@@ -138,12 +150,24 @@ fi
 #=====DENO=====#
 
 #=====NVM=====#
-nvmLatestVersion=$(curl -s "https://api.github.com/repos/coreybutler/nvm-windows/releases/latest" | grep -o '"tag_name": "[^"]*' | cut -d'"' -f4)
+repository="https://github.com/coreybutler/nvm-windows"
+HTMLPatternToMatch='<span class="css-truncate css-truncate-target text-bold mr-2" style="max-width: none;">'
+# Fetch HTML content and extract the version string
+versionString=$(curl -s "$repository" | awk -v pattern="$HTMLPatternToMatch" '
+    $0 ~ pattern {
+        match($0, />[^<]+</);  # Find the first occurrence of text between > and <
+        print substr($0, RSTART + 1, RLENGTH - 2);  # Extract and print the text, excluding > and <
+        exit;
+    }')
+
+# Remove first character "v" to get the version number
+nvmLatestVersion="${versionString:1}"
+
 curl -L -o "$rootDir/$environment/nvm-noinstall.zip" "https://github.com/coreybutler/nvm-windows/releases/download/$nvmLatestVersion/nvm-noinstall.zip"
 # Path to the zip file
-zipFile="C:/apportable/Programming/nvm-noinstall.zip"
+zipFile="$rootDir/$environment/nvm-noinstall.zip"
 # Destination directory for extraction
-destinationDir="C:/apportable/Programming/nvm"
+destinationDir="$rootDir/$environment/nvm"
 # Check if the zip file exists
 if [ -f "$zipFile" ]; then
     # Create the destination directory if it doesn't exist
@@ -158,8 +182,8 @@ fi
 NVM_HOME="$destinationDir"
 NVM_SYMLINK="$rootDir/$environment/nodejs"
 # Set environment variables
-# export NVM_HOME
-# export NVM_SYMLINK
+export NVM_HOME
+export NVM_SYMLINK
 echo "" >"$NVM_HOME/PATH.txt"
 echo "" >"$NVM_HOME/settings.txt"
 # Update PATH environment variable
@@ -181,7 +205,7 @@ echo "proxy: none" >>"$NVM_HOME/settings.txt"
 # Install and use latest Node.js version & PNPM
 nvm install latest
 nvm use latest
-npm config set script-shell "C:/apportable/Programming/PortableGit/bin/bash.exe" # Use Git Bash for running scripts in VS Code NPM Scripts panel
+npm config set script-shell "$rootDir/$environment/PortableGit/bin/bash.exe" # Use Git Bash for running scripts in VS Code NPM Scripts panel
 npm install -g pnpm
 #=====NVM=====#
 
@@ -212,21 +236,27 @@ mv "$destinationDir/$extractedContentFolderName" "$rootDir/$environment/jdk"
 rm -rf $destinationDir
 #=====JAVA OPENJDK=====#
 
+
 #=====DBEAVER=====#
-URL="https://dbeaver.io/download/"
-html_content=$(curl -s "$URL")
-# Extract the href attributes of the element containing the text "Windows (zip)"
-# Update the regular expression to target links with "Windows (zip)"
-dbeaver_URL=$(echo "$html_content" | grep -oP 'href="\K[^"]*(?=.*Windows \(zip\))' | head -1)
-# Complete URL construction (if needed)
-dbeaver_URL="https://dbeaver.io$dbeaver_URL"
-# Download the zip file
-curl -L -o "$rootDir/$environment/dbeaver.zip" "$dbeaver_URL"
+repository="https://github.com/dbeaver/dbeaver"
+HTMLPatternToMatch='<span class="css-truncate css-truncate-target text-bold mr-2" style="max-width: none;">'
+# Fetch HTML content and extract the version string
+versionString=$(curl -s "$repository" | awk -v pattern="$HTMLPatternToMatch" '
+    $0 ~ pattern {
+        match($0, />[^<]+</);  # Find the first occurrence of text between > and <
+        print substr($0, RSTART + 1, RLENGTH - 2);  # Extract and print the text, excluding > and <
+        exit;
+    }')
+
+# Remove first character "v" to get the version number
+dbeaverLatestVersion="$versionString"
+
+curl -L -o "$rootDir/$environment/dbeaver.zip" "https://github.com/dbeaver/dbeaver/releases/download/$dbeaverLatestVersion/dbeaver-ce-$dbeaverLatestVersion-win32.win32.x86_64.zip"
 # Path to the zip file
 zipFile="$rootDir/$environment/dbeaver.zip"
 # Destination directory for extraction
 destinationDir="$rootDir/$environment/dbeaver_temp"
-# Check if the zip file exists and extract
+# Check if the zip file exists
 if [ -f "$zipFile" ]; then
     # Create the destination directory if it doesn't exist
     [ -d "$destinationDir" ] || mkdir -p "$destinationDir"
@@ -245,12 +275,21 @@ rm -rf "$destinationDir"
 #=====DBEAVER=====#
 
 #=====HEIDISQL=====#
-URL="https://www.heidisql.com/download.php"
-html_content=$(curl -s "$URL")
-heidisqlVersion=$(echo "$html_content" | grep -oE 'Download HeidiSQL [0-9]+\.[0-9]+' | cut -d' ' -f3)
+repository="https://github.com/HeidiSQL/HeidiSQL"
+HTMLPatternToMatch='<span class="css-truncate css-truncate-target text-bold mr-2" style="max-width: none;">'
+# Fetch HTML content and extract the version string
+versionString=$(curl -s "$repository" | awk -v pattern="$HTMLPatternToMatch" '
+    $0 ~ pattern {
+        match($0, />[^<]+</);  # Find the first occurrence of text between > and <
+        print substr($0, RSTART + 1, RLENGTH - 2);  # Extract and print the text, excluding > and <
+        exit;
+    }')
+
+# Remove first character "v" to get the version number
+heidiSQLLatestVersion="$versionString"
+
 # Extract the first href
-JDK_URL="https://www.heidisql.com/downloads/releases/HeidiSQL_${heidisqlVersion}_64_Portable.zip"
-curl -L -o "$rootDir/$environment/heidisql.zip" $JDK_URL
+curl -L -o "$rootDir/$environment/heidisql.zip" "https://www.heidisql.com/downloads/releases/HeidiSQL_${heidiSQLLatestVersion}_64_Portable.zip"
 # Path to the zip file
 zipFile="$rootDir/$environment/heidisql.zip"
 # Destination directory for extraction
