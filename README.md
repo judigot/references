@@ -558,6 +558,8 @@ wget -O renamed.txt example.com/test.txt
 ```
 
 ### Execute Remote Script from GitHub
+Tags: `execute remote github script`, `execute raw github script`, `execute github script remotely`, `execute github script`, `execute raw script`
+
 ```bash
 curl -L https://raw.githubusercontent.com/username/repository/script.sh | bash
 ```
