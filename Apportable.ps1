@@ -40,10 +40,10 @@ curl -O $portableGitInstallationDir\$portableGitFilename $portableGitDownloadLin
 #==========.BASHRC==========#
 $filename = ".bashrc"
 $file_path = Join-Path $env:USERPROFILE -ChildPath $filename
-$file_content = @'
+$file_content = @"
 #!/bin/bash
-export PATH="$PATH:/c/apportable/Programming/deno:/c/apportable/Programming/jdk/bin:/c/apportable/Programming/PortableGit/cmd:/c/apportable/Programming/Terraform:/c/apportable/Programming/nvm:/c/apportable/Programming/nodejs:/c/apportable/Programming/nodejs/node_modules/npm/bin:/c/apportable/Programming/sqlite:/c/Program Files/Docker/Docker/resources/bin:/c/ProgramData/DockerDesktop/version-bin:/c/Users/Admin/AppData/Local/ComposerSetup/bin:/c/Users/Admin/AppData/Roaming/Composer/vendor/bin"
-'@
+export PATH="`$PATH:$($pathsLinuxFormat)"
+"@
 Set-Content -Path $file_path -Value $file_content
 Write-Host "$filename created successfully at: $file_path"
 #==========.BASHRC==========#
