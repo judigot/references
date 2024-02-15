@@ -8,72 +8,72 @@ rootDir="C:/$portableFolderName"
 # Set "main" as default branch
 git config --global init.defaultBranch main
 
-#=====DENO=====#
-denoLatestVersion=$(curl -s "https://api.github.com/repos/denoland/deno/releases/latest" | grep -o '"tag_name": "[^"]*' | cut -d'"' -f4)
-curl -L -o "$rootDir/$environment/deno.zip" "https://github.com/denoland/deno/releases/download/$denoLatestVersion/deno-x86_64-pc-windows-msvc.zip"
-# Path to the zip file
-zipFile="C:/apportable/Programming/deno.zip"
-# Destination directory for extraction
-destinationDir="C:/apportable/Programming/deno"
-# Check if the zip file exists
-if [ -f "$zipFile" ]; then
-    # Create the destination directory if it doesn't exist
-    [ -d "$destinationDir" ] || mkdir -p "$destinationDir"
-    # Extract the zip file
-    unzip "$zipFile" -d "$destinationDir"
-    echo "Extraction complete."
-else
-    echo "Zip file not found: $zipFile"
-fi
-#=====DENO=====#
+# #=====DENO=====#
+# denoLatestVersion=$(curl -s "https://api.github.com/repos/denoland/deno/releases/latest" | grep -o '"tag_name": "[^"]*' | cut -d'"' -f4)
+# curl -L -o "$rootDir/$environment/deno.zip" "https://github.com/denoland/deno/releases/download/$denoLatestVersion/deno-x86_64-pc-windows-msvc.zip"
+# # Path to the zip file
+# zipFile="C:/apportable/Programming/deno.zip"
+# # Destination directory for extraction
+# destinationDir="C:/apportable/Programming/deno"
+# # Check if the zip file exists
+# if [ -f "$zipFile" ]; then
+#     # Create the destination directory if it doesn't exist
+#     [ -d "$destinationDir" ] || mkdir -p "$destinationDir"
+#     # Extract the zip file
+#     unzip "$zipFile" -d "$destinationDir"
+#     echo "Extraction complete."
+# else
+#     echo "Zip file not found: $zipFile"
+# fi
+# #=====DENO=====#
 
-#=====NVM=====#
-nvmLatestVersion=$(curl -s "https://api.github.com/repos/coreybutler/nvm-windows/releases/latest" | grep -o '"tag_name": "[^"]*' | cut -d'"' -f4)
-curl -L -o "$rootDir/$environment/nvm-noinstall.zip" "https://github.com/coreybutler/nvm-windows/releases/download/$nvmLatestVersion/nvm-noinstall.zip"
-# Path to the zip file
-zipFile="C:/apportable/Programming/nvm-noinstall.zip"
-# Destination directory for extraction
-destinationDir="C:/apportable/Programming/nvm"
-# Check if the zip file exists
-if [ -f "$zipFile" ]; then
-    # Create the destination directory if it doesn't exist
-    [ -d "$destinationDir" ] || mkdir -p "$destinationDir"
-    # Extract the zip file
-    unzip "$zipFile" -d "$destinationDir"
-    echo "Extraction complete."
-else
-    echo "Zip file not found: $zipFile"
-fi
-# Initialize variables
-NVM_HOME="$destinationDir"
-NVM_SYMLINK="$rootDir/$environment/nodejs"
-# Set environment variables
-export NVM_HOME
-export NVM_SYMLINK
-echo "" >"$NVM_HOME/PATH.txt"
-echo "" >"$NVM_HOME/settings.txt"
-# Update PATH environment variable
-echo "PATH=$PATH" >"$NVM_HOME/PATH.txt"
-# PATH_ENTRY=$(reg query "HKLM\System\CurrentControlSet\Control\Session Manager\Environment" /v Path 2>nul | awk 'NR==3 {print $3}')
-export PATH="$PATH:$NVM_HOME:$NVM_SYMLINK"
-# System architecture detection
-if [ -d "/c/Program Files (x86)" ]; then
-    SYS_ARCH=64
-else
-    SYS_ARCH=32
-fi
-# Create settings file
-echo "root: $NVM_HOME" >"$NVM_HOME/settings.txt"
-echo "path: $NVM_SYMLINK" >>"$NVM_HOME/settings.txt"
-echo "arch: $SYS_ARCH" >>"$NVM_HOME/settings.txt"
-echo "proxy: none" >>"$NVM_HOME/settings.txt"
+# #=====NVM=====#
+# nvmLatestVersion=$(curl -s "https://api.github.com/repos/coreybutler/nvm-windows/releases/latest" | grep -o '"tag_name": "[^"]*' | cut -d'"' -f4)
+# curl -L -o "$rootDir/$environment/nvm-noinstall.zip" "https://github.com/coreybutler/nvm-windows/releases/download/$nvmLatestVersion/nvm-noinstall.zip"
+# # Path to the zip file
+# zipFile="C:/apportable/Programming/nvm-noinstall.zip"
+# # Destination directory for extraction
+# destinationDir="C:/apportable/Programming/nvm"
+# # Check if the zip file exists
+# if [ -f "$zipFile" ]; then
+#     # Create the destination directory if it doesn't exist
+#     [ -d "$destinationDir" ] || mkdir -p "$destinationDir"
+#     # Extract the zip file
+#     unzip "$zipFile" -d "$destinationDir"
+#     echo "Extraction complete."
+# else
+#     echo "Zip file not found: $zipFile"
+# fi
+# # Initialize variables
+# NVM_HOME="$destinationDir"
+# NVM_SYMLINK="$rootDir/$environment/nodejs"
+# # Set environment variables
+# export NVM_HOME
+# export NVM_SYMLINK
+# echo "" >"$NVM_HOME/PATH.txt"
+# echo "" >"$NVM_HOME/settings.txt"
+# # Update PATH environment variable
+# echo "PATH=$PATH" >"$NVM_HOME/PATH.txt"
+# # PATH_ENTRY=$(reg query "HKLM\System\CurrentControlSet\Control\Session Manager\Environment" /v Path 2>nul | awk 'NR==3 {print $3}')
+# export PATH="$PATH:$NVM_HOME:$NVM_SYMLINK"
+# # System architecture detection
+# if [ -d "/c/Program Files (x86)" ]; then
+#     SYS_ARCH=64
+# else
+#     SYS_ARCH=32
+# fi
+# # Create settings file
+# echo "root: $NVM_HOME" >"$NVM_HOME/settings.txt"
+# echo "path: $NVM_SYMLINK" >>"$NVM_HOME/settings.txt"
+# echo "arch: $SYS_ARCH" >>"$NVM_HOME/settings.txt"
+# echo "proxy: none" >>"$NVM_HOME/settings.txt"
 
-# Install and use latest Node.js version & PNPM
-nvm install lts
-nvm use lts
-npm config set script-shell "C:/apportable/Programming/PortableGit/bin/bash.exe" # Use Git Bash for running scripts in VS Code NPM Scripts panel
-npm install -g pnpm
-#=====NVM=====#
+# # Install and use latest Node.js version & PNPM
+# nvm install lts
+# nvm use lts
+# npm config set script-shell "C:/apportable/Programming/PortableGit/bin/bash.exe" # Use Git Bash for running scripts in VS Code NPM Scripts panel
+# npm install -g pnpm
+# #=====NVM=====#
 
 #=====JAVA OPENJDK=====#
 URL="https://jdk.java.net/21/"
