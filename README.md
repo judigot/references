@@ -8499,6 +8499,7 @@ convertToNum
 
 #### React.js
 ```
+initialData: useState & useEffect combined
 boilerplate
 useState
 useStateExpensive; useStateLazy
