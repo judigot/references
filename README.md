@@ -192,29 +192,32 @@ Tags: `extract html attribute using innerText`, `extract attribute using innerTe
 ```bash
 #!/bin/bash
 
-URL="https://jdk.java.net/21/"
-innerHTML="zip"
+URL="https://dbeaver.io/download/"
+htmlContent=$(curl -L --silent "$URL")
+innerHTML="Windows (zip)" # Keep the full innerHTML text, including spaces and parentheses
 targetAttribute="href"
 
-hrefValue=$(curl -s "$URL" | awk -v innerHTML="$innerHTML" -v attr="$targetAttribute" '
+hrefValue=$(echo "$htmlContent" | awk -v innerHTML="$innerHTML" -v attr="$targetAttribute" '
 BEGIN { RS="<a "; FS=">"; OFS="" }
-/* Check if the record contains the innerHTML */
-$0 ~ innerHTML {
-    for (i = 1; i <= NF; i++) {
-        /* Construct the regex to match the desired attribute */
-        attrRegex = attr "=\"[^\"]+\""
-        if (match($i, attrRegex)) {
-            /* Extract the target attribute */
-            attrStart = RSTART + length(attr) + 2
-            attrLength = RLENGTH - length(attr) - 3
-            hrefValue = substr($i, attrStart, attrLength)
-            print hrefValue
-            exit
+{
+    /* Use the index function for a literal substring search */
+    if (index($0, innerHTML) > 0) {
+        for (i = 1; i <= NF; i++) {
+            /* Construct the regex to match the desired attribute */
+            attrRegex = attr "=\"[^\"]+\""
+            if (match($i, attrRegex)) {
+                /* Extract the target attribute */
+                attrStart = RSTART + length(attr) + 2
+                attrLength = RLENGTH - length(attr) - 3
+                hrefValue = substr($i, attrStart, attrLength)
+                print hrefValue
+                exit
+            }
         }
     }
 }')
 
-echo "The href value is: $hrefValue"
+echo -e "\e[32m$hrefValue\e[0m" # Green
 ```
 
 ## Extract Version from GitHub Repository
