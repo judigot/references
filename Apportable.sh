@@ -5,6 +5,9 @@ environment="Programming"
 portableFolderName="apportable"
 rootDir="C:/$portableFolderName"
 
+# Set "main" as default branch
+git config --global init.defaultBranch main
+
 #=====DENO=====#
 denoLatestVersion=$(curl -s "https://api.github.com/repos/denoland/deno/releases/latest" | grep -o '"tag_name": "[^"]*' | cut -d'"' -f4)
 curl -L -o "$rootDir/$environment/deno.zip" "https://github.com/denoland/deno/releases/download/$denoLatestVersion/deno-x86_64-pc-windows-msvc.zip"
