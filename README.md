@@ -185,9 +185,41 @@ Remove-Item -Path $nestedDirPath -Force -Recurse
 
 # Bash Scripting
 
+## Extract HTML Attribute Using Inner Text
+
+Tags: `extract html attribute using innerText`, `extract attribute using innerText`
+
+```bash
+#!/bin/bash
+
+URL="https://jdk.java.net/21/"
+innerHTML="zip"
+targetAttribute="href"
+
+hrefValue=$(curl -s "$URL" | awk -v innerHTML="$innerHTML" -v attr="$targetAttribute" '
+BEGIN { RS="<a "; FS=">"; OFS="" }
+/* Check if the record contains the innerHTML */
+$0 ~ innerHTML {
+    for (i = 1; i <= NF; i++) {
+        /* Construct the regex to match the desired attribute */
+        attrRegex = attr "=\"[^\"]+\""
+        if (match($i, attrRegex)) {
+            /* Extract the target attribute */
+            attrStart = RSTART + length(attr) + 2
+            attrLength = RLENGTH - length(attr) - 3
+            hrefValue = substr($i, attrStart, attrLength)
+            print hrefValue
+            exit
+        }
+    }
+}')
+
+echo "The href value is: $hrefValue"
+```
+
 ## Extract Version from GitHub Repository
 
-Tags: `extract version number from github`, `get version number from github`, `get version from github`
+Tags: `extract innerHTML`, `get innerHTML`, `extract version number from github`, `get version number from github`, `get version from github`
 
 ```bash
 #!/bin/bash
