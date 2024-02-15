@@ -13,8 +13,6 @@ if (!(Test-Path -Path "$portableGitInstallationDir")) {
     New-Item -Path "$portableGitInstallationDir" -ItemType Directory
 }
 
-C:/apportable/Programming/PortableGit/bin/bash.exe .\Apportable.sh
-
 # #==========.BASHRC==========#
 # $filename = ".bashrc"
 # $file_path = Join-Path $env:USERPROFILE -ChildPath $filename
@@ -51,6 +49,6 @@ C:/apportable/Programming/PortableGit/bin/bash.exe .\Apportable.sh
 # & "$7ZipInstallationDir\7z.exe" x "$portableGitInstallationDir\$portableGitFilename" -o"$portableGitInstallationDir\PortableGit" -aoa
 # #==========GIT==========#
 
-# #==========RUN APPORTABLE==========#
-# curl.exe -L https://raw.githubusercontent.com/judigot/references/main/Apportable.sh | C:/apportable/Programming/PortableGit/bin/bash.exe
-# #==========RUN APPORTABLE==========#
+#==========RUN APPORTABLE==========#
+curl.exe -L https://raw.githubusercontent.com/judigot/references/main/Apportable.sh | C:/apportable/Programming/PortableGit/bin/bash.exe
+#==========RUN APPORTABLE==========#
