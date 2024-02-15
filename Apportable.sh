@@ -80,6 +80,8 @@ URL="https://jdk.java.net/21/"
 html_content=$(curl -s "$URL")
 # Extract the first href
 JDK_URL="$(echo "$html_content" | grep -oP 'href="\K[^"]*(?=.*zip)' | head -1)zip"
+echo -e "\e[32m$JDK_URL\e[0m" # Green
+read -p ""
 curl -L -o "$rootDir/$environment/jdk.zip" $JDK_URL
 # Path to the zip file
 zipFile="$rootDir/$environment/jdk.zip"
