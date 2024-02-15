@@ -2,10 +2,9 @@ $portableFolderName = "apportable"
 $rootDir = "C:\$portableFolderName"
 $portableGitInstallationDir = "$rootDir\Programming"
 
-# Load PATH from github and use it in powershell session 
-$pathsLinuxFormat = ((Invoke-WebRequest -Uri "https://raw.githubusercontent.com/judigot/references/main/PATH").Content -replace '\r?\n', '')
-$pathsWindowsFormat = ($pathsLinuxFormat -split ':' | ForEach-Object { $_ -replace '^/c', 'C:' -replace '/', '\' } | Where-Object { $_ -ne '' }) -join ';'
-$env:PATH += ";$pathsWindowsFormat"
+# Load PATH from github and use it in powershell session
+$paths = ((Invoke-WebRequest -Uri "https://raw.githubusercontent.com/judigot/references/main/PATH").Content -replace '\r?\n', '')
+$env:PATH += ";$paths"
 
 # Create "Programming" folder if it doesn't exist
 if (!(Test-Path -Path "$portableGitInstallationDir")) {
@@ -42,7 +41,7 @@ $filename = ".bashrc"
 $file_path = Join-Path $env:USERPROFILE -ChildPath $filename
 $file_content = @"
 #!/bin/bash
-export PATH="`$PATH:$($pathsLinuxFormat)"
+export PATH="`$PATH:$($paths)"
 "@
 Set-Content -Path $file_path -Value $file_content
 Write-Host "$filename created successfully at: $file_path"
