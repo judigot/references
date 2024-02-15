@@ -3,8 +3,10 @@ $rootDir = "C:\$portableFolderName"
 $portableGitInstallationDir = "$rootDir\Programming"
 
 # Load PATH from github and use it in powershell session
-$paths = ((Invoke-WebRequest -Uri "https://raw.githubusercontent.com/judigot/references/main/PATH").Content -replace '\r?\n', '')
-$env:PATH += ";$paths"
+$paths = ((Invoke-WebRequest -Uri "https://raw.githubusercontent.com/judigot/references/main/PATH").Content)
+$pathsWindows = $paths -replace '\n', ';'
+$pathsLinux = $paths -replace '\n', ':'
+$env:PATH += ";$pathsWindows"
 
 # Create "Programming" folder if it doesn't exist
 if (!(Test-Path -Path "$portableGitInstallationDir")) {
@@ -16,7 +18,7 @@ $filename = ".bashrc"
 $file_path = Join-Path $env:USERPROFILE -ChildPath $filename
 $file_content = @"
 #!/bin/bash
-export PATH="`$PATH:$($paths)"
+export PATH="`$PATH:$($pathsLinux)"
 "@
 Set-Content -Path $file_path -Value $file_content
 Write-Host "$filename created successfully at: $file_path"
