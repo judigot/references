@@ -50,5 +50,5 @@ curl -O $portableGitInstallationDir\$portableGitFilename $portableGitDownloadLin
 #==========GIT==========#
 
 #==========RUN APPORTABLE==========#
-curl.exe -L https://raw.githubusercontent.com/judigot/references/main/Apportable.sh | C:/apportable/Programming/PortableGit/bin/bash.exe
+# curl.exe -L https://raw.githubusercontent.com/judigot/references/main/Apportable.sh | C:/apportable/Programming/PortableGit/bin/bash.exe
 #==========RUN APPORTABLE==========#
