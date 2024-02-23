@@ -3423,6 +3423,12 @@ pause
 # =====================================
 # Docker Commands
 
+## Show All Running Containers
+Tags: `show all active containers`
+```bash
+docker compose ps --services --filter "status=running"
+```
+
 ## Containerization Steps
 1. Build images
 2. Create containers from images
