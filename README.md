@@ -262,7 +262,7 @@ echo $downloadLink
 
 ## HTTP Request
 
-Tags: `fetch`, `curl`
+Tags: `fetch`, `curl`, `fetch using curl`, `curl fetch`, `fetch curl`
 ```bash
 result=$(
     URL="http://localhost:3000/api/v1/snippets"
