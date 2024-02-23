@@ -3434,78 +3434,78 @@ docker compose ps --services --filter "status=running"
 2. Create containers from images
 
 ## Remove & Rebuild Container and Images
-```shellscript
+```bash
 docker stop nginx && docker container rm nginx && docker image rm server-nginx
 docker compose up --force-recreate
 ```
 
 ## Delete All Unused Images
-```shellscript
+```bash
 docker image prune -a
 ```
 
 ## Re-dockerize Application
-```shellscript
+```bash
 docker stop app && docker container rm app && docker image rm custom-image-name
 docker build -t custom-image-name .
 docker container run -p 3000:3000 --restart=always --name app custom-image-name
 ```
 
 ## Dockerize Application from a Dockerfile (Custom Container Name)
-```shellscript
+```bash
 docker build -t custom-image-name .
 docker container run -p 3000:3000 --restart=always --name app custom-image-name
 ```
 
 ## Dockerize Application from a Dockerfile (Random Container Name)
-```shellscript
+```bash
 docker build -t custom-image-name .
 docker run -p 3000:3000 --restart=always custom-image-name
 ```
 
 ## Create Container Without Starting; Create Container from an Image
-```shellscript
+```bash
 docker container create --name custom-container-name custom-image-name
 ```
 
 ## Dockerize Application (Dockerfile)
-```shellscript
+```bash
 docker build -t app .
 docker run -p 3000:3000 --restart=always app
 ```
 
 ## Start Container
-```shellscript
+```bash
 docker start <container-name>
 ```
 
 ## Rename Container
-```shellscript
+```bash
 docker rename old new
 ```
 
 ## Stop Container
-```shellscript
+```bash
 docker stop <container-name>
 ```
 
 ## Restart Container
-```shellscript
+```bash
 docker restart <container-name>
 ```
 
 ## Update Certificates (Composer Error)
-```shellscript
+```bash
 update-ca-certificates
 ```
 
 ## Go to Container's Terminal
-```shellscript
+```bash
 docker exec -it <container_name> bash
 ```
 
 ## Build Docker Compose
-```shellscript
+```bash
 docker compose up
 docker compose build
 docker compose up --force-recreate
@@ -3515,50 +3515,50 @@ docker compose build --no-cache
 ## Build Container
 * -t to give a docker image a name
 * . means the current directory; reference the current directory
-```shellscript
+```bash
 docker build -t app .
 docker build --no-cache -t app .
 ```
 
 ## Run Docker App/Container
-```shellscript
+```bash
 docker run -p 3000:3000 app
 ```
 
 ## Download Image in Docker Hub
-```shellscript
+```bash
 docker pull <username>/hello-world
 ```
 
 ## Run Docker Image
-```shellscript
+```bash
 docker run hello-world
 ```
 
 ## Show All Running Containers
-```shellscript
+```bash
 docker ps
 ```
 
 ## Show All Containers
-```shellscript
+```bash
 docker ps -a
 ```
 
 ## Delete Docker Container; Force Delete
 * add -f at the end to force delete
-```shellscript
+```bash
 docker container rm container-name
 ```
 
 ## Show Docker Images
-```shellscript
+```bash
 docker images
 ```
 
 ## Delete Docker Image; Force Delete
 * add -f at the end to force delete
-```shellscript
+```bash
 docker image rm *first-3-characters-of-the-image-id
 ```
 
