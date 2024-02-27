@@ -4004,9 +4004,11 @@ const anotherPromise = (parameter) => {
 };
 
 // Promise.all for resolving multiple promises
-Promise.all([promise("param1"), anotherPromise("param2")]).then((result) => {
-  console.log(result[0]); // promise()
-  console.log(result[1]); // anotherPromise()
+Promise.all([promise("param1"), anotherPromise("param2")])
+.then(([response1, response2]) => Promise.all([response1.json(), response2.json()]),)
+.then(([result1, result2]: [unknown, unknown]) => {
+  console.log(result1); // promise()
+  console.log(result2); // anotherPromise()
 });
 
 // Filter table rows; filter rows; row filter; search table; search rows; search table rows
