@@ -5,6 +5,10 @@ environment="Programming"
 portableFolderName="apportable"
 rootDir="C:/$portableFolderName"
 
+
+# Create "apportable" directory if it doesn't exist
+[ -d "$rootDir/$environment" ] || mkdir -p "$rootDir/$environment"
+
 # Set "main" as default branch
 git config --global init.defaultBranch main
 
