@@ -150,6 +150,14 @@ const x = "123";
 
 # PowerShell Scripting
 
+## Generate Symlinks
+
+Tags: `create symlinks`
+
+```powershell
+New-Item -ItemType SymbolicLink -Path "C:\User\Jude\Desktop\samplesymlink" -Target "C:\target\directory"
+```
+
 ## Execute Remote Script from GitHub Using PowerShell
 
 Tags: `execute remote github script`, `execute raw github script`, `execute github script remotely`, `execute github script`, `execute raw script`, `run remote script`
