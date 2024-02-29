@@ -6722,6 +6722,20 @@ echo "Git version: $version"
 # =====================================
 # Git Commands
 
+## Check Git Status Before Deleting A Repository
+
+Tags: `check git status before deleting repository`, `check git status before removing a repository`, `check git status before removing repository`, `check and remove`, ``
+
+```bash
+if git status --porcelain | awk 'NF { exit 1 }'; then
+    echo -e "\e[32mNo changes detected in the git repository. Proceeding to delete.\e[0m" # Green
+    rm -rf $repository
+    git clone $repository
+else
+    echo -e "\e[31mChanges detected in the git repository. Aborting deletion.\e[0m" # Red
+fi
+```
+
 ```bash
 # Git
 
