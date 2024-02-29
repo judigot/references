@@ -8723,9 +8723,9 @@ echo "API endpoint files have been generated."
 # =====================================
 
 
-# Directory Cloner
+# Directory Structure Cloner
 
-Tags: `clone directories`, `clone directory`, `copy directories`, `copy directory`
+Tags: `directory cloner`, `clone directories`, `clone directory`, `copy directories`, `copy directory`
 
 ```bash
 #!/bin/bash
