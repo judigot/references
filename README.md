@@ -349,6 +349,7 @@ mv src/* dest
 
 ## Permissions and Ownership
 ### Allow Write Permission
+Tags: `allow editing permission`, `allow edit permission`
 ```bash
 sudo chmod -R 777 /var/docker/*
 ```
