@@ -28,9 +28,9 @@ denoLatestVersion="$versionString"
 
 curl -L -o "$rootDir/$environment/deno.zip" "https://github.com/denoland/deno/releases/download/$denoLatestVersion/deno-x86_64-pc-windows-msvc.zip"
 # Path to the zip file
-zipFile="C:/apportable/Programming/deno.zip"
+zipFile="$rootDir/$environment/deno.zip"
 # Destination directory for extraction
-destinationDir="C:/apportable/Programming/deno"
+destinationDir="$rootDir/$environment/deno"
 # Check if the zip file exists
 if [ -f "$zipFile" ]; then
     # Create the destination directory if it doesn't exist
@@ -59,9 +59,9 @@ nvmLatestVersion="${versionString:1}"
 
 curl -L -o "$rootDir/$environment/nvm-noinstall.zip" "https://github.com/coreybutler/nvm-windows/releases/download/$nvmLatestVersion/nvm-noinstall.zip"
 # Path to the zip file
-zipFile="C:/apportable/Programming/nvm-noinstall.zip"
+zipFile="$rootDir/$environment/nvm-noinstall.zip"
 # Destination directory for extraction
-destinationDir="C:/apportable/Programming/nvm"
+destinationDir="$rootDir/$environment/nvm"
 # Check if the zip file exists
 if [ -f "$zipFile" ]; then
     # Create the destination directory if it doesn't exist
@@ -98,7 +98,7 @@ echo "proxy: none" >>"$NVM_HOME/settings.txt"
 # Install and use latest Node.js version & PNPM
 nvm install lts
 nvm use lts
-npm config set script-shell "C:/apportable/Programming/PortableGit/bin/bash.exe" # Use Git Bash for running scripts in VS Code NPM Scripts panel
+npm config set script-shell "$rootDir/$environment/PortableGit/bin/bash.exe" # Use Git Bash for running scripts in VS Code NPM Scripts panel
 npm install -g pnpm
 #=====NVM=====#
 
@@ -149,6 +149,36 @@ mv "$destinationDir/$extractedContentFolderName" "$rootDir/$environment/jdk"
 # Delete temporary folder
 rm -rf $destinationDir
 #=====JAVA OPENJDK=====#
+
+#==========TERRAFORM==========#
+repository="https://github.com/hashicorp/terraform"
+HTMLPatternToMatch='<span class="css-truncate css-truncate-target text-bold mr-2" style="max-width: none;">'
+# Fetch HTML content and extract the version string
+versionString=$(curl -s "$repository" | awk -v pattern="$HTMLPatternToMatch" '
+    $0 ~ pattern {
+        match($0, />[^<]+</);  # Find the first occurrence of text between > and <
+        print substr($0, RSTART + 1, RLENGTH - 2);  # Extract and print the text, excluding > and <
+        exit;
+    }')
+
+# Remove first character "v" to get the version number
+versionNumber="${versionString:1}"
+curl -L -o "$rootDir/$environment/terraform.zip" "https://releases.hashicorp.com/terraform/$versionNumber/terraform_${versionNumber}_windows_386.zip"
+# Path to the zip file
+zipFile="$rootDir/$environment/terraform.zip"
+# Destination directory for extraction
+destinationDir="$rootDir/$environment/terraform"
+# Check if the zip file exists
+if [ -f "$zipFile" ]; then
+    # Create the destination directory if it doesn't exist
+    [ -d "$destinationDir" ] || mkdir -p "$destinationDir"
+    # Extract the zip file
+    unzip "$zipFile" -d "$destinationDir"
+    echo "Extraction complete."
+else
+    echo "Zip file not found: $zipFile"
+fi
+#==========TERRAFORM==========#
 
 #=====DBEAVER=====#
 URL="https://dbeaver.io/download/"
