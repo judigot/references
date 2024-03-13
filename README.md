@@ -7736,6 +7736,13 @@ npx prisma generate
 # =====================================
 # SEO (Search Engine Optimization)
 
+## Google Domains Name Servers
+
+    ns-cloud-e1.googledomains.com
+    ns-cloud-e2.googledomains.com
+    ns-cloud-e3.googledomains.com
+    ns-cloud-e4.googledomains.com
+
 ## DNS Set Up
 
 | Host name      | Type              | Data            | Result          |
