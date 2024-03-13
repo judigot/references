@@ -9,8 +9,14 @@ environment="Programming"
 # Create "apportable" directory if it doesn't exist
 [ -d "$rootDir/$environment" ] || mkdir -p "$rootDir/$environment"
 
+
+#=====GIT CONFIG=====#
 # Set "main" as default branch
 git config --global init.defaultBranch main
+
+# Use LF (Unix) instead of CRLF (Windows)
+git config --global core.autocrlf input
+#=====GIT CONFIG=====#
 
 #=====DENO=====#
 repository="https://github.com/denoland/deno"
