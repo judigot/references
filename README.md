@@ -374,7 +374,7 @@ ssh-keygen -t ed25519 -f C:\Users\Jude\.ssh\key_name
 
 ### SSH to AWS
 ```bash
-ssh -i ~/.ssh/<key-name> ubuntu@<domain name or public IP address>
+ssh -i ~/.ssh/id_rsa ubuntu@domainNameOrIPAddress
 ssh -i C:/Users/<user>/.ssh/<key-name> ubuntu@<public-IP-address>
 ```
 
