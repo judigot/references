@@ -2,6 +2,7 @@
 
 #==========SSH==========#
 ssh-keygen -t rsa -f ~/.ssh/id_rsa -P "" && clear && echo -e "Copy and paste the public key below to your GitHub account:\n\n\e[32m$(cat ~/.ssh/id_rsa.pub) \e[0m\n" # Green
+ssh -T git@github.com -o StrictHostKeyChecking=no # Skip answering yes
 #==========SSH==========#
 
 #==========TERRAFORM==========#
@@ -16,3 +17,9 @@ if [[ ":$PATH:" != *":$HOME/bin:"* ]]; then
     export PATH=$PATH:$HOME/bin
 fi
 #==========TERRAFORM==========#
+
+#==========CLONE TERRAFORM REPOSITORY==========#
+git clone git@github.com:judigot/terraform.git
+cd terraform || return
+npm run init
+#==========CLONE TERRAFORM REPOSITORY==========#
