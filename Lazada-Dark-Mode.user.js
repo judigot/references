@@ -17,38 +17,16 @@
 (function() {
     'use strict';
 
-    document.querySelector('html').classList.remove('__fb-light-mode');
-    document.querySelector('html').classList.add('__fb-dark-mode');
-
-    function setDarkTheme() {
-        document.querySelector('html').classList.remove('__fb-light-mode');
-        document.querySelector('html').classList.add('__fb-dark-mode');
-        document.querySelectorAll('.__fb-light-mode').forEach(elem => {
-            elem.classList.remove('__fb-light-mode');
-            elem.classList.add('__fb-dark-mode');
-        });
-    };
-
-    // Select the node that will be observed for mutations
-    const targetNode = document.getElementById("facebook");
-
-    // Options for the observer (which mutations to observe)
-    const config = { attributes: false, childList: true, subtree: true };
-
-    // Callback function to execute when mutations are observed
-    const callback = (mutationList, observer) => {
-        for (const mutation of mutationList) {
-            if (mutation.type === "childList") {
-                setDarkTheme();
-            }
+    const style = document.createElement('style');
+    style.type = 'text/css';
+    style.innerHTML = `
+        body, html {
+            background-color: black !important;
+            color: white !important;
         }
-    };
-
-    // Create an observer instance linked to the callback function
-    const observer = new MutationObserver(callback);
-
-    // Start observing the target node for configured mutations
-    observer.observe(targetNode, config);
-
-    // Reference to https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver
+        p, h1, h2, h3, h4, h5, h6, span, a, li, div {
+            color: white !important;
+        }
+    `;
+    document.head.appendChild(style);
 })();
