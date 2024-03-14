@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         Lazada.com Force Official Dark Mode (M-FODM)
+// @name         Lazada.com Dark Mode
 // @namespace    https://github.com/judigot/
 // @version      0.3
-// @description  Append the "__fb-dark-mode" class to the HTML tag and force Facebook's official Dark Mode
+// @description  Darken Lazada using plain old CSS
 // @encoding     utf-8
 // @homepage     https://github.com/judigot/references
 // @supportURL   https://github.com/judigot/references/issues
