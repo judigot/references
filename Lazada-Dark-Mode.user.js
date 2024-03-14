@@ -20,11 +20,9 @@
     const style = document.createElement('style');
     style.type = 'text/css';
     style.innerHTML = `
-        body, html {
+        * {
             background-color: black !important;
             color: white !important;
-        }
-        p, h1, h2, h3, h4, h5, h6, span, a, li, div {
             color: white !important;
         }
     `;
