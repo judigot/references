@@ -25,6 +25,10 @@
             color: white !important;
             color: white !important;
         }
+
+        input {
+            background-color: gray !important;
+        }
     `;
     document.head.appendChild(style);
 })();
