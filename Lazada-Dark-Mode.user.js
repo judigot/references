@@ -9,7 +9,7 @@
 // @updateURL    https://github.com/judigot/references/blob/main/Lazada-Dark-Mode.user.js
 // @downloadURL  https://github.com/judigot/references/blob/main/Lazada-Dark-Mode.user.js
 // @author       judigot
-// @match        *.lazada.com/*
+// @match        *.lazada.com.ph/*
 // @grant        none
 // @icon https://lzd-img-global.slatic.net/g/tps/tfs/TB1e_.JhHY1gK0jSZTEXXXDQVXa-64-64.png
 // ==/UserScript==
