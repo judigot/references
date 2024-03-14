@@ -19,7 +19,7 @@ fi
 #==========TERRAFORM==========#
 
 #==========CLONE TERRAFORM REPOSITORY==========#
-git clone git@github.com:judigot/terraform.git
+git clone https://github.com/judigot/terraform.git
 cd terraform || return
 npm run init
 #==========CLONE TERRAFORM REPOSITORY==========#

@@ -398,7 +398,7 @@ wget -O renamed.txt example.com/test.txt
 Tags: `execute remote github script`, `execute raw github script`, `execute github script remotely`, `execute github script`, `execute raw script`, `run remote script`
 
 ```bash
-curl -L https://raw.githubusercontent.com/username/repository/script.sh | bash
+curl -L https://raw.githubusercontent.com/judigot/references/AWS-Cloudshell-Bootstrap.sh | bash
 ```
 
 ### Download with Original Filename
