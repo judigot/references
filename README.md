@@ -193,6 +193,34 @@ Remove-Item -Path $nestedDirPath -Force -Recurse
 
 # Bash Scripting
 
+## Add New SSH Keys to EC2 Instance
+
+Tags: `add new keys`, `append new ssh keys`, `append new keys`
+
+1. Download the key pair (.pem) from the AWS EC2 Key Pairs page
+
+2. Save the downloaded key to ~/.ssh on your local machine
+
+3. Set permissions to users only
+     ```bash
+     chmod 400 ~/.ssh/new_key.pem
+     ```
+
+4. Generate a public key from the private key
+     ```bash
+     ssh-keygen -y -f ~/.ssh/new_key.pem
+     ```
+
+5. Append the generated public key to ~/.ssh/authorized_keys
+    ```
+    echo "ssh-rsa AAAA..." >> ~/.ssh/authorized_keys
+    ```
+
+6. SSH to EC2 Instance
+     ```bash
+     ssh -i ~/.ssh/new_key.pem ubuntu@domainNameOrIPAddress
+     ```
+
 ## Extract HTML Attribute Using Inner Text
 
 Tags: `extract html attribute using innerText`, `extract attribute using innerText`
