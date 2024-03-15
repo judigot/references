@@ -199,6 +199,8 @@ Tags: `add new keys`, `append new ssh keys`, `append new keys`, `add ssh keys`, 
 
 1. Download the key pair (.pem) from the AWS EC2 Key Pairs page
 
+    [https://console.aws.amazon.com/ec2/home#KeyPairs:](https://console.aws.amazon.com/ec2/home#KeyPairs:)
+
 2. Save the downloaded key to ~/.ssh on your local machine
 
 3. Set permissions to users only
