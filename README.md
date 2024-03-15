@@ -201,7 +201,7 @@ Tags: `add new keys`, `append new ssh keys`, `append new keys`, `add ssh keys`, 
 
     [https://console.aws.amazon.com/ec2/home#KeyPairs:](https://console.aws.amazon.com/ec2/home#KeyPairs:)
 
-2. Save the downloaded key to ~/.ssh on your local machine
+2. Save the downloaded key to `~/.ssh` on your local machine
 
 3. Set permissions to users only
      ```bash
@@ -213,7 +213,7 @@ Tags: `add new keys`, `append new ssh keys`, `append new keys`, `add ssh keys`, 
      ssh-keygen -y -f ~/.ssh/new_key.pem
      ```
 
-5. Append the generated public key to ~/.ssh/authorized_keys
+5. Append the generated public key to `~/.ssh/authorized_keys`
     ```
     echo "ssh-rsa AAAA..." >> ~/.ssh/authorized_keys
     ```
