@@ -195,7 +195,7 @@ Remove-Item -Path $nestedDirPath -Force -Recurse
 
 ## Add New SSH Keys to EC2 Instance
 
-Tags: `add new keys`, `append new ssh keys`, `append new keys`
+Tags: `add new keys`, `append new ssh keys`, `append new keys`, `add ssh keys`, `append ssh keys`
 
 1. Download the key pair (.pem) from the AWS EC2 Key Pairs page
 
