@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Lazada.com Dark Mode
 // @namespace    https://github.com/judigot/
-// @version      0.3
+// @version      1.0
 // @description  Darken Lazada using plain old CSS
 // @encoding     utf-8
 // @homepage     https://github.com/judigot/references
