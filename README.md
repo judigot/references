@@ -3989,7 +3989,7 @@ const people = [
 ];
 const males = people.filter((person) => person.gender === "male");
 
-// Filter first result; get first result; filter first object; get first object
+// Filter first result; get first result; filter first object; get first object; find first result; find first object
 const firstMales = people.find((person) => person.gender === "male");
 console.log(males);
 //==========FILTER OBJECTS; FILTER DATA; SEARCH OBJECTS; SEARCH DATA==========//
