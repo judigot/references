@@ -8296,6 +8296,8 @@ Ctrl + Shift + Alt =====> ?
 - Load environment variables from .env file
 - Create ERDs (Entity Relationship Diagram):
   - Lucidchart.com
+- SQL stored procedures
+  - for querying very large data with expensive computation
 - ORM
   - Raw query option with replacements/placeholder
   - Indexing for faster data retrieval
