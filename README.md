@@ -7260,6 +7260,15 @@ exit;
 
 ## MySQL Commands
 
+### Show All Stored Procedures
+Tags: `show stored procedures`, `select all stored procedures`, `select stored procedures`
+```sql
+SELECT ROUTINE_NAME
+FROM INFORMATION_SCHEMA.ROUTINES
+WHERE ROUTINE_TYPE = 'PROCEDURE'
+AND ROUTINE_SCHEMA = 'database_name';
+```
+
 ### Show Databases
 ```sql
 SHOW DATABASES;
