@@ -8298,6 +8298,7 @@ Ctrl + Shift + Alt =====> ?
   - Lucidchart.com
 - SQL stored procedures
   - for querying very large data with expensive computation
+- Aggregated data using SQL
 - ORM
   - Raw query option with replacements/placeholder
   - Indexing for faster data retrieval
