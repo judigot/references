@@ -9299,3 +9299,51 @@ console.log(oneToManyRelationships);
 
 //====================FUNCTIONS====================//
 ```
+
+# SQL Stored Procedures
+
+## PostgreSQL
+
+```tsx
+import { PrismaClient, Prisma } from '@prisma/client';
+
+const prisma = new PrismaClient();
+
+export const up = async (): Promise<void> => {
+  const sql = Prisma.sql`SELECT * FROM "User";`;
+  await prisma.$executeRaw`
+    CREATE OR REPLACE FUNCTION get_all_users_pg()
+    RETURNS TABLE(id INT, name TEXT, email TEXT) AS $$
+    BEGIN
+      RETURN QUERY ${sql};
+    END;
+    $$ LANGUAGE plpgsql;
+  `;
+};
+
+export const down = async (): Promise<void> => {
+  await prisma.$executeRaw`DROP FUNCTION IF EXISTS get_all_users_pg`;
+};
+```
+
+## MySQL
+
+```tsx
+import { PrismaClient, Prisma } from '@prisma/client';
+
+const prisma = new PrismaClient();
+
+export const up = async (): Promise<void> => {
+  const sql = Prisma.sql`SELECT * FROM \`User\`;`;
+  await prisma.$executeRaw`
+    CREATE PROCEDURE get_all_users_my()
+    BEGIN
+      ${sql}
+    END;
+  `;
+};
+
+export const down = async (): Promise<void> => {
+  await prisma.$executeRaw`DROP PROCEDURE IF EXISTS get_all_users_my`;
+};
+```
