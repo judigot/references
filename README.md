@@ -6800,6 +6800,9 @@ git push -u origin <new-branch>
 Create and checkout to a new branch:
 git checkout -b <new-branch>
 
+Migrate changes to another branch:
+git stash -u && git checkout -b new-branch
+
 # Create a new branch without files; Create a blank branch
 ```
 git checkout --orphan <new-branch>
