@@ -3742,20 +3742,27 @@ useEffect(() => {
 ```
 
 ## Jotai
+
+## Global State File
+
 ```tsx
-import { atom, useAtom } from "@/lib/jotai";
+import { atom } from 'jotai';
 
-interface Props {
-  name: string;
-}
+export const dataAtom = atom<Record<string, string>[]>([ { key: "value" }]);
+```
 
-const pageAtom = atom<string>("HOME");
+## Usage
+
+```tsx
+import { useAtom } from "@/lib/jotai";
+
+import { dataAtom } from '@/state';
 
 export default function App({ name }: Props) {
-  const [page, setPage] = useAtom(pageAtom);
+  const [data, setData] = useAtom(dataAtom);
   return (
     <>
-      Hey, {name}. Current Page: {page}
+      {JSON.stringify(data, null, 4)}
     </>
   );
 }
