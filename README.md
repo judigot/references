@@ -3743,7 +3743,7 @@ useEffect(() => {
 
 ## Jotai
 
-## Global State File
+### Global State File
 
 ```tsx
 import { atom } from 'jotai';
@@ -3751,7 +3751,7 @@ import { atom } from 'jotai';
 export const dataAtom = atom<Record<string, string>[]>([ { key: "value" }]);
 ```
 
-## Usage
+### Usage
 
 ```tsx
 import { useAtom } from "@/lib/jotai";
@@ -3769,6 +3769,24 @@ export default function App({ name }: Props) {
 ```
 
 ## Common
+
+### Extract Object Property Values
+
+Tags: `extract object values`, `extract property values`
+
+```tsx
+const languages = [
+    { language_name: "typescript", display_name: "TypeScript" },
+    { language_name: "javascript", display_name: "JavaScript" },
+    { language_name: "java", display_name: "Java" },
+    { language_name: "php", display_name: "PHP" }
+];
+
+const languageNames = languages.map(language => language.language_name);
+
+console.log(languageNames); // Output: ["typescript", "javascript", "java", "php"]
+```
+
 ```tsx
 // Pick & Omit to select or remove attributes from object interface/types. Used for reusing interfaces/types
 
