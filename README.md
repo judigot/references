@@ -3772,7 +3772,7 @@ export default function App({ name }: Props) {
 
 ### Extract Object Property Values
 
-Tags: `extract object values`, `extract property values`
+Tags: `extract object properties`, `extract object values`, `extract property values`
 
 ```tsx
 const languages = [
