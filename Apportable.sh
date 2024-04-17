@@ -16,6 +16,9 @@ git config --global init.defaultBranch main
 
 # Use LF (Unix) instead of CRLF (Windows)
 git config --global core.autocrlf input
+
+# Use Vim as default Git editor
+git config --global core.editor "vim"
 #=====GIT CONFIG=====#
 
 #=====DENO=====#
