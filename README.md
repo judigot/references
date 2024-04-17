@@ -6826,7 +6826,7 @@ Create and checkout to a new branch:
 git checkout -b <new-branch>
 
 Migrate changes to another branch:
-git stash -u && git checkout -b new-branch
+git stash -u && git checkout -b new-branch && git stash pop
 
 # Create a new branch without files; Create a blank branch
 ```
