@@ -6786,6 +6786,32 @@ echo "Git version: $version"
 # =====================================
 # Git Commands
 
+## Combine Branches
+
+Tags: `absorb branch` `integrate branch`
+
+### Merge Method (Non-linear History)
+```bash
+main_branch="main"
+feature_branch="feature-branch"
+
+git checkout $main_branch && git merge $feature_branch && git push origin $main_branch
+```
+
+### Rebase Method (Simpler Linear History)
+```bash
+main_branch="main"
+feature_branch="feature-branch"
+
+git checkout $feature_branch && git rebase $main_branch && git checkout $main_branch && git merge $feature_branch && git push origin $main_branch
+```
+
+## Update Current Branch With Changes From Another Branch
+
+```bash
+git pull origin <base-branch>
+```
+
 ## Check Git Status Before Deleting A Repository
 
 Tags: `check git status before deleting repository`, `check git status before removing a repository`, `check git status before removing repository`, `check and remove`, ``
