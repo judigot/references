@@ -6786,6 +6786,18 @@ echo "Git version: $version"
 # =====================================
 # Git Commands
 
+## Hard-Reset Branch
+
+Tags: `revert back to main` `hard reset` `remove all changes`
+
+```bash
+git checkout target-branch
+git fetch origin main
+git pull origin main
+git reset --hard origin/main
+git push origin target-branch --force
+```
+
 ## Combine Branches
 
 Tags: `absorb branch` `integrate branch`
@@ -6933,15 +6945,6 @@ git init
 git remote add origin https://github.com/<username>/repository
 git pull origin main
 git status
- 
-Revert back to main; hard reset; remove all changes:
-```
-git checkout target-branch
-git fetch origin main
-git pull origin main
-git reset --hard origin/main
-git push origin target-branch --force
-```
 
 Reset/remove all changes:
 git stash -u
