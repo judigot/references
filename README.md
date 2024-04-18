@@ -6792,7 +6792,6 @@ Tags: `revert back to main` `hard reset` `remove all changes`
 
 ```bash
 git checkout target-branch
-git fetch origin main
 git pull origin main
 git reset --hard origin/main
 git push origin target-branch --force
