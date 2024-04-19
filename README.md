@@ -5200,13 +5200,14 @@ const functionName = () => console.log("One-liner function");
 const originalObject = {
   a: "1",
   b: "2",
-  c: "3", // This property will be overridden by mutation's c: property
+  c: "3", // This property will be overridden
 };
-const mutation = {
-  c: "new value",
-  d: "4",
+
+const mutatedObject = {
+  ...originalObject,
+  c: "new value",  // Override 'c' directly
+  d: "4"           // Add new property 'd'
 };
-const mutatedObject = { ...originalObject, ...mutation };
 console.log(mutatedObject);
 //====================//
 
@@ -5219,13 +5220,14 @@ const originalObject = {
     e: "4",
   },
 };
-const mutation = {
+
+const mutatedObject = {
+  ...originalObject,
   c: {
     ...originalObject.c,
-    e: "new value",
+    e: "new value",  // Directly update the 'e' property within 'c'
   },
 };
-const mutatedObject = { ...originalObject, ...mutation };
 console.log(mutatedObject);
 //==========MUTATE NESTED OBJECTS==========//
 
