@@ -8597,6 +8597,8 @@ lambda; anonymous function; lambda expression; arrow function body
 IIFE; self-invoking expression; self-calling expression; self-invoking function; self-calling function;
 findObjectIndex
 mutateObject
+mutateNestedObject
+mutateArray
 existsInArray; valueExistsInArray;
 recursion
 getObjectKeys
