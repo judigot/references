@@ -5243,16 +5243,13 @@ Tags: `exclude keys from an object`, `exclude properties from an object`, `filte
 ```tsx
 const objectVariable = {
   key1: 1,
-  key2: "Value",
+  key2: "This will be removed",
 };
 
-// Version 1
-const { key1, key2, ...restOfTheObject } = objectVariable;
+// Set the property to be removed
+const { key2, ...newObject } = objectVariable;
 
-// Version 2
-const propertyToBeRemoved: keyof typeof objectVariable = "key1"
-// const { [propertyToBeRemoved as keyof typeof objectVariable]: _, ...newObject } = objectVariable;
-const { [propertyToBeRemoved]: _, ...newObject } = objectVariable;
+console.log(newObject); // { key1: 1 }
 ```
 
 # =====================================
