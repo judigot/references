@@ -6522,24 +6522,33 @@ main
 ```tsx
 import React, { useState } from "react";
 
-interface FormData {
-  textInput: string;
-  textareaInput: string;
-  selectInput: string;
-  radioInput: string;
-  checkboxInput1: boolean;
-  checkboxInput2: boolean;
-}
-
 export function Form() {
-  const [formData, setFormData] = useState<FormData>({
-    textInput: "",
-    textareaInput: "",
-    selectInput: "",
-    radioInput: "radioOption1",
-    checkboxInput1: false,
-    checkboxInput2: false,
-  });
+  const FORM_FIELDS = {
+    TEXT_INPUT: "textInput",
+    TEXTAREA_INPUT: "textareaInput",
+    SELECT_INPUT: "selectInput",
+    RADIO_INPUT: "radioInput",
+    CHECKBOX_INPUT1: "checkboxInput1",
+    CHECKBOX_INPUT2: "checkboxInput2",
+  } as const;
+
+  interface FormData {
+    [FORM_FIELDS.TEXT_INPUT]: string;
+    [FORM_FIELDS.TEXTAREA_INPUT]: string;
+    [FORM_FIELDS.SELECT_INPUT]: string;
+    [FORM_FIELDS.RADIO_INPUT]: string;
+    [FORM_FIELDS.CHECKBOX_INPUT1]: boolean;
+    [FORM_FIELDS.CHECKBOX_INPUT2]: boolean;
+  }
+
+  const defaultValues = {
+    [FORM_FIELDS.TEXT_INPUT]: "",
+    [FORM_FIELDS.TEXTAREA_INPUT]: "",
+    [FORM_FIELDS.SELECT_INPUT]: "",
+    [FORM_FIELDS.RADIO_INPUT]: "",
+    [FORM_FIELDS.CHECKBOX_INPUT1]: false,
+    [FORM_FIELDS.CHECKBOX_INPUT2]: false,
+  };
 
   const selectOptions = {
     option1: "Option 1",
@@ -6547,9 +6556,16 @@ export function Form() {
     option3: "Option 3",
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const [formData, setFormData] = useState<FormData>(defaultValues);
+
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value, type } = e.target;
-    const checked = type === "checkbox" ? (e.target as HTMLInputElement).checked : undefined;
+    const checked =
+      type === "checkbox" ? (e.target as HTMLInputElement).checked : undefined;
 
     setFormData((prevData) => ({
       ...prevData,
@@ -6561,8 +6577,7 @@ export function Form() {
     e.preventDefault();
 
     const areAllInputsFilled = Object.values(formData).every(
-      (value) =>
-        value !== undefined && value !== null && value !== '',
+      (value) => value !== undefined && value !== null && value !== ""
     );
 
     if (areAllInputsFilled) {
@@ -6582,11 +6597,11 @@ export function Form() {
         onAddValue={(updatedTags: string[]) => {
           setFormData((prev) => ({
             ...prev,
-            tagInput: '',
+            tagInput: "",
             tagInputValues: updatedTags,
           }));
         }}
-        suggestions={['Hello', 'World']}
+        suggestions={["Hello", "World"]}
       />
 
       {/* Text Input */}
