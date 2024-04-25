@@ -6572,6 +6572,23 @@ export function Form() {
 
   return (
     <form onSubmit={handleSubmit}>
+      <TagInput
+        id="tagInput"
+        required={true}
+        placeholder="Add tags"
+        inputValue={formData.tagInput}
+        addedValues={formData.tagInputValues}
+        onInputChange={handleChange}
+        onAddValue={(updatedTags: string[]) => {
+          setFormData((prev) => ({
+            ...prev,
+            tagInput: '',
+            tagInputValues: updatedTags,
+          }));
+        }}
+        suggestions={['Hello', 'World']}
+      />
+
       {/* Text Input */}
       <label htmlFor="textInput">
         Text Input:
