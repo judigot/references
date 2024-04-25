@@ -3770,6 +3770,14 @@ export default function App({ name }: Props) {
 
 ## Common
 
+### Focus on HTML Element
+
+Tags: `focus on element`, `focus html element`, `focus element`
+
+```tsx
+(document.querySelector('#snippet_content') as HTMLElement | null)?.focus();
+```
+
 ### Extract Object Property Values
 
 Tags: `extract object properties`, `extract object values`, `extract property values`
