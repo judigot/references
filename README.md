@@ -6524,6 +6524,8 @@ import React, { useState } from "react";
 
 export function Form() {
   const FORM_FIELDS = {
+    TAG_INPUT: "tagInput",
+    TAGS: "tags",
     TEXT_INPUT: "textInput",
     TEXTAREA_INPUT: "textareaInput",
     SELECT_INPUT: "selectInput",
@@ -6533,6 +6535,8 @@ export function Form() {
   } as const;
 
   interface FormData {
+    [FORM_FIELDS.TAG_INPUT]: string;
+    [FORM_FIELDS.TAGS]: string[];
     [FORM_FIELDS.TEXT_INPUT]: string;
     [FORM_FIELDS.TEXTAREA_INPUT]: string;
     [FORM_FIELDS.SELECT_INPUT]: string;
@@ -6542,6 +6546,8 @@ export function Form() {
   }
 
   const defaultValues = {
+    [FORM_FIELDS.TAG_INPUT]: "",
+    [FORM_FIELDS.TAGS]: [],
     [FORM_FIELDS.TEXT_INPUT]: "",
     [FORM_FIELDS.TEXTAREA_INPUT]: "",
     [FORM_FIELDS.SELECT_INPUT]: "",
@@ -6591,14 +6597,14 @@ export function Form() {
         id="tagInput"
         required={true}
         placeholder="Add tags"
-        inputValue={formData.tagInput}
-        addedValues={formData.tagInputValues}
+        inputValue={formData[FORM_FIELDS.TAG_INPUT]}
+        addedValues={formData[FORM_FIELDS.TAGS]}
         onInputChange={handleChange}
         onAddValue={(updatedTags: string[]) => {
           setFormData((prev) => ({
             ...prev,
-            tagInput: "",
-            tagInputValues: updatedTags,
+            [FORM_FIELDS.TAG_INPUT]: "",
+            [FORM_FIELDS.TAGS]: updatedTags,
           }));
         }}
         suggestions={["Hello", "World"]}
