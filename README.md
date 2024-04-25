@@ -8655,7 +8655,7 @@ getObjectLength
 appendToObject
 prependToObject
 arrayToCSV
-multilineString
+multilineString; heredoc
 builderPattern; methodChaining
 import
 export
