@@ -6719,7 +6719,7 @@ const LoginForm = () => {
 
   const [message, setMessage] = React.useState<string>("");
 
-  const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
     setFormData({ ...formData, [name]: value });
   };
@@ -6750,7 +6750,7 @@ const LoginForm = () => {
           required
           type="text"
           name="username"
-          onChange={handleInputChange}
+          onChange={handleChange}
         />
 
         <label>Password</label>
@@ -6758,7 +6758,7 @@ const LoginForm = () => {
           required
           type="password"
           name="password"
-          onChange={handleInputChange}
+          onChange={handleChange}
         />
 
         <button type="submit">Login</button>
