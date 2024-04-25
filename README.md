@@ -5065,11 +5065,11 @@ $("#myModal").modal("hide");
 $("#element").css({ "color": "red" });
 
 // Set Interval:
-setInterval(function () {
+setInterval(() => {
 }, 1000);
 
 // Set timeout:
-setTimeout(function () {
+setTimeout(() => {
 }, 1000);
 
 // Ajax:
