@@ -7422,6 +7422,9 @@ psql
 ```
 
 ### Reset Auto-Increment ID
+
+Tags: `reset auto increment`, `reset primary key`
+
 ```bash
 ALTER SEQUENCE tableName_column_id_seq RESTART WITH 1;
 ```
