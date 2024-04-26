@@ -3974,7 +3974,7 @@ for (let i = 0, arrayLength = data.length; i < arrayLength; i++) {
 }
 //====================ASSIGN DYNAMIC KEYS; DYNAMIC OBJECTS====================//
 
-// Omit type; reuse interface; remove interface property; omit interface property
+// Override interface; reuse interface; remove interface property; omit interface property
 interface SuperUser {
   userId: number;
   macAddress: string;
