@@ -8403,6 +8403,7 @@ Ctrl + Shift + Alt =====> ?
 - SQL stored procedures
   - for querying very large data with expensive computation
 - Aggregated data using SQL
+- Common Table Expression, or CTE for combining queries e.g. selecting ids and insert the resulting ids into another table
 - ORM
   - Raw query option with replacements/placeholder
   - Indexing for faster data retrieval
