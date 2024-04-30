@@ -9452,3 +9452,106 @@ export const down = async (): Promise<void> => {
   await prisma.$executeRaw`DROP PROCEDURE IF EXISTS get_all_users_my`;
 };
 ```
+
+
+# =====================================
+
+
+# HTML Template
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sticky Navbar with Toggleable Sidebar</title>
+    <style>
+      /* General body styling */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+      }
+
+      /* Sticky navbar styling */
+      .navbar {
+        background-color: #333;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      /* Main content area with flexbox to hold sidebars and content */
+      .content-area {
+        display: flex;
+        flex: 1;
+        height: calc(100% - 40px); /* Adjust based on navbar height */
+      }
+
+      /* Sidebar styling */
+      .sidebar {
+        background-color: #f4f4f4;
+        width: 200px;
+        padding: 10px;
+        overflow-y: auto;
+        transition: transform 0.3s ease;
+      }
+
+      /* Left sidebar specific styling */
+      .sidebar-left {
+        transform: translateX(-100%);
+      }
+
+      /* Right sidebar specific styling */
+      .sidebar-right {
+        /* If you want borders or other styles, add them here */
+      }
+
+      /* Main content styling */
+      .main-content {
+        flex: 1;
+        padding: 20px;
+        overflow-y: auto;
+      }
+
+      /* Toggle show class for sidebar */
+      .show {
+        transform: translateX(0%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      Sticky Navbar
+      <button
+        onclick="toggleSidebar()"
+        style="position: absolute; left: 20px; top: 10px"
+      >
+        Toggle Sidebar
+      </button>
+    </div>
+    <div class="content-area">
+      <div class="sidebar sidebar-left" id="leftSidebar">Left Sidebar</div>
+      <div class="main-content">
+        Main content goes here. Adjust the content to see how the sidebars
+        behave.
+      </div>
+      <div class="sidebar sidebar-right">Right Sidebar</div>
+    </div>
+
+    <script>
+      function toggleSidebar() {
+        var sidebar = document.getElementById("leftSidebar");
+        sidebar.classList.toggle("show");
+      }
+    </script>
+  </body>
+</html>
+```
