@@ -4029,7 +4029,8 @@ console.log(males);
 
 // Capitalize first letter of a string
 const string = "hello";
-const capitalizedFirstLetter = string.alias.charAt(0).toUpperCase() + string.slice(1);
+const capitalizedFirstLetter = string.charAt(0).toUpperCase() + string.slice(1);
+console.log(capitalizedFirstLetter);
 
 // Get vowel count; get consonant count
 const string = "Test";
