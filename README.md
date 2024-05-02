@@ -6521,62 +6521,90 @@ main
 # React Form
 ## Form 1
 ```tsx
-import React, { useState } from "react";
+/*
+=====USAGE=====
+<Form
+  initialData={{
+    tagInput: 'Tag value',
+    tags: ['tag1', 'tag2'],
+    textInput: 'Text value',
+    textareaInput: 'Textarea value',
+    selectInput: 'Option 1',
+    radioInput: 'Option 1',
+    checkboxoption1: true,
+    checkboxoption2: false,
+    checkboxoption3: false,
+}}
+=====USAGE=====
+*/
 
-export function Form() {
-  const FORM_FIELDS = {
-    TAG_INPUT: "tagInput",
-    TAGS: "tags",
-    TEXT_INPUT: "textInput",
-    TEXTAREA_INPUT: "textareaInput",
-    SELECT_INPUT: "selectInput",
-    RADIO_INPUT: "radioInput",
-    CHECKBOX_INPUT1: "checkboxInput1",
-    CHECKBOX_INPUT2: "checkboxInput2",
-  } as const;
+const FORM_FIELDS = {
+  TAG_INPUT: 'tagInput',
+  TAGS: 'tags',
+  TEXT_INPUT: 'textInput',
+  TEXTAREA_INPUT: 'textareaInput',
+  SELECT_INPUT: 'selectInput',
+  RADIO_INPUT: 'radioInput',
+  CHECKBOX_INPUT1: 'checkboxoption1',
+  CHECKBOX_INPUT2: 'checkboxoption2',
+  CHECKBOX_INPUT3: 'checkboxoption3',
+} as const;
 
-  interface FormData {
-    [FORM_FIELDS.TAG_INPUT]: string;
-    [FORM_FIELDS.TAGS]: string[];
-    [FORM_FIELDS.TEXT_INPUT]: string;
-    [FORM_FIELDS.TEXTAREA_INPUT]: string;
-    [FORM_FIELDS.SELECT_INPUT]: string;
-    [FORM_FIELDS.RADIO_INPUT]: string;
-    [FORM_FIELDS.CHECKBOX_INPUT1]: boolean;
-    [FORM_FIELDS.CHECKBOX_INPUT2]: boolean;
-  }
+interface FormInputValues {
+  [FORM_FIELDS.TAG_INPUT]: string;
+  [FORM_FIELDS.TAGS]: string[];
+  [FORM_FIELDS.TEXT_INPUT]: string;
+  [FORM_FIELDS.TEXTAREA_INPUT]: string;
+  [FORM_FIELDS.SELECT_INPUT]: string;
+  [FORM_FIELDS.RADIO_INPUT]: string;
+  [FORM_FIELDS.CHECKBOX_INPUT1]: boolean;
+  [FORM_FIELDS.CHECKBOX_INPUT2]: boolean;
+  [FORM_FIELDS.CHECKBOX_INPUT3]: boolean;
+}
 
-  const defaultValues = {
-    [FORM_FIELDS.TAG_INPUT]: "",
-    [FORM_FIELDS.TAGS]: [],
-    [FORM_FIELDS.TEXT_INPUT]: "",
-    [FORM_FIELDS.TEXTAREA_INPUT]: "",
-    [FORM_FIELDS.SELECT_INPUT]: "",
-    [FORM_FIELDS.RADIO_INPUT]: "",
-    [FORM_FIELDS.CHECKBOX_INPUT1]: false,
-    [FORM_FIELDS.CHECKBOX_INPUT2]: false,
-  };
+type OmittedKeys = typeof FORM_FIELDS.TAG_INPUT; // | typeof FORM_FIELDS.TAG_INPUT | typeof FORM_FIELDS.RADIO_INPUT
 
+interface FormDataBody extends Omit<FormInputValues, OmittedKeys> {}
+
+interface Props {
+  initialData?: FormInputValues;
+}
+
+const defaultValues: FormInputValues = {
+  [FORM_FIELDS.TAG_INPUT]: '',
+  [FORM_FIELDS.TAGS]: [],
+  [FORM_FIELDS.TEXT_INPUT]: '',
+  [FORM_FIELDS.TEXTAREA_INPUT]: '',
+  [FORM_FIELDS.SELECT_INPUT]: '',
+  [FORM_FIELDS.RADIO_INPUT]: '',
+  [FORM_FIELDS.CHECKBOX_INPUT1]: false,
+  [FORM_FIELDS.CHECKBOX_INPUT2]: false,
+  [FORM_FIELDS.CHECKBOX_INPUT3]: false,
+};
+
+export function Form({ initialData }: Props) {
   const selectOptions = {
-    option1: "Option 1",
-    option2: "Option 2",
-    option3: "Option 3",
+    option1: 'Option 1',
+    option2: 'Option 2',
+    option3: 'Option 3',
   };
 
-  const [formData, setFormData] = useState<FormData>(defaultValues);
+  const [formData, setFormData] = useState<FormInputValues>(
+    initialData ?? defaultValues,
+  );
 
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    >,
   ) => {
     const { name, value, type } = e.target;
     const checked =
-      type === "checkbox" ? (e.target as HTMLInputElement).checked : undefined;
+      type === 'checkbox' ? (e.target as HTMLInputElement).checked : undefined;
 
     setFormData((prevData) => ({
       ...prevData,
-      [name]: type === "checkbox" ? !!checked : value,
+      [name]: type === 'checkbox' ? !!checked : value,
     }));
   };
 
@@ -6584,16 +6612,18 @@ export function Form() {
     e.preventDefault();
 
     const areAllInputsFilled = Object.values(formData).every(
-      (value) => value !== undefined && value !== null && value !== ""
+      (value) => value !== undefined && value !== null && value !== '',
     );
 
     if (areAllInputsFilled) {
-      // Submit the form
+      const data: FormDataBody = formData;
+      console.log(data);
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      <pre>{JSON.stringify(formData, null, 4)}</pre>
       <TagInput
         id="tagInput"
         required={true}
@@ -6604,11 +6634,11 @@ export function Form() {
         onAddValue={(updatedTags: string[]) => {
           setFormData((prev) => ({
             ...prev,
-            [FORM_FIELDS.TAG_INPUT]: "",
+            [FORM_FIELDS.TAG_INPUT]: '',
             [FORM_FIELDS.TAGS]: updatedTags,
           }));
         }}
-        suggestions={["Hello", "World"]}
+        suggestions={['Hello', 'World']}
       />
 
       {/* Text Input */}
@@ -6652,7 +6682,7 @@ export function Form() {
         >
           <option value="">Select an option</option>
           {Object.entries(selectOptions).map(([key, option]) => (
-            <option key={key} value={key}>
+            <option key={key} value={option}>
               {option}
             </option>
           ))}
@@ -6669,8 +6699,8 @@ export function Form() {
               type="radio"
               id={`radio${key}`}
               name="radioInput"
-              value={key}
-              checked={formData.radioInput === key}
+              value={option}
+              checked={formData.radioInput === option}
               onChange={handleChange}
               aria-label={`Select ${option}`}
             />
@@ -6689,7 +6719,7 @@ export function Form() {
               type="checkbox"
               id={`checkbox${key}`}
               name={`checkbox${key}`}
-              checked={!!formData[`checkbox${key}` as keyof FormData]} // Ensure boolean value
+              checked={!!formData[`checkbox${key}` as keyof FormInputValues]} // Ensure boolean value
               onChange={handleChange}
               aria-label={`Toggle ${option}`}
             />
@@ -6706,7 +6736,6 @@ export function Form() {
   );
 }
 ```
-
 
 ## Form 2
 ```tsx
