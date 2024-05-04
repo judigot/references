@@ -193,6 +193,14 @@ Remove-Item -Path $nestedDirPath -Force -Recurse
 
 # Bash Scripting
 
+## Pause Script
+
+Tags: `pause bash script`, `pause shellscript`, `pause shell script`, `stop bash script`, `stop shellscript`, `stop shell script`
+
+```bash
+read -n 1 -s -r -p "Press any key to continue..."
+```
+
 ## Add New SSH Keys to EC2 Instance
 
 Tags: `add new keys`, `append new ssh keys`, `append new keys`, `add ssh keys`, `append ssh keys`
