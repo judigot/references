@@ -559,7 +559,8 @@ readonly DEV_DEPENDENCIES=(
     "prettier"
     "styled-components"
     "tailwindcss"
-    "ts-node"
+    "esbuild"
+    "esbuild-register"
     "vite-tsconfig-paths"
     "vitest"
 )
@@ -619,7 +620,7 @@ function main() {
         prependToTextContent "$PROJECT_DIRECTORY/package.json" "\"dependencies\": {" "$(
             cat <<EOF
 "prisma": {
-    "seed": "ts-node --compilerOptions {\"module\":\"CommonJS\"} ./src/prisma/seed/seed.ts",
+    "seed": "node -r esbuild-register ./src/prisma/seed/seed.ts",
     "schema": "src/prisma/schema.prisma"
 },
 EOF
@@ -629,7 +630,7 @@ EOF
         editJSON "$PROJECT_DIRECTORY/package.json" "append" "scripts" "db:reset" "pnpm dotenv -e .env.local -- pnpm run db:drop && pnpm dotenv -e .env.local -- pnpm run prisma:db:push" &&
         editJSON "$PROJECT_DIRECTORY/package.json" "append" "scripts" "db:reset-with-data" "pnpm dotenv -e .env.local -- pnpm run db:drop && pnpm dotenv -e .env.local -- pnpm run prisma:db:push && pnpm dotenv -e .env.local -- pnpm run db:seed" &&
         editJSON "$PROJECT_DIRECTORY/package.json" "append" "scripts" "db:seed" "pnpm dotenv -e .env.local -- pnpm prisma db seed" &&
-        editJSON "$PROJECT_DIRECTORY/package.json" "append" "scripts" "db:drop" "pnpm dotenv -e .env.local -- ts-node --compilerOptions \\\\\"{\\\\\\\\\\\\\"module\\\\\\\\\\\\\":\\\\\\\\\\\\\"CommonJS\\\\\\\\\\\\\"}\\\\\" ./src/prisma/scripts/DeleteTables.ts" &&
+        editJSON "$PROJECT_DIRECTORY/package.json" "append" "scripts" "db:drop" "pnpm dotenv -e .env.local -- node -r esbuild-register ./src/prisma/scripts/DeleteTables.ts" &&
         editJSON "$PROJECT_DIRECTORY/package.json" "append" "scripts" "prisma:db:push" "pnpm dotenv -e .env.local -- pnpm prisma db push && pnpm prisma generate" &&
         editJSON "$PROJECT_DIRECTORY/package.json" "append" "scripts" "prisma:db:pull" "pnpm dotenv -e .env.local -- pnpm prisma db pull && pnpm prisma generate" &&
 
@@ -1564,7 +1565,8 @@ readonly DEV_DEPENDENCIES=(
     "prettier"
     "styled-components"
     "tailwindcss"
-    "ts-node"
+    "esbuild"
+    "esbuild-register"
     "vite-tsconfig-paths"
     "vitest"
 )
@@ -7677,7 +7679,6 @@ npm install bcrypt
 npm install sequelize
 
 npm install typescript
-npm install ts-node
 
 npm install @types/node
 
@@ -7859,7 +7860,7 @@ start "C:\apporatable\Programming\PortableGit\git-bash.exe"
 1. Install Packages
     ```bash
     npm init -y
-    npm install typescript ts-node @types/node --save-dev
+    npm install typescript esbuild esbuild-register @types/node --save-dev
     npm install prisma --save-dev
     npm i @prisma/client
     npx tsc --init
