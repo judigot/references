@@ -23,10 +23,12 @@ git config --global core.editor "vim"
 
 #=====BATCH FILE TO EXECUTE .SH FILES USING BASH=====#
 BAT_PATH="$rootDir/$environment/Bash.bat"
-cat << 'EOF' > "$BAT_PATH"
+cat << EOF > "$BAT_PATH"
 @echo off
 set BASH_ENV=C:/Users/Jude/.bashrc
-C:\apportable\Programming\msys64\usr\bin\bash.exe --login "%~f1"
+set FULL_PATH=%~f1
+cd /d %~dp1
+C:/$portableFolderName/$environment/msys64/usr/bin/bash.exe --login -c "cd '%~dp1' && bash '%~f1'"
 EOF
 echo "Bash.bat has been created successfully."
 #=====BATCH FILE TO EXECUTE .SH FILES USING BASH=====#
