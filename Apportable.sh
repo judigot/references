@@ -21,6 +21,16 @@ git config --global core.autocrlf input
 git config --global core.editor "vim"
 #=====GIT CONFIG=====#
 
+#=====BATCH FILE TO EXECUTE .SH FILES USING BASH=====#
+BAT_PATH="$rootDir/$environment/Bash.bat"
+cat << 'EOF' > "$BAT_PATH"
+@echo off
+set BASH_ENV=C:/Users/Jude/.bashrc
+C:\apportable\Programming\msys64\usr\bin\bash.exe --login "%~f1"
+EOF
+echo "Bash.bat has been created successfully."
+#=====BATCH FILE TO EXECUTE .SH FILES USING BASH=====#
+
 #=====DENO=====#
 repository="https://github.com/denoland/deno"
 HTMLPatternToMatch='<span class="css-truncate css-truncate-target text-bold mr-2" style="max-width: none;">'
