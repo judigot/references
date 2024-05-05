@@ -18,7 +18,10 @@ $filename = ".bashrc"
 $file_path = Join-Path $env:USERPROFILE -ChildPath $filename
 $file_content = @"
 #!/bin/bash
+
 export PATH="`$PATH:$($pathsLinux)"
+
+[ -n "`$WELCOME_MESSAGE" ] && echo "`$WELCOME_MESSAGE"
 "@
 Set-Content -Path $file_path -Value $file_content
 Write-Host "$filename created successfully at: $file_path"
