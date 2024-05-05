@@ -5,7 +5,7 @@ $portableGitInstallationDir = "$rootDir\Programming"
 # Load PATH from github and use it in powershell session
 $paths = ((Invoke-WebRequest -Uri "https://raw.githubusercontent.com/judigot/references/main/PATH").Content)
 $pathsWindows = $paths -replace '\n', ';'
-$pathsLinux = $paths -replace '\n', ':'
+$pathsLinux = $paths -replace '\n', ':' -replace '\\', '/' -replace 'C:', '/c'
 $env:PATH += ";$pathsWindows"
 
 # Create "Programming" folder if it doesn't exist
