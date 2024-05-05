@@ -25,6 +25,7 @@ git config --global core.editor "vim"
 BAT_PATH="$rootDir/$environment/Bash.bat"
 cat << EOF > "$BAT_PATH"
 @echo off
+set HOME=C:/Users/Jude
 set BASH_ENV=C:/Users/Jude/.bashrc
 set FULL_PATH=%~f1
 cd /d %~dp1
