@@ -22,6 +22,8 @@ $file_content = @"
 export PATH="`$PATH:$($pathsLinux)"
 
 [ -n "`$WELCOME_MESSAGE" ] && echo "`$WELCOME_MESSAGE"
+
+[[ -f ".snippetsrc" ]] && source ".snippetsrc"
 "@
 Set-Content -Path $file_path -Value $file_content
 Write-Host "$filename created successfully at: $file_path"
