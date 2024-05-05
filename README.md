@@ -9593,3 +9593,49 @@ export const down = async (): Promise<void> => {
   </body>
 </html>
 ```
+
+# MYSYS2
+
+## Must-have Packages
+
+```bash
+pacman -S --noconfirm vim
+pacman -S --noconfirm zsh
+pacman -S --noconfirm util-linux
+```
+
+## ZSH Configuration
+
+Add the line below to your .bashrc
+
+```bash
+exec /usr/bin/zsh
+
+# Install Oh My Zsh framework
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# Install zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+
+# Add zsh-autosuggestions to the list of plugins in .zshrc
+vim ~/.zshrc
+
+# It should look like this
+plugins=(git zsh-autosuggestions)
+
+# Restart terminal
+```
+
+## Update Packages
+
+```bash
+pacman -Syu --noconfirm # Yes to all
+# pacman -Syu
+```
+
+## Install Packages
+
+```bash
+pacman -S --noconfirm git # Yes to all
+# pacman -S zsh
+```
