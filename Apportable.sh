@@ -27,9 +27,15 @@ cat << EOF > "$BAT_PATH"
 @echo off
 set HOME=C:/Users/Jude
 set BASH_ENV=C:/Users/Jude/.bashrc
-set FULL_PATH=%~f1
-cd /d %~dp1
-C:/$portableFolderName/$environment/msys64/usr/bin/bash.exe --login -c "cd '%~dp1' && bash '%~f1'"
+
+:: Check if a script file is passed as an argument
+if "%~1"=="" (
+    $rootDir/$environment/msys64/usr/bin/bash.exe --login
+) else (
+    set FULL_PATH=%~f1
+    cd /d %~dp1
+    $rootDir/$environment/msys64/usr/bin/bash.exe --login -c "cd '%~dp1' && bash '%~f1'"
+)
 EOF
 echo "Bash.bat has been created successfully."
 #=====BATCH FILE TO EXECUTE .SH FILES USING BASH=====#
