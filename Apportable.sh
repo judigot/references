@@ -42,6 +42,54 @@ EOF
 echo "Bash.bat has been created successfully."
 #=====BATCH FILE TO EXECUTE .SH FILES USING BASH=====#
 
+#=====MSYS2=====#
+# URL of the releases page
+msys2_url="https://github.com/msys2/msys2-installer/releases"
+
+# Desired h2 index
+h2Index=3
+
+# Fetch the page content
+page_content=$(curl -s "$msys2_url")
+
+# Extract the innerText of the h2 tag specified by h2Index using awk
+h2_text=$(echo "$page_content" | awk -v indexer="$h2Index" 'BEGIN{RS="</h2>"; IGNORECASE=1} NR==indexer{gsub(/.*<h2[^>]*>/,""); print}')
+latest_release_date="$h2_text"
+latest_release_date_without_hyphens=$(echo "$latest_release_date" | tr -d '-')
+
+# Construct the final URL
+mysys2_URL="https://github.com/msys2/msys2-installer/releases/download/$latest_release_date/msys2-base-x86_64-$latest_release_date_without_hyphens.tar.xz"
+
+# Define the path where the tar file will be downloaded
+tarFile="$rootDir/$environment/msys64.tar.xz"
+# Download the tar.xz file
+curl -L -o "$tarFile" "$mysys2_URL"
+
+# Destination directory for extraction
+destinationDir="$rootDir/$environment/msys64_temp"
+
+# Check if the tar file exists
+if [ -f "$tarFile" ]; then
+    # Create the destination directory if it doesn't exist
+    [ -d "$destinationDir" ] || mkdir -p "$destinationDir"
+    # Extract the tar.xz file using 7-Zip
+    "$_7zip_path/7z.exe" x -y "$tarFile" -o"$destinationDir"
+    # Continue extracting the inner tar file
+    "$_7zip_path/7z.exe" x -y "$destinationDir/$(basename "$tarFile" .xz)" -o"$destinationDir"
+    echo "Extraction complete."
+else
+    echo "Tar file not found: $tarFile"
+fi
+
+# Assuming there's only one directory in the extracted content
+extractedContentFolderName=$(find "$destinationDir" -maxdepth 1 -mindepth 1 -type d -exec basename {} \;)
+# Move and rename the extracted content
+mv "$destinationDir/$extractedContentFolderName" "$rootDir/$environment/msys64"
+# Delete the temporary folder
+rm -rf "$destinationDir"
+#=====MSYS2=====#
+
+
 #=====DENO=====#
 repository="https://github.com/denoland/deno"
 HTMLPatternToMatch='<span class="css-truncate css-truncate-target text-bold mr-2" style="max-width: none;">'
