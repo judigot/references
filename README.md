@@ -193,6 +193,15 @@ Remove-Item -Path $nestedDirPath -Force -Recurse
 
 # Bash Scripting
 
+## Replace File
+
+Tags: `replace local file`, `update local file from github`
+
+```bash
+curl -s https://raw.githubusercontent.com/judigot/vscode/main/.bashrc -o ~/.bashrc
+```
+
+
 ## Pause Script
 
 Tags: `pause bash script`, `pause shellscript`, `pause shell script`, `stop bash script`, `stop shellscript`, `stop shell script`
