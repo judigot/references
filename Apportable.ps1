@@ -23,8 +23,6 @@ export PATH="`$PATH:$($pathsLinux)"
 export NVM_HOME="$("$portableGitInstallationDir/nvm" -replace '\n', ':' -replace '\\', '/' -replace 'C:', '/c')"
 export NVM_SYMLINK="$("$portableGitInstallationDir/nodejs" -replace '\n', ':' -replace '\\', '/' -replace 'C:', '/c')"
 
-[ -n "`$WELCOME_MESSAGE" ] && echo "`$WELCOME_MESSAGE"
-
 [[ -f ".snippetsrc" ]] && source ".snippetsrc"
 "@
 Set-Content -Path $file_path -Value $file_content
