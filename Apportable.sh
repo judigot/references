@@ -42,6 +42,25 @@ EOF
 echo "Bash.bat has been created successfully."
 #=====BATCH FILE TO EXECUTE .SH FILES USING BASH=====#
 
+#=====BATCH FILE TO OPEN ZSH SHELL=====#
+BAT_PATH="$rootDir/$environment/Zsh.bat"
+cat << EOF > "$BAT_PATH"
+@echo off
+set HOME=C:/Users/Jude
+set BASH_ENV=C:/Users/Jude/.bashrc
+
+:: Check if a script file is passed as an argument
+if "%~1"=="" (
+    $rootDir/$environment/msys64/usr/bin/zsh.exe --login
+) else (
+    set FULL_PATH=%~f1
+    cd /d %~dp1
+    $rootDir/$environment/msys64/usr/bin/zsh.exe --login -c "cd '%~dp1' && zsh '%~f1'"
+)
+EOF
+echo "Zsh.bat has been created successfully."
+#=====BATCH FILE TO OPEN ZSH SHELL=====#
+
 #=====MSYS2=====#
 # URL of the releases page
 msys2_url="https://github.com/msys2/msys2-installer/releases"
