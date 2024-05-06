@@ -9608,6 +9608,9 @@ pacman -S --noconfirm zsh
 Add the line below to your .bashrc
 
 ```bash
+# Create an empty .zshrc file
+touch .zshrc
+
 exec /usr/bin/zsh
 
 # Install Oh My Zsh framework
