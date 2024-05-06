@@ -8676,7 +8676,7 @@ logGreen
 logArray; logObject
 logObjectProperty
 combineStrings; concatenateStrings; stringCombination
-stringer
+serializeData; stringer
 stringerInterpolation; templateLiteral
 debug
 lambda; anonymous function; lambda expression; arrow function body
