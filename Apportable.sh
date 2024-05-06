@@ -3,6 +3,8 @@
 portableFolderName="apportable"
 rootDir="C:/$portableFolderName"
 
+_7zip_path="$rootDir/$environment/7-Zip"
+
 #==========PROGRAMMING==========#
 environment="Programming"
 
