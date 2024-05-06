@@ -9601,7 +9601,6 @@ export const down = async (): Promise<void> => {
 ```bash
 pacman -S --noconfirm vim
 pacman -S --noconfirm zsh
-pacman -S --noconfirm util-linux
 ```
 
 ## ZSH Configuration
