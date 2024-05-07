@@ -1666,7 +1666,7 @@ import cors from 'cors';
 import path from 'path';
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT ?? 3000;
 const platform: string = process.platform;
 let __dirname = path.dirname(decodeURI(new URL(import.meta.url).pathname));
 
@@ -1689,6 +1689,7 @@ app.get('/api', (_req: Request, res: Response) =>
 
 // Start server
 app.listen(PORT, () => {
+  // eslint-disable-next-line no-console
   console.log(\`\${platform.charAt(0).toUpperCase() + platform.slice(1)} is running on http://localhost:\${PORT}\`);
 });
 EOF
@@ -1712,10 +1713,12 @@ function createComponentWithAPICall() {
         cat <<EOF
 import React, { useEffect } from 'react';
 
+interface IData {
+  message: string;
+}
+
 function App(): JSX.Element {
-  const [data, setData] = React.useState<{ message: string } | undefined>(
-    undefined,
-  );
+  const [data, setData] = React.useState<IData | undefined>(undefined);
 
   useEffect(() => {
     fetch('http://localhost:3000/api', {
@@ -1726,13 +1729,13 @@ function App(): JSX.Element {
       },
     })
       .then((response) => response.json())
-      .then((result) => {
+      .then((result: IData | undefined) => {
         // Success
         if (result) {
           setData(result);
         }
       })
-      .catch((error) => {
+      .catch((error: string) => {
         // Failure
         throw new Error(error);
       });
