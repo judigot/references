@@ -917,6 +917,16 @@ function modifyESLintConfig() {
         cat <<EOF
 module.exports = {
   root: true,
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
   env: {browser: true, es2020: true},
   extends: [
     'eslint:recommended',
