@@ -969,7 +969,7 @@ module.exports = {
       },
     ],
     'no-alert': ['error'],
-    'no-console': ['error', { allow: ['warn', 'error'] }],
+    'no-console': ['error', { allow: ['warn', 'error'] }], // Disable all console outputs except console.warn and console.error
     'arrow-body-style': ['error', 'as-needed'],
     'react/react-in-jsx-scope': 'off',
     // '@typescript-eslint/explicit-function-return-type': 'error',
@@ -2120,8 +2120,7 @@ module.exports = {
       },
     ],
     'no-alert': ['error'],
-    'no-console': ['error'],
-    'no-console': ['error', { allow: ['warn', 'error'] }],
+    'no-console': ['error', { allow: ['warn', 'error'] }], // Disable all console outputs except console.warn and console.error
     'react/react-in-jsx-scope': 'off',
     // '@typescript-eslint/explicit-function-return-type': 'error',
     '@typescript-eslint/no-unnecessary-boolean-literal-compare': ['error'],
