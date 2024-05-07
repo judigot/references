@@ -922,11 +922,6 @@ module.exports = {
       version: 'detect',
     },
   },
-  settings: {
-    react: {
-      version: 'detect',
-    },
-  },
   env: {browser: true, es2020: true},
   extends: [
     'eslint:recommended',
@@ -1770,7 +1765,7 @@ function editTSConfig() {
     replaceLineAfterMatch "./tsconfig.json" '"noEmit":' "false,"
     replace "tsconfig.json" '"allowImportingTsExtensions": true,' '\/\/ "allowImportingTsExtensions": true,'
     replaceLineAfterMatch "tsconfig.json" '\"compilerOptions\": {' "\\n\/\/ <server>\\n\"baseUrl\": \".\/src\", \"rootDir\": \".\/src\", \"outDir\": \".\/dist\", \"allowSyntheticDefaultImports\": true, \"esModuleInterop\": true,\\n\/\/ <server\/>"
-    replaceLineAfterMatch "tsconfig.json" '\"include\": \[\"src\"\],' '\"exclude\": \[\"**\/*.tsx\"\],'
+    # replaceLineAfterMatch "tsconfig.json" '\"include\": \[\"src\"\],' '\"exclude\": \[\"**\/*.tsx\"\],'
 }
 
 function vite.config.ts__________newBuildOutput() {
@@ -2077,6 +2072,11 @@ function modifyESLintConfig() {
         cat <<EOF
 module.exports = {
   root: true,
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
   env: {browser: true, es2020: true},
   extends: [
     'eslint:recommended',
