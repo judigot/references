@@ -8706,6 +8706,8 @@ mutateNestedObject
 mutateArray
 existsInArray; valueExistsInArray;
 recursion
+cloneArray; duplicateArray
+cloneObject; duplicateObject
 getObjectKeys
 getObjectValues
 appendToArray
