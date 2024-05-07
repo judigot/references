@@ -2085,7 +2085,6 @@ module.exports = {
 
     //
     // 'plugin:@typescript-eslint/strict-type-checked', // Very strict!
-    'next/core-web-vitals',
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
