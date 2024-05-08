@@ -1911,17 +1911,11 @@ EOF
         replace "$PROJECT_DIRECTORY/vite.config.ts" "react()" "react(), tsconfigPaths()"
 }
 
-replace() {
-    # Usage:
-    # replace "folderName/*.txt" "matchString" "replacementString"
-    # replace "folderName" "matchString" "replacementString"
-    # replace "folderName/example.txt" "matchString" "replacementString"
+function replace() {
+    # Usage details omitted for brevity
 
-    # Check if the correct number of arguments is provided
     if [ $# -ne 3 ]; then
         echo "Usage: replace \"folderName/*.txt\" \"matchString\" \"replacementString\""
-        echo "       replace \"folderName\" \"matchString\" \"replacementString\""
-        echo "       replace \"folderName/example.txt\" \"matchString\" \"replacementString\""
         return 1
     fi
 
@@ -1929,41 +1923,94 @@ replace() {
     local match="$2"
     local replacement="$3"
 
-    # Replace string in a file
+    # Replace string in a file using a different delimiter
     replace_in_file() {
-        sed -i "s/$match/$replacement/g" "$path" &&
-            echo -e "\n\e[32mSuccessfully replaced '$match' with '$replacement' in $path.\e[0m" ||
-            echo -e "\n\e[31mFailed to replace '$match' in $path.\e[0m"
+        local file=$1
+        sed -i "s|$match|$replacement|g" "$file" &&
+            echo -e "\n\e[32mSuccessfully replaced '$match' with '$replacement' in $file.\e[0m" ||
+            echo -e "\n\e[31mFailed to replace '$match' in $file.\e[0m"
     }
 
-    # Check if the path is a directory, a file, or a pattern
+    # Disable glob expansion
+    set -f
+    # Check if the path is a directory, a single file, or a glob pattern
     if [ -d "$path" ]; then
-        # Replace in all files within the directory
         for file in "$path"/*; do
-            if [ -f "$file" ]; then
-                replace_in_file "$file"
-            fi
+            [ -f "$file" ] && replace_in_file "$file"
         done
     elif [ -f "$path" ]; then
-        # Replace in a single file
         replace_in_file "$path"
     else
-        # Handle as a glob pattern
-        shopt -s nullglob
-        local files=("$path")
+        # Re-enable globbing to evaluate the pattern
+        set +f
+        local files=($path)
+        set -f
         if [ ${#files[@]} -gt 0 ]; then
             for file in "${files[@]}"; do
-                if [ -f "$file" ]; then
-                    replace_in_file "$file"
-                fi
+                [ -f "$file" ] && replace_in_file "$file"
             done
         else
-            echo -e "\n\e[31mNo files found matching the pattern $path.\e[0m\n"
+            echo -e "\n\e[31mNo files found matching the pattern: $path.\e[0m\n"
             return 1
         fi
-        shopt -u nullglob
     fi
+    # Re-enable glob expansion
+    set +f
 }
+
+# function replace() {
+#     # Usage:
+#     # replace "folderName/*.txt" "matchString" "replacementString"
+#     # replace "folderName" "matchString" "replacementString"
+#     # replace "folderName/example.txt" "matchString" "replacementString"
+
+#     # Check if the correct number of arguments is provided
+#     if [ $# -ne 3 ]; then
+#         echo "Usage: replace \"folderName/*.txt\" \"matchString\" \"replacementString\""
+#         echo "       replace \"folderName\" \"matchString\" \"replacementString\""
+#         echo "       replace \"folderName/example.txt\" \"matchString\" \"replacementString\""
+#         return 1
+#     fi
+
+#     local path="$1"
+#     local match="$2"
+#     local replacement="$3"
+
+#     # Replace string in a file
+#     replace_in_file() {
+#         sed -i "s/$match/$replacement/g" "$path" &&
+#             echo -e "\n\e[32mSuccessfully replaced '$match' with '$replacement' in $path.\e[0m" ||
+#             echo -e "\n\e[31mFailed to replace '$match' in $path.\e[0m"
+#     }
+
+#     # Check if the path is a directory, a file, or a pattern
+#     if [ -d "$path" ]; then
+#         # Replace in all files within the directory
+#         for file in "$path"/*; do
+#             if [ -f "$file" ]; then
+#                 replace_in_file "$file"
+#             fi
+#         done
+#     elif [ -f "$path" ]; then
+#         # Replace in a single file
+#         replace_in_file "$path"
+#     else
+#         # Handle as a glob pattern
+#         shopt -s nullglob
+#         local files=("$path")
+#         if [ ${#files[@]} -gt 0 ]; then
+#             for file in "${files[@]}"; do
+#                 if [ -f "$file" ]; then
+#                     replace_in_file "$file"
+#                 fi
+#             done
+#         else
+#             echo -e "\n\e[31mNo files found matching the pattern $path.\e[0m\n"
+#             return 1
+#         fi
+#         shopt -u nullglob
+#     fi
+# }
 
 appendToTextContent() {
     #=====USAGE=====#
