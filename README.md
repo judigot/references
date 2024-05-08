@@ -653,7 +653,7 @@ EOF
 
         # ==========CUSTOM SETTINGS========== #
         formatCode &&
-        echo -e "\e[32mBig Bang was successfully scaffolded.\e[0m"
+        echo -e "\e[32mBig Bang successfully scaffolded.\e[0m"
 }
 
 function editJSON() {
@@ -1049,7 +1049,7 @@ function downloadNextJS() {
 
     # Check if the file was created successfully
     if [ -d "$PROJECT_NAME" ]; then
-        echo -e "\e[32mProject $PROJECT_NAME was successfully scaffolded.\e[0m" # Green
+        echo -e "\e[32mProject $PROJECT_NAME successfully scaffolded.\e[0m" # Green
     else
         echo -e "\e[31mProject $PROJECT_NAME failed to scaffold.\e[0m" # Red
     fi
@@ -1655,7 +1655,7 @@ function main() {
         formatCode &&
         initializeGit &&
 
-        echo -e "Big Bang was successfully scaffolded."
+        echo -e "Big Bang successfully scaffolded."
 }
 
 function initializeGit() {
@@ -2247,7 +2247,7 @@ function downloadVite() {
 
     # Check if the file was created successfully
     if [ -d "$PROJECT_NAME" ]; then
-        echo -e "\e[32mProject $PROJECT_NAME was successfully scaffolded.\e[0m" # Green
+        echo -e "\e[32mProject $PROJECT_NAME successfully scaffolded.\e[0m" # Green
     else
         echo -e "\e[31mProject $PROJECT_NAME failed to scaffold.\e[0m" # Red
     fi
