@@ -1693,7 +1693,7 @@ app.get('/api', (_req: Request, res: Response) =>
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log(
-    `${platform.charAt(0).toUpperCase() + platform.slice(1)} is running on http://localhost:${PORT}`,
+    console.log(\`\${platform.charAt(0).toUpperCase() + platform.slice(1)} is running on http://localhost:\${PORT}\`);
   );
 });
 EOF
