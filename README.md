@@ -1660,10 +1660,10 @@ function main() {
 
 function initializeGit() {
     if command -v git >/dev/null 2>&1; then
+        echo "Git is installed."
+
         cd "$PROJECT_DIRECTORY" || return
         git init && git add . && git commit -m "Initial commit" --quiet
-
-        echo "Git is installed."
     else
         echo "Git is not installed."
     fi
