@@ -1912,7 +1912,10 @@ EOF
 }
 
 function replace() {
-    # Usage details omitted for brevity
+    # Usage:
+    # replace "folderName/*.txt" "matchString" "replacementString"
+    # replace "folderName" "matchString" "replacementString"
+    # replace "folderName/example.txt" "matchString" "replacementString"
 
     if [ $# -ne 3 ]; then
         echo "Usage: replace \"folderName/*.txt\" \"matchString\" \"replacementString\""
@@ -1922,6 +1925,14 @@ function replace() {
     local path="$1"
     local match="$2"
     local replacement="$3"
+
+    # Function to escape special characters in the replacement string for sed
+    function escape_sed_replacement {
+        echo "$replacement" | sed -e 's/[&/\]/\\&/g'
+    }
+
+    # Escape special characters in the replacement string
+    replacement=$(escape_sed_replacement "$replacement")
 
     # Replace string in a file using a different delimiter
     replace_in_file() {
@@ -5702,6 +5713,14 @@ function replace() {
     local path="$1"
     local match="$2"
     local replacement="$3"
+
+    # Function to escape special characters in the replacement string for sed
+    function escape_sed_replacement {
+        echo "$replacement" | sed -e 's/[&/\]/\\&/g'
+    }
+
+    # Escape special characters in the replacement string
+    replacement=$(escape_sed_replacement "$replacement")
 
     # Replace string in a file using a different delimiter
     replace_in_file() {
