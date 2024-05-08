@@ -1652,7 +1652,7 @@ function main() {
 
         # ==========CUSTOM SETTINGS========== #
         formatCode &&
-        echo -e "\e[32mBig Bang was successfully scaffolded.\e[0m"
+        echo -e "🌌"
 }
 
 function recreateMainForLint() {
