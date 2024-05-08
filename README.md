@@ -1737,9 +1737,9 @@ function App(): JSX.Element {
           setData(result);
         }
       })
-      .catch((error: string) => {
+      .catch((error: unknown) => {
         // Failure
-        throw new Error(error);
+        throw error instanceof Error ? error : new Error(String(error));
       });
   }, []);
 
