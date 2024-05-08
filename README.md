@@ -1891,10 +1891,8 @@ EOF
 
 function addDevAndStartScripts() {
     cd "$PROJECT_DIRECTORY" || return
-    appendToTextContentIndex "package.json" 1 "build" '"start": "node dist/index.js",'
-    replaceLineAfterMatch "package.json" '"dev":' '"vite & nodemon --exec tsx src/index.ts", "test": "vitest",'
-    # appendToTextContentIndex "package.json" 1 "build" '"start": "node dist/index.js",'
-    # replaceLineAfterMatch "package.json" '"dev":' '"vite & nodemon --exec tsx src/index.ts",'
+    replace "package.json" '"dev": "vite",' '"dev": "vite", "test": "vitest",'
+    replace "package.json" '"lint":' '"start": "node dist/index.js","lint":'
 }
 
 function addImportShorthand() {
@@ -2598,9 +2596,6 @@ function replaceLineAfterMatch() {
     local match="$2"
     local newString="$3"
 
-    # Escape special characters in newString for sed
-    newString=$(echo "$newString" | sed 's/[&/]/\\&/g')
-
     # Check if the file exists
     if [ -e "$file" ]; then
         sed -i "/$match/s/$match.*/$match$newString/" "$file" &&
@@ -2611,31 +2606,6 @@ function replaceLineAfterMatch() {
         return 1
     fi
 }
-
-# function replaceLineAfterMatch() {
-#     #=====USAGE=====#
-#     # replaceLineAfterMatch "folderName/example.txt" "matchString" "newStringAfterMatch"
-
-#     # Check if the correct number of arguments is provided
-#     if [ $# -ne 3 ]; then
-#         echo "Usage: replaceLineAfterMatch \"folderName/example.txt\" \"matchString\" \"newStringAfterMatch\""
-#         return 1
-#     fi
-
-#     local file="$1"
-#     local match="$2"
-#     local newString="$3"
-
-#     # Check if the file exists
-#     if [ -e "$file" ]; then
-#         sed -i "/$match/s/$match.*/$match$newString/" "$file" &&
-#             echo -e "\n\e[32mSuccessfully replaced content after match in $file.\e[0m\n" ||
-#             echo -e "\n\e[31mFailed to replace content after match in $file.\e[0m\n"
-#     else
-#         echo -e "\n\e[31mThe file $file does not exist.\e[0m\n"
-#         return 1
-#     fi
-# }
 
 function prependToPreviousLineIndex() {
     #=====USAGE=====#
