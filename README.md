@@ -1648,10 +1648,43 @@ function main() {
         editTSConfig &&
         createServerEntryPoint &&
         createComponentWithAPICall &&
+        recreateMainForLint &&
 
         # ==========CUSTOM SETTINGS========== #
         formatCode &&
         echo -e "\e[32mBig Bang was successfully scaffolded.\e[0m"
+}
+
+function recreateMainForLint() {
+    cd "$PROJECT_DIRECTORY/src" || return
+
+    local htmlFileName="main.tsx"
+    local content=""
+    content=$(
+        cat <<EOF
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+
+const rootElement = document.getElementById('root');
+
+if (rootElement) {
+  ReactDOM.createRoot(rootElement).render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>,
+  );
+}
+EOF
+    )
+
+    echo "$content" >"$htmlFileName"
+    # Check if the file was created successfully
+    if [ -e "$htmlFileName" ]; then
+        echo -e "\e[32mFile ($htmlFileName) was successfully created.\e[0m" # Green
+    else
+        echo -e "\e[31mFailed to create $htmlFileName.\e[0m" # Red
+    fi
 }
 
 function createServerEntryPoint() {
