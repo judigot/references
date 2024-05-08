@@ -1652,6 +1652,16 @@ function main() {
 
         # ==========CUSTOM SETTINGS========== #
         formatCode &&
+
+        if command -v git >/dev/null 2>&1; then
+
+            git add . && git commit -m "Initial commit"
+
+            echo "Git is installed."
+        else
+            echo "Git is not installed."
+        fi
+
         echo -e "🌌"
 }
 
