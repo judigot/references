@@ -1586,7 +1586,6 @@ readonly DEV_DEPENDENCIES=(
     "dotenv-cli"
     "prettier"
     "styled-components"
-    "tailwindcss"
     "esbuild"
     "esbuild-register"
     "vite-tsconfig-paths"
@@ -1617,6 +1616,12 @@ function main() {
 
         # ==========CUSTOM SETTINGS========== #
         vite.config.ts__________addBasePath true && # Ensures that assets are imported after building
+
+        # Tailwind
+        local tailwindPackages=("tailwindcss" "autoprefixer" "postcss") &&
+        installPackages "development" "tailwindPackages[@]" &&
+        postCSSConfig &&
+        tailwindConfig &&
 
         # Import shorthand (@)
         addImportShorthand &&
@@ -1656,6 +1661,61 @@ function main() {
         initializeGit &&
 
         echo -e "Big Bang successfully scaffolded."
+}
+
+function postCSSConfig() {
+    cd "$PROJECT_DIRECTORY" || return
+
+    local htmlFileName="postcss.config.js"
+    local content=""
+    content=$(
+        cat <<EOF
+export default {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}
+EOF
+    )
+
+    echo "$content" >"$htmlFileName"
+    # Check if the file was created successfully
+    if [ -e "$htmlFileName" ]; then
+        echo -e "\e[32mFile ($htmlFileName) was successfully created.\e[0m" # Green
+    else
+        echo -e "\e[31mFailed to create $htmlFileName.\e[0m" # Red
+    fi
+}
+
+function tailwindConfig() {
+    cd "$PROJECT_DIRECTORY" || return
+
+    local htmlFileName="tailwind.config.js"
+    local content=""
+    content=$(
+        cat <<EOF
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+EOF
+    )
+
+    echo "$content" >"$htmlFileName"
+    # Check if the file was created successfully
+    if [ -e "$htmlFileName" ]; then
+        echo -e "\e[32mFile ($htmlFileName) was successfully created.\e[0m" # Green
+    else
+        echo -e "\e[31mFailed to create $htmlFileName.\e[0m" # Red
+    fi
 }
 
 function initializeGit() {
