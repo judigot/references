@@ -1641,7 +1641,7 @@ function main() {
         # Express Server
         local serverPackages=("express" "cors") &&
         installPackages "production" "serverPackages[@]" &&
-        local serverPackages=("@types/express" "@types/cors" "concurrently" "nodemon" "tsx") &&
+        local serverPackages=("@types/express" "@types/cors" "nodemon" "tsx") &&
         installPackages "development" "serverPackages[@]" &&
         vite.config.ts__________newBuildOutput true &&
         addDevAndStartScripts &&
@@ -1888,7 +1888,7 @@ EOF
 function addDevAndStartScripts() {
     cd "$PROJECT_DIRECTORY" || return
     appendToTextContentIndex "package.json" 1 "build" '"start": "node dist/index.js",'
-    replaceLineAfterMatch "package.json" '"dev":' '"concurrently vite \\\"nodemon --exec tsx src\/index.ts\\\"",'
+    replaceLineAfterMatch "package.json" '"dev":' '"vite & nodemon --exec tsx src/index.ts",'
 }
 
 function addImportShorthand() {
