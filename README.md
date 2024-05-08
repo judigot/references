@@ -1651,18 +1651,22 @@ function main() {
         recreateMainForLint &&
 
         # ==========CUSTOM SETTINGS========== #
+
         formatCode &&
+        initializeGit &&
 
-        if command -v git >/dev/null 2>&1; then
+        echo -e "Big Bang was successfully scaffolded."
+}
 
-            git add . && git commit -m "Initial commit"
+function initializeGit() {
+    if command -v git >/dev/null 2>&1; then
+        cd "$PROJECT_DIRECTORY" || return
+        git init && git add . && git commit -m "Initial commit"
 
-            echo "Git is installed."
-        else
-            echo "Git is not installed."
-        fi
-
-        echo -e "🌌"
+        echo "Git is installed."
+    else
+        echo "Git is not installed."
+    fi
 }
 
 function recreateMainForLint() {
