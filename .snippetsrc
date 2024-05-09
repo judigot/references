@@ -6,6 +6,13 @@ alias hllo='helloWorld'
 alias hlw='helloWorld'
 
 function bigBangVite() {
-    echo -e "\e[32mHello, World!\e[0m" # Green
+    curl -L "https://raw.githubusercontent.com/judigot/references/main/BigBangVite.sh" | bash
 }
 alias bbv='bigBangVite'
+alias bigbangvite='bigBangVite'
+
+function updateSnippetsRC() {
+    curl -L https://raw.githubusercontent.com/judigot/references/main/.snippetsrc -o $HOME/.snippetsrc
+}
+alias updatebashsnippets='updateSnippetsRC'
+alias updatesnippetsrc='updateSnippetsRC'
