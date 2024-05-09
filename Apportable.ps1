@@ -23,7 +23,7 @@ export PATH="`$PATH:$($pathsLinux)"
 export NVM_HOME="$("$portableGitInstallationDir/nvm" -replace '\n', ':' -replace '\\', '/' -replace 'C:', '/c')"
 export NVM_SYMLINK="$("$portableGitInstallationDir/nodejs" -replace '\n', ':' -replace '\\', '/' -replace 'C:', '/c')"
 
-[[ -f "`$HOME/.snippetsrc" ]] && source "`$HOME/.snippetsrc"
+curl -sL https://raw.githubusercontent.com/judigot/references/main/.snippetsrc -o `$HOME/.snippetsrc && [[ -f "`$HOME/.snippetsrc" ]] && source "`$HOME/.snippetsrc"
 "@
 Set-Content -Path $file_path -Value $file_content
 Write-Host "$filename created successfully at: $file_path"
