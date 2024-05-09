@@ -1684,7 +1684,7 @@ function vite.config.ts__________addPathAlias() {
     local textToAppend=""
     textToAppend=$(
         cat <<EOF
-        $startDelimiter import path from 'path'; export default defineConfig({ resolve: { alias: { '@': path.resolve(__dirname, './src') } }, $endDelimiter
+        import path from 'path'; export default defineConfig({ $startDelimiter resolve: { alias: { '@': path.resolve(__dirname, './src') } }, $endDelimiter
 EOF
     )
 
