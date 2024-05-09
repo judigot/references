@@ -1568,6 +1568,8 @@ main
 # =====================================
 # Big Bang Vite
 
+Execute script remotely
+
 ```bash
 curl -L "https://raw.githubusercontent.com/judigot/references/main/BigBangVite.sh" | bash
 ```
