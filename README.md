@@ -1585,7 +1585,10 @@ readonly DEV_DEPENDENCIES=(
     "cross-env"
     "dotenv-cli"
     "prettier"
+
     "styled-components"
+    "@types/styled-components"
+
     "esbuild"
     "esbuild-register"
     "vite-tsconfig-paths"
