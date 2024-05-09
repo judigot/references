@@ -1684,7 +1684,7 @@ function vite.config.ts__________addPathAlias() {
     local textToAppend=""
     textToAppend=$(
         cat <<EOF
-        $startDelimiter resolve: { alias: { '@': path.resolve(__dirname, './src') } }, $endDelimiter
+        $startDelimiter import path from 'path'; export default defineConfig({ resolve: { alias: { '@': path.resolve(__dirname, './src') } }, $endDelimiter
 EOF
     )
 
@@ -1693,7 +1693,7 @@ EOF
         if grep -q "$settingID" "$file"; then
             echo -e "\e[33mThe following setting is already in $file:\n\n\t$textToAppend\e[0m" # Yellow
         else
-            replace "$PROJECT_DIRECTORY/$file" 'export default defineConfig({' "import path from 'path'; export default defineConfig({$textToAppend"
+            replace "$PROJECT_DIRECTORY/$file" 'export default defineConfig({' "$textToAppend"
 
             echo -e "\e[32mAdded the following setting to $file:\n\n\t$textToAppend\e[0m"
 
