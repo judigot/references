@@ -2,8 +2,8 @@
 function helloWorld() {
     echo -e "\e[32mHello, World!\e[0m" # Green
 }
-alias hllo='helloWorld'
-alias hlw='helloWorld'
+alias hi='helloWorld'
+alias hello='helloWorld'
 
 function bigBangVite() {
     curl -L "https://raw.githubusercontent.com/judigot/references/main/BigBangVite.sh" | bash
