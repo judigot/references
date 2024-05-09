@@ -1,0 +1,7 @@
+#!/bin/bash
+
+function helloWorld() {
+    echo -e "\e[32mHello, World!\e[0m" # Green
+}
+alias hllo='helloWorld'
+alias hlw='helloWorld'
