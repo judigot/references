@@ -1659,8 +1659,8 @@ function main() {
         recreateMainForLint &&
 
         # ==========CUSTOM SETTINGS========== #
-        
-        vite.config.ts__________addPathAlias &&
+
+        vite.config.ts__________addPathAlias true &&
 
         formatCode &&
         initializeGit &&
