@@ -11,8 +11,8 @@ function bigBangVite() {
 alias bbv='bigBangVite'
 alias bigbangvite='bigBangVite'
 
-# function updateSnippetsRC() {
-#     curl -L https://raw.githubusercontent.com/judigot/references/main/.snippetsrc -o $HOME/.snippetsrc
-# }
-# alias updatebashsnippets='updateSnippetsRC'
-# alias updatesnippetsrc='updateSnippetsRC'
+function updateSnippetsRC() {
+    curl -L https://raw.githubusercontent.com/judigot/references/main/.snippetsrc -o $HOME/.snippetsrc
+}
+alias updatebashsnippets='updateSnippetsRC'
+alias updatesnippetsrc='updateSnippetsRC'
