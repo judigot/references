@@ -2703,6 +2703,19 @@ export default function App({ name }: Props) {
 
 ## Common
 
+### Check If Property Exists
+
+Tags: `focus on element`, `focus html element`, `focus element`
+
+```tsx
+const person = {
+  name: "John",
+  age: 30
+};
+
+console.log(Object.keys(person).includes('name')); // true
+```
+
 ### Focus on HTML Element
 
 Tags: `focus on element`, `focus html element`, `focus element`
