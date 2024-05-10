@@ -2561,6 +2561,20 @@ HKEY_CLASSES_ROOT\Directory\Background\shellex\ContextMenuHandlers\ACE
 # TypeScript/JavaScript
 
 ## React.js
+
+### Convert Div Element Into A Clickable Element
+Tags: `convert element into a clickable element`, `clickable element`, `convert non-interactive elements into interactive elements`
+
+```tsx
+<div
+role="button"
+onKeyDown={() => {}}
+tabIndex={0}
+aria-label="Close modal"
+>
+</div>
+```
+
 ```tsx
 /*
 These will not invoke the function on render:
