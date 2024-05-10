@@ -256,7 +256,7 @@ import cors from 'cors';
 import path from 'path';
 
 const app = express();
-const PORT = (process.env.PORT ?? 3000).toString();
+const PORT = (process.env.PORT ?? 5000).toString();
 const platform: string = process.platform;
 let __dirname = path.dirname(decodeURI(new URL(import.meta.url).pathname));
 
@@ -1260,7 +1260,7 @@ DATABASE_URL="mysql://<username>:<password>@<host>:<port>/<database>"
 # Local PostgreSQL
 # DATABASE_URL="postgresql://root:123@localhost:5432/bigbang"
 
-VITE_API_URL="http://localhost:3000/api"
+VITE_API_URL="http://localhost:5000/api"
 
 ACCESS_TOKEN_SECRET=
 REFRESH_TOKEN_SECRET=
