@@ -254,6 +254,8 @@ function createServerEntryPoint() {
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import path from 'path';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 const PORT = (process.env.PORT ?? 5000).toString();
@@ -272,6 +274,13 @@ app.use(express.static(publicDirectory));
 
 // Define routes
 app.get('/', (_req, res) => {
+  const isDevelopment: boolean = String(process.env.NODE_ENV) === 'development';
+
+  if (isDevelopment) {
+    res.redirect(String(process.env.VITE_FRONTEND_URL));
+    return;
+  }
+
   res.sendFile(publicDirectory);
 });
 
@@ -313,13 +322,16 @@ function App(): JSX.Element {
   const [data, setData] = React.useState<IData | undefined>(undefined);
 
   useEffect(() => {
-    fetch(String(import.meta.env.VITE_API_URL), {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+    fetch(
+      \${String(import.meta.env.VITE_BACKEND_URL)}/\${String(import.meta.env.VITE_API_URL)}
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
       },
-    })
+    )
       .then((response) => response.json())
       .then((result: IData | undefined) => {
         // Success
@@ -1260,7 +1272,11 @@ DATABASE_URL="mysql://<username>:<password>@<host>:<port>/<database>"
 # Local PostgreSQL
 # DATABASE_URL="postgresql://root:123@localhost:5432/bigbang"
 
-VITE_API_URL="http://localhost:5000/api"
+NODE_ENV="development"
+
+VITE_FRONTEND_URL="http://localhost:3000"
+VITE_BACKEND_URL="http://localhost:5000"
+VITE_API_URL="api"
 
 ACCESS_TOKEN_SECRET=
 REFRESH_TOKEN_SECRET=
