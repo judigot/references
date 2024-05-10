@@ -90,11 +90,61 @@ function main() {
         # ==========CUSTOM SETTINGS========== #
 
         vite.config.ts__________addPathAlias true &&
+        vite.config.ts__________changeDevPort true &&
 
         formatCode &&
         initializeGit &&
 
         echo -e "Big Bang successfully scaffolded."
+}
+
+function vite.config.ts__________changeDevPort() {
+    cd "$PROJECT_DIRECTORY" || return
+
+    local isTurnedOn="$1"
+
+    local settingID="devPort"
+    local startDelimiter="/*<$settingID>*/"
+    local endDelimiter="/*</$settingID>*/"
+
+    # File to edit
+    local file="vite.config.ts"
+
+    # Text to append
+    local textToAppend=""
+    textToAppend=$(
+        cat <<EOF
+        $startDelimiter server: { port: 3000, }, $endDelimiter
+EOF
+    )
+
+    if [ "$isTurnedOn" = true ]; then
+
+        if grep -q "$settingID" "$file"; then
+            echo -e "\e[33mThe following setting is already in $file:\n\n\t$textToAppend\e[0m" # Yellow
+        else
+            replace "$PROJECT_DIRECTORY/$file" 'export default defineConfig({' "export default defineConfig({ $textToAppend"
+
+            echo -e "\e[32mAdded the following setting to $file:\n\n\t$textToAppend\e[0m"
+
+            formatCode
+        fi
+    fi
+
+    if [ "$isTurnedOn" = false ]; then
+
+        if grep -q "$settingID" "$file"; then
+
+            removeSetting $settingID
+
+            echo -e "\e[32mSuccessfully removed the following setting from $file:\n\n\t$textToAppend\e[0m" # Green
+
+            formatCode
+        else
+            echo -e "\e[33mThe following setting is not in $file:\n\n\t$textToAppend\e[0m"
+        fi
+
+    fi
 }
 
 function vite.config.ts__________addPathAlias() {
