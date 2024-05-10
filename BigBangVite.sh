@@ -435,7 +435,7 @@ EOF
 
 function addDevAndStartScripts() {
     cd "$PROJECT_DIRECTORY" || return
-    replace "package.json" '"dev": "vite",' '"dev": "vite & nodemon --exec tsx src/index.ts", "test": "vitest",'
+    replace "package.json" '"dev": "vite",' '"dev": "vite & tsc --noEmit --watch & nodemon --exec tsx src/index.ts", "test": "vitest",'
     replace "package.json" '"lint":' '"start": "node dist/index.js","lint":'
 }
 
