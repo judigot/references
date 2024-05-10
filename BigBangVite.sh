@@ -323,7 +323,7 @@ function App(): JSX.Element {
 
   useEffect(() => {
     fetch(
-      \${String(import.meta.env.VITE_BACKEND_URL)}/\${String(import.meta.env.VITE_API_URL)}
+      \`\${String(import.meta.env.VITE_BACKEND_URL)}/\${String(import.meta.env.VITE_API_URL)}\`,
       {
         method: 'GET',
         headers: {
