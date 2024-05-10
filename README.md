@@ -8716,3 +8716,63 @@ pacman -Syu --noconfirm # Yes to all
 pacman -S --noconfirm git # Yes to all
 # pacman -S zsh
 ```
+
+# =====================================
+
+# UUID
+
+### V4
+
+UUIDv4 generates a completely random and unique identifier every time.
+
+Use cases:
+- Orders Table (orders): For tracking and managing the details of customer purchases, including items, quantities, prices, and order statuses.
+- Transactions Table (transactions): For recording financial transactions, such as payments, refunds, and other monetary exchanges.
+- Session Identifiers Table (user_sessions): For web application session management.
+- Temporary Files Table (temp_files): For managing temporary file storage.
+
+```tsx
+import { v4 as uuidv4 } from 'uuid';
+
+// Generating a random UUID v4
+const randomUUID = uuidv4();
+console.log('Random UUID v4:', randomUUID);
+```
+
+Generating UUIDv4 using PostgreSQL extension.
+
+```sql
+-- Create a table with a UUID v4 as the primary key
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+CREATE TABLE transactions (
+    transaction_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    amount DECIMAL NOT NULL,
+    description TEXT
+);
+
+-- Insert a new transaction with a random UUID v4
+INSERT INTO transactions (amount, description) VALUES (99.95, 'Book purchase');
+```
+
+### V5
+
+UUIDv5 generates consistently creates the same ID from the same inputs two inputs.
+
+Use cases:
+
+- User Profiles Table (user_profiles): For consistent user identification across platforms.
+- API Resources Table (api_resources): For uniform referencing of API resources.
+- Product Catalog Table (product_catalog): For reliable product tracking across systems.
+- Configuration Items Table (config_items): For stable identifiers in system configurations.
+
+```tsx
+import { v5 as uuidv5 } from 'uuid';
+
+const NAMESPACE = '1b671a64-40d5-491e-99b0-da01ff1f3341'; // Define a fixed namespace UUID
+
+// Generate a consistent UUID v5 based on user email and namespace
+const userEmail = 'user@example.com';
+const userUUID = uuidv5(userEmail, NAMESPACE);
+console.log('User UUID v5:', userUUID);
+```
