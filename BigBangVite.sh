@@ -313,7 +313,7 @@ function App(): JSX.Element {
   const [data, setData] = React.useState<IData | undefined>(undefined);
 
   useEffect(() => {
-    fetch('http://localhost:3000/api', {
+    fetch(String(import.meta.env.VITE_API_URL), {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -1260,7 +1260,7 @@ DATABASE_URL="mysql://<username>:<password>@<host>:<port>/<database>"
 # Local PostgreSQL
 # DATABASE_URL="postgresql://root:123@localhost:5432/bigbang"
 
-VITE_API_URL="http://localhost:3000/api/v1"
+VITE_API_URL="http://localhost:3000/api"
 
 ACCESS_TOKEN_SECRET=
 REFRESH_TOKEN_SECRET=
