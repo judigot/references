@@ -8748,6 +8748,8 @@ pacman -S --noconfirm git # Yes to all
 
 # UUID
 
+Tags: `uuid version 4`, `uuid version 5`, `uuid v4`, `uuid v5`
+
 ### V4
 
 UUIDv4 generates a completely random and unique identifier every time.
