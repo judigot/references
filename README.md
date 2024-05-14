@@ -1583,7 +1583,7 @@ curl -L "https://raw.githubusercontent.com/judigot/references/main/BigBangVite.s
 curl https://start.spring.io/starter.zip \
     -d type=maven-project \
     -d language=java \
-    -d bootVersion=3.2.1 \
+    -d bootVersion=3.2.5 \
     -d baseDir=bigbang \
     -d groupId=com.example \
     -d artifactId=bigbang \
