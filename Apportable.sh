@@ -247,6 +247,61 @@ mv "$destinationDir/$extractedContentFolderName" "$rootDir/$environment/jdk"
 rm -rf $destinationDir
 #=====JAVA OPENJDK=====#
 
+#=====APACHE MAVEN=====#
+repository="https://github.com/apache/maven"
+HTMLPatternToMatch='<span class="css-truncate css-truncate-target text-bold mr-2" style="max-width: none;">'
+# Fetch HTML content and extract the version string
+versionString=$(curl -s "$repository" | awk -v pattern="$HTMLPatternToMatch" '
+    $0 ~ pattern {
+        match($0, />[^<]+</);  # Find the first occurrence of text between > and <
+        print substr($0, RSTART + 1, RLENGTH - 2);  # Extract and print the text, excluding > and <
+        exit;
+    }')
+
+# Remove first character "v" to get the version number
+mavenVersionNumber="${versionString}"
+
+curl -L -o "$rootDir/$environment/apache-maven.zip" https://dlcdn.apache.org/maven/maven-3/$mavenVersionNumber/binaries/apache-maven-$mavenVersionNumber-bin.zip
+
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+zipFile="$rootDir/$environment/apache-maven.zip"
+# Destination directory for extraction
+destinationDir="$rootDir/$environment/apache-maven_temp"
+# Check if the zip file exists
+if [ -f "$zipFile" ]; then
+    # Create the destination directory if it doesn't exist
+    [ -d "$destinationDir" ] || mkdir -p "$destinationDir"
+
+    # Extract the zip file using available extraction tool
+    if command_exists unzip; then
+        unzip "$zipFile" -d "$destinationDir"
+    elif command_exists 7z; then
+        7z x $zipFile -o"$destinationDir" -aoa
+    elif command_exists winrar; then
+        winrar x $zipFile .
+    elif command_exists winzip; then
+        winzip -e $zipFile .
+    else
+        echo "Error: No suitable extraction tool found (unzip, 7z, winrar, winzip)."
+        exit 1
+    fi
+
+    echo "Extraction complete."
+else
+    echo "Zip file not found: $zipFile"
+fi
+
+extractedContentFolderName=$(find "$destinationDir" -maxdepth 1 -mindepth 1 -type d -exec basename {} \;)
+
+# Move and rename
+mv "$destinationDir/$extractedContentFolderName" "$rootDir/$environment/apache-maven"
+# Delete temporary folder
+rm -rf $destinationDir
+#=====APACHE MAVEN=====#
+
 #==========TERRAFORM==========#
 repository="https://github.com/hashicorp/terraform"
 HTMLPatternToMatch='<span class="css-truncate css-truncate-target text-bold mr-2" style="max-width: none;">'
