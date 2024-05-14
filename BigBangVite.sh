@@ -379,6 +379,7 @@ function App(): JSX.Element {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
+          // Authorization: 'Basic ' + btoa('admin:123'),
         },
       },
     )
