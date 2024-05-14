@@ -14,19 +14,10 @@ if (!(Test-Path -Path "$portableGitInstallationDir")) {
 }
 
 #==========.BASHRC==========#
+$bashrc_content = ((Invoke-WebRequest -Uri "https://raw.githubusercontent.com/judigot/references/main/.bashrc").Content)
 $filename = ".bashrc"
 $file_path = Join-Path $env:USERPROFILE -ChildPath $filename
-$file_content = @"
-#!/bin/bash
-
-export PATH="`$PATH:$($pathsLinux)"
-export NVM_HOME="$("$portableGitInstallationDir/nvm" -replace '\n', ':' -replace '\\', '/' -replace 'C:', '/c')"
-export NVM_SYMLINK="$("$portableGitInstallationDir/nodejs" -replace '\n', ':' -replace '\\', '/' -replace 'C:', '/c')"
-
-curl -sL https://raw.githubusercontent.com/judigot/references/main/.snippetsrc -o "`$HOME/.snippetsrc" && [[ -f "`$HOME/.snippetsrc" ]] && source "`$HOME/.snippetsrc"
-curl -sL https://raw.githubusercontent.com/judigot/references/main/.zshrc -o "`$HOME/.zshrc"
-"@
-Set-Content -Path $file_path -Value $file_content
+Set-Content -Path $file_path -Value $bashrc_content
 Write-Host "$filename created successfully at: $file_path"
 #==========.BASHRC==========#
 
