@@ -1580,6 +1580,7 @@ curl -L "https://raw.githubusercontent.com/judigot/references/main/BigBangVite.s
 ```bash
 #!/bin/bash
 
+# Download the Spring Boot project zip file
 curl https://start.spring.io/starter.zip \
     -d type=maven-project \
     -d language=java \
@@ -1595,7 +1596,131 @@ curl https://start.spring.io/starter.zip \
     -d dependencies=web,data-jpa,security,devtools,actuator,lombok,validation,postgresql \
     -o bigbang.zip
 
-read -p "Please ENTER to exit..."
+# Function to check if a command exists
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Extract the zip file using available extraction tool
+if command_exists unzip; then
+    unzip bigbang.zip -d .
+elif command_exists 7z; then
+    7z x bigbang.zip -o.
+elif command_exists winrar; then
+    winrar x bigbang.zip .
+elif command_exists winzip; then
+    winzip -e bigbang.zip .
+else
+    echo "Error: No suitable extraction tool found (unzip, 7z, winrar, winzip)."
+    exit 1
+fi
+
+# Ensure extraction is complete before proceeding
+wait
+
+# Delete the zip file
+rm bigbang.zip
+
+# Debug: List contents of the current directory
+echo "Contents of the current directory after extraction and deleting the zip file:"
+ls -l
+
+# Add PostgreSQL, Spring Security settings, and server port to application.properties
+cat <<EOF >>bigbang/src/main/resources/application.properties
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/snippetboss
+spring.datasource.username=root
+spring.datasource.password=123
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+
+# Spring Security default user credentials
+spring.security.user.name=user
+spring.security.user.password=123
+
+# Change the default server port
+server.port=5000
+
+customVariable=Hello, World!
+EOF
+
+# Create directories for the controller and config
+mkdir -p bigbang/src/main/java/com/example/bigbang/api/v1
+mkdir -p bigbang/src/main/java/com/example/bigbang/config
+
+# Create the HelloWorldController class
+cat <<EOF > bigbang/src/main/java/com/example/bigbang/api/v1/HelloWorldController.java
+package com.example.bigbang.api.v1;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+
+@RestController
+@RequestMapping("/api/v1")
+public class HelloWorldController {
+
+    @Value("\${customVariable}")
+    private String customVariable;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    @GetMapping("/helloworld")
+    public Map<String, String> helloWorld() {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", customVariable);
+        return response;
+    }
+
+    @GetMapping("/users")
+    public List<Map<String, Object>> getAllUsers() {
+        String sql = """
+            SELECT * FROM users;
+        """;
+        return jdbcTemplate.queryForList(sql);
+    }
+}
+EOF
+
+# Create the CorsConfig class
+cat <<EOF > bigbang/src/main/java/com/example/bigbang/config/CorsConfig.java
+package com.example.bigbang.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@Configuration
+public class CorsConfig {
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/api/**")
+                        .allowedOrigins("*")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD")
+                        .allowedHeaders("*");
+            }
+        };
+    }
+}
+EOF
+
+echo "Spring Boot application setup is complete, including the new API endpoint and CORS configuration!"
 ```
 
 # =====================================
