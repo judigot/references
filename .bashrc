@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# Test
 paths=$(curl -s https://raw.githubusercontent.com/judigot/references/main/PATH)
 
 pathsLinux=$(echo "$paths" | awk -v home="$HOME" -v user="$USER" '{
