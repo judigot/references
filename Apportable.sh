@@ -27,8 +27,8 @@ git config --global core.editor "vim"
 BAT_PATH="$rootDir/$environment/Bash.bat"
 cat << EOF > "$BAT_PATH"
 @echo off
-set HOME=C:/Users/Jude
-set BASH_ENV=C:/Users/Jude/.bashrc
+set HOME=%USERPROFILE%
+set BASH_ENV=%USERPROFILE%\.bashrc
 
 :: Check if a script file is passed as an argument
 if "%~1"=="" (
@@ -46,8 +46,8 @@ echo "Bash.bat has been created successfully."
 BAT_PATH="$rootDir/$environment/Zsh.bat"
 cat << EOF > "$BAT_PATH"
 @echo off
-set HOME=C:/Users/Jude
-set BASH_ENV=C:/Users/Jude/.bashrc
+set HOME=%USERPROFILE%
+set BASH_ENV=%USERPROFILE%\.bashrc
 
 :: Check if a script file is passed as an argument
 if "%~1"=="" (
