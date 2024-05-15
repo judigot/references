@@ -1644,7 +1644,7 @@ spring.security.user.password=123
 # Change the default server port
 server.port=5000
 
-customVariable=Hello, World!
+BIGBANG_MESSAGE=Hello, World!
 EOF
 
 # Create directories for the controller and config
@@ -1670,8 +1670,8 @@ import java.util.HashMap;
 @RequestMapping("/api/v1")
 public class HelloWorldController {
 
-    @Value("\${customVariable}")
-    private String customVariable;
+    @Value("\${BIGBANG_MESSAGE}")
+    private String BIGBANG_MESSAGE;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -1679,7 +1679,7 @@ public class HelloWorldController {
     @GetMapping("/helloworld")
     public Map<String, String> helloWorld() {
         Map<String, String> response = new HashMap<>();
-        response.put("message", customVariable);
+        response.put("message", BIGBANG_MESSAGE);
         return response;
     }
 
