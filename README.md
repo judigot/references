@@ -336,15 +336,22 @@ echo $downloadLink
 ## HTTP Request
 
 Tags: `fetch`, `curl`, `fetch request using curl`, `fetch request using bash`, `fetch using bash`, `fetch using curl`, `curl fetch`, `fetch curl`
+
 ```bash
 result=$(
-    URL="http://localhost:3000/api/v1/resource"
-    response=$(curl -X \
-        GET \
-        "$URL" \
-        -H "Accept: application/json, text/plain, */*" \
-        -H "Content-Type: application/json" \
-        -d '{"key1":"value1", "key2":"value2"}') # For POST, PATCH, and PUT requests
+    URL="http://localhost:5000/api/v1/helloworld"
+    auth=$(printf "admin:123" | base64) # Java Spring Boot
+    JWT_token="0123456789"              # JSON Web Token
+    response=$(
+        curl -sL -X \
+            GET \
+            "$URL" \
+            -H "Accept: application/json, text/plain, */*" \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Basic $auth" \
+            -H "Authorization: Bearer $JWT_token" \
+            -d '{"key1":"value1", "key2":"value2"}' # For POST, PATCH, and PUT requests
+    )
     exitStatus=$?
     [ $exitStatus -ne 0 ] && echo -e "\e[31mError in curl request with exit status: $exitStatus\e[0m" >&2 && exit 1 || echo $response
 )
