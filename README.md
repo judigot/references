@@ -174,19 +174,37 @@ Tags: `download git repository using powershell`, `clone github repository`, `cl
 $repositoryName = "inventory"
 $branchName = "main"
 $githubUser = "judigot"
-$targetDirectory = "C:/apportable"
+$targetDirectory = "bigbang"
 $repositoryURL = "https://github.com/$githubUser/$repositoryName"
 
-# Download and extract the ZIP file
-$zipFilePath = "$targetDirectory/$repositoryName.zip"
-curl.exe -L "$repositoryURL/archive/refs/heads/$branchName.zip" -o $zipFilePath
-Expand-Archive -Force -Path $zipFilePath -DestinationPath $targetDirectory
-Remove-Item -Path $zipFilePath
+# Ensure target directory exists
+if (-not (Test-Path -Path $targetDirectory)) {
+    New-Item -ItemType Directory -Path $targetDirectory
+}
 
-# Move contents and clean up
+# Download the ZIP file
+$zipFilePath = "$targetDirectory\$repositoryName.zip"
+curl.exe -L "$repositoryURL/archive/refs/heads/$branchName.zip" -o $zipFilePath
+
+# Extract the ZIP file and remove it if extraction is successful
+try {
+    Expand-Archive -Force -Path $zipFilePath -DestinationPath $targetDirectory
+    Remove-Item -Path $zipFilePath
+} catch {
+    Write-Error "Extraction failed: $_"
+    exit 1
+}
+
+# Move contents of the nested directory to the target directory and clean up
 $nestedDirPath = Join-Path -Path $targetDirectory -ChildPath "$repositoryName-$branchName"
-Get-ChildItem -Path $nestedDirPath -Recurse | Move-Item -Destination $targetDirectory\$repositoryName -Force
-Remove-Item -Path $nestedDirPath -Force -Recurse
+
+if (Test-Path -Path $nestedDirPath) {
+    Get-ChildItem -Path $nestedDirPath -Recurse | Move-Item -Destination $targetDirectory -Force
+    Remove-Item -Path $nestedDirPath -Force -Recurse
+} else {
+    Write-Error "The extracted directory '$nestedDirPath' does not exist."
+    exit 1
+}
 ```
 
 # =====================================
