@@ -1621,7 +1621,7 @@ readonly DEPENDENCIES=(
 readonly ROOT_DIRECTORY="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 readonly PROJECT_DIRECTORY="$ROOT_DIRECTORY/$PROJECT_NAME"
 
-function main() {
+main() {
     echo -e "\e[32mInitializing...\e[0m"
 
     downloadSpringBoot
@@ -1635,7 +1635,7 @@ function main() {
     echo -e "Big Bang successfully scaffolded."
 }
 
-function createHelloWorldController() {
+createHelloWorldController() {
     cd "$PROJECT_DIRECTORY/src/main/java/com/example/$PROJECT_NAME/controller/v1" || return
     current_dir=$(basename "$PWD")
 
@@ -1693,7 +1693,7 @@ EOF
     fi
 }
 
-function editAppProperties() {
+editAppProperties() {
     cd "$PROJECT_DIRECTORY/src/main/resources" || return
 
     appendToFile "application.properties" "$(
@@ -1720,7 +1720,7 @@ EOF
     )"
 }
 
-function downloadSpringBoot() {
+downloadSpringBoot() {
     local dependencies=""
     dependencies=$(
         IFS=,
@@ -1765,7 +1765,7 @@ function downloadSpringBoot() {
     echo "Contents of the current directory after extraction and deleting the zip file:"
 }
 
-function appendToFile() {
+appendToFile() {
     #=====USAGE=====#
     #     appendToFile "folder/example.txt" "$(
     #         cat <<EOF
@@ -1803,7 +1803,6 @@ function appendToFile() {
 
 main
 ```
-
 # =====================================
 # Build & Run Java
 
