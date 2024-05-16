@@ -1754,7 +1754,7 @@ spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
 
 # Spring Security default user credentials
-spring.security.user.name=user
+spring.security.user.name=admin
 spring.security.user.password=123
 
 # Change the default server port
