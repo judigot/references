@@ -1630,9 +1630,54 @@ main() {
     directories=("v1")
     createDirectories "$PROJECT_DIRECTORY/src/main/java/com/example/$PROJECT_NAME/controller" "directories[@]"
     createHelloWorldController
+    createCorsConfig
     editAppProperties
 
     echo -e "Big Bang successfully scaffolded."
+}
+
+createCorsConfig() {
+    cd "$PROJECT_DIRECTORY/src/main/java/com/example/$PROJECT_NAME/config" || return
+    current_dir=$(basename "$PWD")
+
+    local htmlFileName="HelloWorldController.java"
+    local content=""
+    content=$(
+        cat <<EOF
+package com.example.$PROJECT_NAME.$current_dir;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.lang.NonNull;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@Configuration
+public class CorsConfig {
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(@NonNull CorsRegistry registry) {
+                registry.addMapping("/api/**")
+                        .allowedOrigins("*")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD")
+                        .allowedHeaders("*");
+            }
+        };
+    }
+}
+EOF
+    )
+
+    echo "$content" >"$htmlFileName"
+    # Check if the file was created successfully
+    if [ -e "$htmlFileName" ]; then
+        echo -e "\e[32mFile ($htmlFileName) was successfully created.\e[0m" # Green
+    else
+        echo -e "\e[31mFailed to create $htmlFileName.\e[0m" # Red
+    fi
 }
 
 createHelloWorldController() {
@@ -1803,6 +1848,7 @@ appendToFile() {
 
 main
 ```
+
 # =====================================
 # Build & Run Java
 
