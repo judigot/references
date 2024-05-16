@@ -31,71 +31,71 @@ readonly ROOT_DIRECTORY="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null
 readonly PROJECT_DIRECTORY="$ROOT_DIRECTORY/$PROJECT_NAME"
 
 function main() {
-    echo -e "\e[32mInitializing...\e[0m" &&
-        downloadVite &&
-        createEnv &&
-        deleteFiles "css" &&
-        codeToBeRemoved=("import './index.css'" "import './App.css'") &&
-        removeTextContent "codeToBeRemoved[@]" &&
-        codeToBeRemoved=("import reactLogo from './assets/react.svg'" "import viteLogo from '/vite.svg'") &&
-        removeTextContent "codeToBeRemoved[@]" &&
-        directories=("components" "helpers" "styles" "tests" "types" "utils") &&
-        createDirectories "$PROJECT_DIRECTORY/src" "directories[@]" &&
-        removeBoilerplate &&
-        installDefaultPackages &&
-        installPackages "development" "DEV_DEPENDENCIES[@]" &&
-        installPackages "production" "PRODUCTION_DEPENDENCIES[@]" &&
+    echo -e "\e[32mInitializing...\e[0m"
+    downloadVite
+    createEnv
+    deleteFiles "css"
+    codeToBeRemoved=("import './index.css'" "import './App.css'")
+    removeTextContent "codeToBeRemoved[@]"
+    codeToBeRemoved=("import reactLogo from './assets/react.svg'" "import viteLogo from '/vite.svg'")
+    removeTextContent "codeToBeRemoved[@]"
+    directories=("components" "helpers" "styles" "tests" "types" "utils")
+    createDirectories "$PROJECT_DIRECTORY/src" "directories[@]"
+    removeBoilerplate
+    installDefaultPackages
+    installPackages "development" "DEV_DEPENDENCIES[@]"
+    installPackages "production" "PRODUCTION_DEPENDENCIES[@]"
 
-        # ==========CUSTOM SETTINGS========== #
-        vite.config.ts.addBasePath true && # Ensures that assets are imported after building
+    # ==========CUSTOM SETTINGS========== #
+    vite.config.ts.addBasePath true # Ensures that assets are imported after building
 
-        # Tailwind
-        local tailwindPackages=("tailwindcss" "autoprefixer" "postcss") &&
-        installPackages "development" "tailwindPackages[@]" &&
-        postCSSConfig &&
-        tailwindConfig &&
+    # Tailwind
+    local tailwindPackages=("tailwindcss" "autoprefixer" "postcss")
+    installPackages "development" "tailwindPackages[@]"
+    postCSSConfig
+    tailwindConfig
 
-        # Import shorthand (@)
-        addImportShorthand &&
+    # Import shorthand (@)
+    addImportShorthand
 
-        # Strict mode
-        createAppTSX &&
-        createPrettierRc &&
-        modifyESLintConfig &&
-        codeToBeRemoved=(".tsx") &&
-        removeTextContent "codeToBeRemoved[@]" &&
-        installStrictPackages &&
+    # Strict mode
+    createAppTSX
+    createPrettierRc
+    modifyESLintConfig
+    codeToBeRemoved=(".tsx")
+    removeTextContent "codeToBeRemoved[@]"
+    installStrictPackages
 
-        # tsconfig.node.json
-        addStrictNullChecks &&
+    # tsconfig.node.json
+    addStrictNullChecks
 
-        # Testing
-        local testPackages=("jest" "@types/jest" "jsdom" "@testing-library/react" "@testing-library/jest-dom") &&
-        installPackages "development" "testPackages[@]" &&
-        addVitestReference &&
-        vite.config.ts.addTestConfig true &&
+    # Testing
+    local testPackages=("jest" "@types/jest" "jsdom" "@testing-library/react" "@testing-library/jest-dom")
+    installPackages "development" "testPackages[@]"
+    addVitestReference
+    vite.config.ts.addTestConfig true
 
-        # Express Server
-        local serverPackages=("express" "cors") &&
-        installPackages "production" "serverPackages[@]" &&
-        local serverPackages=("@types/express" "@types/cors" "nodemon" "tsx") &&
-        installPackages "development" "serverPackages[@]" &&
-        vite.config.ts.newBuildOutput true &&
-        addDevAndStartScripts &&
-        editTSConfig &&
-        createServerEntryPoint &&
-        createComponentWithAPICall &&
-        recreateMainForLint &&
+    # Express Server
+    local serverPackages=("express" "cors")
+    installPackages "production" "serverPackages[@]"
+    local serverPackages=("@types/express" "@types/cors" "nodemon" "tsx")
+    installPackages "development" "serverPackages[@]"
+    vite.config.ts.newBuildOutput true
+    addDevAndStartScripts
+    editTSConfig
+    createServerEntryPoint
+    createComponentWithAPICall
+    recreateMainForLint
 
-        # ==========CUSTOM SETTINGS========== #
+    # ==========CUSTOM SETTINGS========== #
 
-        vite.config.ts.addPathAlias true &&
-        vite.config.ts.changeDevPort true &&
+    vite.config.ts.addPathAlias true
+    vite.config.ts.changeDevPort true
 
-        formatCode &&
-        initializeGit &&
+    formatCode
+    initializeGit
 
-        echo -e "Big Bang successfully scaffolded."
+    echo -e "Big Bang successfully scaffolded."
 }
 
 function vite.config.ts.changeDevPort() {
