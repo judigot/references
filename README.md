@@ -1580,80 +1580,52 @@ curl -L "https://raw.githubusercontent.com/judigot/references/main/BigBangVite.s
 ```bash
 #!/bin/bash
 
-# Download the Spring Boot project zip file
-curl https://start.spring.io/starter.zip \
-    -d type=maven-project \
-    -d language=java \
-    -d bootVersion=3.2.5 \
-    -d baseDir=bigbang \
-    -d groupId=com.example \
-    -d artifactId=bigbang \
-    -d name=BigBang \
-    -d description="Demo project for Spring Boot Backend" \
-    -d packageName=com.example.bigbang \
-    -d packaging=jar \
-    -d javaVersion=21 \
-    -d dependencies=web,data-jpa,security,devtools,actuator,lombok,validation,postgresql \
-    -o bigbang.zip
+# Load helper functions remotely
+source <(curl -fsSL "https://raw.githubusercontent.com/judigot/references/main/FileHandlingHelpers.sh")
 
-# Function to check if a command exists
-command_exists() {
-    command -v "$1" >/dev/null 2>&1
+# ====================PROJECT SETTINGS==================== #
+
+readonly PROJECT_NAME="bigbang"
+
+readonly DEPENDENCIES=(
+    "actuator"
+    "data-jpa"
+    "lombok"
+    "postgresql"
+    "security"
+    "validation"
+    "web"
+)
+
+# ====================PROJECT SETTINGS==================== #
+
+# Directories
+readonly ROOT_DIRECTORY="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+readonly PROJECT_DIRECTORY="$ROOT_DIRECTORY/$PROJECT_NAME"
+
+function main() {
+    echo -e "\e[32mInitializing...\e[0m"
+
+    downloadSpringBoot
+    directories=("controller" "model" "repository" "service" "config")
+    createDirectories "$PROJECT_DIRECTORY/src/main/java/com/example/$PROJECT_NAME" "directories[@]"
+    directories=("v1")
+    createDirectories "$PROJECT_DIRECTORY/src/main/java/com/example/$PROJECT_NAME/controller" "directories[@]"
+    createHelloWorldController
+    editAppProperties
+
+    echo -e "Big Bang successfully scaffolded."
 }
 
-# Extract the zip file using available extraction tool
-if command_exists unzip; then
-    unzip bigbang.zip -d .
-elif command_exists 7z; then
-    7z x bigbang.zip -o.
-elif command_exists winrar; then
-    winrar x bigbang.zip .
-elif command_exists winzip; then
-    winzip -e bigbang.zip .
-else
-    echo "Error: No suitable extraction tool found (unzip, 7z, winrar, winzip)."
-    exit 1
-fi
+function createHelloWorldController() {
+    cd "$PROJECT_DIRECTORY/src/main/java/com/example/$PROJECT_NAME/controller/v1" || return
+    current_dir=$(basename "$PWD")
 
-# Ensure extraction is complete before proceeding
-wait
-
-# Delete the zip file
-rm bigbang.zip
-
-# Debug: List contents of the current directory
-echo "Contents of the current directory after extraction and deleting the zip file:"
-ls -l
-
-# Add PostgreSQL, Spring Security settings, and server port to application.properties
-cat <<EOF >>bigbang/src/main/resources/application.properties
-
-spring.datasource.url=jdbc:postgresql://localhost:5432/snippetboss
-spring.datasource.username=root
-spring.datasource.password=123
-spring.datasource.driver-class-name=org.postgresql.Driver
-
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
-
-# Spring Security default user credentials
-spring.security.user.name=user
-spring.security.user.password=123
-
-# Change the default server port
-server.port=5000
-
-BIGBANG_MESSAGE=Hello, World!
-EOF
-
-# Create directories for the controller and config
-mkdir -p bigbang/src/main/java/com/example/bigbang/api/v1
-mkdir -p bigbang/src/main/java/com/example/bigbang/config
-
-# Create the HelloWorldController class
-cat <<EOF > bigbang/src/main/java/com/example/bigbang/api/v1/HelloWorldController.java
-package com.example.bigbang.api.v1;
+    local htmlFileName="HelloWorldController.java"
+    local content=""
+    content=$(
+        cat <<EOF
+package com.example.$PROJECT_NAME.controller.$current_dir;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -1692,35 +1664,126 @@ public class HelloWorldController {
     }
 }
 EOF
+    )
 
-# Create the CorsConfig class
-cat <<EOF > bigbang/src/main/java/com/example/bigbang/config/CorsConfig.java
-package com.example.bigbang.config;
-
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-@Configuration
-public class CorsConfig {
-
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/**")
-                        .allowedOrigins("*")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD")
-                        .allowedHeaders("*");
-            }
-        };
-    }
+    echo "$content" >"$htmlFileName"
+    # Check if the file was created successfully
+    if [ -e "$htmlFileName" ]; then
+        echo -e "\e[32mFile ($htmlFileName) was successfully created.\e[0m" # Green
+    else
+        echo -e "\e[31mFailed to create $htmlFileName.\e[0m" # Red
+    fi
 }
-EOF
 
-echo "Spring Boot application setup is complete, including the new API endpoint and CORS configuration!"
+function editAppProperties() {
+    cd "$PROJECT_DIRECTORY/src/main/resources" || return
+
+    appendToFile "application.properties" "$(
+        cat <<EOF
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/snippetboss
+spring.datasource.username=root
+spring.datasource.password=123
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+
+# Spring Security default user credentials
+spring.security.user.name=user
+spring.security.user.password=123
+
+# Change the default server port
+server.port=5000
+
+BIGBANG_MESSAGE=Hello, World!
+EOF
+    )"
+}
+
+function downloadSpringBoot() {
+    local dependencies=""
+    dependencies=$(
+        IFS=,
+        echo "${DEPENDENCIES[*]}"
+    )
+
+    curl https://start.spring.io/starter.zip \
+        -d type=maven-project \
+        -d language=java \
+        -d bootVersion=3.2.5 \
+        -d baseDir=$PROJECT_NAME \
+        -d groupId=com.example \
+        -d artifactId=$PROJECT_NAME \
+        -d name=BigBang \
+        -d description="Demo project for Spring Boot Backend" \
+        -d packageName=com.example.$PROJECT_NAME \
+        -d packaging=jar \
+        -d javaVersion=21 \
+        -d dependencies="$dependencies" \
+        -o $PROJECT_NAME.zip
+
+    if command -v unzip >/dev/null 2>&1; then
+        unzip "$PROJECT_NAME.zip" -d .
+    elif command -v 7z >/dev/null 2>&1; then
+        7z x "$PROJECT_NAME.zip" -o. -aoa
+    elif command -v winrar >/dev/null 2>&1; then
+        winrar x "$PROJECT_NAME.zip" .
+    elif command -v winzip >/dev/null 2>&1; then
+        winzip -e "$PROJECT_NAME.zip" .
+    else
+        echo "Error: No suitable extraction tool found (unzip, 7z, winrar, winzip)."
+        exit 1
+    fi
+
+    # # Ensure extraction is complete before proceeding
+    # wait
+
+    # Delete the zip file
+    rm $PROJECT_NAME.zip
+
+    # Debug: List contents of the current directory
+    echo "Contents of the current directory after extraction and deleting the zip file:"
+}
+
+function appendToFile() {
+    #=====USAGE=====#
+    #     appendToFile "folder/example.txt" "$(
+    #         cat <<EOF
+    # Multi-line
+    # text
+    # EOF
+    #     )"
+
+    if [ "$#" -ne 2 ]; then
+        echo -e "\n\e[31mUsage: appendToFile <file> <'text to append'>\e[0m\n" # Red
+        return 1
+    fi
+
+    local file="$1"
+    local appendText="$2"
+
+    if [ -e "$file" ]; then
+        # Read the file content
+        local content=$(cat "$file")
+
+        # Append the text to the content
+        echo -n "$content$appendText" >"$file"
+
+        if [ $? -eq 0 ]; then
+            echo -e "\n\e[32mText appended successfully to the end of the file.\e[0m\n" # Green
+        else
+            echo -e "\n\e[31mFailed to append text to the end of the file.\e[0m\n" # Red
+            return 1
+        fi
+    else
+        echo -e "\n\e[31mFile $file does not exist.\e[0m\n" # Red
+        return 1
+    fi
+}
+
+main
 ```
 
 # =====================================
