@@ -1640,7 +1640,7 @@ createCorsConfig() {
     cd "$PROJECT_DIRECTORY/src/main/java/com/example/$PROJECT_NAME/config" || return
     current_dir=$(basename "$PWD")
 
-    local htmlFileName="HelloWorldController.java"
+    local htmlFileName="CorsConfig.java"
     local content=""
     content=$(
         cat <<EOF
