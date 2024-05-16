@@ -9,7 +9,7 @@
 # include directory as first parameter
 
 function main() {
-    echo -e "\e[32mHello, World!\e[0m" # Green
+    # echo -e "\e[32mHello, World!\e[0m" # Green
 }
 
 function createDirectories() {
