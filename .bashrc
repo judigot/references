@@ -10,6 +10,7 @@ pathsLinux=$(echo "$paths" | awk -v home="$HOME" '{
 }')
 
 export PATH=$PATH:$pathsLinux
+export JAVA_HOME="/c/apportable/Programming/jdk"
 export NVM_HOME="/c/apportable/Programming/nvm"
 export NVM_SYMLINK="/c/apportable/Programming/nodejs"
 
