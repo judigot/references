@@ -47,7 +47,7 @@ function main() {
         installPackages "production" "PRODUCTION_DEPENDENCIES[@]" &&
 
         # ==========CUSTOM SETTINGS========== #
-        vite.config.ts__________addBasePath true && # Ensures that assets are imported after building
+        vite.config.ts.addBasePath true && # Ensures that assets are imported after building
 
         # Tailwind
         local tailwindPackages=("tailwindcss" "autoprefixer" "postcss") &&
@@ -73,14 +73,14 @@ function main() {
         local testPackages=("jest" "@types/jest" "jsdom" "@testing-library/react" "@testing-library/jest-dom") &&
         installPackages "development" "testPackages[@]" &&
         addVitestReference &&
-        vite.config.ts__________addTestConfig true &&
+        vite.config.ts.addTestConfig true &&
 
         # Express Server
         local serverPackages=("express" "cors") &&
         installPackages "production" "serverPackages[@]" &&
         local serverPackages=("@types/express" "@types/cors" "nodemon" "tsx") &&
         installPackages "development" "serverPackages[@]" &&
-        vite.config.ts__________newBuildOutput true &&
+        vite.config.ts.newBuildOutput true &&
         addDevAndStartScripts &&
         editTSConfig &&
         createServerEntryPoint &&
@@ -89,8 +89,8 @@ function main() {
 
         # ==========CUSTOM SETTINGS========== #
 
-        vite.config.ts__________addPathAlias true &&
-        vite.config.ts__________changeDevPort true &&
+        vite.config.ts.addPathAlias true &&
+        vite.config.ts.changeDevPort true &&
 
         formatCode &&
         initializeGit &&
@@ -98,7 +98,7 @@ function main() {
         echo -e "Big Bang successfully scaffolded."
 }
 
-function vite.config.ts__________changeDevPort() {
+function vite.config.ts.changeDevPort() {
     cd "$PROJECT_DIRECTORY" || return
 
     local isTurnedOn="$1"
@@ -147,7 +147,7 @@ EOF
     fi
 }
 
-function vite.config.ts__________addPathAlias() {
+function vite.config.ts.addPathAlias() {
     cd "$PROJECT_DIRECTORY" || return
 
     local isTurnedOn="$1"
@@ -427,7 +427,7 @@ function editTSConfig() {
     # replaceLineAfterMatch "tsconfig.json" '\"include\": \[\"src\"\],' '\"exclude\": \[\"**\/*.tsx\"\],'
 }
 
-function vite.config.ts__________newBuildOutput() {
+function vite.config.ts.newBuildOutput() {
     cd "$PROJECT_DIRECTORY" || return
 
     local isTurnedOn="$1"
@@ -1048,7 +1048,7 @@ function removeSetting() {
     echo "$result" >"$PROJECT_DIRECTORY/$file"
 }
 
-function vite.config.ts__________addBasePath() {
+function vite.config.ts.addBasePath() {
     cd "$PROJECT_DIRECTORY" || return
 
     local isTurnedOn="$1"
@@ -1115,7 +1115,7 @@ EOF
     fi
 }
 
-function vite.config.ts__________addTestConfig() {
+function vite.config.ts.addTestConfig() {
     cd "$PROJECT_DIRECTORY" || return
 
     local isTurnedOn="$1"
