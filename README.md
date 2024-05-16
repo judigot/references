@@ -7644,6 +7644,8 @@ Ctrl + Shift + Alt =====> ?
 - Rearrange any table's column order and see of app still works
 
 ## Back End Roadmap:
+Tags: `back end development`, `backend revelopment`, `back end skills`, `backend skills`
+
 - JSON schema validator (zod, ajv)
 - WSL2 as linux environment. See WSL2 vs docker environment
 - Single source of truth (SSOT) architecture, or single point of truth (SPOT) architecture
@@ -7756,6 +7758,8 @@ Ctrl + Shift + Alt =====> ?
 - Upload large CSV file to mysql and postgres (100k rows)
 
 ## Front End Roadmap:
+Tags: `front end development`, `frontend revelopment`, `front end skills`, `frontend skills`
+
 - Rendering:
   - Render object literal
   - Store `<option/>` value to state on change
