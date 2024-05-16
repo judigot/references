@@ -30,7 +30,7 @@ readonly DEV_DEPENDENCIES=(
 readonly ROOT_DIRECTORY="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 readonly PROJECT_DIRECTORY="$ROOT_DIRECTORY/$PROJECT_NAME"
 
-function main() {
+main() {
     echo -e "\e[32mInitializing...\e[0m"
     downloadVite
     createEnv
@@ -98,7 +98,7 @@ function main() {
     echo -e "Big Bang successfully scaffolded."
 }
 
-function vite.config.ts.changeDevPort() {
+vite.config.ts.changeDevPort() {
     cd "$PROJECT_DIRECTORY" || return
 
     local isTurnedOn="$1"
@@ -147,7 +147,7 @@ EOF
     fi
 }
 
-function vite.config.ts.addPathAlias() {
+vite.config.ts.addPathAlias() {
     cd "$PROJECT_DIRECTORY" || return
 
     local isTurnedOn="$1"
@@ -196,7 +196,7 @@ EOF
     fi
 }
 
-function postCSSConfig() {
+postCSSConfig() {
     cd "$PROJECT_DIRECTORY" || return
 
     local htmlFileName="postcss.config.js"
@@ -221,7 +221,7 @@ EOF
     fi
 }
 
-function tailwindConfig() {
+tailwindConfig() {
     cd "$PROJECT_DIRECTORY" || return
 
     local htmlFileName="tailwind.config.js"
@@ -251,7 +251,7 @@ EOF
     fi
 }
 
-function initializeGit() {
+initializeGit() {
     if command -v git >/dev/null 2>&1; then
         echo "Git is installed."
 
@@ -262,7 +262,7 @@ function initializeGit() {
     fi
 }
 
-function recreateMainForLint() {
+recreateMainForLint() {
     cd "$PROJECT_DIRECTORY/src" || return
 
     local htmlFileName="main.tsx"
@@ -294,7 +294,7 @@ EOF
     fi
 }
 
-function createServerEntryPoint() {
+createServerEntryPoint() {
     cd "$PROJECT_DIRECTORY/src" || return
 
     local htmlFileName="index.ts"
@@ -355,7 +355,7 @@ EOF
     fi
 }
 
-function createComponentWithAPICall() {
+createComponentWithAPICall() {
     cd "$PROJECT_DIRECTORY/src" || return
 
     local htmlFileName="App.tsx"
@@ -418,7 +418,7 @@ EOF
     fi
 }
 
-function editTSConfig() {
+editTSConfig() {
     cd "$PROJECT_DIRECTORY" || return
     replaceLineAfterMatch "./tsconfig.json" '"noEmit":' "false,"
     replace "tsconfig.json" '"allowImportingTsExtensions": true,' '// "allowImportingTsExtensions": true,'
@@ -427,7 +427,7 @@ function editTSConfig() {
     # replaceLineAfterMatch "tsconfig.json" '\"include\": \[\"src\"\],' '\"exclude\": \[\"**\/*.tsx\"\],'
 }
 
-function vite.config.ts.newBuildOutput() {
+vite.config.ts.newBuildOutput() {
     cd "$PROJECT_DIRECTORY" || return
 
     local isTurnedOn="$1"
@@ -496,13 +496,13 @@ EOF
     fi
 }
 
-function addDevAndStartScripts() {
+addDevAndStartScripts() {
     cd "$PROJECT_DIRECTORY" || return
     replace "package.json" '"dev": "vite",' '"dev": "vite & tsc --noEmit --watch & nodemon --exec tsx src/index.ts", "test": "vitest",'
     replace "package.json" '"lint":' '"start": "node dist/index.js","lint":'
 }
 
-function addImportShorthand() {
+addImportShorthand() {
     appendToTextContent "$PROJECT_DIRECTORY/tsconfig.json" "\"compilerOptions\": {" "$(
         cat <<EOF
 "paths": {
@@ -518,7 +518,7 @@ EOF
         replace "$PROJECT_DIRECTORY/vite.config.ts" "react()" "react(), tsconfigPaths()"
 }
 
-function replace() {
+replace() {
     # Usage:
     # replace "folderName/*.txt" "matchString" "replacementString"
     # replace "folderName" "matchString" "replacementString"
@@ -534,7 +534,7 @@ function replace() {
     local replacement="$3"
 
     # Function to escape special characters in the replacement string for sed
-    function escape_sed_replacement {
+    escape_sed_replacement() {
         echo "$replacement" | sed -e 's/[&/\]/\\&/g'
     }
 
@@ -621,13 +621,13 @@ appendToTextContent() {
     fi
 }
 
-function addStrictNullChecks() {
+addStrictNullChecks() {
     cd "$PROJECT_DIRECTORY" || return
 
     replaceLineAfterMatch "tsconfig.node.json" '"compilerOptions": {' ""strictNullChecks": true,"
 }
 
-function addVitestReference() {
+addVitestReference() {
     cd "$PROJECT_DIRECTORY" || return
 
     prependToPreviousLineIndex "vite.config.ts" 0 "$(
@@ -638,7 +638,7 @@ EOF
 
 }
 
-function installStrictPackages() {
+installStrictPackages() {
     cd "$PROJECT_DIRECTORY" || return
 
     pnpm add -D \
@@ -654,7 +654,7 @@ function installStrictPackages() {
         prettier
 }
 
-function createAppTSX() {
+createAppTSX() {
     cd "$PROJECT_DIRECTORY/src" || return
 
     local content=""
@@ -692,7 +692,7 @@ EOF
     fi
 }
 
-function createPrettierRc() {
+createPrettierRc() {
     cd "$PROJECT_DIRECTORY" || return
 
     local content=""
@@ -723,7 +723,7 @@ EOF
     fi
 }
 
-function modifyESLintConfig() {
+modifyESLintConfig() {
     # rm .eslintrc.cjs
 
     cd "$PROJECT_DIRECTORY" || return
@@ -822,7 +822,7 @@ EOF
     fi
 }
 
-function createFile() {
+createFile() {
     cd "$PROJECT_DIRECTORY" || return
 
     local htmlFileName="index.html"
@@ -853,7 +853,7 @@ EOF
     fi
 }
 
-function downloadVite() {
+downloadVite() {
     cd "$ROOT_DIRECTORY" || return
 
     # Check if the project already exists
@@ -871,7 +871,7 @@ function downloadVite() {
     fi
 }
 
-function deleteFiles() {
+deleteFiles() {
     cd "$PROJECT_DIRECTORY" || return
 
     local fileExtension="$1"
@@ -889,7 +889,7 @@ function deleteFiles() {
 
 }
 
-function removeTextContent() {
+removeTextContent() {
     cd "$PROJECT_DIRECTORY" || return
 
     local directory="src"
@@ -930,7 +930,7 @@ function removeTextContent() {
 
 }
 
-function removeBoilerplate() {
+removeBoilerplate() {
     cd "$PROJECT_DIRECTORY" || return
 
     local fileName="App.tsx"
@@ -968,7 +968,7 @@ EOF
     fi
 }
 
-function createDirectories() {
+createDirectories() {
     cd "$PROJECT_DIRECTORY/src" || return
 
     local directories=("${!2}")
@@ -983,7 +983,7 @@ function createDirectories() {
 
 }
 
-function installDefaultPackages() {
+installDefaultPackages() {
     cd "$PROJECT_DIRECTORY" || return
 
     pnpm install
@@ -992,7 +992,7 @@ function installDefaultPackages() {
 
 }
 
-function installPackages() {
+installPackages() {
     cd "$PROJECT_DIRECTORY" || return
 
     local packageType="$1"
@@ -1012,7 +1012,7 @@ function installPackages() {
     fi
 }
 
-function formatCode() {
+formatCode() {
     cd "$PROJECT_DIRECTORY" || return
 
     pnpm prettier --write . --log-level silent
@@ -1026,7 +1026,7 @@ function formatCode() {
 
 }
 
-function removeSetting() {
+removeSetting() {
     cd "$PROJECT_DIRECTORY" || return
 
     local settingID="$1"
@@ -1048,7 +1048,7 @@ function removeSetting() {
     echo "$result" >"$PROJECT_DIRECTORY/$file"
 }
 
-function vite.config.ts.addBasePath() {
+vite.config.ts.addBasePath() {
     cd "$PROJECT_DIRECTORY" || return
 
     local isTurnedOn="$1"
@@ -1115,7 +1115,7 @@ EOF
     fi
 }
 
-function vite.config.ts.addTestConfig() {
+vite.config.ts.addTestConfig() {
     cd "$PROJECT_DIRECTORY" || return
 
     local isTurnedOn="$1"
@@ -1193,7 +1193,7 @@ EOF
 }
 
 # ====================HELPER FUNCTIONS==================== #
-function replaceLineAfterMatch() {
+replaceLineAfterMatch() {
     #=====USAGE=====#
     # replaceLineAfterMatch "folderName/example.txt" "matchString" "newStringAfterMatch"
 
@@ -1218,7 +1218,7 @@ function replaceLineAfterMatch() {
     fi
 }
 
-function prependToPreviousLineIndex() {
+prependToPreviousLineIndex() {
     #=====USAGE=====#
     #     prependToPreviousLineIndex "example.txt" 4 "$(
     #         cat <<EOF
@@ -1251,7 +1251,7 @@ function prependToPreviousLineIndex() {
     fi
 }
 
-function appendToTextContentIndex() {
+appendToTextContentIndex() {
     #=====USAGE=====#
     #     appendToTextContentIndex "folder/example.txt" 0 "text" "$(
     #         cat <<EOF
@@ -1301,7 +1301,7 @@ function appendToTextContentIndex() {
     fi
 }
 
-function createEnv() {
+createEnv() {
     cd "$PROJECT_DIRECTORY" || return
 
     local htmlFileName=".env"
