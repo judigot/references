@@ -3136,6 +3136,15 @@ Object.entries(animals).forEach(
 
 // Iterate a number of times
 // Loop 5 times
+
+{
+  Array.from({ length: 5 }, (_, i) => (
+    <div key={i} value={i}>
+      Page {i + 1}
+    </div>
+  ))
+}
+
 {
   [...Array(5)].map(({ id, firstName }, i) => <div key={id}>{row}</div>);
 }
