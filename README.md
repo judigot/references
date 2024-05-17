@@ -2201,12 +2201,13 @@ Expected output for Shell Script or Bash:
 
 # CSS
 
-```html
-/* https://google.github.io/styleguide/htmlcssguide.html */ /* Center an element
-vertically and horizontally; center an element horizontally and vertically */ /*
-Center element vertically and horizontally; center element horizontally and
-vertically */
+[Google HTML/CSS Style Guide](https://google.github.io/styleguide/htmlcssguide.html)
 
+## Center an element vertically and horizontally; center an element horizontally and vertically
+
+Tags: `Center element vertically and horizontally; center element horizontally and vertically`
+
+```html
 <!-- WHOLE DOCUMENT CENTERED -->
 <body style="display: grid; place-items: center; height: 100vh;">
   <div>Centered Element</div>
@@ -2216,36 +2217,132 @@ vertically */
 <div style="display: grid; place-items: center;">
   <div>Centered Element</div>
 </div>
+```
 
-//==========INHERIT PARENT WIDTH; DROPDOWN POSITION==========// .parent {
-position: relative; } .child { position: absolute; width: 100%; }
-//==========INHERIT PARENT WIDTH; DROPDOWN POSITION==========//
-//==========CENTER ELEMENT VERTICALLY==========// /* Shorthand: top, right,
-bottom, left */ margin: 0% auto 0% auto; margin-left: auto; margin-right: auto;
-//==========CENTER ELEMENT VERTICALLY==========// //==========CENTER ELEMENT
-HORIZONTALLY==========// /* Shorthand: top, right, bottom, left */ margin: auto
-0% auto 0%; margin-top: auto; margin-bottom: auto; //==========CENTER ELEMENT
-HORIZONTALLY==========// Center element: width: 50%; margin: auto; Toggle
-Switch: CSS: /*====================Toggle Switch====================*/ HTML:
+## INHERIT PARENT WIDTH; DROPDOWN POSITION
+
+```css
+.parent {
+  position: relative;
+}
+.child {
+  position: absolute;
+  width: 100%;
+}
+```
+
+## CENTER ELEMENT VERTICALLY
+
+```css
+/* Shorthand: top, right, bottom, left */
+margin: 0% auto 0% auto;
+
+margin-left: auto;
+margin-right: auto;
+```
+
+## CENTER ELEMENT HORIZONTALLY
+
+```css
+/* Shorthand: top, right, bottom, left */
+margin: auto 0% auto 0%;
+
+margin-top: auto;
+margin-bottom: auto;
+```
+
+## Center element
+
+```css
+width: 50%;
+margin: auto;
+```
+
+## Toggle Switch
+
+### CSS
+
+```css
+/*====================Toggle Switch====================*/
+```
+
+### HTML
+
+```html
 <label class="switch">
   <input type="checkbox" checked />
   <span class="slider round"></span>
 </label>
+```
 
-/*Size*/ .switch { zoom: 50%; } /*Transition Duration*/ .slider, .slider:before
-{ transition: .5s; } /*True*/ input:checked + .slider { background-color: green;
-} /*True Transition*/ input:checked + .slider:before { transform:
-translateX(26px); } /*False*/ .slider { background-color: orange; top: 0;
-bottom: 0; left: 0; right: 0; cursor: pointer; position: absolute; } /*Middle
-Switch*/ .slider:before { content: ""; background-color: white; bottom: 4px;
-left: 4px; height: 26px; width: 26px; position: absolute; } /*Container*/
-.switch { position: relative; display: inline-block; width: 60px; height: 34px;
-} /*Middle Switch Radius*/ .slider.round:before { border-radius: 50% !important;
-} /*Container Radius*/ .slider.round { border-radius: 50px !important; }
-/*====================Toggle Switch====================*/ NEVER USE IDs WHEN
-STYLING. ":" and "::" difference: ":" = pseudo-element (hover, active, focus)
-"::" = pseudo-selector (first-child, last-child) Triangle div:
-------------------------------------------------------------------------------------
+### CSS
+
+```css
+/* Size */
+.switch {
+  zoom: 50%;
+}
+/* Transition Duration */
+.slider,
+.slider:before {
+  transition: 0.5s;
+}
+/* True */
+input:checked + .slider {
+  background-color: green;
+}
+/* True Transition */
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+/* False */
+.slider {
+  background-color: orange;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  cursor: pointer;
+  position: absolute;
+}
+/* Middle Switch */
+.slider:before {
+  content: "";
+  background-color: white;
+  bottom: 4px;
+  left: 4px;
+  height: 26px;
+  width: 26px;
+  position: absolute;
+}
+/* Container */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+/* Middle Switch Radius */
+.slider.round:before {
+  border-radius: 50% !important;
+}
+/* Container Radius */
+.slider.round {
+  border-radius: 50px !important;
+}
+/*====================Toggle Switch====================*/
+```
+
+## NEVER USE IDs WHEN STYLING
+
+## ":" and "::" difference
+
+- `:` = pseudo-element (hover, active, focus)
+- `::` = pseudo-selector (first-child, last-child)
+
+## Triangle div
+
+```html
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -2267,70 +2364,188 @@ STYLING. ":" and "::" difference: ":" = pseudo-element (hover, active, focus)
     <div class="triangle"></div>
   </body>
 </html>
-------------------------------------------------------------------------------------
-Center the sidebar and main content area along the vertical axis: html, body {
-height: 100%; } body { align-items: center; } CSS grid/Display elements side by
-side: *See Quickform/home layout #content { display: grid; /*First
-element/column is 200px, 2nd element (1fr) takes up the remaining space*/
-grid-template-columns: 200px 1fr; /*2 columns*/ grid-template-columns: repeat(2,
-1fr); } #first { height: 100%; position: fixed; } Element placement: float:
-right; Bootstrap button: ------------------------- .btn, .btn:focus { color:
-#62ACED; border: 1px solid #62ACED; outline: none !important; background-color:
-white; transition: all 0.5s ease-in-out; } .btn:hover { color: white;
-background-color: #62ACED; } .btn:active { box-shadow: inset 0 5px 20px -2px
-rgba(0, 0, 0, 0.5); } .green, .green:focus { color: #B2BA3A; border-color:
-#B2BA3A; } .green:hover { color: white; background-color: #B2BA3A; }
-------------------------- ------------------------- Bootstrap modal: *remove
-"fade" from class="modal fade" to remove default animation *target modal
-backdrop color by ".in" class *add title bar
-<div>
-  under "modal-dialog" (before "modal-content")
-  <div>
-    *modal-dialog overrides: shadow, border-radius .modal-header { text-align:
-    center; border-color: #DDDDDD; } .modal-content { border: none;
-    background-color: #EEEEEE; } .modal-footer { border-color: #DDDDDD; }
-    ------------------------- Center div/Custom modal:
-    ------------------------------------------------------------------------------------
-    <!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <style>
-          #modal-backdrop,
-          #modal-body {
-            top: 50%;
-            left: 50%;
-            position: fixed;
-            transform: translate(-50%, -50%);
-          }
-          #modal-backdrop {
-            height: 100%;
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-          }
-          #modal-body {
-            height: 400px;
-            width: 400px;
-            background-color: red;
-          }
-        </style>
-      </head>
-      <body>
-        <div id="modal-backdrop"><div id="modal-body"></div></div>
-      </body>
-    </html>
-    ------------------------------------------------------------------------------------
-    Background image: body { background-image: url("http://bit.ly/2eUrF3s");
-    background-size: cover; background-repeat: no-repeat; background-position:
-    center; background-attachment: fixed; } Bootstrap button: .btn { border:
-    none; transition: all 0.5s; } Set general border radius: * { border-radius:
-    0 !important; } Shadow: element { box-shadow: 0px 0px 10px 1px #AAAAAA; }
-    "box-shadow": "0px 0px 10px 1px #AAAAAA", Center Fix Elements: element {
-    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); }
-    Center Inline elements (<span
-      >,<a>): element { display: block; text-align: center; }</a></span
-    >
-  </div>
-</div>
+```
+
+## Center the sidebar and main content area along the vertical axis
+
+```css
+html,
+body {
+  height: 100%;
+}
+body {
+  align-items: center;
+}
+```
+
+## CSS grid/Display elements side by side
+
+\*See Quickform/home layout
+
+```css
+#content {
+  display: grid;
+
+  /* First element/column is 200px, 2nd element (1fr) takes up the remaining space */
+  grid-template-columns: 200px 1fr;
+
+  /* 2 columns */
+  grid-template-columns: repeat(2, 1fr);
+}
+
+#first {
+  height: 100%;
+  position: fixed;
+}
+```
+
+## Element placement
+
+```css
+float: right;
+```
+
+## Bootstrap button
+
+```css
+.btn,
+.btn:focus {
+  color: #62aced;
+  border: 1px solid #62aced;
+  outline: none !important;
+  background-color: white;
+  transition: all 0.5s ease-in-out;
+}
+.btn:hover {
+  color: white;
+  background-color: #62aced;
+}
+.btn:active {
+  box-shadow: inset 0 5px 20px -2px rgba(0, 0, 0, 0.5);
+}
+
+.green,
+.green:focus {
+  color: #b2ba3a;
+  border-color: #b2ba3a;
+}
+.green:hover {
+  color: white;
+  background-color: #b2ba3a;
+}
+```
+
+## Bootstrap modal
+
+- Remove "fade" from `class="modal fade"` to remove default animation
+- Target modal backdrop color by ".in" class
+- Add title bar `<div>` under "modal-dialog" (before "modal-content") `<div>`
+- Modal-dialog overrides: shadow, border-radius
+
+```css
+.modal-header {
+  text-align: center;
+  border-color: #dddddd;
+}
+.modal-content {
+  border: none;
+  background-color: #eeeeee;
+}
+.modal-footer {
+  border-color: #dddddd;
+}
+```
+
+## Center div/Custom modal
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      #modal-backdrop,
+      #modal-body {
+        top: 50%;
+        left: 50%;
+        position: fixed;
+        transform: translate(-50%, -50%);
+      }
+      #modal-backdrop {
+        height: 100%;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+      #modal-body {
+        height: 400px;
+        width: 400px;
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="modal-backdrop">
+      <div id="modal-body"></div>
+    </div>
+  </body>
+</html>
+```
+
+## Background image
+
+```css
+body {
+  background-image: url("http://bit.ly/2eUrF3s");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+```
+
+## Bootstrap button
+
+```css
+.btn {
+  border: none;
+  transition: all 0.5s;
+}
+```
+
+## Set general border radius
+
+```css
+* {
+  border-radius: 0 !important;
+}
+```
+
+## Shadow
+
+```css
+element {
+  box-shadow: 0px 0px 10px 1px #aaaaaa;
+}
+"box-shadow":"0px0px10px1px#AAAAAA", ;
+```
+
+## Center Fix Elements
+
+```css
+element {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+```
+
+## Center Inline elements (<span>,<a>)
+
+```css
+element {
+  display: block;
+  text-align: center;
+}
 ```
 
 # =====================================
