@@ -63,6 +63,8 @@ const x = "123";
 
 # Authentication Flow
 
+Tags: `data flow`
+
     Server:
     Enable CORS in backend
     Create auth route
