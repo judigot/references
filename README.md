@@ -7604,10 +7604,9 @@ Tags: `generate rest api`, `generate restful api`, `generate api endpoints`, `ge
 
 # Docker container details
 CONTAINER_NAME="PostgreSQL"
-DB_NAME="snippeter"
+DB_NAME="snippetboss"
 DB_USER="root"
 DB_PASSWORD="123"
-endpoints=()
 
 # PostgreSQL connection URL (if you want to use URL)
 DB_URL="postgresql://$DB_USER:$DB_PASSWORD@localhost:5432/$DB_NAME"
@@ -7623,6 +7622,7 @@ if [ -z "$container_id" ]; then
     fi
 fi
 
+endpoints=()
 # Determine whether to use URL or container-based connection
 if [ -n "$container_id" ]; then
     # Using Docker container connection
@@ -7632,12 +7632,8 @@ else
     endpoints[0]=$(psql "$DB_URL" -t -c "\dt" | awk -F\| '{print $2}' | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
 fi
 
-# table_names=(${endpoints[0]})
-
 # Convert string to array; convert space-separated strings to array; convert space separated strings to array
-mapfile -t table_names <<< "${endpoints[0]}"
-
-rm -rf src
+mapfile -t table_names <<<"${endpoints[0]}"
 
 # Base directory for API endpoints
 base_dir="./src/app/api/v1"
@@ -7672,13 +7668,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
   return PostHandler(req, res);
 }
 export async function PATCH(req: NextRequest, res: NextResponse) {
-  PatchHandler(req, res);
+  return PatchHandler(req, res);
 }
 export async function PUT(req: NextRequest, res: NextResponse) {
-  PutHandler(req, res);
+  return PutHandler(req, res);
 }
 export async function DELETE(req: NextRequest, res: NextResponse) {
-  DeleteHandler(req, res);
+  return DeleteHandler(req, res);
 }
 EOM
 
@@ -7686,14 +7682,20 @@ EOM
     cat >"$dir_path/Post.ts" <<-EOM
 import { prisma } from '@/prisma/DatabaseClient';
 import { NextRequest, NextResponse } from 'next/server';
+import DatatypeParser from '@/utils/DataTypeParser';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
+export default async function handler(_req: NextRequest, _res: NextResponse) {
     const data = req.body;
     try {
         const result = await prisma.$endpoint.create({ data });
-        res.status(201).json(result);
+        return NextResponse.json(DatatypeParser(result));
     } catch (error) {
-        res.status(500).json({ error: "Failed to create $endpoint." });
+        console.error(error);
+        return NextResponse.json({
+        error: error,
+        });
+    } finally {
+        await prisma.\$disconnect();
     }
 }
 EOM
@@ -7702,13 +7704,19 @@ EOM
     cat >"$dir_path/Get.ts" <<-EOM
 import { prisma } from '@/prisma/DatabaseClient';
 import { NextRequest, NextResponse } from 'next/server';
+import DatatypeParser from '@/utils/DataTypeParser';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
+export default async function handler(_req: NextRequest, _res: NextResponse) {
     try {
-        const results = await prisma.$endpoint.findMany();
-        res.status(200).json(results);
+        const result = await prisma.$endpoint.findMany();
+        return NextResponse.json(DatatypeParser(result));
     } catch (error) {
-        res.status(500).json({ error: "Failed to get $endpoint data." });
+        console.error(error);
+        return NextResponse.json({
+        error: error,
+        });
+    } finally {
+        await prisma.\$disconnect();
     }
 }
 EOM
@@ -7717,35 +7725,48 @@ EOM
     cat >"$dir_path/Patch.ts" <<-EOM
 import { prisma } from '@/prisma/DatabaseClient';
 import { NextRequest, NextResponse } from 'next/server';
+import DatatypeParser from '@/utils/DataTypeParser';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
+export default async function handler(_req: NextRequest, _res: NextResponse) {
     const { id, ...data } = req.body;
     try {
         const result = await prisma.$endpoint.update({
             where: { id },
             data
         });
-        res.status(200).json(result);
+        return NextResponse.json(DatatypeParser(result));
     } catch (error) {
-        res.status(500).json({ error: "Failed to update $endpoint." });
+        console.error(error);
+        return NextResponse.json({
+        error: error,
+        });
+    } finally {
+        await prisma.\$disconnect();
     }
 }
 EOM
 
+    # Update
     cat >"$dir_path/Put.ts" <<-EOM
 import { prisma } from '@/prisma/DatabaseClient';
 import { NextRequest, NextResponse } from 'next/server';
+import DatatypeParser from '@/utils/DataTypeParser';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
+export default async function handler(_req: NextRequest, _res: NextResponse) {
     const { id, ...data } = req.body;
     try {
         const result = await prisma.$endpoint.update({
             where: { id },
             data
         });
-        res.status(200).json(result);
+        return NextResponse.json(DatatypeParser(result));
     } catch (error) {
-        res.status(500).json({ error: "Failed to update $endpoint." });
+        console.error(error);
+        return NextResponse.json({
+        error: error,
+        });
+    } finally {
+        await prisma.\$disconnect();
     }
 }
 EOM
@@ -7754,14 +7775,20 @@ EOM
     cat >"$dir_path/Delete.ts" <<-EOM
 import { prisma } from '@/prisma/DatabaseClient';
 import { NextRequest, NextResponse } from 'next/server';
+import DatatypeParser from '@/utils/DataTypeParser';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
+export default async function handler(_req: NextRequest, _res: NextResponse) {
     const { id } = req.body;
     try {
         await prisma.$endpoint.delete({ where: { id } });
-        res.status(200).json({ message: "$endpoint deleted successfully." });
+        return NextResponse.json(DatatypeParser(result));
     } catch (error) {
-        res.status(500).json({ error: "Failed to delete $endpoint." });
+        console.error(error);
+        return NextResponse.json({
+        error: error,
+        });
+    } finally {
+        await prisma.\$disconnect();
     }
 }
 EOM
@@ -7772,7 +7799,7 @@ for table_name in "${table_names[@]}"; do
     create_endpoint_files "$table_name"
 done
 
-echo "API endpoint files have been generated."
+echo "Next.js API endpoints have been generated."
 ```
 
 # =====================================
