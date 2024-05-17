@@ -7307,6 +7307,22 @@ Tags: `back end development`, `backend revelopment`, `back end skills`, `backend
 
 - Upload large CSV file to mysql and postgres (100k rows)
 
+### Minimum Backend Setup
+
+Tags: `api starterpack`, `backend starterpack`
+
+1. **Scaffold project boilerplate**
+
+2. **Run the SQL file** to create the database.
+
+3. **Create an environment variable** named `BIGBANG_MESSAGE` with the value `"Hello, World!"`.
+
+4. **Connect to a PostgreSQL database** named `bigbang` using the credentials `root:123`.
+
+5. **Create an API endpoint** `"/api/v1/bigbang"` that returns a JSON response with the following properties:
+   - `message`: **read from the environment file** the value of the environment variable `BIGBANG_MESSAGE`
+   - `users`: the value from the PostgreSQL database
+
 ## Front End Roadmap:
 
 Tags: `front end development`, `frontend revelopment`, `front end skills`, `frontend skills`
