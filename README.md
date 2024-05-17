@@ -6313,17 +6313,48 @@ npm init
 npm init -y
 ```
 
-#### Install All Dependencies from package-lock.json:
+#### Convert NPM to PNPM
+
+Tags: `convert npm into pnpm`
+
+```bash
+pnpm import
+```
+
+#### Install All Dependencies from pnpm-lock.json:
+
+NPM:
+
+Tags: `install dependencies from pnpm-lock.json`, `install all dependencies from package-lock.json`, `install dependencies from package-lock.json`, `install lockfile dependencies`, `install lock file dependencies`
+
+NPM
 
 ```bash
 npm ci
 ```
 
-#### Install Development/Production Dependencies in package-lock.json
+PNPM
+
+```bash
+pnpm install --frozen-lockfile
+```
+
+#### Install Development/Production Dependencies in pnpm-lock.json
+
+Tags: `install development/production dependencies in package-lock.json`
+
+NPM
 
 ```bash
 npm ci --only=development
 npm ci --only=production
+```
+
+PNPM
+
+```bash
+pnpm install --frozen-lockfile --only dev
+pnpm install --frozen-lockfile --prod
 ```
 
 #### Install All Dependencies From package.json:
