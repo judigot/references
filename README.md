@@ -7185,6 +7185,43 @@ Ctrl + Shift + Alt =====> ?
 - separate backend (API) and frontent (client)
 - can have many clients (web, desktop, mobile)
 
+## Framework Reference
+
+Tags: `web frameworks`
+
+### Framework Files
+
+| Framework (Programming Language) | Package Manager File | Environment File                            | Database Configuration File                 | Configuration File                   | Testing Configuration File                       | Log Files                  |
+| :------------------------------- | :------------------- | :------------------------------------------ | :------------------------------------------ | :----------------------------------- | :----------------------------------------------- | :------------------------- |
+| Java Spring Boot (Java)          | ./pom.xml            | ./src/main/resources/application.properties | ./src/main/resources/application.properties | ./src/main/resources/application.yml | ./src/test/resources/application-test.properties | ./logs/application.log     |
+| Next.js (TypeScript/JavaScript)  | ./package.json       | ./.env                                      | ./.env                                      | ./config/default.json                | ./config/test.json                               | ./logs/app.log             |
+| Django (Python)                  | ./requirements.txt   | ./.env                                      | ./.env                                      | ./settings.py                        | ./settings_test.py                               | ./logs/django.log          |
+| Flask (Python)                   | ./requirements.txt   | ./.env                                      | ./.env                                      | ./config.py                          | ./config_test.py                                 | ./logs/flask.log           |
+| Laravel (PHP)                    | ./composer.json      | ./.env                                      | .env                                        | ./config/app.php                     | ./phpunit.xml                                    | ./storage/logs/laravel.log |
+
+### Framework Directories
+
+| Framework (Programming Language) | Routes File/Directory              | Middleware File                        | Service/Controller Files                  | Views/Templates Directory      | Static Files Directory      | Models                             | Services                            | Repositories       | Providers       | Jobs          | Helpers       | Exceptions       |
+| :------------------------------- | :--------------------------------- | :------------------------------------- | :---------------------------------------- | :----------------------------- | :-------------------------- | :--------------------------------- | :---------------------------------- | :----------------- | :-------------- | :------------ | :------------ | :--------------- |
+| Java Spring Boot (Java)          | ./src/main/java/com/example/routes | ./src/main/java/com/example/middleware | ./src/main/java/com/example/service       | ./src/main/resources/templates | ./src/main/resources/static | ./src/main/java/com/example/models | ./src/main/java/com/example/service | Not available      | Not available   | Not available | Not available | Not available    |
+| Next.js (TypeScript/JavaScript)  | ./app (file-based routing)         | ./middleware/logger.ts                 | ./app/api/user.ts                         | ./app                          | ./public                    | Not available                      | ./app/api/services                  | Not available      | Not available   | Not available | Not available | Not available    |
+| Django (Python)                  | ./urls.py                          | ./middleware.py                        | ./views.py                                | ./templates                    | ./static                    | ./models.py                        | ./services.py                       | Not available      | Not available   | Not available | Not available | Not available    |
+| Flask (Python)                   | ./routes.py                        | ./middleware.py                        | ./services/user_service.py                | ./templates                    | ./static                    | ./models.py                        | ./services/user_service.py          | Not available      | Not available   | Not available | Not available | Not available    |
+| Laravel (PHP)                    | ./routes/web.php                   | ./app/Http/Middleware                  | ./app/Http/Controllers/UserController.php | ./resources/views              | ./public                    | ./app/Models                       | ./app/Http/Controllers              | ./app/Repositories | ./app/Providers | ./app/Jobs    | ./app/Helpers | ./app/Exceptions |
+
+### Commands
+
+| Command                   | Java Spring Boot (Java)          | Next.js (TypeScript/JavaScript) | Django (Python)                       | Flask (Python)                     | Laravel (PHP)                      |
+| :------------------------ | :------------------------------- | :------------------------------ | :------------------------------------ | :--------------------------------- | :--------------------------------- |
+| Dev Mode Command          | mvn spring-boot:run              | pnpm dev                        | python manage.py runserver            | flask run                          | php artisan serve                  |
+| Build Command             | mvn package                      | pnpm build                      | python manage.py collectstatic        | flask collect                      | php artisan config:cache           |
+| Linting Command           | mvn checkstyle:check             | pnpm lint                       | pylint projectName                    | pylint projectName                 | php artisan lint                   |
+| Testing Command           | mvn test                         | pnpm test                       | pytest                                | pytest                             | php artisan test                   |
+| Start Command             | java -jar target/\*.jar          | pnpm start                      | gunicorn projectName.wsgi:application | gunicorn projectName:app           | php artisan serve --env=production |
+| Install Command           | mvn install                      | pnpm install                    | pip install -r requirements.txt       | pip install -r requirements.txt    | composer install                   |
+| Dependency Update Command | mvn versions:use-latest-releases | pnpm update                     | pip install -U -r requirements.txt    | pip install -U -r requirements.txt | composer update                    |
+| Framework Version Command | mvn --version                    | pnpm -v                         | python -m django --version            | flask --version                    | php artisan --version              |
+
 ## Back End Tests
 
 - Rearrange any table's column order and see of app still works
