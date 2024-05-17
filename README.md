@@ -1,6 +1,7 @@
 <h1 align="center">References (Cheat Sheet)</h1>
 
 # =====================================
+
 # Markdown
 
 ## Link
@@ -17,7 +18,7 @@
 
 ## Italic
 
-*Italic* text.
+_Italic_ text.
 
 ## Quote
 
@@ -28,6 +29,7 @@
 ```
 const x = "123";
 ```
+
 ```tsx
 const x = "123";
 ```
@@ -53,9 +55,9 @@ const x = "123";
 
 ## Table
 
-| Left-Aligned  | Center Aligned  | Right Aligned |
-| :------------ |:---------------:| -------------:|
-| 1             | First Name      | Last Name     |
+| Left-Aligned | Center Aligned | Right Aligned |
+| :----------- | :------------: | ------------: |
+| 1            |   First Name   |     Last Name |
 
 # =====================================
 
@@ -116,24 +118,27 @@ const x = "123";
 **Front-End Application (Receives and Processes Response)**: The front-end application receives the server's response. If authentication is successful, it may store the token for future requests, or handle the error message accordingly.
 
 # =====================================
+
 # Amazon Web Services (AWS)
 
 ## AWS Virtual Machine Scaffolding
+
 1. Create instance
 2. Create elastic IP and assign to a network
-
 
 ## AWS EC2 for the application
 
 ## AWS RDS for the database
 
 ## Infastructure-as-code tools
+
 - AWS CDK
 - Terraform (open-source)
 
 ## Jenkins Configuration as Code (JCaC)
 
 # =====================================
+
 # Batch Scripting
 
 ```bat
@@ -141,7 +146,7 @@ const x = "123";
 
 @REM Get IP address
   ipconfig /all
-  
+
 #REM Clear DNS Cache (website loads on mobile but not on PC)
   ipconfig /flushdns
 ```
@@ -219,7 +224,6 @@ Tags: `replace local file`, `update local file from github`
 curl -s https://raw.githubusercontent.com/judigot/vscode/main/.bashrc -o ~/.bashrc
 ```
 
-
 ## Pause Script
 
 Tags: `pause bash script`, `pause shellscript`, `pause shell script`, `stop bash script`, `stop shellscript`, `stop shell script`
@@ -234,29 +238,32 @@ Tags: `add new keys`, `append new ssh keys`, `append new keys`, `add ssh keys`, 
 
 1. Download the key pair (.pem) from the AWS EC2 Key Pairs page
 
-    [https://console.aws.amazon.com/ec2/home#KeyPairs:](https://console.aws.amazon.com/ec2/home#KeyPairs:)
+   [https://console.aws.amazon.com/ec2/home#KeyPairs:](https://console.aws.amazon.com/ec2/home#KeyPairs:)
 
 2. Save the downloaded key to `~/.ssh` on your local machine
 
 3. Set permissions to users only
-     ```bash
-     chmod 400 ~/.ssh/new_key.pem
-     ```
+
+   ```bash
+   chmod 400 ~/.ssh/new_key.pem
+   ```
 
 4. Generate a public key from the private key
-     ```bash
-     ssh-keygen -y -f ~/.ssh/new_key.pem
-     ```
+
+   ```bash
+   ssh-keygen -y -f ~/.ssh/new_key.pem
+   ```
 
 5. Append the generated public key to `~/.ssh/authorized_keys`
-    ```
-    echo "ssh-rsa AAAA..." >> ~/.ssh/authorized_keys
-    ```
+
+   ```
+   echo "ssh-rsa AAAA..." >> ~/.ssh/authorized_keys
+   ```
 
 6. SSH to EC2 Instance
-     ```bash
-     ssh -i ~/.ssh/new_key.pem ubuntu@domainNameOrIPAddress
-     ```
+   ```bash
+   ssh -i ~/.ssh/new_key.pem ubuntu@domainNameOrIPAddress
+   ```
 
 ## Extract HTML Attribute Using Inner Text
 
@@ -359,21 +366,25 @@ echo "$result"
 ```
 
 ## Delete Folder if It Exists; Check if a Folder Exists
+
 ```bash
 ([ ! -d dist ] || rm -r dist)
 ```
 
 ## Generate SSH Key for GitHub
+
 ```bash
 ssh-keygen -t rsa -f ~/.ssh/id_rsa -P "" && clear && echo -e "Copy and paste the public key below to your GitHub account:\n\n\e[32m$(cat ~/.ssh/id_rsa.pub) \e[0m\n" # Green
 ```
 
 ## Test SSH Key
+
 ```bash
 ssh -T git@github.com -o StrictHostKeyChecking=no # Skip answering yes
 ```
 
 ## Generate SSL using Certbot - HTTPS; 443
+
 ```bash
 apt install -y python3-certbot-nginx
 certbot --nginx -d example.com
@@ -382,76 +393,95 @@ certbot --nginx -d app.example.com
 ```
 
 ## Check Linux Distro and Version
+
 ```bash
 cat /etc/*-release
 ```
 
 ## Copy Files and Directories
+
 ### Copy Files
+
 ```bash
 cp src/* dest
 ```
 
 ### Copy with Warning Before Overwriting
+
 ```bash
 cp -i src/* dest
 ```
 
 ## Delete Folders and Contents
+
 ### Delete a Specific Folder
+
 ```bash
 rm -rf (folder name)
 ```
 
 ### Delete All Files in Current Directory
+
 ```bash
 rm -rf *
 ```
 
 ### Delete Excluding Specific Folders
+
 ```bash
 rm -rf !(dont-delete-this)
 ```
 
 ## Move Files
+
 ```bash
 mv folder/* .
 mv src/* dest
 ```
 
 ## Permissions and Ownership
+
 ### Allow Write Permission
+
 Tags: `allow editing permission`, `allow edit permission`
+
 ```bash
 sudo chmod -R 777 /var/docker/*
 ```
 
 ### Change Owner
+
 ```bash
 sudo chown -R <user> /var
 sudo chown -R ubuntu /var
 ```
 
 ## Network and SSH
+
 ### Get Server IP Address
+
 ```bash
 hostname -I
 ```
 
 ### Generate SSH Key
+
 ```bash
 ssh-keygen -t ed25519
 ssh-keygen -t ed25519 -f C:\Users\Jude\.ssh\key_name
 ```
 
 ### SSH to AWS
+
 ```bash
 ssh -i ~/.ssh/id_rsa ubuntu@domainNameOrIPAddress
 ssh -i C:/Users/<user>/.ssh/<key-name> ubuntu@<public-IP-address>
 ```
 
 ## Downloading and Executing Files
+
 ### Download File
+
 ```bash
 curl -O http://example.com/test.txt
 
@@ -459,6 +489,7 @@ wget example.com/test.txt
 ```
 
 ### Download and Rename File
+
 ```bash
 curl -L -o renamed.txt http://example.com/test.txt
 
@@ -474,7 +505,9 @@ curl -L https://raw.githubusercontent.com/judigot/references/main/AWS-Cloudshell
 ```
 
 ### Download with Original Filename
+
 Download file with original filename
+
 ```bash
 curl -O example.com/test.txt
 # Check if file exists
@@ -484,6 +517,7 @@ IF NOT EXIST php-8.0.27-Win32-vs16-x64.zip (
 ```
 
 ### Extract Zip Files (7zip)
+
 ```bash
 SET PATH=%PATH%;C:\Program Files\7-Zip
 7z x php.zip -ophp # Extract to "php" folder
@@ -491,12 +525,15 @@ SET PATH=%PATH%;C:\Program Files\7-Zip
 ```
 
 ## System Administration
+
 ### Login as Root User
+
 ```bash
 sudo -s
 ```
 
 ### Get and Install PHP Version
+
 ```bash
 PHP_VERSION=$($(php -v) | cut -d " " -f 2 | cut -c 1-3)
 PHP_FPM=$(echo php${PHP_VERSION}-fpm)
@@ -504,18 +541,22 @@ apt install $PHP_FPM
 ```
 
 ### Package Management
+
 #### Install Package
+
 ```bash
 apt install <package>
 apt install <package> -y # Say yes to all prompts
 ```
 
 #### Show Installation Status
+
 ```bash
 apt show <package>
 ```
 
 #### Uninstall Package
+
 ```bash
 apt remove <package>
 apt remove <package>* # Remove all related to the package
@@ -523,44 +564,54 @@ apt remove <package> -y # Say yes to all prompts
 ```
 
 #### List All Installed Packages
+
 ```bash
 apt list --installed
 ```
 
 ### Service Management
+
 #### Start a Service
+
 ```bash
 service <service-name> start
 ```
 
 #### Restart a Service
+
 ```bash
 service <service-name> restart
 ```
 
 #### Stop a Service
+
 ```bash
 service <service-name> stop
 ```
 
 #### Show Service Status
+
 ```bash
 service <service-name> status
 ```
 
 #### Show Running Services and Processes
+
 ```bash
 service --status-all
 ss -ltnp # Show running ports
 ```
 
 #### Kill Process Using PID
+
 ```bash
 kill <PID>
 ```
 
 ## Environment Variables
+
 ### Create and Set Variables
+
 ```bash
 VARIABLE_NAME=value
 VARIABLE_NAME=$(command that outputs a string) # Set variable value to command output
@@ -568,18 +619,21 @@ export VARIABLE_NAME=$(command that outputs a string) # *export makes the variab
 ```
 
 ### List Environment Variables
+
 ```bash
 env
 printenv
 ```
 
 ### Include Command Output in Echo
+
 ```bash
 echo NVM version: $(nvm -v)
 echo Node.js version: $(node -v)
 ```
 
 # =====================================
+
 # Big Bang Next.js
 
 ```bash
@@ -771,12 +825,12 @@ function createJestConfig() {
         cat <<EOF
 import type { Config } from 'jest'
 import nextJest from 'next/jest.js'
- 
+
 const createJestConfig = nextJest({
   // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
   dir: './',
 })
- 
+
 // Add any custom config to be passed to Jest
 const config: Config = {
   coverageProvider: 'v8',
@@ -784,7 +838,7 @@ const config: Config = {
   // Add more setup options before each test is run
   // setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 }
- 
+
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
 export default createJestConfig(config)
 EOF
@@ -809,7 +863,7 @@ function createVitestConfig() {
         cat <<EOF
 import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
- 
+
 export default defineConfig({
   plugins: [react()],
   test: {
@@ -1591,6 +1645,7 @@ main
 ```
 
 # =====================================
+
 # Big Bang Vite
 
 Execute script remotely
@@ -1600,6 +1655,7 @@ curl -L "https://raw.githubusercontent.com/judigot/references/main/BigBangVite.s
 ```
 
 # =====================================
+
 # Big Bang Spring Boot
 
 ```bash
@@ -1857,6 +1913,7 @@ main
 ```
 
 # =====================================
+
 # Build & Run Java
 
 ```bash
@@ -1893,11 +1950,12 @@ java Main
 ```
 
 # =====================================
+
 # ChatGPT Prompts
 
 ## Convert Instructions to Markdown
 
-```
+````
 Convert the text below to markdown.
 Detect the programming syntax for the commands and use it in the code block.
 Use @@@ instead of ``` for the code block.
@@ -1907,7 +1965,7 @@ Don't remove lines with asterisks (*) as they are additional information.
 Put everything in a single block of text for easy copying.
 Don't remove any anything from the original text.
 Convert some comments into headings. Use ##.
-```
+````
 
 ## Snippet Helper
 
@@ -1956,25 +2014,35 @@ Expected output for Shell Script or Bash:
 ```
 
 # =====================================
+
 # Coding Conventions & Best Practices
 
 ## Dos
+
 - Object Parameter instead of individual arguments for readability
 
   Don't:
+
   ```tsx
   function calculateRectangleArea(length: number, width: number): number {
     return length * width;
   }
-  
+
   // Unclear usage; values lack context and purpose
   const area = calculateRectangleArea(5, 10);
   ```
-  
+
   Do:
+
   ```tsx
-  function calculateRectangleArea({ length, width }: { length: number, width: number }): number {
-      return length * width;
+  function calculateRectangleArea({
+    length,
+    width,
+  }: {
+    length: number;
+    width: number;
+  }): number {
+    return length * width;
   }
 
   // Clear usage; values provide context and purpose
@@ -1990,31 +2058,28 @@ Expected output for Shell Script or Bash:
 - Logical operators:
 
   Nullish coalescing operator (?? or ||): execute "first" if true. Else, fallback to "second"
+
   ```tsx
-  
   console.log("first" || "second");
-  
   ```
 
   Execute "second" if left argument is true
+
   ```tsx
-  
   console.log("first" && "second");
-  
   ```
-  
+
   Chaining: assign the first true to the variable
+
   ```tsx
-  
   const x = false || false || "last condition";
   console.log(x); // Will output "last condition"
-  
   ```
-  
-  
+
 - Method chaining or builder pattern
-  
+
   Class:
+
   ```tsx
   class Calculator {
     private result: number;
@@ -2053,14 +2118,14 @@ Expected output for Shell Script or Bash:
       .divide(5)
       .getResult()
   );
-
   ```
 
   Function:
+
   ```tsx
   const calculator = (initialValue: number) => {
     let result = initialValue;
-    
+
     const builder = {
       add: (value: number) => {
         result += value;
@@ -2085,10 +2150,15 @@ Expected output for Shell Script or Bash:
 
   const initialValue = 10;
   console.log(
-    calculator(initialValue).add(5).multiply(2).subtract(10).divide(5).getResult()
+    calculator(initialValue)
+      .add(5)
+      .multiply(2)
+      .subtract(10)
+      .divide(5)
+      .getResult()
   );
   ```
-  
+
   ```tsx
   const modifyString = (initialValue: string) => {
     let result: string = initialValue;
@@ -2119,276 +2189,165 @@ Expected output for Shell Script or Bash:
 
 - State logic: see React's useReducer
 - Async/await
-  
+
 ## Don'ts
+
 - Nested ternary
 - Global namespace pollution
 - Callback hell - use async/await
 - If/else hell: avoid nested if/else statements. Keep the code linear
 
-
 # =====================================
+
 # CSS
 
 ```html
-/* https://google.github.io/styleguide/htmlcssguide.html */
-
-/* Center an element vertically and horizontally; center an element horizontally and vertically */
-/* Center element vertically and horizontally; center element horizontally and vertically */
+/* https://google.github.io/styleguide/htmlcssguide.html */ /* Center an element
+vertically and horizontally; center an element horizontally and vertically */ /*
+Center element vertically and horizontally; center element horizontally and
+vertically */
 
 <!-- WHOLE DOCUMENT CENTERED -->
 <body style="display: grid; place-items: center; height: 100vh;">
-	<div>Centered Element</div>
+  <div>Centered Element</div>
 </body>
 
 <!-- SCOPED STYLE -->
 <div style="display: grid; place-items: center;">
-	<div>Centered Element</div>
+  <div>Centered Element</div>
 </div>
 
+//==========INHERIT PARENT WIDTH; DROPDOWN POSITION==========// .parent {
+position: relative; } .child { position: absolute; width: 100%; }
 //==========INHERIT PARENT WIDTH; DROPDOWN POSITION==========//
-.parent {
-  position: relative;
-}
-.child {
-  position: absolute;
-  width: 100%;
-}
-//==========INHERIT PARENT WIDTH; DROPDOWN POSITION==========//
-
-//==========CENTER ELEMENT VERTICALLY==========//
-/* Shorthand: top, right, bottom, left */
-margin: 0% auto 0% auto;
-
-margin-left: auto;
-margin-right: auto;
-//==========CENTER ELEMENT VERTICALLY==========//
-
-//==========CENTER ELEMENT HORIZONTALLY==========//
-/* Shorthand: top, right, bottom, left */
-margin: auto 0% auto 0%;
-
-margin-top: auto;
-margin-bottom: auto;
-//==========CENTER ELEMENT HORIZONTALLY==========//
-
-
-Center element:
-width: 50%;
-margin: auto;
-
-Toggle Switch:
-
-CSS:
-/*====================Toggle Switch====================*/
-
-HTML:
+//==========CENTER ELEMENT VERTICALLY==========// /* Shorthand: top, right,
+bottom, left */ margin: 0% auto 0% auto; margin-left: auto; margin-right: auto;
+//==========CENTER ELEMENT VERTICALLY==========// //==========CENTER ELEMENT
+HORIZONTALLY==========// /* Shorthand: top, right, bottom, left */ margin: auto
+0% auto 0%; margin-top: auto; margin-bottom: auto; //==========CENTER ELEMENT
+HORIZONTALLY==========// Center element: width: 50%; margin: auto; Toggle
+Switch: CSS: /*====================Toggle Switch====================*/ HTML:
 <label class="switch">
-    <input type="checkbox" checked>
-    <span class="slider round"></span>
-  </label>
-  
-/*Size*/
-.switch {
-    zoom: 50%;
-}
-/*Transition Duration*/
-.slider, .slider:before {
-	transition: .5s;
-}
-/*True*/
-input:checked + .slider {
-  background-color: green;
-}
-/*True Transition*/
-input:checked + .slider:before {
-  transform: translateX(26px);
-}
-/*False*/
-.slider {
-  background-color: orange;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  cursor: pointer;
-  position: absolute;
-}
-/*Middle Switch*/
-.slider:before {
-	content: "";
-  background-color: white;
-  bottom: 4px;
-  left: 4px;
-  height: 26px;
-  width: 26px;
-  position: absolute;
-}
-/*Container*/
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
-/*Middle Switch Radius*/
-.slider.round:before {
-  border-radius: 50% !important;
-}
-/*Container Radius*/
-.slider.round {
-  border-radius: 50px !important;
-}
-/*====================Toggle Switch====================*/
+  <input type="checkbox" checked />
+  <span class="slider round"></span>
+</label>
 
-NEVER USE IDs WHEN STYLING. 
-
-":" and "::" difference:
-":" = pseudo-element (hover, active, focus)
-"::" = pseudo-selector (first-child, last-child)
-
-Triangle div:
+/*Size*/ .switch { zoom: 50%; } /*Transition Duration*/ .slider, .slider:before
+{ transition: .5s; } /*True*/ input:checked + .slider { background-color: green;
+} /*True Transition*/ input:checked + .slider:before { transform:
+translateX(26px); } /*False*/ .slider { background-color: orange; top: 0;
+bottom: 0; left: 0; right: 0; cursor: pointer; position: absolute; } /*Middle
+Switch*/ .slider:before { content: ""; background-color: white; bottom: 4px;
+left: 4px; height: 26px; width: 26px; position: absolute; } /*Container*/
+.switch { position: relative; display: inline-block; width: 60px; height: 34px;
+} /*Middle Switch Radius*/ .slider.round:before { border-radius: 50% !important;
+} /*Container Radius*/ .slider.round { border-radius: 50px !important; }
+/*====================Toggle Switch====================*/ NEVER USE IDs WHEN
+STYLING. ":" and "::" difference: ":" = pseudo-element (hover, active, focus)
+"::" = pseudo-selector (first-child, last-child) Triangle div:
 ------------------------------------------------------------------------------------
-<!DOCTYPE html><html lang="en"><head><title>Blank HTML</title><style>.triangle{zoom:20%;border-color:black;height:0% !important;width:0% !important;border-top:0%;border-bottom:86.6px solid;border-left:50px solid transparent !important;border-right:50px solid transparent !important}</style></head><body><div class="triangle"></div></body></html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Blank HTML</title>
+    <style>
+      .triangle {
+        zoom: 20%;
+        border-color: black;
+        height: 0% !important;
+        width: 0% !important;
+        border-top: 0%;
+        border-bottom: 86.6px solid;
+        border-left: 50px solid transparent !important;
+        border-right: 50px solid transparent !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="triangle"></div>
+  </body>
+</html>
 ------------------------------------------------------------------------------------
-
-Center the sidebar and main content area along the vertical axis:
-html, body {
-height: 100%;
-}
-body {
-align-items: center;
-}
-
-CSS grid/Display elements side by side:
-*See Quickform/home layout
-
-#content {
-    display: grid;
-    
-    /*First element/column is 200px, 2nd element (1fr) takes up the remaining space*/
-    grid-template-columns: 200px 1fr;
-    
-    /*2 columns*/
-    grid-template-columns: repeat(2, 1fr);
-}
-
-#first {
-    height: 100%;
-    position: fixed;
-}
-
-Element placement:
-float: right;
-
-Bootstrap button:
--------------------------
-.btn,
-.btn:focus {
-    color: #62ACED;
-    border: 1px solid #62ACED;
-    outline: none !important;
-    background-color: white;
-    transition: all 0.5s ease-in-out;
-}
-.btn:hover {
-    color: white;
-    background-color: #62ACED;
-}
-.btn:active {
-    box-shadow: inset 0 5px 20px -2px rgba(0, 0, 0, 0.5);
-}
-
-.green,
-.green:focus {
-    color: #B2BA3A;
-    border-color: #B2BA3A;
-}
-.green:hover {
-    color: white;
-    background-color: #B2BA3A;
-}
--------------------------
-
--------------------------
-Bootstrap modal:
-*remove "fade" from class="modal fade" to remove default animation
-*target modal backdrop color by ".in" class
-*add title bar <div> under "modal-dialog" (before "modal-content") <div>
-*modal-dialog overrides: shadow, border-radius
-
-.modal-header {
-    text-align: center;
-    border-color: #DDDDDD;
-}
-.modal-content {
-    border: none;
-    background-color: #EEEEEE;
-}
-.modal-footer {
-    border-color: #DDDDDD;
-}
--------------------------
-
-Center div/Custom modal:
-------------------------------------------------------------------------------------
-<!DOCTYPE html><html lang="en"><head><style>#modal-backdrop,#modal-body{top:50%;left:50%;position:fixed;transform:translate(-50%,-50%)}#modal-backdrop{height:100%;width:100%;background-color:rgba(0,0,0,0.5)}#modal-body{height:400px;width:400px;background-color:red}</style></head><body><div id="modal-backdrop"><div id="modal-body"></div></div></body></html>
-------------------------------------------------------------------------------------
-
-Background image:
-body {
-    background-image: url("http://bit.ly/2eUrF3s");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center; 
-    background-attachment: fixed;
-}
-
-Bootstrap button:
-.btn {
-    border: none;
-    transition: all 0.5s;
-}
-
-Set general border radius:
-* {
-  border-radius: 0 !important;
-}
-
-Shadow:
-element {
-    box-shadow: 0px 0px 10px 1px #AAAAAA;
-}
-"box-shadow": "0px 0px 10px 1px #AAAAAA",
-
-Center Fix Elements:
-element {
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
-
-Center Inline elements (<span>,<a>):
-element {
-        display: block;
-        text-align: center;
-}
+Center the sidebar and main content area along the vertical axis: html, body {
+height: 100%; } body { align-items: center; } CSS grid/Display elements side by
+side: *See Quickform/home layout #content { display: grid; /*First
+element/column is 200px, 2nd element (1fr) takes up the remaining space*/
+grid-template-columns: 200px 1fr; /*2 columns*/ grid-template-columns: repeat(2,
+1fr); } #first { height: 100%; position: fixed; } Element placement: float:
+right; Bootstrap button: ------------------------- .btn, .btn:focus { color:
+#62ACED; border: 1px solid #62ACED; outline: none !important; background-color:
+white; transition: all 0.5s ease-in-out; } .btn:hover { color: white;
+background-color: #62ACED; } .btn:active { box-shadow: inset 0 5px 20px -2px
+rgba(0, 0, 0, 0.5); } .green, .green:focus { color: #B2BA3A; border-color:
+#B2BA3A; } .green:hover { color: white; background-color: #B2BA3A; }
+------------------------- ------------------------- Bootstrap modal: *remove
+"fade" from class="modal fade" to remove default animation *target modal
+backdrop color by ".in" class *add title bar
+<div>
+  under "modal-dialog" (before "modal-content")
+  <div>
+    *modal-dialog overrides: shadow, border-radius .modal-header { text-align:
+    center; border-color: #DDDDDD; } .modal-content { border: none;
+    background-color: #EEEEEE; } .modal-footer { border-color: #DDDDDD; }
+    ------------------------- Center div/Custom modal:
+    ------------------------------------------------------------------------------------
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <style>
+          #modal-backdrop,
+          #modal-body {
+            top: 50%;
+            left: 50%;
+            position: fixed;
+            transform: translate(-50%, -50%);
+          }
+          #modal-backdrop {
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+          }
+          #modal-body {
+            height: 400px;
+            width: 400px;
+            background-color: red;
+          }
+        </style>
+      </head>
+      <body>
+        <div id="modal-backdrop"><div id="modal-body"></div></div>
+      </body>
+    </html>
+    ------------------------------------------------------------------------------------
+    Background image: body { background-image: url("http://bit.ly/2eUrF3s");
+    background-size: cover; background-repeat: no-repeat; background-position:
+    center; background-attachment: fixed; } Bootstrap button: .btn { border:
+    none; transition: all 0.5s; } Set general border radius: * { border-radius:
+    0 !important; } Shadow: element { box-shadow: 0px 0px 10px 1px #AAAAAA; }
+    "box-shadow": "0px 0px 10px 1px #AAAAAA", Center Fix Elements: element {
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+    Center Inline elements (<span
+      >,<a>): element { display: block; text-align: center; }</a></span
+    >
+  </div>
+</div>
 ```
 
 # =====================================
+
 # Custom Fetch API
 
 ## Custom Fetch
 
 **customFetch.ts**
+
 ```tsx
 type DataBody = BodyInit;
 
-const FALLBACK_URL = 'http://localhost:3000/api/v1';
+const FALLBACK_URL = "http://localhost:3000/api/v1";
 
 const API_URL: string =
-  typeof import.meta.env.API_URL === 'string'
+  typeof import.meta.env.API_URL === "string"
     ? import.meta.env.API_URL
     : FALLBACK_URL;
 
@@ -2399,15 +2358,15 @@ export interface FetchOptions extends RequestInit {
 
 export type RequestInterceptor = (
   url: string,
-  options: FetchOptions,
+  options: FetchOptions
 ) => FetchOptions;
 export type ResponseInterceptor = (response: Response) => Response;
 
 const defaultOptions: FetchOptions = {
-  method: 'GET',
+  method: "GET",
   headers: {
-    'Content-Type': 'application/json',
-    Accept: 'application/json, text/plain, */*',
+    "Content-Type": "application/json",
+    Accept: "application/json, text/plain, */*",
   },
 };
 
@@ -2415,24 +2374,24 @@ const requestInterceptors: RequestInterceptor[] = [];
 const responseInterceptors: ResponseInterceptor[] = [];
 
 export const addRequestInterceptor = (
-  interceptor: RequestInterceptor,
+  interceptor: RequestInterceptor
 ): void => {
   requestInterceptors.push(interceptor);
 };
 
 export const addResponseInterceptor = (
-  interceptor: ResponseInterceptor,
+  interceptor: ResponseInterceptor
 ): void => {
   responseInterceptors.push(interceptor);
 };
 
 const applyRequestInterceptors = (
   url: string,
-  options: FetchOptions,
+  options: FetchOptions
 ): FetchOptions =>
   requestInterceptors.reduce(
     (acc, interceptor) => interceptor(url, acc),
-    options,
+    options
   );
 
 const applyResponseInterceptors = (response: Response): Response =>
@@ -2440,27 +2399,27 @@ const applyResponseInterceptors = (response: Response): Response =>
 
 const determineContentType = (body: DataBody): string => {
   if (body instanceof FormData) {
-    return 'multipart/form-data';
+    return "multipart/form-data";
   }
-  if (typeof body === 'object') {
-    return 'application/json';
+  if (typeof body === "object") {
+    return "application/json";
   }
-  return 'text/plain';
+  return "text/plain";
 };
 
-const customFetchInternal = async <T>(
+const customFetchInternal = async <T,>(
   url: string,
-  options: FetchOptions = {},
+  options: FetchOptions = {}
 ): Promise<T> => {
-  if (!url || typeof url !== 'string') {
-    throw new Error('URL must be a valid string');
+  if (!url || typeof url !== "string") {
+    throw new Error("URL must be a valid string");
   }
 
   const mergedOptions: FetchOptions = { ...defaultOptions, ...options };
 
   const finalOptions: FetchOptions = applyRequestInterceptors(
     url,
-    mergedOptions,
+    mergedOptions
   );
 
   // Ensure headers object exists
@@ -2471,9 +2430,9 @@ const customFetchInternal = async <T>(
   // Now TypeScript knows headers is an object, so we can safely add properties
   if (
     finalOptions.body !== undefined &&
-    !(finalOptions.headers as Record<string, string>)['Content-Type']
+    !(finalOptions.headers as Record<string, string>)["Content-Type"]
   ) {
-    (finalOptions.headers as Record<string, string>)['Content-Type'] =
+    (finalOptions.headers as Record<string, string>)["Content-Type"] =
       determineContentType(finalOptions.body);
   }
 
@@ -2487,7 +2446,7 @@ const customFetchInternal = async <T>(
 
     if (!response.ok) {
       throw new Error(
-        `There was an HTTP Error with a status code ${response.status}.`,
+        `There was an HTTP Error with a status code ${response.status}.`
       );
     }
 
@@ -2495,28 +2454,28 @@ const customFetchInternal = async <T>(
     return await (response.json() as Promise<T>);
   } catch (error) {
     console.error(
-      'Error:',
-      error instanceof Error ? error.message : String(error),
+      "Error:",
+      error instanceof Error ? error.message : String(error)
     );
     throw error;
   }
 };
 
 export const customFetch = {
-  get: async <T>(params: {
+  get: async <T,>(params: {
     url: string;
     options?: FetchOptions;
   }): Promise<T> => {
     const { url, options } = params;
-    return customFetchInternal<T>(url, { ...options, method: 'GET' });
+    return customFetchInternal<T>(url, { ...options, method: "GET" });
   },
-  post: async <T>(params: {
+  post: async <T,>(params: {
     url: string;
     body: DataBody;
     options?: FetchOptions;
   }): Promise<T> => {
     const { url, body, options } = params;
-    return customFetchInternal<T>(url, { ...options, method: 'POST', body });
+    return customFetchInternal<T>(url, { ...options, method: "POST", body });
   },
 };
 ```
@@ -2524,6 +2483,7 @@ export const customFetch = {
 ## Usage Example
 
 **useFetchAPI.ts**
+
 ```tsx
 import { customFetch } from "./customFetch";
 
@@ -2535,20 +2495,20 @@ const readData = async () => {
     });
     console.log(userData);
   } catch (error) {
-    console.error('Error fetching user data:', error);
+    console.error("Error fetching user data:", error);
   }
 };
 
 // Example usage of the post method
-const createData = async (userData: {name: string; email: string}) => {
+const createData = async (userData: { name: string; email: string }) => {
   try {
-    const response = await customFetch.post<{success: boolean}>({
+    const response = await customFetch.post<{ success: boolean }>({
       url: `https://api.example.com/users`,
       body: JSON.stringify(userData),
     });
     console.log(response);
   } catch (error) {
-    console.error('Error creating user:', error);
+    console.error("Error creating user:", error);
   }
 };
 
@@ -2561,7 +2521,7 @@ readData()
   })
   .finally(() => {});
 
-createData({name: 'Jane Doe', email: 'jane@example.com'})
+createData({ name: "Jane Doe", email: "jane@example.com" })
   .then(() => {})
   .catch((error) => {
     if (typeof error === `string`) throw Error(`There was an error: error`);
@@ -2572,6 +2532,7 @@ createData({name: 'Jane Doe', email: 'jane@example.com'})
 ```
 
 # =====================================
+
 # Dev Environment Setup
 
 ```bash
@@ -2605,6 +2566,7 @@ echo "ssh-add ~/.ssh/jude" >>~/.bashrc
 ```
 
 # =====================================
+
 # Directory Tree Cloner
 
 ```bat
@@ -2637,30 +2599,37 @@ pause
 ```
 
 # =====================================
+
 # Docker Commands
 
 ## Show All Running Containers
+
 Tags: `show all active containers`
+
 ```bash
 docker compose ps --services --filter "status=running"
 ```
 
 ## Containerization Steps
+
 1. Build images
 2. Create containers from images
 
 ## Remove & Rebuild Container and Images
+
 ```bash
 docker stop nginx && docker container rm nginx && docker image rm server-nginx
 docker compose up --force-recreate
 ```
 
 ## Delete All Unused Images
+
 ```bash
 docker image prune -a
 ```
 
 ## Re-dockerize Application
+
 ```bash
 docker stop app && docker container rm app && docker image rm custom-image-name
 docker build -t custom-image-name .
@@ -2668,59 +2637,70 @@ docker container run -p 3000:3000 --restart=always --name app custom-image-name
 ```
 
 ## Dockerize Application from a Dockerfile (Custom Container Name)
+
 ```bash
 docker build -t custom-image-name .
 docker container run -p 3000:3000 --restart=always --name app custom-image-name
 ```
 
 ## Dockerize Application from a Dockerfile (Random Container Name)
+
 ```bash
 docker build -t custom-image-name .
 docker run -p 3000:3000 --restart=always custom-image-name
 ```
 
 ## Create Container Without Starting; Create Container from an Image
+
 ```bash
 docker container create --name custom-container-name custom-image-name
 ```
 
 ## Dockerize Application (Dockerfile)
+
 ```bash
 docker build -t app .
 docker run -p 3000:3000 --restart=always app
 ```
 
 ## Start Container
+
 ```bash
 docker start <container-name>
 ```
 
 ## Rename Container
+
 ```bash
 docker rename old new
 ```
 
 ## Stop Container
+
 ```bash
 docker stop <container-name>
 ```
 
 ## Restart Container
+
 ```bash
 docker restart <container-name>
 ```
 
 ## Update Certificates (Composer Error)
+
 ```bash
 update-ca-certificates
 ```
 
 ## Go to Container's Terminal
+
 ```bash
 docker exec -it <container_name> bash
 ```
 
 ## Build Docker Compose
+
 ```bash
 docker compose up
 docker compose build
@@ -2729,61 +2709,75 @@ docker compose build --no-cache
 ```
 
 ## Build Container
-* -t to give a docker image a name
-* . means the current directory; reference the current directory
+
+- -t to give a docker image a name
+- . means the current directory; reference the current directory
+
 ```bash
 docker build -t app .
 docker build --no-cache -t app .
 ```
 
 ## Run Docker App/Container
+
 ```bash
 docker run -p 3000:3000 app
 ```
 
 ## Download Image in Docker Hub
+
 ```bash
 docker pull <username>/hello-world
 ```
 
 ## Run Docker Image
+
 ```bash
 docker run hello-world
 ```
 
 ## Show All Running Containers
+
 ```bash
 docker ps
 ```
 
 ## Show All Containers
+
 ```bash
 docker ps -a
 ```
 
 ## Delete Docker Container; Force Delete
-* add -f at the end to force delete
+
+- add -f at the end to force delete
+
 ```bash
 docker container rm container-name
 ```
 
 ## Show Docker Images
+
 ```bash
 docker images
 ```
 
 ## Delete Docker Image; Force Delete
-* add -f at the end to force delete
+
+- add -f at the end to force delete
+
 ```bash
 docker image rm *first-3-characters-of-the-image-id
 ```
 
 # =====================================
+
 # Edit Context Menu
 
 ## Remove Context Menu Items
 
 Registry Jumper.vbs
+
 ```vbs
 Set WshShell = CreateObject("WScript.Shell")
 Dim JumpToKey
@@ -2798,39 +2792,44 @@ Set WshShell = Nothing
 https://drive.google.com/drive/folders/1RJuiTjfTbJYc-3Ty4u3QmaF6S4H3QaAA
 
 ## Registries
+
 Double click "(Default)" and add "-" at the beginning of the value
 
 ### Default Contex Menu
+
 ```
 HKEY_CLASSES_ROOT\Directory\Background\shell
 ```
 
 ### Folder Context Menu
+
 ```
 HKEY_CLASSES_ROOT\Directory\shell
 ```
 
 ### AMD Catalyst Control Center:
+
 ```
 HKEY_CLASSES_ROOT\Directory\Background\shellex\ContextMenuHandlers\ACE
 ```
 
 # =====================================
+
 # TypeScript/JavaScript
 
 ## React.js
 
 ### Convert Div Element Into A Clickable Element
+
 Tags: `convert element into a clickable element`, `clickable element`, `convert non-interactive elements into interactive elements`
 
 ```tsx
 <div
-role="button"
-onKeyDown={() => {}}
-tabIndex={0}
-aria-label="Close modal"
->
-</div>
+  role="button"
+  onKeyDown={() => {}}
+  tabIndex={0}
+  aria-label="Close modal"
+></div>
 ```
 
 ```tsx
@@ -2885,51 +2884,57 @@ useEffect(() => {
 
 // Iterate data:
 // Iterate an object; iterate an array of objects; iterate array of objects
-    {data?.map(({id, firstName}, i) => (
-      <div key={id}>{row}</div>
-    ))}
+{
+  data?.map(({ id, firstName }, i) => <div key={id}>{row}</div>);
+}
 
 // Iterate an object; iterate object; iterate an object literal; iterate object literal
-  const animalsKeys = {
-    CAT: "CAT",
-    DOG: "DOG",
-  } as const;
+const animalsKeys = {
+  CAT: "CAT",
+  DOG: "DOG",
+} as const;
 
-  const animals: {
-    [K in keyof typeof animalsKeys]: string;
-  } = {
-    [animalsKeys.CAT]: "Felis catus",
-    [animalsKeys.DOG]: "Canis lupus familiaris",
-  } as const;
+const animals: {
+  [K in keyof typeof animalsKeys]: string;
+} = {
+  [animalsKeys.CAT]: "Felis catus",
+  [animalsKeys.DOG]: "Canis lupus familiaris",
+} as const;
 
-  // TSX
-  {Object.entries(animals).map(([animalEng, animalLatin]: [string, string], i: number) => (
-    <option key={animalEng}>{animalLatin}</option>	
-  ))}
-
-  // Raw
-  Object.entries(animals).forEach(
-    ([animalEng, animalLatin]: [string, string], i: number) => {
-      console.log({ animalEng, animalLatin });
-    }
+// TSX
+{
+  Object.entries(animals).map(
+    ([animalEng, animalLatin]: [string, string], i: number) => (
+      <option key={animalEng}>{animalLatin}</option>
+    )
   );
+}
+
+// Raw
+Object.entries(animals).forEach(
+  ([animalEng, animalLatin]: [string, string], i: number) => {
+    console.log({ animalEng, animalLatin });
+  }
+);
 
 // Iterate a number of times
 // Loop 5 times
-    {[...Array(5)].map(({id, firstName}, i) => (
-      <div key={id}>{row}</div>
-    ))}
+{
+  [...Array(5)].map(({ id, firstName }, i) => <div key={id}>{row}</div>);
+}
 
 // Iterate an array
-    {["value 1", "value 2", "value 3"].map(({id, firstName}, i) => (
-      <div key={id}>{row}</div>
-    ))}
+{
+  ["value 1", "value 2", "value 3"].map(({ id, firstName }, i) => (
+    <div key={id}>{row}</div>
+  ));
+}
 
 // Iterate an array of object using a function
 // Usage: <>{GradesItems}</>
-    const Items = Data.map(({id, firstName}, i) => (
-      <div key={id}>{firstName}</div>
-    ));
+const Items = Data.map(({ id, firstName }, i) => (
+  <div key={id}>{firstName}</div>
+));
 ```
 
 ## Jotai
@@ -2937,9 +2942,9 @@ useEffect(() => {
 ### Global State File
 
 ```tsx
-import { atom } from 'jotai';
+import { atom } from "jotai";
 
-export const dataAtom = atom<Record<string, string>[]>([ { key: "value" }]);
+export const dataAtom = atom<Record<string, string>[]>([{ key: "value" }]);
 ```
 
 ### Usage
@@ -2947,15 +2952,11 @@ export const dataAtom = atom<Record<string, string>[]>([ { key: "value" }]);
 ```tsx
 import { useAtom } from "@/lib/jotai";
 
-import { dataAtom } from '@/state';
+import { dataAtom } from "@/state";
 
 export default function App({ name }: Props) {
   const [data, setData] = useAtom(dataAtom);
-  return (
-    <>
-      {JSON.stringify(data, null, 4)}
-    </>
-  );
+  return <>{JSON.stringify(data, null, 4)}</>;
 }
 ```
 
@@ -2968,10 +2969,10 @@ Tags: `focus on element`, `focus html element`, `focus element`
 ```tsx
 const person = {
   name: "John",
-  age: 30
+  age: 30,
 };
 
-console.log(Object.keys(person).includes('name')); // true
+console.log(Object.keys(person).includes("name")); // true
 ```
 
 ### Focus on HTML Element
@@ -2979,7 +2980,7 @@ console.log(Object.keys(person).includes('name')); // true
 Tags: `focus on element`, `focus html element`, `focus element`
 
 ```tsx
-(document.querySelector('#snippet_content') as HTMLElement | null)?.focus();
+(document.querySelector("#snippet_content") as HTMLElement | null)?.focus();
 ```
 
 ### Extract Object Property Values
@@ -2988,13 +2989,13 @@ Tags: `extract object properties`, `extract object values`, `extract property va
 
 ```tsx
 const languages = [
-    { language_name: "typescript", display_name: "TypeScript" },
-    { language_name: "javascript", display_name: "JavaScript" },
-    { language_name: "java", display_name: "Java" },
-    { language_name: "php", display_name: "PHP" }
+  { language_name: "typescript", display_name: "TypeScript" },
+  { language_name: "javascript", display_name: "JavaScript" },
+  { language_name: "java", display_name: "Java" },
+  { language_name: "php", display_name: "PHP" },
 ];
 
-const languageNames = languages.map(language => language.language_name);
+const languageNames = languages.map((language) => language.language_name);
 
 console.log(languageNames); // Output: ["typescript", "javascript", "java", "php"]
 ```
@@ -3020,42 +3021,42 @@ const StudentYears = {
     "5": 5,
     "6": 6,
   };
-  
+
   const schools = {
     schoolA: "School A",
     schoolB: "School B",
     schoolC: "School C",
   } as const;
-  
+
   const Genders = {
     MALE: "MALE",
     FEMALE: "FEMALE",
   } as const;
-  
+
   type Person = {
     schoolType: "all" | (typeof schools)[keyof typeof schools];
     grade: "all" | (typeof StudentYears)[keyof typeof StudentYears];
     gender: "all" | (typeof Genders)[keyof typeof Genders];
   };
-  
+
   const Data: Person[] = [
     { schoolType: schools.schoolA, grade: 1, gender: Genders.MALE },
     { schoolType: schools.schoolB, grade: 2, gender: Genders.FEMALE },
     { schoolType: schools.schoolC, grade: 1, gender: Genders.MALE },
   ];
-  
+
   // User selections
   const schoolType: "all" | Person["schoolType"] = "all";
   const grade: "all" | Person["grade"] = "all";
   const gender: "all" | Person["gender"] = Genders.MALE;
-  
+
   const filteredData = Data.filter(
     (row) =>
       (schoolType === "all" || row.schoolType === schoolType) &&
       (grade === "all" || row.grade === grade) &&
       (gender === "all" || row.gender === gender)
   );
-  
+
   console.log(filteredData);
 //==========FILTER DATA; FILTER OBJECT==========//
 
@@ -3663,35 +3664,35 @@ export const ajax = async (): Promise<object | object[] | undefined> => {
   }
 };
 
-fetch(	
-  `https://url.com/api/users`,	
+fetch(
+  `https://url.com/api/users`,
 
-  // prettier-ignore	
-  // `https://url.com/api/users`                // GET	
-  // `https://url.com/api/users/${resource}`    // GET	
+  // prettier-ignore
+  // `https://url.com/api/users`                // GET
+  // `https://url.com/api/users/${resource}`    // GET
 
-  // `https://url.com/api/users`                // POST	
+  // `https://url.com/api/users`                // POST
 
-  // `https://url.com/api/users/${resource}`    // PATCH, PUT, DELETE	
-  // `https://url.com/api/users/${resource}`    // PUT	
-  // `https://url.com/api/users/${resource}`    // DELETE	
-  {	
-  // *GET, POST, PATCH, PUT, DELETE	
-  method: "GET",	
-  headers: {	
-    Accept: "application/json",	
-    "Content-Type": "application/json",	
-  },	
-  // For POST, PATCH, and PUT requests	
-  // body: JSON.stringify(formData),	
-})	
-.then((response) => response.json())	
-.then((result) => {	
-  // Success	
-})	
-.catch((error) => {	
-  // Failure	
-  throw new Error(error);	
+  // `https://url.com/api/users/${resource}`    // PATCH, PUT, DELETE
+  // `https://url.com/api/users/${resource}`    // PUT
+  // `https://url.com/api/users/${resource}`    // DELETE
+  {
+  // *GET, POST, PATCH, PUT, DELETE
+  method: "GET",
+  headers: {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  },
+  // For POST, PATCH, and PUT requests
+  // body: JSON.stringify(formData),
+})
+.then((response) => response.json())
+.then((result) => {
+  // Success
+})
+.catch((error) => {
+  // Failure
+  throw new Error(error);
 });
 
 axios
@@ -3723,11 +3724,11 @@ for (let i = 0; i < Object.keys(paths).length; i++) {
 
   // Remove / and * from the string
   const alias = key.replace(/\/\*/g, "");
-  
+
   // Webpack.config.js
   const pathToFolder = paths[key][0].replace(/\*/g, "");
   aliases[alias] = path.resolve(__dirname, `${entryFolder}/${pathToFolder}/`);
-  
+
   // Babel.config.js
   // const pathToFolder = paths[key][0].replace(/\*/g, "").slice(0, -1);
   // aliases[alias] = `./src/${pathToFolder}/`;
@@ -4192,7 +4193,7 @@ $("#parent").find("[id]").each(function () {
 });
 
 // Check if array contains value:
-// returns the index of the matched value in the array. 
+// returns the index of the matched value in the array.
 // returns "-1" if no matches found
 ["1", "2", "3"].indexOf("2"); // returns "1" since "2" is in [1]
 
@@ -4466,6 +4467,7 @@ console.log(newObject); // { key1: 1 }
 ```
 
 # =====================================
+
 # React.js Learning Roadmap
 
 ```
@@ -4507,27 +4509,27 @@ _____
 functional components - component inside a component; modular components
 props - pass in arguments to a react components
 
-Functional. Components 
+Functional. Components
 
-- Props 
-- Events 
+- Props
+- Events
 
 - onClick
-- onBIur 
-- onChange 
+- onBIur
+- onChange
 
-- Hooks 
-- useState 
+- Hooks
+- useState
 
 
 useMemo - cache unchanged values to avoid unnecessary rerenders; useful when running a slow function
 	- returns value from the function
-	
+
 useCallback = same as useMemo, but returns the callback/function instead of a return value
 	- returns the callback (the whole function)
-	
+
 *see difference between useMemo and useCallback (https://youtu.be/_AyFP5s69N4?t=285)
-	
+
 useEffect - asynchronous; "state listener"
 useLayoutEffect - synchronous version of the useEffect
 useRef - used to get the value from input fields
@@ -4574,7 +4576,7 @@ use function useState to avoid constructors
 
 named exports vs default exports
 
-const [stateGetter, stateSetter] = React.useState(state);			 
+const [stateGetter, stateSetter] = React.useState(state);
 use stateSetter when changing state
 setState has a callback function
 
@@ -4585,12 +4587,12 @@ useEffect - a component can have multiple useEffects for isolation
 		  - subscribe and unsubscribe (return a function inside useEffect to unsubscribe/cleanup listeners)
 		  - "state listener"; runs when you want to execute code after a state changes
 
-		  
+
 https://www.youtube.com/watch?v=dpw9EHDh2bM&ab_channel=ReactConf
-		  
+
 custom hooks - should start with the word "use"	(e.g. useWindowWidth) for convention
 			 - declare custom hooks below the component
-			 
+
 Lazy loading
 Concurrent mode
 Defer
@@ -4623,12 +4625,12 @@ conditional rendering
 css should be camel case
 ```
 
-
-
 # =====================================
+
 # File Handling Cheat Sheet
 
 File Handling CheatSheet.ts
+
 ```tsx
 import fs from "fs";
 import path from "path";
@@ -4704,7 +4706,7 @@ createFile "example.txt" "The quick brown fox jumps over the lazy dog. The quick
 createFolder "folderName"
 getFileContents "directory or file name"
 
-// Should append or prepend to multiple lines e.b. if there are multiple "src: {", then append or prepend to all "src: {" 
+// Should append or prepend to multiple lines e.b. if there are multiple "src: {", then append or prepend to all "src: {"
 appendToTextContent "example.txt" "text to append" "text to match"
 prependToTextContent "example.txt" "text to prepend" "text to match"
 
@@ -4735,7 +4737,7 @@ replaceTextBetweenLines(start, end) "example.txt" 2 3
 replaceText "example.txt" 2 3
 replaceTextUsingDelimeters "example.txt" 2 3
 getContentsByDelimeter "example.txt" "<start>" "</end>"
-            
+
 // This should return an array with the file names and their contents
 getFileInfo("directoryName")
 
@@ -4764,6 +4766,7 @@ Delete:
 ```
 
 # =====================================
+
 # File Handling Scripts
 
 File Handling Scripts.sh
@@ -4773,10 +4776,13 @@ https://raw.githubusercontent.com/judigot/references/main/FileHandlingHelpers.sh
 ```
 
 # =====================================
+
 # React Form
+
 ## Form 1
+
 ```tsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 /*
 =====USAGE=====
@@ -4796,15 +4802,15 @@ import React, { useState, useEffect } from 'react';
 */
 
 const FORM_FIELDS = {
-  TAG_INPUT: 'tagInput',
-  TAGS: 'tags',
-  TEXT_INPUT: 'textInput',
-  TEXTAREA_INPUT: 'textareaInput',
-  SELECT_INPUT: 'selectInput',
-  RADIO_INPUT: 'radioInput',
-  CHECKBOX_INPUT1: 'checkboxoption1',
-  CHECKBOX_INPUT2: 'checkboxoption2',
-  CHECKBOX_INPUT3: 'checkboxoption3',
+  TAG_INPUT: "tagInput",
+  TAGS: "tags",
+  TEXT_INPUT: "textInput",
+  TEXTAREA_INPUT: "textareaInput",
+  SELECT_INPUT: "selectInput",
+  RADIO_INPUT: "radioInput",
+  CHECKBOX_INPUT1: "checkboxoption1",
+  CHECKBOX_INPUT2: "checkboxoption2",
+  CHECKBOX_INPUT3: "checkboxoption3",
 } as const;
 
 interface FormInputValues {
@@ -4828,12 +4834,12 @@ interface Props {
 }
 
 const defaultValues: FormInputValues = {
-  [FORM_FIELDS.TAG_INPUT]: '',
+  [FORM_FIELDS.TAG_INPUT]: "",
   [FORM_FIELDS.TAGS]: [],
-  [FORM_FIELDS.TEXT_INPUT]: '',
-  [FORM_FIELDS.TEXTAREA_INPUT]: '',
-  [FORM_FIELDS.SELECT_INPUT]: '',
-  [FORM_FIELDS.RADIO_INPUT]: '',
+  [FORM_FIELDS.TEXT_INPUT]: "",
+  [FORM_FIELDS.TEXTAREA_INPUT]: "",
+  [FORM_FIELDS.SELECT_INPUT]: "",
+  [FORM_FIELDS.RADIO_INPUT]: "",
   [FORM_FIELDS.CHECKBOX_INPUT1]: false,
   [FORM_FIELDS.CHECKBOX_INPUT2]: false,
   [FORM_FIELDS.CHECKBOX_INPUT3]: false,
@@ -4841,27 +4847,27 @@ const defaultValues: FormInputValues = {
 
 export function Form({ initialData }: Props) {
   const selectOptions = {
-    option1: 'Option 1',
-    option2: 'Option 2',
-    option3: 'Option 3',
+    option1: "Option 1",
+    option2: "Option 2",
+    option3: "Option 3",
   };
 
   const [formData, setFormData] = useState<FormInputValues>(
-    initialData ?? defaultValues,
+    initialData ?? defaultValues
   );
 
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >,
+    >
   ) => {
     const { name, value, type } = e.target;
     const checked =
-      type === 'checkbox' ? (e.target as HTMLInputElement).checked : undefined;
+      type === "checkbox" ? (e.target as HTMLInputElement).checked : undefined;
 
     setFormData((prevData) => ({
       ...prevData,
-      [name]: type === 'checkbox' ? !!(checked ?? false) : value,
+      [name]: type === "checkbox" ? !!(checked ?? false) : value,
     }));
   };
 
@@ -4869,7 +4875,7 @@ export function Form({ initialData }: Props) {
     e.preventDefault();
 
     const areAllInputsFilled = Object.values(formData).every(
-      (value) => value !== undefined && value !== null && value !== '',
+      (value) => value !== undefined && value !== null && value !== ""
     );
 
     if (areAllInputsFilled) {
@@ -4892,11 +4898,11 @@ export function Form({ initialData }: Props) {
         onAddValue={(updatedTags: string[]) => {
           setFormData((prev) => ({
             ...prev,
-            [FORM_FIELDS.TAG_INPUT]: '',
+            [FORM_FIELDS.TAG_INPUT]: "",
             [FORM_FIELDS.TAGS]: updatedTags,
           }));
         }}
-        suggestions={['Hello', 'World']}
+        suggestions={["Hello", "World"]}
       />
 
       {/* Text Input */}
@@ -4978,7 +4984,7 @@ export function Form({ initialData }: Props) {
               id={`checkbox${key}`}
               name={`checkbox${key}`}
               checked={Boolean(
-                formData[`checkbox${key}` as keyof FormInputValues],
+                formData[`checkbox${key}` as keyof FormInputValues]
               )}
               onChange={handleChange}
               aria-label={`Toggle ${option}`}
@@ -4999,15 +5005,15 @@ export function Form({ initialData }: Props) {
 function TagInput({
   id,
   required,
-  placeholder = 'Enter values',
-  inputValue = '',
+  placeholder = "Enter values",
+  inputValue = "",
   onInputChange,
   addedValues,
   suggestions = [
-    'Suggestion 1',
-    'Suggestion 2',
-    'Suggestion 3',
-    'Suggestion 4',
+    "Suggestion 1",
+    "Suggestion 2",
+    "Suggestion 3",
+    "Suggestion 4",
   ],
   onAddValue,
 }: {
@@ -5032,7 +5038,7 @@ function TagInput({
   }, [inputValue, addedValues]); // Depend on tags to re-filter when they change
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && inputValue.trim()) {
+    if (e.key === "Enter" && inputValue.trim()) {
       e.preventDefault();
       addValue(inputValue.trim());
     }
@@ -5059,7 +5065,7 @@ function TagInput({
       const filtered = suggestions.filter(
         (suggestion) =>
           suggestion.toLowerCase().includes(input.toLowerCase()) &&
-          !addedValues.includes(suggestion),
+          !addedValues.includes(suggestion)
       );
       setFilteredSuggestions(filtered);
     } else {
@@ -5087,7 +5093,9 @@ function TagInput({
   return (
     <div
       key={id}
-      className={`relative flex items-center flex-wrap gap-2 px-3 py-2 rounded-md bg-gray-700 border ${isFocused ? 'border-blue-500 ring-blue-500' : 'border-gray-600'}`}
+      className={`relative flex items-center flex-wrap gap-2 px-3 py-2 rounded-md bg-gray-700 border ${
+        isFocused ? "border-blue-500 ring-blue-500" : "border-gray-600"
+      }`}
     >
       {addedValues.map((value, index) => (
         <span
@@ -5148,6 +5156,7 @@ function TagInput({
 ```
 
 ## Form 2
+
 ```tsx
 // React form; basic react form; basic form; react form handling;
 import React from "react";
@@ -5174,8 +5183,7 @@ const LoginForm = () => {
     e.preventDefault();
 
     const areAllInputsFilled = Object.values(formData).every(
-      (value) =>
-        value !== undefined && value !== null && value !== '',
+      (value) => value !== undefined && value !== null && value !== ""
     );
 
     if (areAllInputsFilled) {
@@ -5219,6 +5227,7 @@ export default LoginForm;
 ```
 
 # =====================================
+
 # Get Git Version
 
 ```bat
@@ -5250,6 +5259,7 @@ pause
 ```
 
 # =====================================
+
 # Get Git Version Bash
 
 ```bash
@@ -5269,6 +5279,7 @@ echo "Git version: $version"
 ```
 
 # =====================================
+
 # Git Commands
 
 ## Hard-Reset Branch
@@ -5287,6 +5298,7 @@ git push origin target-branch --force
 Tags: `absorb branch` `integrate branch`
 
 ### Merge Method (Non-linear History)
+
 ```bash
 main_branch="main"
 feature_branch="feature-branch"
@@ -5295,6 +5307,7 @@ git checkout $main_branch && git merge $feature_branch && git push origin $main_
 ```
 
 ### Rebase Method (Simpler Linear History)
+
 ```bash
 main_branch="main"
 feature_branch="feature-branch"
@@ -5352,14 +5365,18 @@ git stash -u && git checkout -b new-branch && git stash pop
 
 # Create a new branch without files; Create a blank branch
 ```
+
 git checkout --orphan <new-branch>
+
 ```
 
 # Change commit message: change a commit message after pushing
 ```
+
 git commit --amend -m "New commit message"
 git push --force
 git status
+
 ```
 
 
@@ -5368,10 +5385,10 @@ git branch -m <new-branch-name>
 
 Upload a renamed brach to the repository:
 git push origin HEAD:<renamed-branch>
- 
+
 Clone a repository to current folder:
   git clone <repository> .
-  
+
 Clone a repository to a named folder:
   git clone <repository> <folder name>
 
@@ -5465,6 +5482,7 @@ git status
 ```
 
 # =====================================
+
 # GraphQL
 
 ```tsx
@@ -5544,19 +5562,23 @@ const order = async () => {
 ```
 
 # =====================================
+
 # Jenkins Commands
 
 ## Setup
 
 - Allow local builds
-    ```
-    JAVA_OPTS=-Dhudson.plugins.git.GitSCM.ALLOW_LOCAL_CHECKOUT=true
-    ```
-    Docker compose:
-    
-    ```yml
-    environment:
-      - JAVA_OPTS="-Dhudson.plugins.git.GitSCM.ALLOW_LOCAL_CHECKOUT=true"
+
+  ```
+  JAVA_OPTS=-Dhudson.plugins.git.GitSCM.ALLOW_LOCAL_CHECKOUT=true
+  ```
+
+  Docker compose:
+
+  ```yml
+  environment:
+    - JAVA_OPTS="-Dhudson.plugins.git.GitSCM.ALLOW_LOCAL_CHECKOUT=true"
+  ```
 
 - Install NodeJS Plugin
 
@@ -5567,26 +5589,24 @@ const order = async () => {
         3. Check the NodeJS Plugin by npm
 
         4. Click "Download now and install after restart"
-        
+
         5. Check "Restart Jenkins when installation is complete and no jobs are running"
-        
+
         6. After restart, go to Dashboard > Manage Jenkins > Global Tool Configuration
-        
+
         7. Scroll down to NodeJS, then click Add NodeJS
-        
+
         8. Set name to the version e.g. "18.0.0". This name will be used in the Jenkinsfile when building a pipeline.
-                
+
                 tools {
                     nodejs "18.0.0"
                 }
-                
-        9. Select a version to insall, then click Save
 
+        9. Select a version to insall, then click Save
 
 ## Restart Jenkins
 
 Head to [localhost:8080/restart](http://localhost:8080/restart) to restart Jenkins
-    
 
 ## CI/CD Pipeline
 
@@ -5594,19 +5614,21 @@ Head to [localhost:8080/restart](http://localhost:8080/restart) to restart Jenki
 2. Select Pipeline, then click OK
 3. Scroll down to Pipeline. Use the settings below:
 
-    Definition
-      - Pipeline script from SCM
-        - SCM
-          - Git
-          - Repository URL
-            - **file:////var/jenkins_home/app/projectName**
-            - **https://github.com/judigot/repository**
-          - Branch Specifier (blank for 'any')
-            - */main
-        - Script Path
-          - Jenkinsfile
+   Definition
+
+   - Pipeline script from SCM
+     - SCM
+       - Git
+       - Repository URL
+         - **file:////var/jenkins_home/app/projectName**
+         - **https://github.com/judigot/repository**
+       - Branch Specifier (blank for 'any')
+         - \*/main
+     - Script Path
+       - Jenkinsfile
 
 # =====================================
+
 # Laravel Commands
 
 ```
@@ -5739,6 +5761,7 @@ Views/Pages = (resources>views)
 ```
 
 # =====================================
+
 # Line Replacer Batch
 
 ```bat
@@ -5761,10 +5784,13 @@ set "_strInsert=replacement"
 ```
 
 # =====================================
+
 # Linux Ubuntu Commands
 
 ## MySQL
+
 ### Execute a SQL file from URL; Import SQL file:
+
     curl 'https://raw.githubusercontent.com/user/repo/data.sql' | mysql -uroot -p123
 
 ### Install mysql-server
@@ -5772,7 +5798,9 @@ set "_strInsert=replacement"
 ```bash
 apt install -y mysql-server
 ```
+
 ### Start mysql
+
 ```bash
 usermod -d /var/lib/mysql/ mysql && service mysql start
 ```
@@ -5787,14 +5815,16 @@ ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123';
 FLUSH PRIVILEGES;
 EXIT;
 ```
-    
+
 ## Log In
+
 ```bash
 mysql -u<user> -p<password>
 mysql -uroot -p123
 ```
 
 ## Log Out
+
 ```bash
 exit;
 ```
@@ -5802,7 +5832,9 @@ exit;
 ## MySQL Commands
 
 ### Show All Stored Procedures
+
 Tags: `show stored procedures`, `select all stored procedures`, `select stored procedures`
+
 ```sql
 SELECT ROUTINE_NAME
 FROM INFORMATION_SCHEMA.ROUTINES
@@ -5811,52 +5843,63 @@ AND ROUTINE_SCHEMA = 'database_name';
 ```
 
 ### Show Databases
+
 ```sql
 SHOW DATABASES;
 ```
 
 ### Show Tables
+
 ```sql
 SHOW TABLES;
 ```
 
 ### Show Port
+
 ```sql
 SHOW @@PORT;
 ```
 
 ### Show Database
+
 ```sql
 USE `databaseName`;
 ```
 
 ### Show Table Information
+
 ```sql
 DESCRIBE `tableName`;
 ```
 
 ## PostgreSQL
+
 ### Install PostgreSQL
+
 ```bash
 apt install -y postgresql postgresql-contrib
 ```
 
 ### Start PostgreSQL
+
 ```bash
 service postgresql start
 ```
-    
+
 ### Add password
+
 ```bash
 sudo passwd postgres
 ```
-    
+
 ### Enable postgres=# Prompt:
+
 ```bash
 sudo -i -u postgres
 ```
 
 ### Access postgres=# prompt:
+
 ```bash
 psql
 ```
@@ -5870,6 +5913,7 @@ ALTER SEQUENCE tableName_column_id_seq RESTART WITH 1;
 ```
 
 ### Shorthand for enabling and accessing postgres=#:
+
 ```bash
 sudo -u postgres psql
 *exit
@@ -5877,75 +5921,90 @@ sudo -u postgres psql
 ```
 
 ### Log out:
+
 ```bash
 \q
 exit
 ```
-    
+
 ### Create new role:
 
 ```bash
 # If logged in to postgres=#
 createuser --interactive
 ```
+
 ```bash
 sudo -u postgres createuser --interactive
 ```
-    
+
 ### List databases;
+
 ```bash
 \l
 ```
-    
+
 ### List tables:
+
 ```bash
 \dt
 ```
-    
+
 ### Delete All Tables; Delete Tables; Remove All Tables
+
 ```sql
 DROP SCHEMA public CASCADE;
 CREATE SCHEMA public;
 ```
-    
+
 ### Use database:
+
 ```bash
 \c database_name
 ```
-    
+
 ### Dump database:
 
 #### Dump Everything
+
 ```bash
 pg_dump -d database_name -h localhost -p 5432 -U root > database_name.sql
 ```
 
 #### Dump Schema
+
 ```bash
 pg_dump --schema-only -d database_name -h localhost -p 5432 -U root > database_name_schema.sql
 ```
 
 #### Dump Data
+
 ```bash
 pg_dump --data-only -d database_name -h localhost -p 5432 -U root > database_name_data.sql
 ```
 
 # =====================================
+
 # Node.js & NPM Commands & Configurations
 
 ## Set Default Shell
+
 ```bash
 npm config set script-shell "C:/apportable/Programming/PortableGit/bin/bash.exe"
 ```
 
 ## Install Nest.js
+
 ```bash
 git clone https://github.com/nestjs/typescript-starter.git .
 pnpm install
 pnpm run start
 ```
+
 ## Fix Initial ESLint Errors
+
 Add this to .eslintrc.js inside **rules**
+
 ```
 "prettier/prettier": [
   "error",
@@ -5954,28 +6013,33 @@ Add this to .eslintrc.js inside **rules**
   }
 ],
 ```
+
 ## Project Scaffolding:
 
 ### Vite (TypeScript):
 
 #### PNPM
+
 ```bash
 pnpm create vite . --template react-ts
 ```
 
 #### NPM
+
 ```bash
 npm create vite@latest . -- --template react-ts
 ```
-	
+
 ### Next.js
 
 #### Install On Current Directory
+
 ```bash
 npx create-next-app@latest . --use-pnpm --ts --tailwind --eslint --app --src-dir --import-alias @/*
 ```
-	
+
 #### Install on Current a Different Directory
+
 ```bash
 npx create-next-app@latest bigbang --use-pnpm --ts --tailwind --eslint --app --src-dir --import-alias @/*
 
@@ -5988,78 +6052,95 @@ npx create-next-app@latest bigbang --use-pnpm --ts --tailwind --eslint --app --s
 # Would you like to customize the default import alias (@/*)? Yes
 # What import alias would you like configured? @/*
 ```
-	
+
 #### Update Next.js Installation
+
 ```bash
 npm i next@latest react@latest react-dom@latest eslint-config-next@latest
 ```
-	
+
 #### GetServerSideProps
+
 - use for authentication and conditional rendering
 - render data on request time
-	
+
 #### GetStaticProps:
+
 - for SEO
 - for static pages
 - generates static html and json files for caching
 
 ## PurgeCSS (Remove Unused CSS)
+
 https://www.youtube.com/watch?v=y3WQoON6Vfc
 
 ## NPM Commands
+
 ### Show Unused Packages
+
 ```bash
 npx depcheck
 ```
 
 ### Create a package.json
+
 #### With a wizard
+
 ```bash
 npm init
 ```
 
 #### Without a wizard
+
 ```bash
 npm init -y
 ```
 
 #### Install All Dependencies from package-lock.json:
+
 ```bash
 npm ci
 ```
 
 #### Install Development/Production Dependencies in package-lock.json
+
 ```bash
 npm ci --only=development
 npm ci --only=production
 ```
 
 #### Install All Dependencies From package.json:
+
 ```bash
 npm install
 ```
 
 #### Install All Production ("dependencies") Dependencies From package.json Globally
+
 ```bash
 npm install --only=production
 ```
 
 #### Install All Development ("devDependencies") Dependencies From package.json Globally
+
 ```bash
 npm install --only=development
 ```
 
 #### Install Dependencies Globally
+
 ```bash
 npm install -g
 ```
-	
+
 #### Check Package Version; Check Dependency Version
+
 ```bash
 npm view <package-name> version
 ```
 
 #### Delete All Dependencies:
+
 ```bash
 npm uninstall *
 ```
@@ -6080,6 +6161,7 @@ npm uninstall *
 ## Big Bang Dependepcies
 
 ### Production
+
 ```bash
 npm install express
 npm install dotenv
@@ -6113,6 +6195,7 @@ npm install @fortawesome/fontawesome-free
 ```
 
 ### Development
+
 ```bash
 npm install -D nodemon
 npm install -D webpack
@@ -6139,6 +6222,7 @@ npm install -D copy-webpack-plugin
 
 npm install -D img-loader
 ```
+
 ## NVM Installation
 
 1. Download nvm-noinstall.zip from the latest version here: https://github.com/coreybutler/nvm-windows/releases
@@ -6148,7 +6232,9 @@ npm install -D img-loader
 5. Set the "path:" inside "settings.txt" to "C:/judigot/Programming/Environment/nodejs"
 
 # =====================================
+
 # PHP Commands
+
 ```php
 <?php
 // Rename object keys; rename keys
@@ -6252,9 +6338,11 @@ echo "<pre>" . print_r($array, true) . "</pre>";
 ```
 
 # =====================================
+
 # Portable Git Bash
 
 Portable Git Bash.bat
+
 ```bat
 @echo off
 
@@ -6262,34 +6350,38 @@ start "C:\apporatable\Programming\PortableGit\git-bash.exe"
 ```
 
 # =====================================
+
 # Prisma
 
 ## Installation Steps
+
 1. Install Packages
-    ```bash
-    npm init -y
-    npm install typescript esbuild esbuild-register @types/node --save-dev
-    npm install prisma --save-dev
-    npm i @prisma/client
-    npx tsc --init
-    npx prisma init --datasource-provider mysql
-    ```
+   ```bash
+   npm init -y
+   npm install typescript esbuild esbuild-register @types/node --save-dev
+   npm install prisma --save-dev
+   npm i @prisma/client
+   npx tsc --init
+   npx prisma init --datasource-provider mysql
+   ```
 2. Add a Custom Prisma Directory in package.json
-    ```json
-    "prisma": {
-      "schema": "src/prisma/schema.prisma"
-    },
-    ```
+   ```json
+   "prisma": {
+     "schema": "src/prisma/schema.prisma"
+   },
+   ```
 3. Move the Prisma Folder to the Custom Prisma Path
 
 4. Set the database_URL in the .Env File to Point to Your Existing Database
 
 ## Create a Prisma Schema From an Existing Database
+
 ```bash
 npx prisma db pull && npx prisma generate
 ```
 
 ## Sync Schema to the Database (When Developing Locally)
+
 ```bash
 npx prisma db push && npx prisma generate
 ```
@@ -6303,6 +6395,7 @@ npx prisma migrate dev --name <renamed-firstname-to-firstName> --create-only
 ```
 
 ## Sync Migration Files; Commit Migration Changes
+
 ```bash
 npx prisma migrate dev
 ```
@@ -6316,6 +6409,7 @@ npx prisma generate
 ```
 
 # =====================================
+
 # SEO (Search Engine Optimization)
 
 ## Google Domains Name Servers
@@ -6327,14 +6421,15 @@ npx prisma generate
 
 ## DNS Set Up
 
-| Host name      | Type              | Data            | Result          |
-| :------------: | :---------------: | :-------------: | :-------------: |
-| @ (or empty)   | A                 | 666.666.666.666 | example.com     |
-| www            | A                 | 666.666.666.666 | www.example.com |
+|  Host name   | Type |      Data       |     Result      |
+| :----------: | :--: | :-------------: | :-------------: |
+| @ (or empty) |  A   | 666.666.666.666 |   example.com   |
+|     www      |  A   | 666.666.666.666 | www.example.com |
 
 Vercel DNS:
 
     76.76.21.241
+
 ## NGINX Boilerplate
 
 ```nginx
@@ -6356,14 +6451,14 @@ server {
     listen 443 ssl;
     listen [::]:443 ssl ipv6only=on;
     server_name example.com www.example.com localhost;
-    
+
     #==========SSL CONFIGURATION==========#
     ssl_certificate /etc/letsencrypt/live/example.com/fullchain.pem; # managed by Certbot
     ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem; # managed by Certbot
     include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
     #==========SSL CONFIGURATION==========#
-    
+
     #==========STATIC CONTENT==========#
     # root /var/www/html;
     root /var/www/app;
@@ -6374,7 +6469,7 @@ server {
         try_files $uri $uri/ =404;
     }
     #==========STATIC CONTENT==========#
-    
+
     #==========REVERSE PROXY==========#
     location / {
         proxy_pass http://apache2;
@@ -6391,14 +6486,17 @@ upstream apache2 {
 ```
 
 # =====================================
+
 # SQL
 
 ## Database Must-Haves
+
 - Insert date and time in UTC. This means, whenever you have a user that inserts or updates a datetime value in the database, convert it to UTC and store the UTC value in the database column. Your data will be consistent. Then in the client's side, convert the UTC to the client's timezone.
 
 ## Database Schema Template
 
 Convert this PostgreSQL schema to another database (e.g. MySQL):
+
 - Run this template on a PostgreSQL database
 - Introspect using prisma/sequelize to generate a schema file or models
 - Change the database client in your .env file e.g. MySQL
@@ -6447,59 +6545,73 @@ CREATE TABLE "order_product" (
 ## SQL Data Types
 
 1. **BIGSERIAL (BIGINT AUTO_INCREMENT in MySQL)**
-    - **Examples**: `order_number`, `invoice_id`, `customer_id`, `ticket_id`, `reservation_id`
-    - **Context**: Ideal for auto-incrementing primary keys in large tables, ensuring unique identifiers for each record.
+
+   - **Examples**: `order_number`, `invoice_id`, `customer_id`, `ticket_id`, `reservation_id`
+   - **Context**: Ideal for auto-incrementing primary keys in large tables, ensuring unique identifiers for each record.
 
 2. **BIGINT (Same in MySQL)**
-    - **Examples**: `foreign_order_id`, `foreign_product_id`, `foreign_customer_id`, `external_reference_id`, `linked_transaction_id`
-    - **Context**: Suitable for referencing BIGSERIAL or BIGINT AUTO_INCREMENT primary keys from other tables, especially in large databases.
+
+   - **Examples**: `foreign_order_id`, `foreign_product_id`, `foreign_customer_id`, `external_reference_id`, `linked_transaction_id`
+   - **Context**: Suitable for referencing BIGSERIAL or BIGINT AUTO_INCREMENT primary keys from other tables, especially in large databases.
 
 3. **UUID (Same in MySQL)**
-    - **Examples**: `system_process_id`, `global_user_identifier`, `unique_payment_reference`, `distributed_transaction_id`, `cross_service_session_id`
-    - **Context**: Ideal for globally unique identifiers, particularly in distributed systems or where collision avoidance is critical.
+
+   - **Examples**: `system_process_id`, `global_user_identifier`, `unique_payment_reference`, `distributed_transaction_id`, `cross_service_session_id`
+   - **Context**: Ideal for globally unique identifiers, particularly in distributed systems or where collision avoidance is critical.
 
 4. **VARCHAR(32) (Same in MySQL)**
-    - **Examples**: `api_token`, `device_uuid`, `reference_code`, `short_url_key`, `activation_code`
-    - **Context**: Used for storing fixed-size, unique strings like UUIDs, API keys, and other short identifiers.
+
+   - **Examples**: `api_token`, `device_uuid`, `reference_code`, `short_url_key`, `activation_code`
+   - **Context**: Used for storing fixed-size, unique strings like UUIDs, API keys, and other short identifiers.
 
 5. **TEXT (Same in MySQL)**
-    - **Examples**: `blog_post_content`, `customer_feedback`, `email_body`, `long_description`, `detailed_instructions`
-    - **Context**: Ideal for fields requiring large or variable-length text data, such as descriptions, articles, or user-generated content.
+
+   - **Examples**: `blog_post_content`, `customer_feedback`, `email_body`, `long_description`, `detailed_instructions`
+   - **Context**: Ideal for fields requiring large or variable-length text data, such as descriptions, articles, or user-generated content.
 
 6. **DECIMAL or NUMERIC (DECIMAL in MySQL)**
-    - **Examples**: `product_price`, `monthly_salary`, `tax_amount`, `exchange_rate`, `mortgage_rate`
-    - **Context**: Perfect for precise numerical values, especially in financial data, to avoid rounding errors and maintain accuracy.
-    - **SQL**: `CREATE TABLE transactions ( amount DECIMAL(15, 2) );`
+
+   - **Examples**: `product_price`, `monthly_salary`, `tax_amount`, `exchange_rate`, `mortgage_rate`
+   - **Context**: Perfect for precise numerical values, especially in financial data, to avoid rounding errors and maintain accuracy.
+   - **SQL**: `CREATE TABLE transactions ( amount DECIMAL(15, 2) );`
 
 7. **FLOAT / DOUBLE (Same in MySQL)**
-    - **Examples**: `gps_latitude`, `gps_longitude`, `temperature_reading`, `scientific_measurement`, `stock_price`
-    - **Context**: Suitable for storing approximate floating-point numbers, with FLOAT for single precision and DOUBLE for double precision, used where exact precision is less critical.
+
+   - **Examples**: `gps_latitude`, `gps_longitude`, `temperature_reading`, `scientific_measurement`, `stock_price`
+   - **Context**: Suitable for storing approximate floating-point numbers, with FLOAT for single precision and DOUBLE for double precision, used where exact precision is less critical.
 
 8. **TIMESTAMP (Same in MySQL)**
-    - **Examples**: `last_login_time`, `record_creation_date`, `email_sent_time`, `download_timestamp`, `subscription_start`
-    - **Context**: Useful for tracking dates and times of various events or record changes, without time zone details.
+
+   - **Examples**: `last_login_time`, `record_creation_date`, `email_sent_time`, `download_timestamp`, `subscription_start`
+   - **Context**: Useful for tracking dates and times of various events or record changes, without time zone details.
 
 9. **TIMESTAMPTZ (DATETIME in MySQL)**
-    - **Examples**: `flight_departure_time`, `international_event_date`, `appointment_scheduled_at`, `global_webinar_start`, `multi_timezone_meeting`
-    - **Context**: Essential for applications dealing with multiple time zones, as it includes time zone information for accuracy in scheduling and event management.
+
+   - **Examples**: `flight_departure_time`, `international_event_date`, `appointment_scheduled_at`, `global_webinar_start`, `multi_timezone_meeting`
+   - **Context**: Essential for applications dealing with multiple time zones, as it includes time zone information for accuracy in scheduling and event management.
 
 10. **BOOLEAN (TINYINT(1) in MySQL)**
+
     - **Examples**: `is_active_flag`, `email_verified_status`, `two_factor_authentication_enabled`, `newsletter_subscription_status`, `new_user_indicator`
     - **Context**: Commonly used in MySQL as a boolean type to represent small integers or boolean values like flags and statuses.
 
 11. **TIMESTAMPTZ(6) (DATETIME(6) in MySQL)**
+
     - **Examples**: `high_precision_event_time`, `transaction_completed_at`, `system_log_timestamp`, `sensor_data_recorded_at`, `audit_trail_created_time`
     - **Context**: Ideal for storing dates and times with fractional seconds, useful in high-precision time recording applications like logging systems.
 
 12. **ENUM (Same in MySQL)**
+
     - **Examples**: `order_status ('new', 'processing', 'shipped', 'delivered', 'cancelled')`, `account_type ('free', 'premium', 'enterprise', 'admin', 'guest')`, `ticket_priority ('low', 'medium', 'high', 'urgent', 'critical')`, `user_status ('active', 'inactive', 'suspended', 'deleted', 'pending')`, `product_category ('electronics', 'clothing', 'grocery', 'furniture', 'books')`
     - **Context**: Useful for fields with a limited and known set of values, ensuring data integrity and simplifying queries and analysis.
 
 13. **JSONB (No direct equivalent in MySQL)**
+
     - **Examples**: `user_preferences_settings`, `e-commerce_product_attributes`, `log_event_details`, `metadata_for_assets`, `dynamic_form_responses`
     - **Context**: Chosen for its efficiency in storing and querying JSON data, particularly in applications requiring complex data structures and fast access.
 
 14. **ARRAY (No direct equivalent in MySQL)**
+
     - **Examples**: `product_tags`, `contact_phone_numbers`, `email_recipients`, `survey_responses`, `skillset_keywords`
     - **Context**: Useful for storing multiple values in a single column, simplifying schema design and queries for data naturally fitting an array format, like tags or contacts.
 
@@ -6508,6 +6620,7 @@ CREATE TABLE "order_product" (
     - **Context**: Best suited for storing fixed-length character data, ensuring data consistency and efficiency for short, standard-format strings.
 
 # =====================================
+
 # Terraform
 
 ```
@@ -6526,34 +6639,34 @@ Terraform commands:
 
 	Override variables:
 		terraform console -var="host_os=unix"
-		
+
 	Override variables using a variable file (for switching between development and production environment):
 		terraform console -var-file="dev.tfvars"
-		
+
 	View state:
 		terraform state list
 		terraform state show <vpc.name>
-		
+
 	View state attribute:
 		terraform state show aws_vpc.main.id
-		
+
 	View all states:
 		terraform show
-		
+
 	Destroy a VPC:
 		terraform destroy
-		
+
 	Destroy a VPC and yes to all:
 		terraform destroy -auto-approve
-		
+
 	Apply VPC/Instance:
 		terraform apply -auto-approve
-		
+
 	Replace VPC/Instance:
 		terraform apply -replace="aws_instance.dev_node[0]" -auto-approve
 		terraform apply -replace aws_instance.<name>
 		terraform apply -replace aws_instance.<name> -auto-approve
-		
+
 	Format .tf files:
 		terraform fmt
 
@@ -6574,20 +6687,20 @@ Sign in to aws:
 		Click Enable console access
 		Enable
 		Custom password
-		
+
 Docker Compose:
 	volumes:
 	  - ./terraform:/var/terraform
       - ~/.aws:/root/.aws
       - ~/.ssh:/root/.ssh
-		
+
 VSCode:
 	Install AWS Toolkit extension
 	Run: AWS: Create Credentials Profile in command palette
 	Use access keys to create credential file located in (C:\Users\Jude\.aws)
 	us-west-2 (Oregon)
 	Install HashiCorp Terraform for syntax highlighting
-	
+
 Terraform Docker Container:
 	*install AWS Toolkit extension
 	terraform init
@@ -6599,7 +6712,7 @@ Terraform Docker Container:
 	Run AWS: Show Resources...
 	Check AWS::EC2::VPC
 	Open terraform.tfstate and check if the settings match
-	
+
 Create EC2 Instance:
 	Select an AMI
 	Then go to EC2 Console > Images > AMIs
@@ -6611,45 +6724,54 @@ Create EC2 Instance:
 ```
 
 # =====================================
+
 # VIM
 
 ## Search file
+
 ```
 /textToSearch + Enter
 n or N to navigate
 ```
 
 ## Center cursor to screen
+
 ```
 zz
 ```
 
 ## Scroll down (forward)
+
 ```
 Ctrl + f
 ```
 
 ## Scroll up (backward)
+
 ```
 Ctrl + b
 ```
 
 ## Copy selection
+
 ```
 yy
 ```
 
 ## Copy entire line
+
 ```
 yy
 ```
 
 ## Edit mode
+
 ```
 a
 ```
 
 ## Save & Exit
+
 ```
 ZZ
 :wq!
@@ -6657,71 +6779,85 @@ ZZ
 ```
 
 ## Exit Without Saving
+
 ```
 :q!
 ```
 
 ## Select All
+
 ```
 ggVG
 ```
 
 ## Select All & Delete
+
 ```
 ggVGd
 ```
 
 ## Delete Line Until the First Character
+
 ```
 cc
 ```
 
 ## Delete Entire Line
+
 ```
 dd
 ```
 
-## Delete All 
+## Delete All
+
 ```
 dd
 ```
 
 ## Delete Current Word
+
 ```
 dw
 ```
 
 ## Copy & Paste
+
 ```
 yP
 ```
 
 ## Save Changes
+
 ```
 :w
 ```
 
 ## Go to Start of Line
+
 ```
 0
 ```
 
 ## Go to End of Line
+
 ```
 $
 ```
 
 ## Go to Next Word
+
 ```
 W
 ```
 
 ## Go to Previous Word
+
 ```
 B
 ```
 
 ## Navigation
+
 ```
 h
 j
@@ -6730,71 +6866,85 @@ l
 ```
 
 ## Move to top of screen
+
 ```
 H
 ```
 
 ## Move to middle of screen
+
 ```
 H
 ```
 
 ## Move to bottom of screen
+
 ```
 L
 ```
 
 ## Go to End of File
+
 ```
 G$
 ```
 
 ## Append Next Line to the End of Current Line
+
 ```
 J
 ```
 
 ## Insert a new line below the current line
+
 ```
 Ctrl + ENTER
 ```
 
 ## Insert a new line above the current line
+
 ```
 Ctrl + Shift + ENTER
 ```
 
 ## Select entire line
+
 ```
 ^vg_
 ```
 
 # =====================================
+
 # Visual Studio Code Keyboard Shortcuts
 
 ## Default
 
 ### Surround Code With
+
 ```
 Ctrl =====> .
 ```
 
 ### Open Command Palette
+
 ```
 Ctrl + Shift =====> P
 ```
 
 ### Search project
+
 ```
 Ctrl + Shift =====> H
 ```
 
 ### Select all words that match your current selection
+
 ```
 Ctrl + Shift + =====> L
 ```
 
 ### Open the directory of the currently opened file
+
 ```
 Shift + Alt + =====> R
 ```
@@ -6802,23 +6952,28 @@ Shift + Alt + =====> R
 ## Custom
 
 ### Git Status
+
 ```
 Ctrl + Shift + Alt =====> ?
 ```
 
 # =====================================
+
 # Web Development
 
 ## Architecture
 
 ### Microservice Architecture
+
 - separate backend (API) and frontent (client)
 - can have many clients (web, desktop, mobile)
 
 ## Back End Tests
+
 - Rearrange any table's column order and see of app still works
 
 ## Back End Roadmap:
+
 Tags: `back end development`, `backend revelopment`, `back end skills`, `backend skills`
 
 - JSON schema validator (zod, ajv)
@@ -6849,11 +7004,11 @@ Tags: `back end development`, `backend revelopment`, `back end skills`, `backend
   - Raw query option with replacements/placeholder
   - Indexing for faster data retrieval
   - Database introspection: generate models from an existing database; convert or genereate models/migrations from existing database:
-      - Sequelize-Auto
-      - Prisma: npx prisma db push && npx prisma generate
+    - Sequelize-Auto
+    - Prisma: npx prisma db push && npx prisma generate
   - Sync schema changes to the database; sync models/migrations settings to database structure:
-      - Sequelize: Models.sequelize.sync();
-      - Prisma: npx prisma db push && npx prisma generate
+    - Sequelize: Models.sequelize.sync();
+    - Prisma: npx prisma db push && npx prisma generate
   - ACID, transactions, transaction rollback
   - auto increment
   - null
@@ -6862,8 +7017,8 @@ Tags: `back end development`, `backend revelopment`, `back end skills`, `backend
   - constraints
   - migrations: stage schema changes; "database schema version control"
   - seeders
-      *initial app data (app settings, admin users)
-      *store app settings in the database
+    *initial app data (app settings, admin users)
+    *store app settings in the database
   - rename columns names without deleting data
   - change database structure without deleting data
 - GraphQL:
@@ -6884,15 +7039,15 @@ Tags: `back end development`, `backend revelopment`, `back end skills`, `backend
 - Routes
 - REST API endpoints (GET, POST, DELETE, PUT, PATCH)
   - Handle CORS preflight requests (preflight sends OPTIONS request instead of POST)
-      - switch (req.method) {
-          case "POST":
-            // Handle POST request
-            break;
-          default:
-            // Handle OPTIONS (preflight) requests
-            res.json({});
-            break;
-        }
+    - switch (req.method) {
+      case "POST":
+      // Handle POST request
+      break;
+      default:
+      // Handle OPTIONS (preflight) requests
+      res.json({});
+      break;
+      }
   - Arrange API routes properly: declare dynamic routes at the top, static routes below (https://youtu.be/SccSCuHhOw0?t=1100)
   - API versioning (example.com/v1/users/posts)
   - allow only server's ip address or own domain to interact with the API. Restrict other websites, IP addresses, apps, etc.
@@ -6900,12 +7055,14 @@ Tags: `back end development`, `backend revelopment`, `back end skills`, `backend
   - return json response
   - return status (200)
 - CORS
+
   - Allow all sites (development):
-    - Access-Control-Allow-Origin "*"
+
+    - Access-Control-Allow-Origin "\*"
 
   - Allow only specific sites (production):
     - Access-Control-Allow-Origin "https://www.example.com"
-    
+
 - Password hashing and checking
 - Authentication
   - sessions
@@ -6924,18 +7081,21 @@ Tags: `back end development`, `backend revelopment`, `back end skills`, `backend
   - memcached
 - Decorators
 - Method chaining (builder pattern)
+
   - must be readable and eloquent (see Laravel's Eloquent ORM)
 
   ```tsx
-  $("example").toUpperCase().addQuotes().titleCase().fixSpelling()
+  $("example").toUpperCase().addQuotes().titleCase().fixSpelling();
   ```
 
 - Upload large CSV file to mysql and postgres (100k rows)
 
 ## Front End Roadmap:
+
 Tags: `front end development`, `frontend revelopment`, `front end skills`, `frontend skills`
 
 - Rendering:
+
   - Render object literal
   - Store `<option/>` value to state on change
 
@@ -6968,30 +7128,28 @@ Tags: `front end development`, `frontend revelopment`, `front end skills`, `fron
   - Redux:
     - Use cases:
       - passing value from unrelated components (another component is not a child/parent)
-        
-      
 - AJAX:
-    interceptor (request, response); see axios interceptor
+  interceptor (request, response); see axios interceptor
 - Login component (react, vue, angular)
 - Lazy loading
 - Load components/code on demand
 - Bundling
-    *code splitting
+  \*code splitting
 
 - Testing:
-    - check if component renders based on prop value e.g. isLoggedIn
-    - call functions inside components
-    - get element's innerHTML and outerHTML
-    - trigger events (click, keyboard keys)
-    - access component/element attributes (id, class, data, etc.)
-    - get element text content
-    - access component state
-    - get input element values (text, textarea, select, etc.)
-    - gete form values
-    - get children, sibling, grandparent count of components
-    - get element type (div, span, h1, etc)
-    - resolve promises
-    
+  - check if component renders based on prop value e.g. isLoggedIn
+  - call functions inside components
+  - get element's innerHTML and outerHTML
+  - trigger events (click, keyboard keys)
+  - access component/element attributes (id, class, data, etc.)
+  - get element text content
+  - access component state
+  - get input element values (text, textarea, select, etc.)
+  - gete form values
+  - get children, sibling, grandparent count of components
+  - get element type (div, span, h1, etc)
+  - resolve promises
+
 ## Git Commit Messages (Semantic Commit Messages)
 
 Tags: `git messages`
@@ -7006,6 +7164,7 @@ BODY
 
 FOOTER
 ```
+
 **! = important**
 
 **`SCOPE` is optional**
@@ -7025,15 +7184,18 @@ feat(api)!: send an email to the customer when a product is shipped
 - `chore`: (updating grunt tasks etc; no production code change)
 
 ## Testing
+
 - Browser automation (google chrome recorder, selenium, puppeteer, cypress)
 - Component testing
 - Jest
 - Mocha
 
 ## Coding Tools
+
 - Linter
-  
+
 ## Framework
+
 - Generate controller
 - Generate helper for controller
 - Import helper function into the controller
@@ -7041,7 +7203,7 @@ feat(api)!: send an email to the customer when a product is shipped
 - Change CORS policy in the backend to enable requests
 
 ## Snippets
-  
+
 ### Common
 
 ```
@@ -7130,6 +7292,7 @@ convertToNum
 ### Extras
 
 #### React.js
+
 ```
 initialData: useState & useEffect combined
 boilerplate
@@ -7161,7 +7324,6 @@ tryCatchFinallyBlock
 ```
 
 # =====================================
-
 
 # API Generator
 
@@ -7343,9 +7505,7 @@ done
 echo "API endpoint files have been generated."
 ```
 
-
 # =====================================
-
 
 # Directory Structure Cloner
 
@@ -7429,114 +7589,122 @@ sh "$script_name"
 
 # =====================================
 
-
 # Database Relationships: ERD Notation Examples
 
 ## 1. Mandatory One-to-Many (1:M)
+
 - **Description**: A single entity on the "one" side is associated with multiple entities on the "many" side. This association is mandatory.
 - **Notation**:
-    ```
-    ||-----|<  
-    ```
+  ```
+  ||-----|<
+  ```
 - **Example**: Each parent has one or more children.
-    ```
-    (Parent) ||-----|< (Children)
-    ```
+  ```
+  (Parent) ||-----|< (Children)
+  ```
 
 ## 2. Mandatory Many-to-One (M:1)
+
 - **Description**: Multiple entities on the "many" side are associated with a single entity on the "one" side. This relationship is mandatory.
 - **Notation**:
-    ```
-    >-----||
-    ```
+  ```
+  >-----||
+  ```
 - **Example**: Multiple products are made by a single manufacturer.
-    ```
-    (Products) >-----|| (Manufacturer)
-    ```
+  ```
+  (Products) >-----|| (Manufacturer)
+  ```
 
 ## 3. Mandatory Many-to-Many (M:N)
+
 - **Description**: Entities on both sides can have multiple associations with entities on the other side.
 - **Notation**:
-    ```
-    >-----|<  
-    ```
+  ```
+  >-----|<
+  ```
 - **Example**: Students can enroll in multiple courses, and each course can have multiple students.
-    ```
-    (Students) >-----|< (Courses)
-    ```
+  ```
+  (Students) >-----|< (Courses)
+  ```
 
 ## 4. Optional One-to-Many (1:M)
+
 - **Description**: A single entity on the "one" side is associated with multiple entities on the "many" side, but the association is not mandatory for the "many" side.
 - **Notation**:
-    ```
-    ||-----o|<  
-    ```
+  ```
+  ||-----o|<
+  ```
 - **Example**: An author may have written multiple books, but it's not mandatory for a book to have an associated author.
-    ```
-    (Author) ||-----o|< (Books)
-    ```
+  ```
+  (Author) ||-----o|< (Books)
+  ```
 
 ## 5. Optional Many-to-One (M:1)
+
 - **Description**: Multiple entities on the "many" side are associated with a single entity on the "one" side, but the association is not mandatory for the "many" side.
 - **Notation**:
-    ```
-    >o-----||
-    ```
+  ```
+  >o-----||
+  ```
 - **Example**: A blog post may have multiple comments, but it's not mandatory for a comment to be associated with a blog post.
-    ```
-    (Comments) >o-----|| (BlogPost)
-    ```
+  ```
+  (Comments) >o-----|| (BlogPost)
+  ```
 
 ## 6. Optional Many-to-Many (M:N)
+
 - **Description**: Entities on both sides can have multiple associations with entities on the other side, but these associations are not mandatory.
 - **Notation**:
-    ```
-    >o-----o|<  
-    ```
+  ```
+  >o-----o|<
+  ```
 - **Example**: Customers can purchase multiple products, and products can be bought by multiple customers, but neither is mandatory.
-    ```
-    (Customers) >o-----o|< (Products)
-    ```
+  ```
+  (Customers) >o-----o|< (Products)
+  ```
 
 ## 7. Mandatory One-to-One (1:1)
+
 - **Description**: Each entity on one side is associated with exactly one entity on the other side. This relationship is mandatory.
 - **Notation**:
-    ```
-    ||-----||
-    ```
+  ```
+  ||-----||
+  ```
 - **Example**: Each user has exactly one set of user details.
-    ```
-    (User) ||-----|| (UserDetail)
-    ```
+  ```
+  (User) ||-----|| (UserDetail)
+  ```
 
 ## 8. Optional One-to-One (1:1)
+
 - **Description**: Each entity on one side may be associated with at most one entity on the other side. This relationship is not mandatory.
 - **Notation**:
-    ```
-    ||-----o||
-    ```
+  ```
+  ||-----o||
+  ```
 - **Example**: A person may have at most one passport, but not everyone has a passport.
-    ```
-    (Person) ||-----o|| (Passport)
-    ```
+  ```
+  (Person) ||-----o|| (Passport)
+  ```
 
 ## 9. Mandatory Self-Referencing Relationship
+
 - **Description**: An entity is associated with another entity of the same type. This relationship is mandatory.
 - **Notation**:
-    ```
-    ||-----||
-    ```
+  ```
+  ||-----||
+  ```
 - **Example**: Every employee (except the top executive) reports to a manager, who is also an employee.
-    ```
-    (Employee) ||-----|| (Manager - also Employee)
-    ```
+  ```
+  (Employee) ||-----|| (Manager - also Employee)
+  ```
 
 # =====================================
-
 
 # Programming Primitives in English
 
 1. **Variable**
+
    - container
    - bin
    - box
@@ -7549,6 +7717,7 @@ sh "$script_name"
    - placeholder
 
 2. **String**
+
    - text
    - name
    - word
@@ -7561,6 +7730,7 @@ sh "$script_name"
    - expression
 
 3. **Integer**
+
    - number
    - size
    - count
@@ -7573,6 +7743,7 @@ sh "$script_name"
    - magnitude
 
 4. **Float/Double**
+
    - decimal
    - bit
    - part
@@ -7585,6 +7756,7 @@ sh "$script_name"
    - numberWithDecimals
 
 5. **Boolean**
+
    - flag
    - on
    - off
@@ -7597,6 +7769,7 @@ sh "$script_name"
    - trueFalse
 
 6. **Array**
+
    - list
    - row
    - chain
@@ -7609,6 +7782,7 @@ sh "$script_name"
    - compilation
 
 7. **Object**
+
    - bundle
    - set
    - pack
@@ -7621,6 +7795,7 @@ sh "$script_name"
    - composite
 
 8. **Function/Method**
+
    - task
    - job
    - work
@@ -7633,6 +7808,7 @@ sh "$script_name"
    - activity
 
 9. **Loop**
+
    - repeat
    - again
    - cycle
@@ -7645,6 +7821,7 @@ sh "$script_name"
    - continuation
 
 10. **IfStatement**
+
     - check
     - pick
     - maybe
@@ -7657,6 +7834,7 @@ sh "$script_name"
     - examination
 
 11. **Class**
+
     - blueprint
     - map
     - plan
@@ -7669,6 +7847,7 @@ sh "$script_name"
     - structure
 
 12. **Inheritance**
+
     - extension
     - gift
     - share
@@ -7681,6 +7860,7 @@ sh "$script_name"
     - enhancement
 
 13. **Interface**
+
     - agreement
     - deal
     - plan
@@ -7693,6 +7873,7 @@ sh "$script_name"
     - understanding
 
 14. **Exception**
+
     - error
     - oops
     - wrong
@@ -7705,6 +7886,7 @@ sh "$script_name"
     - anomaly
 
 15. **Library/Module**
+
     - toolkit
     - set
     - pack
@@ -7717,6 +7899,7 @@ sh "$script_name"
     - resourceSet
 
 16. **Constant**
+
     - constant
     - set
     - bin
@@ -7730,6 +7913,7 @@ sh "$script_name"
     - invariant
 
 17. **Enum (Enumeration)**
+
     - enum
     - set
     - pack
@@ -7744,6 +7928,7 @@ sh "$script_name"
     - namedConstants
 
 18. **Queue**
+
     - queue
     - line
     - fifo
@@ -7768,7 +7953,6 @@ sh "$script_name"
     - layeredStructure
     - lastInFirstOut
 
-
 # =====================================
 
 # Dockerize Vite
@@ -7786,9 +7970,7 @@ EXPOSE 3000
 CMD node dist/index.js
 ```
 
-
 # =====================================
-
 
 # SQL Generator
 
@@ -7854,7 +8036,7 @@ console.log(oneToManyRelationships);
 ## PostgreSQL
 
 ```tsx
-import { PrismaClient, Prisma } from '@prisma/client';
+import { PrismaClient, Prisma } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -7878,7 +8060,7 @@ export const down = async (): Promise<void> => {
 ## MySQL
 
 ```tsx
-import { PrismaClient, Prisma } from '@prisma/client';
+import { PrismaClient, Prisma } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -7897,9 +8079,7 @@ export const down = async (): Promise<void> => {
 };
 ```
 
-
 # =====================================
-
 
 # HTML Template
 
@@ -8059,17 +8239,18 @@ Tags: `uuid version 4`, `uuid version 5`, `uuid v4`, `uuid v5`
 UUIDv4 generates a completely random and unique identifier every time.
 
 Use cases:
+
 - Orders Table (orders): For tracking and managing the details of customer purchases, including items, quantities, prices, and order statuses.
 - Transactions Table (transactions): For recording financial transactions, such as payments, refunds, and other monetary exchanges.
 - Session Identifiers Table (user_sessions): For web application session management.
 - Temporary Files Table (temp_files): For managing temporary file storage.
 
 ```tsx
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 // Generating a random UUID v4
 const randomUUID = uuidv4();
-console.log('Random UUID v4:', randomUUID);
+console.log("Random UUID v4:", randomUUID);
 ```
 
 Generating UUIDv4 using PostgreSQL extension.
@@ -8100,12 +8281,12 @@ Use cases:
 - Configuration Items Table (config_items): For stable identifiers in system configurations.
 
 ```tsx
-import { v5 as uuidv5 } from 'uuid';
+import { v5 as uuidv5 } from "uuid";
 
-const NAMESPACE = '1b671a64-40d5-491e-99b0-da01ff1f3341'; // Define a fixed namespace UUID
+const NAMESPACE = "1b671a64-40d5-491e-99b0-da01ff1f3341"; // Define a fixed namespace UUID
 
 // Generate a consistent UUID v5 based on user email and namespace
-const userEmail = 'user@example.com';
+const userEmail = "user@example.com";
 const userUUID = uuidv5(userEmail, NAMESPACE);
-console.log('User UUID v5:', userUUID);
+console.log("User UUID v5:", userUUID);
 ```
