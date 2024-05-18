@@ -218,6 +218,65 @@ if (Test-Path -Path $nestedDirPath) {
 
 # Bash Scripting
 
+## Download GitHub Repository
+
+Tags: `download git repository using bash`, `clone github repository`, `clone git repository`, `clone repository using bash`
+
+```bash
+#!/bin/bash
+
+repository="references"
+user="judigot"
+branch="main"
+
+url="https://github.com/$user/$repository"
+zip="$repository/$repository.zip"
+nested="$repository/$repository-$branch"
+
+main() {
+    create_directory
+    download_zip
+    extract_zip
+    clean_up
+    move_files
+}
+
+create_directory() {
+    mkdir -p "$repository"
+}
+download_zip() {
+    curl -L "$url/archive/refs/heads/$branch.zip" -o "$zip"
+}
+extract_zip() {
+    if command -v unzip >/dev/null 2>&1; then
+        unzip "$zip" -d "$repository"
+    elif command -v 7z >/dev/null 2>&1; then
+        7z x "$zip" -o"$repository" -aoa
+    elif command -v winrar >/dev/null 2>&1; then
+        winrar x "$zip" "$repository"
+    elif command -v winzip >/dev/null 2>&1; then
+        winzip -e "$zip" "$repository"
+    else
+        echo "Error: No suitable extraction tool found."
+        exit 1
+    fi
+}
+clean_up() {
+    rm "$zip"
+}
+move_files() {
+    if [ -d "$nested" ]; then
+        awk '{print "mv \"" $0 "\" '"$repository"'"}' <<<"$(find "$nested" -mindepth 1 -maxdepth 1)" | sh
+        rm -rf "$nested"
+    else
+        echo "The extracted directory '$nested' does not exist."
+        exit 1
+    fi
+}
+
+main
+```
+
 ## Replace File
 
 Tags: `replace local file`, `update local file from github`
