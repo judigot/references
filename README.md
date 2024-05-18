@@ -225,6 +225,21 @@ Tags: `download github files using bash`, `download specific repository files us
 ```bash
 #!/bin/bash
 
+main() {
+    filesArray=(".bashrc" "templates/node.js/backend") # Usage 1
+    declare -A dataArray=(
+        [repository]="references"
+        [user]="judigot"
+        [branch]="main"
+        [files]="filesArray"
+        [retainFolderStructure]=true
+        [createRepoFolder]=true
+    )
+    downloadGithubFiles dataArray
+    mkdir -p src && cp -r references/templates/node.js/backend/* src
+    rm -rf references
+}
+
 downloadGithubFiles() {
     # Usage
     # filesArray=(".bashrc" "src/Sample text.txt") # Usage 1
@@ -244,6 +259,7 @@ downloadGithubFiles() {
     local user=${data[user]}
     local branch=${data[branch]}
     local retainFolderStructure=${data[retainFolderStructure]}
+    local createRepoFolder=${data[createRepoFolder]}
     local -n files=${data[files]}
 
     arrayToCSV() {
@@ -312,25 +328,53 @@ downloadGithubFiles() {
     }
 
     move_files() {
-        mkdir -p "$repo"
+        local source=""
+        local destination=""
+        local extracted_folder_name="$1"
+
+        if [ "$createRepoFolder" = true ]; then
+            mkdir -p "$repo"
+        fi
+
         if [ "${filesArray[0]}" = "*" ]; then
-            cp -r "$1/"* "$repo/"
-            echo -e "\e[32mCopied all files from the repository to \"$repo\"\e[0m" # Green
+            if [ "$createRepoFolder" = true ]; then
+                cp -r "$extracted_folder_name/"* "$repo/"
+                echo -e "\e[32mCopied all files from the repository to \"$repo\"\e[0m"
+            else
+                cp -r "$extracted_folder_name/"* "./"
+                echo -e "\e[32mCopied all files from the repository to the root folder\e[0m"
+            fi
         else
             for file_path in "${filesArray[@]}"; do
                 local file_name="$(basename "$file_path")"
-                local extracted_file_path="$1/$file_path"
+                local extracted_file_path="$extracted_folder_name/$file_path"
+
                 if [ -e "$extracted_file_path" ]; then
                     if [ "$retainFolderStructure" = true ]; then
-                        mkdir -p "$repo/$(dirname "$file_path")"
-                        echo -e "\e[32mCopying \"$extracted_file_path\" to \"$repo/$file_path\"\e[0m" # Green
-                        cp -r "$extracted_file_path" "$repo/$file_path"
+                        if [ "$createRepoFolder" = true ]; then
+                            mkdir -p "$repo/$(dirname "$file_path")"
+                            source="$extracted_file_path"
+                            destination="$repo/$file_path"
+                        else
+                            mkdir -p "$(dirname "$file_path")"
+                            source="$extracted_file_path"
+                            destination="$file_path"
+                        fi
                     else
-                        mv "$1/$file_path" "$repo/$file_name"
+                        if [ "$createRepoFolder" = true ]; then
+                            source="$extracted_file_path"
+                            destination="$repo/$file_name"
+                        else
+                            source="$extracted_file_path"
+                            destination="./$file_name"
+                        fi
                     fi
+
+                    echo -e "\e[32mCopying $source to $destination...\e[0m"
+                    cp -r "$source" "$destination"
                 else
                     echo "Error: The file '$file_path' does not exist in the extracted directory."
-                    rm -rf "$2"
+                    rm -rf "$extracted_folder_name"
                     exit 1
                 fi
             done
@@ -347,6 +391,8 @@ downloadGithubFiles() {
     clean_up "$zip"
     clean_up "$nested"
 }
+
+main
 ```
 
 ## Download Specific GitHub Files
