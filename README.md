@@ -218,6 +218,91 @@ if (Test-Path -Path $nestedDirPath) {
 
 # Bash Scripting
 
+## Download Specific GitHub Files
+
+Tags: `download github files using bash`, `download specific repository files using bash`, `download specific files using bash`
+
+```bash
+downloadGithubFiles() {
+    # Usage:
+    # filesArray=("src/Sample File.txt", ".bashrc")
+    # declare -A dataArray=(
+    #     [repository]="references"
+    #     [user]="judigot"
+    #     [branch]="main"
+    #     [files]="filesArray"
+    #     [retainFolderStructure]=true
+    # )
+    # downloadLatestFileVersion dataArray
+    
+    local -n data="$1"
+    local repo=${data[repository]}
+    local user=${data[user]}
+    local branch=${data[branch]}
+    local retainFolderStructure=${data[retainFolderStructure]}
+    local -n files=${data[files]}
+
+    arrayToCSV() {
+        local -n array="$1"
+        local csv=""
+        for item in "${array[@]}"; do
+            csv+="$item,"
+        done
+        csv="${csv%,}" # Remove the trailing comma
+        echo "$csv"
+    }
+    filesCSV=$(arrayToCSV files)
+
+    IFS=',' read -r -a filesArray <<<"$filesCSV"
+
+    urlEncode() {
+        local string="$1"
+        local encoded=""
+        for ((i = 0; i < ${#string}; i++)); do
+            local c="${string:$i:1}"
+            case "$c" in
+            [a-zA-Z0-9.~_-]) encoded+="$c" ;;
+            ' ') encoded+="%20" ;;
+            '"') encoded+="%22" ;;
+            '#') encoded+="%23" ;;
+            '&') encoded+="%26" ;;
+            "'") encoded+="%27" ;;
+            '(') encoded+="%28" ;;
+            ')') encoded+="%29" ;;
+            '+') encoded+="%2B" ;;
+            ',') encoded+="%2C" ;;
+            ';') encoded+="%3B" ;;
+            '=') encoded+="%3D" ;;
+            '@') encoded+="%40" ;;
+            '[') encoded+="%5B" ;;
+            ']') encoded+="%5D" ;;
+            '{') encoded+="%7B" ;;
+            '}') encoded+="%7D" ;;
+            *) encoded+="$(printf '%%%02X' "'$c")" ;;
+            esac
+        done
+        echo "$encoded"
+    }
+
+    for file in "${filesArray[@]}"; do
+        local encoded_file=$(urlEncode "$file")
+        local url="https://raw.githubusercontent.com/$user/$repo/$branch/$encoded_file"
+        if [ "$retainFolderStructure" = true ]; then
+            local output="$file"
+            mkdir -p "$(dirname "$output")"
+        else
+            local output=$(basename "$file")
+        fi
+        echo -e "Downloading $file from $url"
+        if curl -sL -o "$output" "$url"; then
+            echo -e "\e[32mSuccess\e[0m"
+        else
+            echo -e "\e[31mFailed\e[0m"
+        fi
+    done
+}
+```
+
 ## Download GitHub Repository
 
 Tags: `download git repository using bash`, `clone github repository`, `clone git repository`, `clone repository using bash`
