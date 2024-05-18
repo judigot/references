@@ -218,6 +218,54 @@ if (Test-Path -Path $nestedDirPath) {
 
 # Bash Scripting
 
+## Modify JSON Using Bash
+
+Tags: `modify package.json`, `edit package.json`, `modify json using bash`, `edit json using bash`
+
+```bash
+#!/bin/bash
+
+main() {
+    declare -A propertyValues=(
+        ["db:reset-with-data"]="reset with data"
+        ["db:seed"]='(\\ \"\") Use single quotes to escape backlash and double quotes'
+    )
+    declare -A data=(
+        [property]="scripts"
+        [values]="propertyValues"
+    )
+    modifyJSON "package.json" data
+    modifyJSON "public/package.json" data
+}
+
+modifyJSON() {
+    local file=$1
+    declare -n new_data=$2
+    local property=${new_data[property]}
+    declare -n values=${new_data[values]}
+
+    new_property_json="  \"$property\": {"
+    for key in "${!values[@]}"; do
+        escaped_value=$(printf '%s\n' "${values[$key]}" | sed 's/\\/\\\\/g; s/"/\\"/g')
+        new_property_json+="\n    \"$key\": \"$escaped_value\","
+    done
+    new_property_json="${new_property_json%,}\n  },"
+
+    awk -v new_property="$new_property_json" '
+    BEGIN { mode = 0 }
+    /"'"$property"'": \{/ { print new_property; mode = 1; next }
+    mode == 1 && /^\s*\}/ { mode = 0; next }
+    mode == 1 { next }
+    { print }
+    ' "$file" >"${file}.tmp"
+
+    mv "${file}.tmp" "$file"
+    echo "$file updated successfully"
+}
+
+main
+```
+
 ## Download GitHub Repository
 
 Tags: `download github files using bash`, `download specific repository files using bash`, `download specific files using bash`, `download git repository using bash`, `clone github repository`, `clone git repository`, `clone repository using bash`
