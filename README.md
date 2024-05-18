@@ -223,7 +223,7 @@ if (Test-Path -Path $nestedDirPath) {
 Tags: `download github files using bash`, `download specific repository files using bash`, `download specific files using bash`
 
 ```bash
-downloadGithubFiles() {
+downloadIndividualGithubFiles() {
     # Usage:
     # filesArray=("src/Sample File.txt", ".bashrc")
     # declare -A dataArray=(
@@ -304,56 +304,128 @@ Tags: `download git repository using bash`, `clone github repository`, `clone gi
 ```bash
 #!/bin/bash
 
-repository="references"
-user="judigot"
-branch="main"
+downloadGithubFiles() {
+    # Usage
+    # filesArray=(".bashrc" "src/Sample text.txt") # Usage 1
+    # filesArray=(".bashrc" "src")                 # Usage 2
+    # filesArray=("*")                             # Usage 3
+    # declare -A dataArray=(
+    #     [repository]="references"
+    #     [user]="judigot"
+    #     [branch]="main"
+    #     [files]="filesArray"
+    #     [retainFolderStructure]=true
+    # )
+    # downloadGithubFiles dataArray
 
-url="https://github.com/$user/$repository"
-zip="$repository/$repository.zip"
-nested="$repository/$repository-$branch"
+    local -n data="$1"
+    local repo=${data[repository]}
+    local user=${data[user]}
+    local branch=${data[branch]}
+    local retainFolderStructure=${data[retainFolderStructure]}
+    local -n files=${data[files]}
 
-main() {
-    create_directory
-    download_zip
-    extract_zip
-    clean_up
-    move_files
-}
+    arrayToCSV() {
+        local -n array="$1"
+        local csv=""
+        for item in "${array[@]}"; do
+            csv+="$item,"
+        done
+        csv="${csv%,}" # Remove the trailing comma
+        echo "$csv"
+    }
+    filesCSV=$(arrayToCSV files)
 
-create_directory() {
-    mkdir -p "$repository"
-}
-download_zip() {
-    curl -L "$url/archive/refs/heads/$branch.zip" -o "$zip"
-}
-extract_zip() {
-    if command -v unzip >/dev/null 2>&1; then
-        unzip "$zip" -d "$repository"
-    elif command -v 7z >/dev/null 2>&1; then
-        7z x "$zip" -o"$repository" -aoa
-    elif command -v winrar >/dev/null 2>&1; then
-        winrar x "$zip" "$repository"
-    elif command -v winzip >/dev/null 2>&1; then
-        winzip -e "$zip" "$repository"
-    else
-        echo "Error: No suitable extraction tool found."
-        exit 1
-    fi
-}
-clean_up() {
-    rm "$zip"
-}
-move_files() {
-    if [ -d "$nested" ]; then
-        awk '{print "mv \"" $0 "\" '"$repository"'"}' <<<"$(find "$nested" -mindepth 1 -maxdepth 1)" | sh
-        rm -rf "$nested"
-    else
-        echo "The extracted directory '$nested' does not exist."
-        exit 1
-    fi
-}
+    IFS=',' read -r -a filesArray <<<"$filesCSV"
 
-main
+    urlEncode() {
+        local string="$1"
+        local encoded=""
+        for ((i = 0; i < ${#string}; i++)); do
+            local c="${string:$i:1}"
+            case "$c" in
+            [a-zA-Z0-9.~_-]) encoded+="$c" ;;
+            ' ') encoded+="%20" ;;
+            '"') encoded+="%22" ;;
+            '#') encoded+="%23" ;;
+            '&') encoded+="%26" ;;
+            "'") encoded+="%27" ;;
+            '(') encoded+="%28" ;;
+            ')') encoded+="%29" ;;
+            '+') encoded+="%2B" ;;
+            ',') encoded+="%2C" ;;
+            ';') encoded+="%3B" ;;
+            '=') encoded+="%3D" ;;
+            '@') encoded+="%40" ;;
+            '[') encoded+="%5B" ;;
+            ']') encoded+="%5D" ;;
+            '{') encoded+="%7B" ;;
+            '}') encoded+="%7D" ;;
+            *) encoded+="$(printf '%%%02X' "'$c")" ;;
+            esac
+        done
+        echo "$encoded"
+    }
+
+    download_zip() {
+        curl -L "$1" -o "$2"
+    }
+
+    extract_zip() {
+        if command -v unzip >/dev/null 2>&1; then
+            unzip -q "$1"
+        elif command -v 7z >/dev/null 2>&1; then
+            7z x "$1" -aoa
+        elif command -v winrar >/dev/null 2>&1; then
+            winrar x "$1" >/dev/null
+        elif command -v winzip >/dev/null 2>&1; then
+            winzip -e "$1" >/dev/null
+        else
+            echo "Error: No suitable extraction tool found."
+            exit 1
+        fi
+    }
+
+    clean_up() {
+        [ -e "$1" ] && rm -rf "$1" && echo "Deleted $1" || echo "$1 does not exist."
+    }
+
+    move_files() {
+        mkdir -p "$repo"
+        if [ "${filesArray[0]}" = "*" ]; then
+            cp -r "$1/"* "$repo/"
+            echo -e "\e[32mCopied all files from the repository to \"$repo\"\e[0m" # Green
+        else
+            for file_path in "${filesArray[@]}"; do
+                local file_name="$(basename "$file_path")"
+                local extracted_file_path="$1/$file_path"
+                if [ -e "$extracted_file_path" ]; then
+                    if [ "$retainFolderStructure" = true ]; then
+                        mkdir -p "$repo/$(dirname "$file_path")"
+                        echo -e "\e[32mCopying \"$extracted_file_path\" to \"$repo/$file_path\"\e[0m" # Green
+                        cp -r "$extracted_file_path" "$repo/$file_path"
+                    else
+                        mv "$1/$file_path" "$repo/$file_name"
+                    fi
+                else
+                    echo "Error: The file '$file_path' does not exist in the extracted directory."
+                    rm -rf "$2"
+                    exit 1
+                fi
+            done
+        fi
+    }
+
+    zip="$repo.zip"
+    nested="$repo-$branch"
+    url="https://github.com/$user/$repo/archive/refs/heads/$branch.zip"
+
+    download_zip "$url" "$zip"
+    extract_zip "$zip"
+    move_files "$nested"
+    clean_up "$zip"
+    clean_up "$nested"
+}
 ```
 
 ## Replace File
