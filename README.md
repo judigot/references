@@ -293,12 +293,6 @@ downloadGithubFiles() {
         else
             local output=$(basename "$file")
         fi
-        echo -e "Downloading $file from $url"
-        if curl -sL -o "$output" "$url"; then
-            echo -e "\e[32mSuccess\e[0m"
-        else
-            echo -e "\e[31mFailed\e[0m"
-        fi
     done
 }
 ```
