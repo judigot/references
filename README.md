@@ -6796,6 +6796,20 @@ npm install -D img-loader
 
 # PHP Commands
 
+## php.ini Settings
+
+```
+Uncomment:
+    extension_dir = "ext"
+
+Uncomment all extensions except these:
+    ; extension=snmp
+    ; extension=oci8_12c  ; Use with Oracle Database 12c Instant Client
+    ; extension=oci8_19  ; Use with Oracle Database 19 Instant Client
+    ; extension=pdo_firebird
+    ; extension=pdo_oci
+```
+
 ```php
 <?php
 // Rename object keys; rename keys
