@@ -7579,12 +7579,12 @@ Tags: `web frameworks`
 | Install Command           | mvn install                      | pnpm install                    | pip install -r requirements.txt       | pip install -r requirements.txt    | composer install                   |
 | Dependency Update Command | mvn versions:use-latest-releases | pnpm update                     | pip install -U -r requirements.txt    | pip install -U -r requirements.txt | composer update                    |
 | Framework Version Command | mvn --version                    | pnpm -v                         | python -m django --version            | flask --version                    | php artisan --version              |
-| Run Migration Command     | mvn flyway:migrate               | n/a                             | python manage.py migrate              | flask db upgrade                   | php artisan migrate                |
-| Generate Migration Command| mvn flyway:repair                | n/a                             | python manage.py makemigrations       | flask db migrate                   | php artisan make:migration         |
-| Rollback Migration Command| mvn flyway:undo                  | n/a                             | python manage.py migrate <migration_name> | flask db downgrade             | php artisan migrate:rollback       |
-| Seed Command              | mvn flyway:seed                  | n/a                             | python manage.py loaddata <fixture>   | flask db-seed                      | php artisan db:seed                |
+| Run Migration Command     | mvn flyway:migrate               | pnpm prisma migrate deploy      | python manage.py migrate              | flask db upgrade                   | php artisan migrate                |
+| Generate Migration Command| mvn flyway:repair                | pnpm prisma migrate dev         | python manage.py makemigrations       | flask db migrate                   | php artisan make:migration         |
+| Rollback Migration Command| mvn flyway:undo                  | pnpm prisma migrate reset       | python manage.py migrate <migration_name> | flask db downgrade             | php artisan migrate:rollback       |
+| Seed Command              | mvn flyway:seed                  | pnpm prisma db seed             | python manage.py loaddata <fixture>   | flask db-seed                      | php artisan db:seed                |
 | Drop Database Command     | mvn flyway:drop                  | n/a                             | python manage.py flush                | flask db drop                      | php artisan db:wipe                |
-| Create Database Command   | mvn flyway:create                | n/a                             | python manage.py migrate              | flask db create                    | php artisan db:create              |
+| Create Database Command   | mvn flyway:create                | pnpm prisma db push             | python manage.py migrate              | flask db create                    | php artisan db:create              |
 | Dump Command              | mvn flyway:dump                  | n/a                             | python manage.py dumpdata             | flask db dump                      | php artisan db:dump                |
 | Restore Command           | mvn flyway:restore               | n/a                             | python manage.py loaddata <backup>    | flask db restore                   | php artisan db:restore             |
 
