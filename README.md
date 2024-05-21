@@ -7569,24 +7569,27 @@ Tags: `web frameworks`
 
 ### Commands
 
-| Command                   | Java Spring Boot (Java)          | Next.js (TypeScript/JavaScript) | Django (Python)                       | Flask (Python)                     | Laravel (PHP)                      |
-| :------------------------ | :------------------------------- | :------------------------------ | :------------------------------------ | :--------------------------------- | :--------------------------------- |
-| Dev Mode Command          | mvn spring-boot:run              | pnpm dev                        | python manage.py runserver            | flask run                          | php artisan serve                  |
-| Build Command             | mvn package                      | pnpm build                      | python manage.py collectstatic        | flask collect                      | php artisan config:cache           |
-| Linting Command           | mvn checkstyle:check             | pnpm lint                       | pylint projectName                    | pylint projectName                 | php artisan lint                   |
-| Testing Command           | mvn test                         | pnpm test                       | pytest                                | pytest                             | php artisan test                   |
-| Start Command             | java -jar target/*.jar           | pnpm start                      | gunicorn projectName.wsgi:application | gunicorn projectName:app           | php artisan serve --env=production |
-| Install Command           | mvn install                      | pnpm install                    | pip install -r requirements.txt       | pip install -r requirements.txt    | composer install                   |
-| Dependency Update Command | mvn versions:use-latest-releases | pnpm update                     | pip install -U -r requirements.txt    | pip install -U -r requirements.txt | composer update                    |
-| Framework Version Command | mvn --version                    | pnpm -v                         | python -m django --version            | flask --version                    | php artisan --version              |
-| Run Migration Command     | mvn flyway:migrate               | pnpm prisma migrate deploy      | python manage.py migrate              | flask db upgrade                   | php artisan migrate                |
-| Generate Migration Command| mvn flyway:repair                | pnpm prisma migrate dev         | python manage.py makemigrations       | flask db migrate                   | php artisan make:migration         |
-| Rollback Migration Command| mvn flyway:undo                  | pnpm prisma migrate reset       | python manage.py migrate <migration_name> | flask db downgrade             | php artisan migrate:rollback       |
-| Seed Command              | mvn flyway:seed                  | pnpm prisma db seed             | python manage.py loaddata <fixture>   | flask db-seed                      | php artisan db:seed                |
-| Drop Database Command     | mvn flyway:drop                  | n/a                             | python manage.py flush                | flask db drop                      | php artisan db:wipe                |
-| Create Database Command   | mvn flyway:create                | pnpm prisma db push             | python manage.py migrate              | flask db create                    | php artisan db:create              |
-| Dump Command              | mvn flyway:dump                  | n/a                             | python manage.py dumpdata             | flask db dump                      | php artisan db:dump                |
-| Restore Command           | mvn flyway:restore               | n/a                             | python manage.py loaddata <backup>    | flask db restore                   | php artisan db:restore             |
+| Command                    | Java Spring Boot (Java)          | Next.js (TypeScript/JavaScript)       | Django (Python)                           | Flask (Python)                     | Laravel (PHP)                                 |
+| :------------------------- | :------------------------------- | :------------------------------------ | :---------------------------------------- | :--------------------------------- | :-------------------------------------------- |
+| Dev Mode Command           | mvn spring-boot:run              | pnpm dev                              | python manage.py runserver                | flask run                          | php artisan serve                             |
+| Build Command              | mvn package                      | pnpm build                            | python manage.py collectstatic            | flask collect                      | php artisan config:cache                      |
+| Linting Command            | mvn checkstyle:check             | pnpm lint                             | pylint projectName                        | pylint projectName                 | php artisan lint                              |
+| Testing Command            | mvn test                         | pnpm test                             | pytest                                    | pytest                             | php artisan test                              |
+| Start Command              | java -jar target/\*.jar          | pnpm start                            | gunicorn projectName.wsgi:application     | gunicorn projectName:app           | php artisan serve --env=production            |
+| Install Command            | mvn install                      | pnpm install                          | pip install -r requirements.txt           | pip install -r requirements.txt    | composer install                              |
+| Dependency Update Command  | mvn versions:use-latest-releases | pnpm update                           | pip install -U -r requirements.txt        | pip install -U -r requirements.txt | composer update                               |
+| Framework Version Command  | mvn --version                    | pnpm -v                               | python -m django --version                | flask --version                    | php artisan --version                         |
+| Run Migration Command      | mvn flyway:migrate               | pnpm prisma migrate deploy            | python manage.py migrate                  | flask db upgrade                   | php artisan migrate                           |
+| Generate Migration Command | mvn flyway:repair                | pnpm prisma migrate dev               | python manage.py makemigrations           | flask db migrate                   | php artisan make:migration                    |
+| Rollback Migration Command | mvn flyway:undo                  | pnpm prisma migrate reset             | python manage.py migrate <migration_name> | flask db downgrade                 | php artisan migrate:rollback                  |
+| Seed Command               | mvn flyway:seed                  | pnpm prisma db seed                   | python manage.py loaddata <fixture>       | flask db-seed                      | php artisan db:seed                           |
+| Drop Database Command      | mvn flyway:drop                  | n/a                                   | python manage.py flush                    | flask db drop                      | php artisan db:wipe                           |
+| Create Database Command    | mvn flyway:create                | pnpm prisma db push                   | python manage.py migrate                  | flask db create                    | php artisan db:create                         |
+| Dump Command               | mvn flyway:dump                  | n/a                                   | python manage.py dumpdata                 | flask db dump                      | php artisan db:dump                           |
+| Restore Command            | mvn flyway:restore               | n/a                                   | python manage.py loaddata <backup>        | flask db restore                   | php artisan db:restore                        |
+| Create Controller Command  | n/a                              | npx create-next-app pages/api/example | python manage.py startapp example         | n/a                                | php artisan make:controller ExampleController |
+| Create Repository Command  | n/a                              | npx prisma init                       | n/a                                       | n/a                                | php artisan make:repository ExampleRepository |
+| Create Service Command     | n/a                              | npx prisma init                       | n/a                                       | n/a                                | php artisan make:service ExampleService       |
 
 
 ## Back End Tests
