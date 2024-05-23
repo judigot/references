@@ -63,7 +63,7 @@ const x = "123";
 
 # Authentication Flow
 
-Tags: `data flow`
+*Tags: data flow*
 
     Server:
     Enable CORS in backend
@@ -159,7 +159,7 @@ Tags: `data flow`
 
 ## Generate Symlinks
 
-Tags: `create symlinks`
+*Tags: create symlinks*
 
 ```powershell
 New-Item -ItemType SymbolicLink -Path "C:\User\Jude\Desktop\samplesymlink" -Target "C:\target\directory"
@@ -167,7 +167,7 @@ New-Item -ItemType SymbolicLink -Path "C:\User\Jude\Desktop\samplesymlink" -Targ
 
 ## Execute Remote Script from GitHub Using PowerShell
 
-Tags: `execute remote github script`, `execute raw github script`, `execute github script remotely`, `execute github script`, `execute raw script`, `run remote script`
+*Tags: execute remote github script, execute raw github script, execute github script remotely, execute github script, execute raw script, run remote script*
 
 ```bash
 curl.exe -L "https://raw.githubusercontent.com/judigot/references/main/Apportable.ps1" | powershell -NoProfile -
@@ -175,7 +175,7 @@ curl.exe -L "https://raw.githubusercontent.com/judigot/references/main/Apportabl
 
 ## Download GitHub Repository
 
-Tags: `download git repository using powershell`, `clone github repository`, `clone git repository`, `clone repository using powershell`
+*Tags: download git repository using powershell, clone github repository, clone git repository, clone repository using powershell*
 
 ```powershell
 $repositoryName = "inventory"
@@ -220,7 +220,7 @@ if (Test-Path -Path $nestedDirPath) {
 
 ## Modify JSON Using Bash
 
-Tags: `modify package.json`, `edit package.json`, `modify json using bash`, `edit json using bash`
+*Tags: modify package.json, edit package.json, modify json using bash, edit json using bash*
 
 ```bash
 #!/bin/bash
@@ -268,7 +268,7 @@ main
 
 ## Download GitHub Repository
 
-Tags: `download github files using bash`, `download specific repository files using bash`, `download specific files using bash`, `download git repository using bash`, `clone github repository`, `clone git repository`, `clone repository using bash`
+*Tags: download github files using bash, download specific repository files using bash, download specific files using bash, download git repository using bash, clone github repository, clone git repository, clone repository using bash*
 
 ```bash
 #!/bin/bash
@@ -445,7 +445,7 @@ main
 
 ## Download Specific GitHub Files
 
-Tags: `download github files using bash`, `download specific repository files using bash`, `download specific files using bash`
+*Tags: download github files using bash, download specific repository files using bash, download specific files using bash*
 
 ```bash
 downloadIndividualGithubFiles() {
@@ -524,7 +524,7 @@ downloadIndividualGithubFiles() {
 
 ## Replace File
 
-Tags: `replace local file`, `update local file from github`
+*Tags: replace local file, update local file from github*
 
 ```bash
 curl -s https://raw.githubusercontent.com/judigot/vscode/main/.bashrc -o ~/.bashrc
@@ -532,7 +532,7 @@ curl -s https://raw.githubusercontent.com/judigot/vscode/main/.bashrc -o ~/.bash
 
 ## Pause Script
 
-Tags: `pause bash script`, `pause shellscript`, `pause shell script`, `stop bash script`, `stop shellscript`, `stop shell script`
+*Tags: pause bash script, pause shellscript, pause shell script, stop bash script, stop shellscript, stop shell script*
 
 ```bash
 read -n 1 -s -r -p "Press any key to continue..."
@@ -540,7 +540,7 @@ read -n 1 -s -r -p "Press any key to continue..."
 
 ## Add New SSH Keys to EC2 Instance
 
-Tags: `add new keys`, `append new ssh keys`, `append new keys`, `add ssh keys`, `append ssh keys`
+*Tags: add new keys, append new ssh keys, append new keys, add ssh keys, append ssh keys*
 
 1. Download the key pair (.pem) from the AWS EC2 Key Pairs page
 
@@ -573,7 +573,7 @@ Tags: `add new keys`, `append new ssh keys`, `append new keys`, `add ssh keys`, 
 
 ## Extract HTML Attribute Using Inner Text
 
-Tags: `extract html attribute using innerText`, `extract attribute using innerText`
+*Tags: extract html attribute using innerText, extract attribute using innerText*
 
 ```bash
 #!/bin/bash
@@ -608,7 +608,7 @@ echo -e "\e[32m$hrefValue\e[0m" # Green
 
 ## Extract Version from GitHub Repository
 
-Tags: `extract innerHTML`, `get innerHTML`, `extract version number from github`, `get version number from github`, `get version from github`
+*Tags: extract innerHTML, get innerHTML, extract version number from github, get version number from github, get version from github*
 
 ```bash
 #!/bin/bash
@@ -648,7 +648,7 @@ echo $downloadLink
 
 ## HTTP Request
 
-Tags: `fetch`, `curl`, `fetch request using curl`, `fetch request using bash`, `fetch using bash`, `fetch using curl`, `curl fetch`, `fetch curl`
+*Tags: fetch, curl, fetch request using curl, fetch request using bash, fetch using bash, fetch using curl, curl fetch, fetch curl*
 
 ```bash
 result=$(
@@ -749,7 +749,7 @@ mv src/* dest
 
 ### Allow Write Permission
 
-Tags: `allow editing permission`, `allow edit permission`
+*Tags: allow editing permission, allow edit permission*
 
 ```bash
 sudo chmod -R 777 /var/docker/*
@@ -804,7 +804,7 @@ wget -O renamed.txt example.com/test.txt
 
 ### Execute Remote Script from GitHub
 
-Tags: `execute remote github script`, `execute raw github script`, `execute github script remotely`, `execute github script`, `execute raw script`, `run remote script`
+*Tags: execute remote github script, execute raw github script, execute github script remotely, execute github script, execute raw script, run remote script*
 
 ```bash
 curl -L https://raw.githubusercontent.com/judigot/references/main/AWS-Cloudshell-Bootstrap.sh | bash
@@ -2511,7 +2511,7 @@ Expected output for Shell Script or Bash:
 
 ## Center an element vertically and horizontally; center an element horizontally and vertically
 
-Tags: `Center element vertically and horizontally; center element horizontally and vertically`
+*Tags: Center element vertically and horizontally; center element horizontally and vertically*
 
 ```html
 <!-- WHOLE DOCUMENT CENTERED -->
@@ -3125,7 +3125,7 @@ pause
 
 ## Show All Running Containers
 
-Tags: `show all active containers`
+*Tags: show all active containers*
 
 ```bash
 docker compose ps --services --filter "status=running"
@@ -3342,7 +3342,7 @@ HKEY_CLASSES_ROOT\Directory\Background\shellex\ContextMenuHandlers\ACE
 
 ### Convert Div Element Into A Clickable Element
 
-Tags: `convert element into a clickable element`, `clickable element`, `convert non-interactive elements into interactive elements`
+*Tags: convert element into a clickable element, clickable element, convert non-interactive elements into interactive elements*
 
 ```tsx
 <div
@@ -3494,7 +3494,7 @@ export default function App({ name }: Props) {
 
 ### Check If Property Exists
 
-Tags: `focus on element`, `focus html element`, `focus element`
+*Tags: focus on element, focus html element, focus element*
 
 ```tsx
 const person = {
@@ -3507,7 +3507,7 @@ console.log(Object.keys(person).includes("name")); // true
 
 ### Focus on HTML Element
 
-Tags: `focus on element`, `focus html element`, `focus element`
+*Tags: focus on element, focus html element, focus element*
 
 ```tsx
 (document.querySelector("#snippet_content") as HTMLElement | null)?.focus();
@@ -3515,7 +3515,7 @@ Tags: `focus on element`, `focus html element`, `focus element`
 
 ### Extract Object Property Values
 
-Tags: `extract object properties`, `extract object values`, `extract property values`
+*Tags: extract object properties, extract object values, extract property values*
 
 ```tsx
 const languages = [
@@ -4982,7 +4982,7 @@ const { firstName: firstName, lastName: lastName } = person;
 
 ## Remove Object Property
 
-Tags: `exclude keys from an object`, `exclude properties from an object`, `filter an object`, `remove object key`, `mutate object`, `exclude object key`, `exclude object property`
+*Tags: exclude keys from an object, exclude properties from an object, filter an object, remove object key, mutate object, exclude object key, exclude object property*
 
 ```tsx
 const objectVariable = {
@@ -5814,7 +5814,7 @@ echo "Git version: $version"
 
 ## Hard-Reset Branch
 
-Tags: `revert back to main` `hard reset` `remove all changes`
+*Tags: revert back to main hard reset remove all changes*
 
 ```bash
 git checkout target-branch
@@ -5825,7 +5825,7 @@ git push origin target-branch --force
 
 ## Combine Branches
 
-Tags: `absorb branch` `integrate branch`
+*Tags: absorb branch integrate branch*
 
 ### Merge Method (Non-linear History)
 
@@ -5853,7 +5853,7 @@ git pull origin <base-branch>
 
 ## Check Git Status Before Deleting A Repository
 
-Tags: `check git status before deleting repository`, `check git status before removing a repository`, `check git status before removing repository`, `check and remove`, ``
+*Tags: check git status before deleting repository, check git status before removing a repository, check git status before removing repository, check and remove*
 
 ```bash
 if git status --porcelain | awk 'NF { exit 1 }'; then
@@ -6363,7 +6363,7 @@ exit;
 
 ### Show All Stored Procedures
 
-Tags: `show stored procedures`, `select all stored procedures`, `select stored procedures`
+*Tags: show stored procedures, select all stored procedures, select stored procedures*
 
 ```sql
 SELECT ROUTINE_NAME
@@ -6436,7 +6436,7 @@ psql
 
 ### Reset Auto-Increment ID
 
-Tags: `reset auto increment`, `reset primary key`
+*Tags: reset auto increment, reset primary key*
 
 ```bash
 ALTER SEQUENCE tableName_column_id_seq RESTART WITH 1;
@@ -6628,7 +6628,7 @@ npm init -y
 
 #### Convert NPM to PNPM
 
-Tags: `convert npm into pnpm`
+*Tags: convert npm into pnpm*
 
 ```bash
 pnpm import
@@ -6638,7 +6638,7 @@ pnpm import
 
 NPM:
 
-Tags: `install dependencies from pnpm-lock.json`, `install all dependencies from package-lock.json`, `install dependencies from package-lock.json`, `install lockfile dependencies`, `install lock file dependencies`
+*Tags: install dependencies from pnpm-lock.json, install all dependencies from package-lock.json, install dependencies from package-lock.json, install lockfile dependencies, install lock file dependencies*
 
 NPM
 
@@ -6654,7 +6654,7 @@ pnpm install --frozen-lockfile
 
 #### Install Development/Production Dependencies in pnpm-lock.json
 
-Tags: `install development/production dependencies in package-lock.json`
+*Tags: install development/production dependencies in package-lock.json*
 
 NPM
 
@@ -7545,7 +7545,7 @@ Ctrl + Shift + Alt =====> ?
 
 ## Framework Reference
 
-Tags: `web frameworks`
+*Tags: web frameworks*
 
 ### Framework Files
 
@@ -7598,7 +7598,7 @@ Tags: `web frameworks`
 
 ## Back End Roadmap:
 
-Tags: `back end development`, `backend revelopment`, `back end skills`, `backend skills`
+*Tags: back end development, backend revelopment, back end skills, backend skills*
 
 - JSON schema validator (zod, ajv)
 - WSL2 as linux environment. See WSL2 vs docker environment
@@ -7716,7 +7716,7 @@ Tags: `back end development`, `backend revelopment`, `back end skills`, `backend
 
 ### Minimum Backend Setup
 
-Tags: `api starterpack`, `backend starterpack`
+*Tags: api starterpack, backend starterpack*
 
 1. **Scaffold project boilerplate**
 
@@ -7732,7 +7732,7 @@ Tags: `api starterpack`, `backend starterpack`
 
 ## Front End Roadmap:
 
-Tags: `front end development`, `frontend revelopment`, `front end skills`, `frontend skills`
+*Tags: front end development, frontend revelopment, front end skills, frontend skills*
 
 - Rendering:
 
@@ -7792,7 +7792,7 @@ Tags: `front end development`, `frontend revelopment`, `front end skills`, `fron
 
 ## Git Commit Messages (Semantic Commit Messages)
 
-Tags: `git messages`
+*Tags: git messages*
 
 ### Format
 
@@ -7967,7 +7967,7 @@ tryCatchFinallyBlock
 
 # API Generator
 
-Tags: `generate rest api`, `generate restful api`, `generate api endpoints`, `generate endpoints`
+*Tags: generate rest api, generate restful api, generate api endpoints, generate endpoints*
 
 ```bash
 #!/bin/bash
@@ -8176,7 +8176,7 @@ echo "Next.js API endpoints have been generated."
 
 # Directory Structure Cloner
 
-Tags: `directory cloner`, `clone directories`, `clone directory`, `copy directories`, `copy directory`
+*Tags: directory cloner, clone directories, clone directory, copy directories, copy directory*
 
 ```bash
 #!/bin/bash
@@ -8624,7 +8624,7 @@ sh "$script_name"
 
 # Dockerize Vite
 
-Tags: `dockerize pnpm application`, `dockerize node.js application`, `dockerize nodejs application`, `dockerize node application`
+*Tags: dockerize pnpm application, dockerize node.js application, dockerize nodejs application, dockerize node application*
 
 ```dockerfile
 FROM node:alpine
@@ -8899,7 +8899,7 @@ pacman -S --noconfirm git # Yes to all
 
 # UUID
 
-Tags: `uuid version 4`, `uuid version 5`, `uuid v4`, `uuid v5`
+*Tags: uuid version 4, uuid version 5, uuid v4, uuid v5*
 
 ### V4
 
@@ -8962,7 +8962,7 @@ console.log("User UUID v5:", userUUID);
 
 # Database Schema Introspection
 
-Tags: `introspect postgresql database schema`, `introspect database schema`, `introspect db schema`, `analyze database schema`, `analyze db schema`, `analyze schema`, `exctract database schema information`, `extract db schema information`
+*Tags: introspect postgresql database schema, introspect database schema, introspect db schema, analyze database schema, analyze db schema, analyze schema, exctract database schema information, extract db schema information*
 
 ## PostgreSQL
 
