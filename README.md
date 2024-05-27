@@ -7188,6 +7188,82 @@ CREATE TABLE "order_product" (
     - **Examples**: `country_iso_code ('US', 'CA', 'UK')`, `currency_iso_code ('USD', 'EUR', 'GBP')`, `state_abbreviation ('CA', 'TX', 'NY')`, `vehicle_license_plate`, `stock_exchange_symbol`
     - **Context**: Best suited for storing fixed-length character data, ensuring data consistency and efficiency for short, standard-format strings.
 
+## Relationship Types in Relational Databases
+
+1. **One-to-One (1:1) Relationship**
+
+   - Example: Each student has one unique student profile.
+   - Entities: `Student`, `StudentProfile`
+
+2. **One-to-Many (1:N) Relationship**
+
+   - Example: Each teacher teaches multiple classes.
+   - Entities: `Teacher`, `Class`
+
+3. **Many-to-Many (M:N) Relationship**
+
+   - Example: An order can contain multiple products, and a product can be part of multiple orders.
+   - Entities: `Order`, `Product`, `OrderProduct` (junction table)
+
+4. **Self-Referencing Relationship**
+
+   - Example: Employees can manage other employees.
+   - Entities: `Employee`
+
+5. **Many-to-Many (M:N) Self-Referencing Relationship**
+
+   - Example: Students can be friends with other students.
+   - Entities: `Student`, `Friendship` (junction table)
+
+6. **Optional Relationships**
+
+   - **Zero or One (0:1) Relationship**
+     - Example: A student may have zero or one locker.
+     - Entities: `Student`, `Locker`
+   - **Zero or Many (0:N) Relationship**
+     - Example: A student may not be enrolled in any class or may be enrolled in many classes.
+     - Entities: `Student`, `Class`
+
+7. **One or Many (1:N) Relationship**
+
+   - Example: Each department must have at least one or more employees.
+   - Entities: `Department`, `Employee`
+
+8. **Exact Cardinality Relationships**
+
+   - Example: A project must have exactly two managers.
+   - Entities: `Project`, `Manager`, `ProjectManager` (junction table)
+
+9. **Ternary and Higher-Order Relationships**
+
+   - Example: A project can involve multiple employees and departments.
+   - Entities: `Project`, `Employee`, `Department`, `ProjectAssignment` (junction table)
+
+10. **Generalization/Specialization (Inheritance) Relationships**
+
+    - Example: A vehicle can be either a car or a truck, with specific attributes for each type.
+    - Entities: `Vehicle`, `Car`, `Truck`
+
+11. **Recursive Relationships**
+
+    - Example: An employee can report to another employee within the same table.
+    - Entities: `Employee`
+
+12. **Polymorphic Relationships**
+
+    - Example: Comments can belong to either posts or videos.
+    - Entities: `Comment`, `Post`, `Video`
+
+13. **Aggregated Relationships**
+
+    - Example: A library contains books, where books can exist independently of the library.
+    - Entities: `Library`, `Book`
+
+14. **Composition Relationships**
+
+    - Example: An order contains line items, where line items cannot exist without the order.
+    - Entities: `Order`, `LineItem`
+
 # =====================================
 
 # Terraform
