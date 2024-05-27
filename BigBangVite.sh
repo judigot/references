@@ -50,7 +50,7 @@ main() {
     vite.config.ts.addBasePath true # Ensures that assets are imported after building
 
     # Tailwind
-    local tailwindPackages=("tailwindcss" "autoprefixer" "postcss")
+    local tailwindPackages=("tailwindcss" "autoprefixer" "postcss" "sass")
     installPackages "development" "tailwindPackages[@]"
     postCSSConfig
     tailwindConfig
