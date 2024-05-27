@@ -3406,7 +3406,7 @@ useEffect(() => {
 // Iterate data:
 // Iterate an object; iterate an array of objects; iterate array of objects
 {
-  data?.map(({ id, firstName }, i) => <div key={id}>{row}</div>);
+  data?.map(({ id, firstName }, i) => <div key={id}>{row}</div>)
 }
 
 // Iterate an object; iterate object; iterate an object literal; iterate object literal
@@ -3443,21 +3443,15 @@ Object.entries(animals).forEach(
 
 {
   Array.from({ length: 5 }, (_, i) => (
-    <div key={i} value={i}>
-      Page {i + 1}
-    </div>
-  ));
-}
-
-{
-  [...Array(5)].map(({ id, firstName }, i) => <div key={id}>{row}</div>);
+    <div key={i}>Page {i + 1}</div>
+  ))
 }
 
 // Iterate an array
 {
-  ["value 1", "value 2", "value 3"].map(({ id, firstName }, i) => (
-    <div key={id}>{row}</div>
-  ));
+  ['value 1', 'value 2', 'value 3'].map((value, i) => (
+    <div key={i}>{value}</div>
+  ))
 }
 
 // Iterate an array of object using a function
