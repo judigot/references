@@ -130,6 +130,7 @@ const x = "123";
 1. Create instance
 
 ```bash
+cd ~
 curl -L https://raw.githubusercontent.com/judigot/references/main/AWS-Cloudshell-Bootstrap.sh | bash
 cd terraform
 terraform apply -auto-approve
