@@ -123,6 +123,14 @@ const x = "123";
 
 # Amazon Web Services (AWS)
 
+## Create An EC2 Instance
+
+*Tags: create ec2 instance, create virtual machine, deploy application, create instance*
+
+```bash
+curl -L https://raw.githubusercontent.com/judigot/references/main/AWS-Cloudshell-Bootstrap.sh | bash
+```
+
 ## AWS Virtual Machine Scaffolding
 
 1. Create instance
