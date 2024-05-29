@@ -145,7 +145,7 @@ terraform apply -auto-approve
 
     - Get the new machine's public key and append the it to `~/.ssh/authorized_keys`
 
-      Public key should look something like `ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEArJ7vI4t3yj+qwerty+bgf6xvt0gCTs=`:
+      Public key should look something like `ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEArJ7vI4t3yj+bgf6xvt0gCTs=`:
 
       Example:
 
