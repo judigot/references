@@ -123,13 +123,41 @@ const x = "123";
 
 # Amazon Web Services (AWS)
 
-## Create An EC2 Instance
+## Create An EC2 Instance Using AWS CloudShell
 
 *Tags: create ec2 instance, create virtual machine, deploy application, create instance*
 
+1. Create instance
+
 ```bash
 curl -L https://raw.githubusercontent.com/judigot/references/main/AWS-Cloudshell-Bootstrap.sh | bash
+cd terraform
+terraform apply -auto-approve
 ```
+
+2. Add New SSH Keys to EC2 Instance
+
+    *Tags: add access to ec2 instance, add new keys, append new ssh keys, append new keys, add ssh keys, append ssh keys*
+
+    - Log in to EC2 instance using AWS CloudShell or a machine with prior acces
+
+    b. On the new machine, generate a new key pair if not already done. Click [here](https://github.com/judigot/references?tab=readme-ov-file#generate-ssh-key-for-github) to generate SSH keys
+
+    - Get the new machine's public key and append the it to `~/.ssh/authorized_keys`
+
+      Public key should look something like `ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEArJ7vI4t3yj+............+bgf6xvt0gCTs=`:
+
+      Example:
+
+        ```
+        echo "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEArJ7vI4t3yj+..." >> ~/.ssh/authorized_keys
+        ```
+
+    - SSH to EC2 Instance using the new machine
+
+      ```bash
+      ssh -i ~/.ssh/id_rsa ubuntu@domain-name-or-ip-address
+      ```
 
 ## AWS Virtual Machine Scaffolding
 
@@ -576,7 +604,7 @@ read -n 1 -s -r -p "Press any key to continue..."
 
 6. SSH to EC2 Instance
    ```bash
-   ssh -i ~/.ssh/new_key.pem ubuntu@domainNameOrIPAddress
+   ssh -i ~/.ssh/new_key.pem ubuntu@domain-name-or-ip-address
    ```
 
 ## Extract HTML Attribute Using Inner Text
@@ -788,7 +816,7 @@ ssh-keygen -t ed25519 -f C:\Users\Jude\.ssh\key_name
 ### SSH to AWS
 
 ```bash
-ssh -i ~/.ssh/id_rsa ubuntu@domainNameOrIPAddress
+ssh -i ~/.ssh/id_rsa ubuntu@domain-name-or-ip-address
 ssh -i C:/Users/<user>/.ssh/<key-name> ubuntu@<public-IP-address>
 ```
 
