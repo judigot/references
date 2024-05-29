@@ -141,7 +141,7 @@ terraform apply -auto-approve
 
     - Log in to EC2 instance using AWS CloudShell or a machine with prior acces
 
-    b. On the new machine, generate a new key pair if not already done. Click [here](https://github.com/judigot/references?tab=readme-ov-file#generate-ssh-key-for-github) to generate SSH keys
+    - On the new machine, generate a new key pair if not already done. Click [here](https://github.com/judigot/references?tab=readme-ov-file#generate-ssh-key-for-github) to generate SSH keys
 
     - Get the new machine's public key and append the it to `~/.ssh/authorized_keys`
 
