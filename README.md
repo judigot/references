@@ -7148,6 +7148,51 @@ CREATE TABLE "order_product" (
 );
 ```
 
+## Advanced Database Operations
+
+- Sharding
+- Common Table Expressions (CTEs) - used for recursive queries and to break down complicated queries into simpler parts.
+
+  ```sql
+  WITH cte AS (
+      SELECT column1, column2
+      FROM table_name
+      WHERE condition
+  )
+  SELECT *
+  FROM cte
+  WHERE another_condition;
+  ```
+- Window Functions
+- Indexing Strategies
+  - Partial indexes
+  - Expression indexes
+  - Gin and GiST indexes
+- JSONB Data Type
+  ```sql
+  SELECT order_data->>'customer' AS customer
+  FROM orders
+  WHERE order_data->>'status' = 'shipped';
+  ```
+- Foreign Data Wrappers (FDWs) - access and query data from other databases (PostgreSQL or other databases) within your PostgreSQL database
+- Advanced Partitioning - splitting tables into smaller, more manageable pieces
+  ```sql
+  CREATE TABLE sales (
+      sale_id SERIAL,
+      sale_date DATE,
+      amount NUMERIC
+  ) PARTITION BY RANGE (sale_date);
+
+  CREATE TABLE sales_2023 PARTITION OF sales
+  FOR VALUES FROM ('2023-01-01') TO ('2023-12-31');
+
+  CREATE TABLE sales_2024 PARTITION OF sales
+  FOR VALUES FROM ('2024-01-01') TO ('2024-12-31');
+  ```
+- Event Triggers - execute custom functions in response to certain events like schema changes
+- Custom Types and Functions
+
+
 ## SQL Data Types
 
 1. **BIGSERIAL (BIGINT AUTO_INCREMENT in MySQL)**
