@@ -305,7 +305,7 @@ main
 
 ## Download GitHub Repository
 
-*Tags: download github files using bash, download specific repository files using bash, download specific files using bash, download git repository using bash, clone github repository, clone git repository, clone repository using bash*
+*Tags: download github files using bash, download github folder, download specific repository files using bash, download specific files using bash, download git repository using bash, clone github repository, clone git repository, clone repository using bash, github folder downloader, repository folder downloader, download repository folder*
 
 ```bash
 #!/bin/bash
