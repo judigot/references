@@ -7151,6 +7151,7 @@ CREATE TABLE "order_product" (
 ## Advanced Database Operations
 
 - Sharding
+- Stored Procedures
 - Views and Materialized Views
   - View
 
