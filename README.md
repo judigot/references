@@ -7301,6 +7301,141 @@ CREATE TABLE "order_product" (
     - Example: An order contains line items, where line items cannot exist without the order.
     - Entities: `Order`, `LineItem`
 
+
+## PostgreSQL Indexing Best Practices
+
+### Common Columns to Index
+
+1. **Primary Keys:**
+   - PostgreSQL automatically creates an index on primary key columns. These are essential for efficient row identification.
+   ```sql
+   CREATE TABLE customers (
+       customer_id SERIAL PRIMARY KEY,
+       name VARCHAR(100),
+       email VARCHAR(100)
+   );
+   ```
+
+2. **Foreign Keys:**
+   - Indexing foreign key columns can speed up join operations and ensure referential integrity checks are efficient.
+   ```sql
+   CREATE TABLE orders (
+       order_id SERIAL PRIMARY KEY,
+       customer_id INT REFERENCES customers(customer_id),
+       order_date DATE
+   );
+
+   CREATE INDEX idx_orders_customer_id ON orders(customer_id);
+   ```
+
+3. **Columns Frequently Used in WHERE Clauses:**
+   - Index columns that are often used in `WHERE` conditions to filter data.
+   ```sql
+   CREATE INDEX idx_customers_email ON customers(email);
+   ```
+
+4. **Columns Used in JOIN Conditions:**
+   - Index columns that are frequently used to join tables together.
+   ```sql
+   SELECT orders.order_id, customers.name
+   FROM orders
+   JOIN customers ON orders.customer_id = customers.customer_id;
+   ```
+
+5. **Columns Used in ORDER BY Clauses:**
+   - Index columns that are often used in `ORDER BY` clauses to sort results.
+   ```sql
+   CREATE INDEX idx_orders_order_date ON orders(order_date);
+   ```
+
+6. **Columns Used in GROUP BY Clauses:**
+   - Index columns that are frequently used in `GROUP BY` clauses for aggregation.
+   ```sql
+   CREATE INDEX idx_sales_region ON sales(region);
+   ```
+
+7. **High Cardinality Columns:**
+   - Columns with many unique values are often good candidates for indexing because they provide high selectivity.
+
+8. **Partial Indexes:**
+   - Create partial indexes for queries that filter on specific conditions, reducing the index size and improving performance.
+   ```sql
+   CREATE INDEX idx_active_customers ON customers(email)
+   WHERE active = true;
+   ```
+
+### Examples and Best Practices
+
+#### Example: Primary Key and Foreign Key Indexes
+
+```sql
+CREATE TABLE products (
+    product_id SERIAL PRIMARY KEY,
+    product_name VARCHAR(100)
+);
+
+CREATE TABLE order_items (
+    order_item_id SERIAL PRIMARY KEY,
+    order_id INT REFERENCES orders(order_id),
+    product_id INT REFERENCES products(product_id),
+    quantity INT
+);
+
+CREATE INDEX idx_order_items_order_id ON order_items(order_id);
+CREATE INDEX idx_order_items_product_id ON order_items(product_id);
+```
+
+#### Example: Indexing Columns in WHERE Clauses
+
+```sql
+CREATE TABLE employees (
+    employee_id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    department VARCHAR(50),
+    hire_date DATE
+);
+
+CREATE INDEX idx_employees_department ON employees(department);
+CREATE INDEX idx_employees_hire_date ON employees(hire_date);
+```
+
+#### Example: Indexing for JOIN and ORDER BY Clauses
+
+```sql
+CREATE TABLE departments (
+    department_id SERIAL PRIMARY KEY,
+    department_name VARCHAR(100)
+);
+
+CREATE INDEX idx_departments_name ON departments(department_name);
+
+SELECT employees.name, departments.department_name
+FROM employees
+JOIN departments ON employees.department = departments.department_name
+ORDER BY employees.hire_date;
+```
+
+### Best Practices for Indexing
+
+1. **Analyze Query Patterns:**
+   - Regularly analyze your query patterns and identify which columns are frequently used in `WHERE`, `JOIN`, `ORDER BY`, and `GROUP BY` clauses.
+
+2. **Use the Right Index Type:**
+   - Choose the appropriate index type based on the use case (e.g., B-tree for equality and range queries, GIN/GiST for full-text search).
+
+3. **Avoid Over-Indexing:**
+   - While indexes improve read performance, they can slow down write operations. Avoid indexing columns that are not frequently queried or those that have low selectivity.
+
+4. **Regular Maintenance:**
+   - Regularly update your index statistics with `ANALYZE` and use `VACUUM` to reclaim storage and keep indexes efficient.
+
+5. **Monitor Performance:**
+   - Use tools like `EXPLAIN` and `EXPLAIN ANALYZE` to monitor how indexes are being used and to identify potential performance improvements.
+
+### Conclusion
+
+By following these best practices and indexing the appropriate columns, you can significantly improve the performance of your PostgreSQL database queries. Regularly analyzing your queries and maintaining your indexes will ensure your database remains efficient and responsive.
+
 # =====================================
 
 # Terraform
