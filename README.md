@@ -7151,6 +7151,17 @@ CREATE TABLE "order_product" (
 ## Advanced Database Operations
 
 - Sharding
+- Views and Materialized Views
+  - View
+
+    - A view is a virtual table that represents the result of a query.
+    - Useful for simplifying complex queries, providing a level of abstraction, or ensuring security by restricting access to certain data.
+
+  - Materialized View
+    - stores the result of the query into the disk.
+    - materialized views are faster as it avoids executing the underlying query each time. However, they need to be refreshed to reflect changes in the underlying tables.
+    - Useful for improving performance when dealing with complex queries that are costly to execute frequently, especially when the underlying data does not change often.
+
 - Common Table Expressions (CTEs) - used for recursive queries and to break down complicated queries into simpler parts.
 
   ```sql
