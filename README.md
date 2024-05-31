@@ -3533,19 +3533,17 @@ import { create } from 'zustand';
 
 interface Store {
   count: number;
-  inc: () => void;
-  
+  increment: () => void;
   searchQuery: string;
   setSearchQuery: (query: string) => void;
 }
 
 export const useStore = create<Store>()((set) => ({
   count: 1,
-  inc: () => {
+  increment: () => {
     set(({ count }) => ({ count: count + 1 }));
   },
-
-  searchQuery: '',
+  searchQuery: 'Initial value',
   setSearchQuery: (query: string) => {
     set({ searchQuery: query });
   },
@@ -3566,7 +3564,12 @@ export default function App() {
       <button type="button" onMouseDown={increment}>
         Count: {count}
       </button>
-      <button type="button" onMouseDown={() => { setSearchQuery("newValue") }}>
+      <button
+        type="button"
+        onMouseDown={() => {
+          setSearchQuery('newValue');
+        }}
+      >
         Search Query: {searchQuery}
       </button>
     </>
