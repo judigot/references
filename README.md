@@ -3498,9 +3498,13 @@ const Items = Data.map(({ id, firstName }, i) => (
 ));
 ```
 
-## Jotai
+## State Management
 
-### Global State File
+*Tags: global state management, global values*
+
+### Jotai
+
+#### Global State File
 
 ```tsx
 import { atom } from "jotai";
@@ -3508,16 +3512,51 @@ import { atom } from "jotai";
 export const dataAtom = atom<Record<string, string>[]>([{ key: "value" }]);
 ```
 
-### Usage
+#### Usage
 
 ```tsx
 import { useAtom } from "jotai";
-
 import { dataAtom } from "@/state";
 
-export default function App({ name }: Props) {
+export default function App() {
   const [data, setData] = useAtom(dataAtom);
   return <>{JSON.stringify(data, null, 4)}</>;
+}
+```
+
+### Zustand
+
+#### Global State File
+
+```tsx
+import { create } from 'zustand';
+
+interface Store {
+  count: number;
+  inc: () => void;
+}
+
+export const useStore = create<Store>()((set) => ({
+  count: 1,
+  inc: () => {
+    set(({ count }) => ({ count: count + 1 }));
+  },
+}));
+```
+
+#### Usage
+
+```tsx
+import { useStore } from '@/zustand/store';
+
+export default function App() {
+  const { count, increment } = useStore();
+
+  return (
+    <button type="button" onMouseDown={increment}>
+      Count: {count}
+    </button>
+  );
 }
 ```
 
