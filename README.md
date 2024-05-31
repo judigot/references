@@ -3511,7 +3511,7 @@ export const dataAtom = atom<Record<string, string>[]>([{ key: "value" }]);
 ### Usage
 
 ```tsx
-import { useAtom } from "@/lib/jotai";
+import { useAtom } from "jotai";
 
 import { dataAtom } from "@/state";
 
