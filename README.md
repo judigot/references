@@ -7206,6 +7206,8 @@ CREATE TABLE "order_product" (
 
 ## Advanced Database Operations
 
+*Tags: caching using postgresql, postgresql caching, postgres caching, postgresql cache, postgres cache*
+
 - Sharding
 - Stored Procedures
 - Views and Materialized Views
@@ -8060,14 +8062,176 @@ Ctrl + Shift + Alt =====> ?
   - memcached
 - Decorators
 - Method chaining (builder pattern)
-
   - must be readable and eloquent (see Laravel's Eloquent ORM)
 
   ```tsx
   $("example").toUpperCase().addQuotes().titleCase().fixSpelling();
   ```
-
 - Upload large CSV file to mysql and postgres (100k rows)
+
+### Caching
+
+Caching is a technique used to store copies of data in a temporary storage location, called a cache, so that future requests for that data can be served faster. Here are various types of caching strategies along with their pros, cons, and appropriate use cases:
+
+#### Types of Caching
+
+1. **Time-to-Live (TTL)**
+
+   - **Definition:** Automatically removes stale data after a specified period.
+   - **Pros:**
+     - Simple to implement.
+     - Automatically removes stale data.
+   - **Cons:**
+     - Data may become stale if the TTL is too long.
+     - High churn rate if TTL is too short.
+   - **When to Use:**
+     - When you need a simple way to manage cache expiration and can tolerate some staleness.
+
+2. **Manual Invalidation**
+
+   - **Definition:** Manually invalidate the cache whenever the underlying data changes.
+   - **Pros:**
+     - Data consistency is maintained.
+     - Cache is only cleared when necessary.
+   - **Cons:**
+     - Adds complexity to the application logic.
+     - Risk of stale data if cache invalidation is missed.
+   - **When to Use:**
+     - When data changes infrequently or you have control over all data modifications.
+
+3. **Cache-aside (Lazy Loading)**
+
+   - **Definition:** Check the cache first, load from the database if not found, and then cache the result.
+   - **Pros:**
+     - Ensures fresh data is loaded into the cache as needed.
+     - Reduces load on the database.
+   - **Cons:**
+     - Cache misses can lead to higher latency for initial requests.
+   - **When to Use:**
+     - When you want to load data into the cache only when it's requested and can handle occasional cache misses.
+
+4. **Write-through Cache**
+
+   - **Definition:** Write data to both the cache and the database simultaneously, ensuring the cache is always up-to-date.
+   - **Pros:**
+     - Simplifies read logic, as data is always consistent.
+     - No stale data in the cache.
+   - **Cons:**
+     - Write operations are slower as they need to update both the cache and the database.
+   - **When to Use:**
+     - When data consistency is critical and you can afford slower write operations.
+
+5. **Invalidate by Pattern**
+
+   - **Definition:** Invalidate cache entries based on patterns when related data changes.
+   - **Pros:**
+     - Efficient for related data sets.
+   - **Cons:**
+     - Redis does not support wildcards directly, so this may require additional logic.
+   - **When to Use:**
+     - When you have multiple related cache keys that need to be invalidated together.
+
+6. **Hybrid Approach**
+   - **Definition:** Combine multiple strategies, such as TTL and manual invalidation, to fit specific needs.
+   - **Pros:**
+     - Combines the strengths of multiple strategies.
+     - Provides a balance between performance and data consistency.
+   - **Cons:**
+     - Can be complex to implement and manage.
+   - **When to Use:**
+     - When you have diverse caching needs that require a combination of strategies to address effectively.
+
+### Implementing Caching in a Backend Service with Prisma and Redis
+
+*Tags: caching example, caching implementation, cache example, cache implementation*
+
+## Step 1: Connect to Redis
+
+Create a file to initialize and export your Redis client.
+
+```tsx
+// redisClient.js
+import Redis from "ioredis";
+
+const redis = new Redis();
+
+export default redis;
+```
+
+## Step 2: Implement Caching Logic with TTL (Time-to-Live)
+
+```tsx
+// app.js
+import express from "express";
+import { PrismaClient } from "@prisma/client";
+import redis from "./redisClient";
+
+const app = express();
+const prisma = new PrismaClient();
+const ORDERS_CACHE_KEY = "orders_cache";
+const CACHE_TTL = 86400; // 24 hours
+
+app.get("/orders", async (req, res) => {
+  try {
+    // Try to fetch the cached data
+    const cachedOrders = await redis.get(ORDERS_CACHE_KEY);
+    if (cachedOrders) {
+      return res.json(JSON.parse(cachedOrders));
+    }
+
+    // If no cached data is found, query the database
+    const orders = await prisma.order.findMany();
+
+    // Cache the result with a TTL
+    await redis.set(ORDERS_CACHE_KEY, JSON.stringify(orders), 'EX', 86400); // Cache for 24 hours
+
+    res.json(orders);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.listen(3000, () => {
+  console.log("Server running on http://localhost:3000");
+});
+```
+
+## Step 3: Clear Cache on Data Modification
+
+```tsx
+app.post("/orders", async (req, res) => {
+  try {
+    const newOrder = await prisma.order.create({ data: req.body });
+    await redis.del(ORDERS_CACHE_KEY); // Invalidate cache
+    res.status(201).json(newOrder);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.put("/orders/:id", async (req, res) => {
+  try {
+    const updatedOrder = await prisma.order.update({
+      where: { id: parseInt(req.params.id) },
+      data: req.body,
+    });
+    await redis.del(ORDERS_CACHE_KEY); // Invalidate cache
+    res.json(updatedOrder);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.delete("/orders/:id", async (req, res) => {
+  try {
+    await prisma.order.delete({ where: { id: parseInt(req.params.id) } });
+    await redis.del(ORDERS_CACHE_KEY); // Invalidate cache
+    res.status(204).end();
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+```
 
 ### Minimum Backend Setup
 
