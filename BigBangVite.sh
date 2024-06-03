@@ -812,7 +812,16 @@ module.exports = {
       'error',
       {
         selector: 'function',
-        format: ['camelCase'],
+        format: ['camelCase', 'PascalCase'],
+      },
+      {
+        selector: 'function',
+        modifiers: ['exported'],
+        format: ['PascalCase'],
+      },
+      {
+        selector: 'class',
+        format: ['PascalCase'],
       },
       {
         selector: 'typeLike',
