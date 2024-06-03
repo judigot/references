@@ -1,0 +1,16 @@
+{
+  "extends": ["./tsconfig.json", "./tsconfig.node.json"],
+  "compilerOptions": {
+    // <server>
+    "outDir": "./dist",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    // <server/>
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "noEmit": false,
+    "allowImportingTsExtensions": false
+  },
+  "include": ["vite.config.ts", "tailwind.config.js", "postcss.config.js"]
+}
