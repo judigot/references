@@ -13,7 +13,6 @@ module.exports = {
 
     'plugin:@typescript-eslint/strict-type-checked', // Very strict!
     'plugin:react/recommended',
-    'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:react-hooks/recommended',
     'plugin:jsx-a11y/recommended',
