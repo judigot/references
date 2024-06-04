@@ -8,12 +8,12 @@ module.exports = {
   env: { browser: true, es2020: true },
   extends: [
     'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
 
     'plugin:@typescript-eslint/strict-type-checked', // Very strict!
+    'plugin:@typescript-eslint/stylistic-type-checked', // Very strict!
+
     'plugin:react/recommended',
-    'plugin:@typescript-eslint/recommended-type-checked',
     'plugin:react-hooks/recommended',
     'plugin:jsx-a11y/recommended',
     //
