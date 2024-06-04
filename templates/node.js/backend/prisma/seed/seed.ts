@@ -1,4 +1,8 @@
-import { PrismaClient, Prisma } from "@prisma/client";
+import '../scripts/load-env.ts';
+
+import { PrismaClient, Prisma } from '@prisma/client';
+
+import { users } from './mock-data/users';
 
 type ModelNames = Prisma.ModelName;
 

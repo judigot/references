@@ -1,3 +1,4 @@
+import './load-env';
 import { DeleteTables } from './DeleteTables';
 import { CreateDatabase } from './CreateDatabase';
 import { Seed } from '../seed/seed';

@@ -1,3 +1,4 @@
+import './load-env';
 import { Prisma, PrismaClient } from '@prisma/client';
 import { readFileSync } from 'fs';
 import { join } from 'path';
