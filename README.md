@@ -7549,6 +7549,82 @@ ORDER BY employees.hire_date;
 
 By following these best practices and indexing the appropriate columns, you can significantly improve the performance of your PostgreSQL database queries. Regularly analyzing your queries and maintaining your indexes will ensure your database remains efficient and responsive.
 
+## Create Searchable Table
+
+*Tags: search table for keywords, search postgresql table for keywords, search postgres table for keywords, searchable postgresql table, searchable postgres table*
+
+```tsx
+const tableName: string = "users";
+const searchableColumns: string[] = [
+  "first_name",
+  "last_name",
+  "email",
+  "gender",
+];
+
+console.log(buildSearchVectorQuery(tableName, searchableColumns));
+
+function buildSearchVectorQuery(
+  tableName: string,
+  searchableColumns: string[]
+): string {
+  let query = `-- Drop and recreate the search_vector column, trigger, and function
+ALTER TABLE ${tableName} DROP COLUMN IF EXISTS search_vector;
+ALTER TABLE ${tableName} ADD COLUMN IF NOT EXISTS search_vector tsvector;
+    
+DROP TRIGGER IF EXISTS tsvectorupdate ON ${tableName};
+DROP FUNCTION IF EXISTS ${tableName}_search_trigger;
+DROP INDEX IF EXISTS idx_${tableName}_search_vector;
+    
+CREATE OR REPLACE FUNCTION ${tableName}_search_trigger() RETURNS trigger AS $$
+BEGIN
+  NEW.search_vector := `;
+
+  // Dynamically build tsvector assignments for each column
+  for (let i = 0; i < searchableColumns.length; i++) {
+    const columnName = searchableColumns[i];
+    const weight = String.fromCharCode("A".charCodeAt(0) + i); // A, B, C...
+    query += `
+    setweight(to_tsvector('pg_catalog.english', coalesce(NEW.${columnName}, '')), '${weight}')`;
+
+    // Add "||" for concatenation if not the last column
+    if (i < searchableColumns.length - 1) {
+      query += " ||";
+    }
+  }
+
+  query += ";";
+
+  query += `
+  RETURN NEW;
+END
+$$ LANGUAGE plpgsql;
+    
+CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE
+ON ${tableName} FOR EACH ROW EXECUTE FUNCTION ${tableName}_search_trigger();
+    
+CREATE INDEX IF NOT EXISTS idx_${tableName}_search_vector ON ${tableName} USING gin(search_vector);
+    
+-- Populate the search_vector column for existing rows
+UPDATE ${tableName} SET search_vector = `;
+
+  // Same dynamic tsvector building as in the trigger function
+  for (let i = 0; i < searchableColumns.length; i++) {
+    const columnName = searchableColumns[i];
+    const weight = String.fromCharCode("A".charCodeAt(0) + i);
+    query += `
+  setweight(to_tsvector('pg_catalog.english', coalesce(${columnName}, '')), '${weight}')`;
+
+    if (i < searchableColumns.length - 1) {
+      query += " ||";
+    }
+  }
+  query += ";";
+
+  return query;
+}
+```
+
 # =====================================
 
 # Terraform
