@@ -7549,9 +7549,9 @@ ORDER BY employees.hire_date;
 
 By following these best practices and indexing the appropriate columns, you can significantly improve the performance of your PostgreSQL database queries. Regularly analyzing your queries and maintaining your indexes will ensure your database remains efficient and responsive.
 
-## Create Searchable Table
+## Searchable Table
 
-*Tags: search table for keywords, search postgresql table for keywords, search postgres table for keywords, searchable postgresql table, searchable postgres table*
+*Tags: create searchable table, searchable database table, search table for keywords, search postgresql table for keywords, search postgres table for keywords, searchable postgresql table, searchable postgres table*
 
 ```tsx
 const tableName: string = "users";
@@ -7568,6 +7568,63 @@ function buildSearchVectorQuery(
   tableName: string,
   searchableColumns: string[]
 ): string {
+  const stemmableColumns: string[] = [
+    "first_name",
+    "last_name",
+    "name",
+    "full_name",
+    "username",
+    "email",
+    "email_address",
+    "description",
+    "bio",
+    "summary",
+    "comment",
+    "note",
+    "content",
+    "review",
+    "title",
+    "headline",
+    "subject",
+    "job_title",
+    "position",
+    "role",
+    "occupation",
+    "message",
+    "feedback",
+    "opinion",
+    "thoughts",
+    "discussion",
+  ];
+
+  const nonStemmableColumns: string[] = [
+    "id",
+    "gender",
+    "user_id",
+    "customer_id",
+    "order_id",
+    "product_code",
+    "reference_number",
+    "phone_number",
+    "address",
+    "zip_code",
+    "postal_code",
+    "social_security_number",
+    "status",
+    "category",
+    "type",
+    "department",
+    "birthdate",
+    "appointment_date",
+    "created_at",
+    "updated_at",
+    "price",
+    "quantity",
+    "rating",
+    "level",
+    "score",
+  ];
+
   let query = `-- Drop and recreate the search_vector column, trigger, and function
 ALTER TABLE ${tableName} DROP COLUMN IF EXISTS search_vector;
 ALTER TABLE ${tableName} ADD COLUMN IF NOT EXISTS search_vector tsvector;
@@ -7580,17 +7637,30 @@ CREATE OR REPLACE FUNCTION ${tableName}_search_trigger() RETURNS trigger AS $$
 BEGIN
   NEW.search_vector := `;
 
-  // Dynamically build tsvector assignments for each column
+  let weightIndex = 0;
+
   for (let i = 0; i < searchableColumns.length; i++) {
     const columnName = searchableColumns[i];
-    const weight = String.fromCharCode("A".charCodeAt(0) + i); // A, B, C...
-    query += `
-    setweight(to_tsvector('pg_catalog.english', coalesce(NEW.${columnName}, '')), '${weight}')`;
+    const weight = String.fromCharCode("A".charCodeAt(0) + weightIndex);
 
-    // Add "||" for concatenation if not the last column
+    if (stemmableColumns.includes(columnName)) {
+      if (columnName === "email" || columnName === "email_address") {
+        query += `
+    setweight(to_tsvector('pg_catalog.english', coalesce(NEW.${columnName}, '')), '${weight}') || 
+    setweight(to_tsvector('pg_catalog.english', split_part(coalesce(NEW.${columnName}, ''), '@', 1)), '${weight}')`;
+      } else {
+        query += `
+    setweight(to_tsvector('pg_catalog.english', coalesce(NEW.${columnName}, '')), '${weight}')`;
+      }
+    } else if (nonStemmableColumns.includes(columnName)) {
+      query += `
+    setweight(to_tsvector('simple', coalesce(NEW.${columnName}, '')), '${weight}')`;
+    }
+
     if (i < searchableColumns.length - 1) {
       query += " ||";
     }
+    weightIndex++;
   }
 
   query += ";";
@@ -7608,17 +7678,32 @@ CREATE INDEX IF NOT EXISTS idx_${tableName}_search_vector ON ${tableName} USING 
 -- Populate the search_vector column for existing rows
 UPDATE ${tableName} SET search_vector = `;
 
-  // Same dynamic tsvector building as in the trigger function
+  weightIndex = 0;
+
   for (let i = 0; i < searchableColumns.length; i++) {
     const columnName = searchableColumns[i];
-    const weight = String.fromCharCode("A".charCodeAt(0) + i);
-    query += `
+    const weight = String.fromCharCode("A".charCodeAt(0) + weightIndex);
+
+    if (stemmableColumns.includes(columnName)) {
+      if (columnName === "email" || columnName === "email_address") {
+        query += `
+  setweight(to_tsvector('pg_catalog.english', coalesce(${columnName}, '')), '${weight}') || 
+  setweight(to_tsvector('pg_catalog.english', split_part(coalesce(${columnName}, ''), '@', 1)), '${weight}')`;
+      } else {
+        query += `
   setweight(to_tsvector('pg_catalog.english', coalesce(${columnName}, '')), '${weight}')`;
+      }
+    } else if (nonStemmableColumns.includes(columnName)) {
+      query += `
+  setweight(to_tsvector('simple', coalesce(${columnName}, '')), '${weight}')`;
+    }
 
     if (i < searchableColumns.length - 1) {
       query += " ||";
     }
+    weightIndex++;
   }
+
   query += ";";
 
   return query;
