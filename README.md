@@ -4658,6 +4658,7 @@ const element = getElementByXPath(`//html[1]/body[1]/div[1]`);
 element.remove();
 
 // Add commas to numbers:
+// *Tags: add commas to amount, add comma to amount, add comma to numbers*
 string = string.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
 // Confirmation box:
