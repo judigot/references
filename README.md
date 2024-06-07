@@ -7554,9 +7554,11 @@ By following these best practices and indexing the appropriate columns, you can 
 
 *Tags: create searchable table, searchable database table, search table for keywords, search postgresql table for keywords, search postgres table for keywords, searchable postgresql table, searchable postgres table*
 
+
 ```tsx
 const tableName: string = "users";
 const searchableColumns: string[] = [
+  "id",
   "first_name",
   "last_name",
   "email",
@@ -7626,9 +7628,31 @@ function buildSearchVectorQuery(
     "score",
   ];
 
-  let query = `-- Drop and recreate the search_vector column, trigger, and function
+  const numberColumnNames: string[] = [
+    "id",
+    "user_id",
+    "customer_id",
+    "order_id",
+    "product_code",
+    "reference_number",
+    "phone_number",
+    "zip_code",
+    "postal_code",
+    "social_security_number",
+    "status",
+    "category",
+    "type",
+    "department",
+    "price",
+    "quantity",
+    "rating",
+    "level",
+    "score",
+  ];
+
+  let query = `/* Drop and recreate the search_vector column, trigger, and function */
 ALTER TABLE ${tableName} DROP COLUMN IF EXISTS search_vector;
-ALTER TABLE ${tableName} ADD COLUMN IF NOT EXISTS search_vector tsvector;
+ALTER TABLE ${tableName} ADD COLUMN search_vector tsvector;
     
 DROP TRIGGER IF EXISTS tsvectorupdate ON ${tableName};
 DROP FUNCTION IF EXISTS ${tableName}_search_trigger;
@@ -7654,14 +7678,19 @@ BEGIN
     setweight(to_tsvector('pg_catalog.english', coalesce(NEW.${columnName}, '')), '${weight}')`;
       }
     } else if (nonStemmableColumns.includes(columnName)) {
-      query += `
+      if (numberColumnNames.includes(columnName)) {
+        query += `
+    setweight(to_tsvector('simple', coalesce(NEW.${columnName}::text, '')), '${weight}')`;
+      } else {
+        query += `
     setweight(to_tsvector('simple', coalesce(NEW.${columnName}, '')), '${weight}')`;
+      }
     }
 
     if (i < searchableColumns.length - 1) {
       query += " ||";
     }
-    weightIndex++;
+    weightIndex = (weightIndex + 1) % 4; // Wrap around after 'D'
   }
 
   query += ";";
@@ -7676,7 +7705,7 @@ ON ${tableName} FOR EACH ROW EXECUTE FUNCTION ${tableName}_search_trigger();
     
 CREATE INDEX IF NOT EXISTS idx_${tableName}_search_vector ON ${tableName} USING gin(search_vector);
     
--- Populate the search_vector column for existing rows
+/* Populate the search_vector column for existing rows */
 UPDATE ${tableName} SET search_vector = `;
 
   weightIndex = 0;
@@ -7695,14 +7724,19 @@ UPDATE ${tableName} SET search_vector = `;
   setweight(to_tsvector('pg_catalog.english', coalesce(${columnName}, '')), '${weight}')`;
       }
     } else if (nonStemmableColumns.includes(columnName)) {
-      query += `
+      if (numberColumnNames.includes(columnName)) {
+        query += `
+  setweight(to_tsvector('simple', coalesce(${columnName}::text, '')), '${weight}')`;
+      } else {
+        query += `
   setweight(to_tsvector('simple', coalesce(${columnName}, '')), '${weight}')`;
+      }
     }
 
     if (i < searchableColumns.length - 1) {
       query += " ||";
     }
-    weightIndex++;
+    weightIndex = (weightIndex + 1) % 4; // Wrap around after 'D'
   }
 
   query += ";";
