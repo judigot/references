@@ -3382,7 +3382,7 @@ HKEY_CLASSES_ROOT\Directory\Background\shellex\ContextMenuHandlers\ACE
 ```tsx
 <div
   role="button"
-  onKeyDown={() => {}}
+  onKeyDown={() => { return; }}
   tabIndex={0}
   aria-label="Close modal"
 ></div>
