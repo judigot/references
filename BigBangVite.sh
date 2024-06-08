@@ -434,7 +434,7 @@ interface IData {
   message: string;
 }
 
-function App(): JSX.Element {
+function App() {
   const [data, setData] = React.useState<IData | undefined>(undefined);
 
   useEffect(() => {
@@ -708,7 +708,7 @@ createAppTSX() {
         cat <<EOF
 import React from 'react';
 
-function App(): JSX.Element {
+function App() {
   const [count, setCount] = React.useState<number>(0);
 
   return (
