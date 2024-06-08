@@ -59,8 +59,8 @@ module.exports = {
         message: 'Enums are not allowed. Use object literals instead.',
       },
     ],
-    // 'no-alert': ['error'],
-    // 'no-console': ['error', { allow: ['warn', 'error'] }], // Disable all console outputs except console.warn and console.error
+    'no-alert': ['error'],
+    'no-console': ['error', { allow: ['warn', 'error'] }], // Disable all console outputs except console.warn and console.error
     'react/react-in-jsx-scope': 'off',
     // '@typescript-eslint/explicit-function-return-type': 'error',
     '@typescript-eslint/no-unnecessary-boolean-literal-compare': ['error'],
