@@ -650,8 +650,7 @@ installStrictPackages() {
         eslint-plugin-prettier \
         eslint-plugin-react \
         eslint-plugin-react-hooks \
-        eslint-plugin-react-refresh \
-        prettier
+        eslint-plugin-react-refresh
 }
 
 createAppTSX() {
