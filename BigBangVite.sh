@@ -48,6 +48,7 @@ main() {
 
     # ==========CUSTOM SETTINGS========== #
     vite.config.ts.addBasePath true # Ensures that assets are imported after building
+    vite.config.ts.changeDevPort true
 
     # Import shorthand (@)
     addImportShorthand
@@ -90,7 +91,6 @@ main() {
     # ==========CUSTOM SETTINGS========== #
 
     vite.config.ts.addPathAlias true
-    vite.config.ts.changeDevPort true
 
     formatCode
     initializeGit
