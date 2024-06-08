@@ -29,6 +29,7 @@ DEV_DEPENDENCIES=(
 # Directories
 readonly ROOT_DIRECTORY="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 readonly PROJECT_DIRECTORY="$ROOT_DIRECTORY/$PROJECT_NAME"
+readonly PACKAGE_JSON_PATH="$PROJECT_DIRECTORY/package.json"
 
 main() {
     echo -e "\e[32mInitializing...\e[0m"
@@ -105,8 +106,16 @@ append_dependencies() {
     local -n existing_packages=$3
     local install_list=""
 
+    # Extract dependencies and devDependencies sections
+    local dependencies_section
+    dependencies_section=$(awk '/"dependencies": {/,/}/' "$PACKAGE_JSON_PATH")
+    local devDependencies_section
+    devDependencies_section=$(awk '/"devDependencies": {/,/}/' "$PACKAGE_JSON_PATH")
+
     for package in "${packages[@]}"; do
-        if ! grep -q "\"$package\"" "$PROJECT_DIRECTORY/package.json"; then
+        # Check if the package exists in dependencies or devDependencies sections
+        if ! echo "$dependencies_section" | grep -q "\"$package\"" &&
+            ! echo "$devDependencies_section" | grep -q "\"$package\""; then
             install_list+="$package "
         else
             echo -e "\e[33m$package is already in $PACKAGE_JSON_PATH\e[0m"
@@ -123,16 +132,22 @@ append_dependencies() {
     fi
 }
 
-# Function to finalize the installation
 installAddedPackages() {
     cd "$PROJECT_DIRECTORY" || return
 
     local all_dev_dependencies=()
     local all_prod_dependencies=()
 
+    # Extract dependencies and devDependencies sections
+    local dependencies_section
+    dependencies_section=$(awk '/"dependencies": {/,/}/' "$PACKAGE_JSON_PATH")
+    local devDependencies_section
+    devDependencies_section=$(awk '/"devDependencies": {/,/}/' "$PACKAGE_JSON_PATH")
+
     # Check for new and existing dev dependencies
     for package in "${DEV_DEPENDENCIES[@]}"; do
-        if ! grep -q "\"$package\"" "$PROJECT_DIRECTORY/package.json"; then
+        if ! echo "$dependencies_section" | grep -q "\"$package\"" &&
+            ! echo "$devDependencies_section" | grep -q "\"$package\""; then
             all_dev_dependencies+=("$package")
         else
             echo -e "\e[33m$package is already in $PACKAGE_JSON_PATH\e[0m"
@@ -141,7 +156,8 @@ installAddedPackages() {
 
     # Check for new and existing prod dependencies
     for package in "${PRODUCTION_DEPENDENCIES[@]}"; do
-        if ! grep -q "\"$package\"" "$PROJECT_DIRECTORY/package.json"; then
+        if ! echo "$dependencies_section" | grep -q "\"$package\"" &&
+            ! echo "$devDependencies_section" | grep -q "\"$package\""; then
             all_prod_dependencies+=("$package")
         else
             echo -e "\e[33m$package is already in $PACKAGE_JSON_PATH\e[0m"
@@ -150,14 +166,6 @@ installAddedPackages() {
 
     pnpm install -D ${all_dev_dependencies[*]} &&
         pnpm install ${all_prod_dependencies[*]}
-
-    # if [ ${#all_dev_dependencies[@]} -gt 0 ]; then
-    #     pnpm install -D ${all_dev_dependencies[*]} &
-    # fi
-    # if [ ${#all_prod_dependencies[@]} -gt 0 ]; then
-    #     pnpm install ${all_prod_dependencies[*]} &
-    # fi
-    # wait
 }
 
 vite.config.ts.changeDevPort() {
@@ -546,7 +554,7 @@ addImportShorthand() {
 },
 EOF
     )" &&
-        appendToTextContent "$PROJECT_DIRECTORY/vite.config.ts" "import react from \"@vitejs/plugin-react\";" "$(
+        appendToTextContent "$PROJECT_DIRECTORY/vite.config.ts" "import react" "$(
             cat <<EOF
 import tsconfigPaths from "vite-tsconfig-paths";
 EOF
