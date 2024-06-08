@@ -39,7 +39,7 @@ main() {
     removeTextContent "codeToBeRemoved[@]"
     codeToBeRemoved=("import reactLogo from './assets/react.svg'" "import viteLogo from '/vite.svg'")
     removeTextContent "codeToBeRemoved[@]"
-    directories=("components" "helpers" "styles" "tests" "types" "utils")
+    directories=("api", "components" "helpers" "styles" "tests" "types" "utils")
     createDirectories "$PROJECT_DIRECTORY/src" "directories[@]"
     removeBoilerplate
     installDefaultPackages
