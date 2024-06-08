@@ -49,14 +49,14 @@ main() {
     # ==========CUSTOM SETTINGS========== #
     vite.config.ts.addBasePath true # Ensures that assets are imported after building
 
+    # Import shorthand (@)
+    addImportShorthand
+
     # Tailwind
     local tailwindPackages=("tailwindcss" "autoprefixer" "postcss" "sass")
     installPackages "development" "tailwindPackages[@]"
     postCSSConfig
     tailwindConfig
-
-    # Import shorthand (@)
-    addImportShorthand
 
     # Strict mode
     createAppTSX
