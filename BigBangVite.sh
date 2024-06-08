@@ -2,15 +2,15 @@
 
 # ====================PROJECT SETTINGS==================== #
 
-readonly PROJECT_NAME="bigbang"
+readonly PROJECT_NAME="bigbang-new"
 
-readonly PRODUCTION_DEPENDENCIES=(
+PRODUCTION_DEPENDENCIES=(
     "axios"
     "bootstrap"
     "dotenv"
 )
 
-readonly DEV_DEPENDENCIES=(
+DEV_DEPENDENCIES=(
     "cross-env"
     "dotenv-cli"
     "prettier"
@@ -29,6 +29,7 @@ readonly DEV_DEPENDENCIES=(
 # Directories
 readonly ROOT_DIRECTORY="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 readonly PROJECT_DIRECTORY="$ROOT_DIRECTORY/$PROJECT_NAME"
+readonly PACKAGE_JSON_PATH="$PROJECT_DIRECTORY/package.json"
 
 main() {
     echo -e "\e[32mInitializing...\e[0m"
@@ -39,12 +40,9 @@ main() {
     removeTextContent "codeToBeRemoved[@]"
     codeToBeRemoved=("import reactLogo from './assets/react.svg'" "import viteLogo from '/vite.svg'")
     removeTextContent "codeToBeRemoved[@]"
-    directories=("api", "components" "helpers" "styles" "tests" "types" "utils")
+    directories=("api" "components" "helpers" "styles" "tests" "types" "utils")
     createDirectories "$PROJECT_DIRECTORY/src" "directories[@]"
     removeBoilerplate
-    installDefaultPackages
-    installPackages "development" "DEV_DEPENDENCIES[@]"
-    installPackages "production" "PRODUCTION_DEPENDENCIES[@]"
 
     # ==========CUSTOM SETTINGS========== #
     vite.config.ts.addBasePath true # Ensures that assets are imported after building
@@ -52,10 +50,11 @@ main() {
 
     # Import shorthand (@)
     addImportShorthand
+    vite.config.ts.addPathAlias true
 
     # Tailwind
     local tailwindPackages=("tailwindcss" "autoprefixer" "postcss" "sass")
-    installPackages "development" "tailwindPackages[@]"
+    append_dependencies "development" tailwindPackages DEV_DEPENDENCIES
     postCSSConfig
     tailwindConfig
 
@@ -65,22 +64,24 @@ main() {
     modifyESLintConfig
     codeToBeRemoved=(".tsx")
     removeTextContent "codeToBeRemoved[@]"
-    installStrictPackages
+    local strictPackages=("@typescript-eslint/eslint-plugin" "@typescript-eslint/parser" "eslint" "eslint-config-prettier" "eslint-plugin-jsx-a11y" "eslint-plugin-prettier" "eslint-plugin-react" "eslint-plugin-react-hooks" "eslint-plugin-react-refresh")
+    append_dependencies "development" strictPackages DEV_DEPENDENCIES
+    # installStrictPackages
 
     # tsconfig.node.json
     addStrictNullChecks
 
     # Testing
     local testPackages=("jest" "@types/jest" "jsdom" "@testing-library/react" "@testing-library/jest-dom")
-    installPackages "development" "testPackages[@]"
+    append_dependencies "development" testPackages DEV_DEPENDENCIES
     addVitestReference
     vite.config.ts.addTestConfig true
 
     # Express Server
     local serverPackages=("express" "cors")
-    installPackages "production" "serverPackages[@]"
+    append_dependencies "production" serverPackages PRODUCTION_DEPENDENCIES
     local serverPackages=("@types/express" "@types/cors" "nodemon" "tsx")
-    installPackages "development" "serverPackages[@]"
+    append_dependencies "development" serverPackages DEV_DEPENDENCIES
     vite.config.ts.newBuildOutput true
     addDevAndStartScripts
     editTSConfig
@@ -90,12 +91,81 @@ main() {
 
     # ==========CUSTOM SETTINGS========== #
 
-    vite.config.ts.addPathAlias true
-
-    formatCode
+    installDefaultPackages &&
+        installAddedPackages &&
+        formatCode
     initializeGit
-
     echo -e "Big Bang successfully scaffolded."
+}
+
+append_dependencies() {
+    cd "$PROJECT_DIRECTORY" || return
+
+    local env=$1
+    local -n packages=$2
+    local -n existing_packages=$3
+    local install_list=""
+
+    # Extract dependencies and devDependencies sections
+    local dependencies_section
+    dependencies_section=$(awk '/"dependencies": {/,/}/' "$PACKAGE_JSON_PATH")
+    local devDependencies_section
+    devDependencies_section=$(awk '/"devDependencies": {/,/}/' "$PACKAGE_JSON_PATH")
+
+    for package in "${packages[@]}"; do
+        # Check if the package exists in dependencies or devDependencies sections
+        if ! echo "$dependencies_section" | grep -q "\"$package\"" &&
+            ! echo "$devDependencies_section" | grep -q "\"$package\""; then
+            install_list+="$package "
+        else
+            echo -e "\e[33m$package is already in $PACKAGE_JSON_PATH\e[0m"
+        fi
+    done
+
+    if [ "$env" = "production" ]; then
+        existing_packages+=($install_list)
+    elif [ "$env" = "development" ]; then
+        existing_packages+=($install_list)
+    else
+        echo -e "\e[31mInvalid environment specified. Use 'production' or 'development'.\e[0m"
+        return 1
+    fi
+}
+
+installAddedPackages() {
+    cd "$PROJECT_DIRECTORY" || return
+
+    local all_dev_dependencies=()
+    local all_prod_dependencies=()
+
+    # Extract dependencies and devDependencies sections
+    local dependencies_section
+    dependencies_section=$(awk '/"dependencies": {/,/}/' "$PACKAGE_JSON_PATH")
+    local devDependencies_section
+    devDependencies_section=$(awk '/"devDependencies": {/,/}/' "$PACKAGE_JSON_PATH")
+
+    # Check for new and existing dev dependencies
+    for package in "${DEV_DEPENDENCIES[@]}"; do
+        if ! echo "$dependencies_section" | grep -q "\"$package\"" &&
+            ! echo "$devDependencies_section" | grep -q "\"$package\""; then
+            all_dev_dependencies+=("$package")
+        else
+            echo -e "\e[33m$package is already in $PACKAGE_JSON_PATH\e[0m"
+        fi
+    done
+
+    # Check for new and existing prod dependencies
+    for package in "${PRODUCTION_DEPENDENCIES[@]}"; do
+        if ! echo "$dependencies_section" | grep -q "\"$package\"" &&
+            ! echo "$devDependencies_section" | grep -q "\"$package\""; then
+            all_prod_dependencies+=("$package")
+        else
+            echo -e "\e[33m$package is already in $PACKAGE_JSON_PATH\e[0m"
+        fi
+    done
+
+    pnpm install -D ${all_dev_dependencies[*]} &&
+        pnpm install ${all_prod_dependencies[*]}
 }
 
 vite.config.ts.changeDevPort() {
@@ -127,7 +197,6 @@ EOF
 
             echo -e "\e[32mAdded the following setting to $file:\n\n\t$textToAppend\e[0m"
 
-            formatCode
         fi
     fi
 
@@ -139,7 +208,6 @@ EOF
 
             echo -e "\e[32mSuccessfully removed the following setting from $file:\n\n\t$textToAppend\e[0m" # Green
 
-            formatCode
         else
             echo -e "\e[33mThe following setting is not in $file:\n\n\t$textToAppend\e[0m"
         fi
@@ -176,7 +244,6 @@ EOF
 
             echo -e "\e[32mAdded the following setting to $file:\n\n\t$textToAppend\e[0m"
 
-            formatCode
         fi
     fi
 
@@ -188,7 +255,6 @@ EOF
 
             echo -e "\e[32mSuccessfully removed the following setting from $file:\n\n\t$textToAppend\e[0m" # Green
 
-            formatCode
         else
             echo -e "\e[33mThe following setting is not in $file:\n\n\t$textToAppend\e[0m"
         fi
@@ -433,8 +499,8 @@ vite.config.ts.newBuildOutput() {
     local isTurnedOn="$1"
 
     local settingID="newBuildOutput"
-    local startDelimiter="// <$settingID>"
-    local endDelimiter="// </$settingID>"
+    local startDelimiter="/* <$settingID> */"
+    local endDelimiter="/* </$settingID> */"
 
     # File to edit
     local file="vite.config.ts"
@@ -443,11 +509,7 @@ vite.config.ts.newBuildOutput() {
     local textToAppend=""
     textToAppend=$(
         cat <<EOF
-        $startDelimiter
-        build: {
-            outDir: 'dist/public',
-        },
-        $endDelimiter
+        $startDelimiter build: { outDir: 'dist/public', }, $endDelimiter
 EOF
     )
 
@@ -456,27 +518,10 @@ EOF
         if grep -q "$settingID" "$file"; then
             echo -e "\e[33mThe following setting is already in $file:\n\n\t$textToAppend\e[0m" # Yellow
         else
-            # Line number to append text (change this to the line number you want)
-            local line_number=8
-
-            # Create a temporary file
-            tempFile="tempfile"
-
-            # Use 'head' to extract the content up to the target line and redirect it to the temporary file
-            head -n "$((line_number - 1))" "$file" >"$tempFile"
-
-            # Append the multi-line string to the temporary file
-            echo -e "$textToAppend" >>"$tempFile"
-
-            # Use 'tail' to extract the content from the target line to the end and append it to the temporary file
-            tail -n "+$line_number" "$file" >>"$tempFile"
-
-            # Replace the original file with the temporary file
-            mv "$tempFile" "$file"
+            replace "$PROJECT_DIRECTORY/$file" 'export default defineConfig({' "export default defineConfig({ $textToAppend"
 
             echo -e "\e[32mAdded the following setting to $file:\n\n\t$textToAppend\e[0m"
 
-            formatCode
         fi
     fi
 
@@ -488,7 +533,6 @@ EOF
 
             echo -e "\e[32mSuccessfully removed the following setting from $file:\n\n\t$textToAppend\e[0m" # Green
 
-            formatCode
         else
             echo -e "\e[33mThe following setting is not in $file:\n\n\t$textToAppend\e[0m"
         fi
@@ -510,7 +554,7 @@ addImportShorthand() {
 },
 EOF
     )" &&
-        appendToTextContent "$PROJECT_DIRECTORY/vite.config.ts" "import react from \"@vitejs/plugin-react\";" "$(
+        appendToTextContent "$PROJECT_DIRECTORY/vite.config.ts" "import react" "$(
             cat <<EOF
 import tsconfigPaths from "vite-tsconfig-paths";
 EOF
@@ -650,7 +694,8 @@ installStrictPackages() {
         eslint-plugin-prettier \
         eslint-plugin-react \
         eslint-plugin-react-hooks \
-        eslint-plugin-react-refresh
+        eslint-plugin-react-refresh \
+        prettier
 }
 
 createAppTSX() {
@@ -793,8 +838,8 @@ module.exports = {
         message: 'Enums are not allowed. Use object literals instead.',
       },
     ],
-    // 'no-alert': ['error'],
-    // 'no-console': ['error', { allow: ['warn', 'error'] }], // Disable all console outputs except console.warn and console.error
+    'no-alert': ['error'],
+    'no-console': ['error', { allow: ['warn', 'error'] }], // Disable all console outputs except console.warn and console.error
     'react/react-in-jsx-scope': 'off',
     // '@typescript-eslint/explicit-function-return-type': 'error',
     '@typescript-eslint/no-unnecessary-boolean-literal-compare': ['error'],
@@ -839,6 +884,7 @@ module.exports = {
     ],
   },
 };
+
 EOF
     )
 
@@ -1021,26 +1067,6 @@ installDefaultPackages() {
 
 }
 
-installPackages() {
-    cd "$PROJECT_DIRECTORY" || return
-
-    local packageType="$1"
-    local packages=("${!2}")
-    local packagesConcatenated=""
-
-    for value in "${packages[@]}"; do
-        packagesConcatenated="$packagesConcatenated $value"
-    done
-
-    packagesConcatenated="${packagesConcatenated# }"
-
-    if [ "$packageType" == "development" ]; then
-        pnpm install -D $packagesConcatenated
-    else
-        pnpm install $packagesConcatenated
-    fi
-}
-
 formatCode() {
     cd "$PROJECT_DIRECTORY" || return
 
@@ -1064,8 +1090,8 @@ removeSetting() {
 
     text=$(cat $file)
 
-    local startDelimiter="// <$settingID>"
-    local endDelimiter="// </$settingID>"
+    local startDelimiter="/* <$settingID> */"
+    local endDelimiter="/* </$settingID> */"
 
     # Find the positions of the delimiters
     local start_pos="${text%%"$startDelimiter"*}"
@@ -1083,8 +1109,8 @@ vite.config.ts.addBasePath() {
     local isTurnedOn="$1"
 
     local settingID="basepath"
-    local startDelimiter="// <$settingID>"
-    local endDelimiter="// </$settingID>"
+    local startDelimiter="/* <$settingID> */"
+    local endDelimiter="/* </$settingID> */"
 
     # File to edit
     local file="vite.config.ts"
@@ -1093,9 +1119,7 @@ vite.config.ts.addBasePath() {
     local textToAppend=""
     textToAppend=$(
         cat <<EOF
-        $startDelimiter
-        base: "./", // Resolve asset paths after building
-        $endDelimiter
+        $startDelimiter base: "./", /* Resolve asset paths after building */$endDelimiter
 EOF
     )
 
@@ -1104,27 +1128,10 @@ EOF
         if grep -q "$settingID" "$file"; then
             echo -e "\e[33mThe following setting is already in $file:\n\n\t$textToAppend\e[0m" # Yellow
         else
-            # Line number to append text (change this to the line number you want)
-            local line_number=6
-
-            # Create a temporary file
-            tempFile="tempfile"
-
-            # Use 'head' to extract the content up to the target line and redirect it to the temporary file
-            head -n "$((line_number - 1))" "$file" >"$tempFile"
-
-            # Append the multi-line string to the temporary file
-            echo -e "$textToAppend" >>"$tempFile"
-
-            # Use 'tail' to extract the content from the target line to the end and append it to the temporary file
-            tail -n "+$line_number" "$file" >>"$tempFile"
-
-            # Replace the original file with the temporary file
-            mv "$tempFile" "$file"
+            replace "$PROJECT_DIRECTORY/$file" 'export default defineConfig({' "export default defineConfig({ $textToAppend"
 
             echo -e "\e[32mAdded the following setting to $file:\n\n\t$textToAppend\e[0m"
 
-            formatCode
         fi
     fi
 
@@ -1136,7 +1143,6 @@ EOF
 
             echo -e "\e[32mSuccessfully removed the following setting from $file:\n\n\t$textToAppend\e[0m" # Green
 
-            formatCode
         else
             echo -e "\e[33mThe following setting is not in $file:\n\n\t$textToAppend\e[0m"
         fi
@@ -1150,8 +1156,8 @@ vite.config.ts.addTestConfig() {
     local isTurnedOn="$1"
 
     local settingID="testConfig"
-    local startDelimiter="// <$settingID>"
-    local endDelimiter="// </$settingID>"
+    local startDelimiter="/* <$settingID> */"
+    local endDelimiter="/* </$settingID> */"
 
     # File to edit
     local file="vite.config.ts"
@@ -1160,12 +1166,7 @@ vite.config.ts.addTestConfig() {
     local textToAppend=""
     textToAppend=$(
         cat <<EOF
-        $startDelimiter
-        test: {
-            globals: true,
-            environment: 'jsdom',
-        },
-        $endDelimiter
+        $startDelimiter test: { globals: true, environment: 'jsdom', }, $endDelimiter
 EOF
     )
 
@@ -1174,34 +1175,10 @@ EOF
         if grep -q "$settingID" "$file"; then
             echo -e "\e[33mThe following setting is already in $file:\n\n\t$textToAppend\e[0m" # Yellow
         else
-            # # Line number to append text (change this to the line number you want)
-            # local line_number=7
-
-            # # Create a temporary file
-            # tempFile="tempfile"
-
-            # # Use 'head' to extract the content up to the target line and redirect it to the temporary file
-            # head -n "$((line_number - 1))" "$file" >"$tempFile"
-
-            # # Append the multi-line string to the temporary file
-            # echo -e "$textToAppend" >>"$tempFile"
-
-            # # Use 'tail' to extract the content from the target line to the end and append it to the temporary file
-            # tail -n "+$line_number" "$file" >>"$tempFile"
-
-            # # Replace the original file with the temporary file
-            # mv "$tempFile" "$file"
-
-            #=====USAGE=====#
-            appendToTextContentIndex "vite.config.ts" 1 "defineConfig" "$(
-                cat <<EOF
-            $textToAppend
-EOF
-            )"
+            replace "$PROJECT_DIRECTORY/$file" 'export default defineConfig({' "export default defineConfig({ $textToAppend"
 
             echo -e "\e[32mAdded the following setting to $file:\n\n\t$textToAppend\e[0m"
 
-            formatCode
         fi
     fi
 
@@ -1213,7 +1190,6 @@ EOF
 
             echo -e "\e[32mSuccessfully removed the following setting from $file:\n\n\t$textToAppend\e[0m" # Green
 
-            formatCode
         else
             echo -e "\e[33mThe following setting is not in $file:\n\n\t$textToAppend\e[0m"
         fi
