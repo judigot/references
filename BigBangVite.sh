@@ -739,20 +739,25 @@ module.exports = {
       version: 'detect',
     },
   },
-  env: {browser: true, es2020: true},
+  env: { browser: true, es2020: true },
   extends: [
     'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
 
     'plugin:@typescript-eslint/strict-type-checked', // Very strict!
+    'plugin:@typescript-eslint/stylistic-type-checked', // Very strict!
+
     'plugin:react/recommended',
-    'plugin:@typescript-eslint/recommended-type-checked',
     'plugin:react-hooks/recommended',
     'plugin:jsx-a11y/recommended',
     //
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
+  ignorePatterns: [
+    'dist',
+    '.eslintrc.cjs',
+    'tailwind.config.js',
+    'postcss.config.js',
+  ],
   parser: '@typescript-eslint/parser',
   plugins: [
     'react-refresh',
@@ -777,7 +782,7 @@ module.exports = {
   rules: {
     'react-refresh/only-export-components': [
       'warn',
-      {allowConstantExport: true},
+      { allowConstantExport: true },
     ],
 
     //
@@ -788,8 +793,8 @@ module.exports = {
         message: 'Enums are not allowed. Use object literals instead.',
       },
     ],
-    'no-alert': ['error'],
-    'no-console': ['error', { allow: ['warn', 'error'] }], // Disable all console outputs except console.warn and console.error
+    // 'no-alert': ['error'],
+    // 'no-console': ['error', { allow: ['warn', 'error'] }], // Disable all console outputs except console.warn and console.error
     'react/react-in-jsx-scope': 'off',
     // '@typescript-eslint/explicit-function-return-type': 'error',
     '@typescript-eslint/no-unnecessary-boolean-literal-compare': ['error'],
@@ -803,9 +808,10 @@ module.exports = {
     // 'max-depth': ['error', 4],
     // 'max-lines': ['error', 300],
     'react/jsx-props-no-spreading': 'error',
-    'react/jsx-filename-extension': [1, {extensions: ['.tsx']}],
+    'react/jsx-filename-extension': [1, { extensions: ['.tsx'] }],
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'error',
+    'react/jsx-pascal-case': 'error',
     '@typescript-eslint/naming-convention': [
       'error',
       {
@@ -815,7 +821,7 @@ module.exports = {
       {
         selector: 'function',
         modifiers: ['exported'],
-        format: ['PascalCase'],
+        format: ['camelCase', 'PascalCase'],
       },
       {
         selector: 'class',
