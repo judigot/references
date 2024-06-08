@@ -2,7 +2,7 @@
 
 # ====================PROJECT SETTINGS==================== #
 
-readonly PROJECT_NAME="new-bigbang"
+readonly PROJECT_NAME="bigbang-new"
 
 PRODUCTION_DEPENDENCIES=(
     "axios"
@@ -31,8 +31,6 @@ readonly ROOT_DIRECTORY="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null
 readonly PROJECT_DIRECTORY="$ROOT_DIRECTORY/$PROJECT_NAME"
 
 main() {
-    vite.config.ts.changeDevPort true
-    read -n 1 -s -r -p "Press any key to continue..."
     echo -e "\e[32mInitializing...\e[0m"
     downloadVite
     createEnv
