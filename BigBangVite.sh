@@ -434,7 +434,7 @@ interface IData {
   message: string;
 }
 
-function App() {
+function App(): JSX.Element {
   const [data, setData] = React.useState<IData | undefined>(undefined);
 
   useEffect(() => {
@@ -708,7 +708,7 @@ createAppTSX() {
         cat <<EOF
 import React from 'react';
 
-function App() {
+function App(): JSX.Element {
   const [count, setCount] = React.useState<number>(0);
 
   return (
@@ -793,6 +793,7 @@ module.exports = {
     'plugin:@typescript-eslint/stylistic-type-checked', // Very strict!
 
     'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
     'plugin:jsx-a11y/recommended',
     //
   ],
@@ -883,6 +884,7 @@ module.exports = {
     ],
   },
 };
+
 EOF
     )
 
