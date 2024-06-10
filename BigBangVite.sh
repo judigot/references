@@ -91,9 +91,9 @@ main() {
 
     # ==========CUSTOM SETTINGS========== #
 
-    installDefaultPackages &&
-        installAddedPackages &&
-        formatCode
+    installDefaultPackages &
+    installAddedPackages
+    formatCode
     initializeGit
     echo -e "Big Bang successfully scaffolded."
 }
