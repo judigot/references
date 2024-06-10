@@ -2,7 +2,7 @@
 
 # ====================PROJECT SETTINGS==================== #
 
-readonly PROJECT_NAME="bigbang-new"
+readonly PROJECT_NAME="bigbang"
 
 PRODUCTION_DEPENDENCIES=(
     "axios"
@@ -45,12 +45,12 @@ main() {
     removeBoilerplate
 
     # ==========CUSTOM SETTINGS========== #
-    vite.config.ts.addBasePath true # Ensures that assets are imported after building
-    vite.config.ts.changeDevPort true
+    viteConfigaddBasePath true # Ensures that assets are imported after building
+    viteConfigchangeDevPort true
 
     # Import shorthand (@)
     addImportShorthand
-    vite.config.ts.addPathAlias true
+    viteConfigaddPathAlias true
 
     # Tailwind
     local tailwindPackages=("tailwindcss" "autoprefixer" "postcss" "sass")
@@ -75,14 +75,14 @@ main() {
     local testPackages=("jest" "@types/jest" "jsdom" "@testing-library/react" "@testing-library/jest-dom")
     append_dependencies "development" testPackages DEV_DEPENDENCIES
     addVitestReference
-    vite.config.ts.addTestConfig true
+    viteConfigaddTestConfig true
 
     # Express Server
     local serverPackages=("express" "cors")
     append_dependencies "production" serverPackages PRODUCTION_DEPENDENCIES
     local serverPackages=("@types/express" "@types/cors" "nodemon" "tsx")
     append_dependencies "development" serverPackages DEV_DEPENDENCIES
-    vite.config.ts.newBuildOutput true
+    viteConfignewBuildOutput true
     addDevAndStartScripts
     editTSConfig
     createServerEntryPoint
@@ -168,7 +168,7 @@ installAddedPackages() {
         pnpm install ${all_prod_dependencies[*]}
 }
 
-vite.config.ts.changeDevPort() {
+viteConfigchangeDevPort() {
     cd "$PROJECT_DIRECTORY" || return
 
     local isTurnedOn="$1"
@@ -215,7 +215,7 @@ EOF
     fi
 }
 
-vite.config.ts.addPathAlias() {
+viteConfigaddPathAlias() {
     cd "$PROJECT_DIRECTORY" || return
 
     local isTurnedOn="$1"
@@ -493,7 +493,7 @@ editTSConfig() {
     # replaceLineAfterMatch "tsconfig.json" '\"include\": \[\"src\"\],' '\"exclude\": \[\"**\/*.tsx\"\],'
 }
 
-vite.config.ts.newBuildOutput() {
+viteConfignewBuildOutput() {
     cd "$PROJECT_DIRECTORY" || return
 
     local isTurnedOn="$1"
@@ -1103,7 +1103,7 @@ removeSetting() {
     echo "$result" >"$PROJECT_DIRECTORY/$file"
 }
 
-vite.config.ts.addBasePath() {
+viteConfigaddBasePath() {
     cd "$PROJECT_DIRECTORY" || return
 
     local isTurnedOn="$1"
@@ -1150,7 +1150,7 @@ EOF
     fi
 }
 
-vite.config.ts.addTestConfig() {
+viteConfigaddTestConfig() {
     cd "$PROJECT_DIRECTORY" || return
 
     local isTurnedOn="$1"
