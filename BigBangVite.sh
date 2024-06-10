@@ -88,7 +88,6 @@ main() {
     createServerEntryPoint
     createComponentWithAPICall
     recreateMainForLint
-
     # ==========CUSTOM SETTINGS========== #
 
     installDefaultPackages &
