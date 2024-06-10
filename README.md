@@ -8447,6 +8447,16 @@ app.delete("/orders/:id", async (req, res) => {
 
 *Tags: front end development, frontend revelopment, front end skills, frontend skills*
 
+- Feature flags
+  - Environment Variables for Build-Time Flags:
+  Set feature flags at build time to enable tree shaking and exclude disabled features.
+
+  - Conditional Imports:
+    Use dynamic imports to load code for features only when enabled.
+
+  - Zustand for Runtime State Management:
+    Toggle features at runtime without redeploying the application.
+
 - Rendering:
 
   - Render object literal
