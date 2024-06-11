@@ -5398,7 +5398,7 @@ https://raw.githubusercontent.com/judigot/references/main/FileHandlingHelpers.sh
 ## Form 1
 
 ```tsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 /*
 =====USAGE=====
@@ -5418,15 +5418,15 @@ import React, { useState, useEffect } from "react";
 */
 
 const FORM_FIELDS = {
-  TAG_INPUT: "tagInput",
-  TAGS: "tags",
-  TEXT_INPUT: "textInput",
-  TEXTAREA_INPUT: "textareaInput",
-  SELECT_INPUT: "selectInput",
-  RADIO_INPUT: "radioInput",
-  CHECKBOX_INPUT1: "checkboxoption1",
-  CHECKBOX_INPUT2: "checkboxoption2",
-  CHECKBOX_INPUT3: "checkboxoption3",
+  TAG_INPUT: 'tagInput',
+  TAGS: 'tags',
+  TEXT_INPUT: 'textInput',
+  TEXTAREA_INPUT: 'textareaInput',
+  SELECT_INPUT: 'selectInput',
+  RADIO_INPUT: 'radioInput',
+  CHECKBOX_INPUT1: 'checkboxoption1',
+  CHECKBOX_INPUT2: 'checkboxoption2',
+  CHECKBOX_INPUT3: 'checkboxoption3',
 } as const;
 
 interface IFormInputValues {
@@ -5443,19 +5443,19 @@ interface IFormInputValues {
 
 type OmittedKeys = typeof FORM_FIELDS.TAG_INPUT; // | typeof FORM_FIELDS.TAG_INPUT | typeof FORM_FIELDS.RADIO_INPUT
 
-type IFormDataBody = Omit<IFormInputValues, OmittedKeys>
+type IFormDataBody = Omit<IFormInputValues, OmittedKeys>;
 
 interface IProps {
   initialData?: IFormInputValues;
 }
 
 const defaultValues: IFormInputValues = {
-  [FORM_FIELDS.TAG_INPUT]: "",
+  [FORM_FIELDS.TAG_INPUT]: '',
   [FORM_FIELDS.TAGS]: [],
-  [FORM_FIELDS.TEXT_INPUT]: "",
-  [FORM_FIELDS.TEXTAREA_INPUT]: "",
-  [FORM_FIELDS.SELECT_INPUT]: "",
-  [FORM_FIELDS.RADIO_INPUT]: "",
+  [FORM_FIELDS.TEXT_INPUT]: '',
+  [FORM_FIELDS.TEXTAREA_INPUT]: '',
+  [FORM_FIELDS.SELECT_INPUT]: '',
+  [FORM_FIELDS.RADIO_INPUT]: '',
   [FORM_FIELDS.CHECKBOX_INPUT1]: false,
   [FORM_FIELDS.CHECKBOX_INPUT2]: false,
   [FORM_FIELDS.CHECKBOX_INPUT3]: false,
@@ -5463,27 +5463,27 @@ const defaultValues: IFormInputValues = {
 
 export function Form({ initialData }: IProps) {
   const selectOptions = {
-    option1: "Option 1",
-    option2: "Option 2",
-    option3: "Option 3",
+    option1: 'Option 1',
+    option2: 'Option 2',
+    option3: 'Option 3',
   };
 
   const [formData, setFormData] = useState<IFormInputValues>(
-    initialData ?? defaultValues
+    initialData ?? defaultValues,
   );
 
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    >,
   ) => {
     const { name, value, type } = e.target;
     const checked =
-      type === "checkbox" ? (e.target as HTMLInputElement).checked : undefined;
+      type === 'checkbox' ? (e.target as HTMLInputElement).checked : undefined;
 
     setFormData((prevData) => ({
       ...prevData,
-      [name]: type === "checkbox" ? !!(checked ?? false) : value,
+      [name]: type === 'checkbox' ? !!(checked ?? false) : value,
     }));
   };
 
@@ -5491,7 +5491,7 @@ export function Form({ initialData }: IProps) {
     e.preventDefault();
 
     const areAllInputsFilled = Object.values(formData).every(
-      (value) => value !== undefined && value !== null && value !== ""
+      (value) => value !== undefined && value !== null && value !== '',
     );
 
     if (areAllInputsFilled) {
@@ -5514,11 +5514,11 @@ export function Form({ initialData }: IProps) {
         onAddValue={(updatedTags: string[]) => {
           setFormData((prev) => ({
             ...prev,
-            [FORM_FIELDS.TAG_INPUT]: "",
+            [FORM_FIELDS.TAG_INPUT]: '',
             [FORM_FIELDS.TAGS]: updatedTags,
           }));
         }}
-        suggestions={["Hello", "World"]}
+        suggestions={['Hello', 'World']}
       />
 
       {/* Text Input */}
@@ -5600,7 +5600,7 @@ export function Form({ initialData }: IProps) {
               id={`checkbox${key}`}
               name={`checkbox${key}`}
               checked={Boolean(
-                formData[`checkbox${key}` as keyof IFormInputValues]
+                formData[`checkbox${key}` as keyof IFormInputValues],
               )}
               onChange={handleChange}
               aria-label={`Toggle ${option}`}
@@ -5621,15 +5621,15 @@ export function Form({ initialData }: IProps) {
 function TagInput({
   id,
   required,
-  placeholder = "Enter values",
-  inputValue = "",
+  placeholder = 'Enter values',
+  inputValue = '',
   onInputChange,
   addedValues,
   suggestions = [
-    "Suggestion 1",
-    "Suggestion 2",
-    "Suggestion 3",
-    "Suggestion 4",
+    'Suggestion 1',
+    'Suggestion 2',
+    'Suggestion 3',
+    'Suggestion 4',
   ],
   onAddValue,
 }: {
@@ -5654,7 +5654,7 @@ function TagInput({
   }, [inputValue, addedValues]); // Depend on tags to re-filter when they change
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && inputValue.trim()) {
+    if (e.key === 'Enter' && inputValue.trim()) {
       e.preventDefault();
       addValue(inputValue.trim());
     }
@@ -5681,7 +5681,7 @@ function TagInput({
       const filtered = suggestions.filter(
         (suggestion) =>
           suggestion.toLowerCase().includes(input.toLowerCase()) &&
-          !addedValues.includes(suggestion)
+          !addedValues.includes(suggestion),
       );
       setFilteredSuggestions(filtered);
     } else {
@@ -5691,7 +5691,10 @@ function TagInput({
 
   const handleSuggestionClick = (suggestion: string) => {
     addValue(suggestion);
-    (document.querySelector(`#${id}`) as HTMLElement).focus();
+    const element = document.querySelector(`#${String(id)}`);
+    if (element instanceof HTMLElement) {
+      element.focus();
+    }
   };
 
   const handleFocus = () => {
@@ -5710,7 +5713,7 @@ function TagInput({
     <div
       key={id}
       className={`relative flex items-center flex-wrap gap-2 px-3 py-2 rounded-md bg-gray-700 border ${
-        isFocused ? "border-blue-500 ring-blue-500" : "border-gray-600"
+        isFocused ? 'border-blue-500 ring-blue-500' : 'border-gray-600'
       }`}
     >
       {addedValues.map((value, index) => (
@@ -5773,6 +5776,7 @@ function TagInput({
 }
 
 export default Form;
+
 ```
 
 ## Form 2
