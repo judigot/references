@@ -5755,7 +5755,9 @@ function TagInput({
               onClick={() => {
                 handleSuggestionClick(suggestion);
               }}
-              onKeyDown={() => {}}
+              onKeyDown={() => {
+                return;
+              }}
               role="option"
               tabIndex={0} // tabIndex="0" makes the div focusable
               aria-label="Close modal" // Provides a label that describes the button's action
