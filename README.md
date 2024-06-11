@@ -3458,13 +3458,13 @@ const animals: {
 } as const;
 
 // TSX
-{
-  Object.entries(animals).map(
-    ([animalEng, animalLatin]: [string, string], i: number) => (
-      <option key={animalEng}>{animalLatin}</option>
-    )
-  );
-}
+<select>
+  {Object.entries(animals).map(([animalEng, animalLatin]: [string, string], i: number) => (
+        <option key={animalEng}>
+          {animalLatin}
+        </option>
+  ))}
+</select>
 
 // Raw
 Object.entries(animals).forEach(
