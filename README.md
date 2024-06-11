@@ -5429,7 +5429,7 @@ const FORM_FIELDS = {
   CHECKBOX_INPUT3: "checkboxoption3",
 } as const;
 
-interface FormInputValues {
+interface IFormInputValues {
   [FORM_FIELDS.TAG_INPUT]: string;
   [FORM_FIELDS.TAGS]: string[];
   [FORM_FIELDS.TEXT_INPUT]: string;
@@ -5443,13 +5443,13 @@ interface FormInputValues {
 
 type OmittedKeys = typeof FORM_FIELDS.TAG_INPUT; // | typeof FORM_FIELDS.TAG_INPUT | typeof FORM_FIELDS.RADIO_INPUT
 
-interface FormDataBody extends Omit<FormInputValues, OmittedKeys> {}
+type IFormDataBody = Omit<IFormInputValues, OmittedKeys>
 
-interface Props {
-  initialData?: FormInputValues;
+interface IProps {
+  initialData?: IFormInputValues;
 }
 
-const defaultValues: FormInputValues = {
+const defaultValues: IFormInputValues = {
   [FORM_FIELDS.TAG_INPUT]: "",
   [FORM_FIELDS.TAGS]: [],
   [FORM_FIELDS.TEXT_INPUT]: "",
@@ -5461,14 +5461,14 @@ const defaultValues: FormInputValues = {
   [FORM_FIELDS.CHECKBOX_INPUT3]: false,
 };
 
-export function Form({ initialData }: Props) {
+export function Form({ initialData }: IProps) {
   const selectOptions = {
     option1: "Option 1",
     option2: "Option 2",
     option3: "Option 3",
   };
 
-  const [formData, setFormData] = useState<FormInputValues>(
+  const [formData, setFormData] = useState<IFormInputValues>(
     initialData ?? defaultValues
   );
 
@@ -5495,7 +5495,7 @@ export function Form({ initialData }: Props) {
     );
 
     if (areAllInputsFilled) {
-      const data: FormDataBody = formData;
+      const data: IFormDataBody = formData;
       // eslint-disable-next-line no-console
       console.log(data);
     }
@@ -5600,7 +5600,7 @@ export function Form({ initialData }: Props) {
               id={`checkbox${key}`}
               name={`checkbox${key}`}
               checked={Boolean(
-                formData[`checkbox${key}` as keyof FormInputValues]
+                formData[`checkbox${key}` as keyof IFormInputValues]
               )}
               onChange={handleChange}
               aria-label={`Toggle ${option}`}
