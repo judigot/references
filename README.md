@@ -5769,6 +5769,8 @@ function TagInput({
     </div>
   );
 }
+
+export default Form;
 ```
 
 ## Form 2
