@@ -383,6 +383,9 @@ if (platform === 'win32') {
 
 const publicDirectory = path.join(__dirname, 'public');
 
+// Parse JSON from front end
+app.use(express.json());
+
 // Enable CORS and serve static files
 app.use(cors());
 app.use(express.static(publicDirectory));
