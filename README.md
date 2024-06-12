@@ -3587,7 +3587,7 @@ const person = {
   age: 30,
 };
 
-console.log(Object.keys(person).includes("name")); // true
+console.log(Object.prototype.hasOwnProperty.call(person, "name")); // true
 ```
 
 ### Focus on HTML Element
