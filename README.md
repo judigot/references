@@ -8160,6 +8160,7 @@ Ctrl + Shift + Alt =====> ?
 *Tags: back end development, backend revelopment, back end skills, backend skills*
 
 - JSON schema validator (zod, ajv)
+- Deduplication/deduping data
 - WSL2 as linux environment. See WSL2 vs docker environment
 - Single source of truth (SSOT) architecture, or single point of truth (SPOT) architecture
 - Dependency injection
