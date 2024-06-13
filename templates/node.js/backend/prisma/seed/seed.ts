@@ -30,24 +30,28 @@ const tableInfo: Record<
 
 function createInsertSQL(
   tableName: string,
-  data: Record<string, unknown>[]
+  data: Record<string, unknown>[],
 ): string {
-  if (data.length === 0) return "";
+  if (data.length === 0) return '';
 
   const columns = Object.keys(data[0])
     .map((column) => `"${column}"`)
-    .join(", ");
+    .join(', ');
 
   const values = data
     .map(
       (row) =>
         `(${Object.values(row)
           .map((value) =>
-            typeof value === "string" ? `'${value.replace(/'/g, "''")}'` : value
+            value === null
+              ? 'NULL'
+              : typeof value === 'string'
+              ? `'${value.replace(/'/g, "''")}'`
+              : value,
           )
-          .join(", ")})`
+          .join(', ')})`,
     )
-    .join(",\n");
+    .join(',\n');
 
   return `INSERT INTO "${tableName}" (${columns}) VALUES ${values} ON CONFLICT DO NOTHING;`;
 }
