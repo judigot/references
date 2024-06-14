@@ -2390,6 +2390,26 @@ Expected output for Shell Script or Bash:
   const area2 = calculateRectangleArea({ length: 5, width: 10 });
   ```
 
+- Use readable boolean variables instead of vague conditions
+
+  Before:
+  ```tsx
+  if (user.isActive && user.age > 18 && user.hasVerifiedEmail) {
+      console.log("Success!")
+  }
+  ```
+  After:
+  ```tsx
+  const isActiveUser: boolean = user.isActive;
+  const isAdult: boolean = user.age > 18;
+  const hasVerifiedEmail: boolean = user.hasVerifiedEmail;
+
+  const isUserEligible: boolean = isActiveUser && isAdult && hasVerifiedEmail;
+
+  if (isUserEligible) {
+      console.log("Success!")
+  }
+  ```
 - Self-documenting code: dot notation to reference object values
 - Guard clauses or early returns
 - Null guards
