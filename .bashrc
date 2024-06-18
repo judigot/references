@@ -15,9 +15,10 @@ export NVM_HOME="/c/apportable/Programming/nvm"
 export NVM_SYMLINK="/c/apportable/Programming/nodejs"
 
 # Start the SSH agent and add the default SSH key to the agent
-eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_rsa
+eval "$(ssh-agent -s)" > /dev/null 2>&1 && ssh-add ~/.ssh/id_rsa > /dev/null 2>&1
+
 
 # Auto-update terminal files
-curl -sL https://raw.githubusercontent.com/judigot/references/main/.bashrc -o "$HOME/.bashrc"
+# curl -sL https://raw.githubusercontent.com/judigot/references/main/.bashrc -o "$HOME/.bashrc"
 # curl -sL https://raw.githubusercontent.com/judigot/references/main/.zshrc -o "$HOME/.zshrc"
 # curl -sL https://raw.githubusercontent.com/judigot/references/main/.snippetsrc -o "$HOME/.snippetsrc" && [[ -f "$HOME/.snippetsrc" ]] && source "$HOME/.snippetsrc"
