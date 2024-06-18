@@ -18,6 +18,6 @@ export NVM_SYMLINK="/c/apportable/Programming/nodejs"
 eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_rsa
 
 # Auto-update terminal files
-# curl -sL https://raw.githubusercontent.com/judigot/references/main/.bashrc -o "$HOME/.bashrc"
+curl -sL https://raw.githubusercontent.com/judigot/references/main/.bashrc -o "$HOME/.bashrc"
 # curl -sL https://raw.githubusercontent.com/judigot/references/main/.zshrc -o "$HOME/.zshrc"
 # curl -sL https://raw.githubusercontent.com/judigot/references/main/.snippetsrc -o "$HOME/.snippetsrc" && [[ -f "$HOME/.snippetsrc" ]] && source "$HOME/.snippetsrc"
