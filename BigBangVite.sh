@@ -34,6 +34,7 @@ main() {
     echo -e "\e[32mInitializing...\e[0m"
     downloadVite
     createEnv
+    createEnvExample
     deleteFiles "css"
     codeToBeRemoved=("import './index.css'" "import './App.css'")
     removeTextContent "codeToBeRemoved[@]"
@@ -1310,6 +1311,48 @@ createEnv() {
     cd "$PROJECT_DIRECTORY" || return
 
     local htmlFileName=".env"
+    local content=""
+    content=$(
+        cat <<EOF
+# Environment variables declared in this file are automatically made available to Prisma.
+# See the documentation for more detail: https://pris.ly/d/prisma-schema#accessing-environment-variables-from-the-schema
+
+# Prisma supports the native connection string format for PostgreSQL, MySQL, SQLite, SQL Server, MongoDB and CockroachDB.
+# See the documentation for all the connection string options: https://pris.ly/d/connection-strings
+
+# Supabase
+# DATABASE_URL="postgresql://postgres:<password>@db.<host>.supabase.co:<port>/<database>"
+
+# Local MySQL
+DATABASE_URL="mysql://<username>:<password>@<host>:<port>/<database>"
+
+# Local PostgreSQL
+# DATABASE_URL="postgresql://root:123@localhost:5432/bigbang"
+
+NODE_ENV="development"
+
+VITE_FRONTEND_URL="http://localhost:3000"
+VITE_BACKEND_URL="http://localhost:5000"
+VITE_API_URL="api"
+
+ACCESS_TOKEN_SECRET=
+REFRESH_TOKEN_SECRET=
+EOF
+    )
+
+    echo "$content" >"$htmlFileName"
+    # Check if the file was created successfully
+    if [ -e "$htmlFileName" ]; then
+        echo -e "\e[32mFile ($htmlFileName) was successfully created.\e[0m" # Green
+    else
+        echo -e "\e[31mFailed to create $htmlFileName.\e[0m" # Red
+    fi
+}
+
+createEnvExample() {
+    cd "$PROJECT_DIRECTORY" || return
+
+    local htmlFileName=".env.example"
     local content=""
     content=$(
         cat <<EOF
