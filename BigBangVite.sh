@@ -795,7 +795,6 @@ module.exports = {
     'plugin:@typescript-eslint/stylistic-type-checked', // Very strict!
 
     'plugin:react/recommended',
-    'plugin:react-hooks/recommended',
     'plugin:jsx-a11y/recommended',
     //
   ],
