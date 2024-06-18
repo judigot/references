@@ -14,6 +14,9 @@ export JAVA_HOME="/c/apportable/Programming/jdk"
 export NVM_HOME="/c/apportable/Programming/nvm"
 export NVM_SYMLINK="/c/apportable/Programming/nodejs"
 
+# Start the SSH agent and add the default SSH key to the agent
+eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_rsa
+
 # Auto-update terminal files
 # curl -sL https://raw.githubusercontent.com/judigot/references/main/.bashrc -o "$HOME/.bashrc"
 # curl -sL https://raw.githubusercontent.com/judigot/references/main/.zshrc -o "$HOME/.zshrc"
