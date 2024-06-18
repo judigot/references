@@ -11,7 +11,6 @@ PRODUCTION_DEPENDENCIES=(
 )
 
 DEV_DEPENDENCIES=(
-    "cross-env"
     "dotenv-cli"
     "prettier"
 
