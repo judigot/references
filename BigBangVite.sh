@@ -17,8 +17,6 @@ DEV_DEPENDENCIES=(
     "styled-components"
     "@types/styled-components"
 
-    "esbuild"
-    "esbuild-register"
     "vite-tsconfig-paths"
     "vitest"
 )
