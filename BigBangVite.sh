@@ -13,10 +13,7 @@ PRODUCTION_DEPENDENCIES=(
 DEV_DEPENDENCIES=(
     "dotenv-cli"
     "prettier"
-
-    "styled-components"
-    "@types/styled-components"
-
+    
     "vite-tsconfig-paths"
     "vitest"
 )
