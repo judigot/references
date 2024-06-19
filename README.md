@@ -3571,7 +3571,7 @@ export const useStore = create<IStore>()((set) => ({
 #### Usage
 
 ```tsx
-import { useStore } from '@/zustand/store';
+import { useStore } from './store';
 
 export default function App() {
   const { count, increment, searchQuery, setSearchQuery } = useStore();
