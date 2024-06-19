@@ -5,8 +5,6 @@
 readonly PROJECT_NAME="bigbang"
 
 PRODUCTION_DEPENDENCIES=(
-    "axios"
-    "bootstrap"
     "dotenv"
 )
 
