@@ -3562,8 +3562,8 @@ export const useStore = create<IStore>()((set) => ({
     set(({ count }) => ({ count: count + 1 }));
   },
   searchQuery: 'Initial value',
-  setSearchQuery: (query: string) => {
-    set({ searchQuery: query });
+  setSearchQuery: (searchQuery) => {
+    set({ searchQuery });
   },
 }));
 ```
