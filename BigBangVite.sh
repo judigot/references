@@ -38,8 +38,8 @@ main() {
     removeBoilerplate
 
     # ==========CUSTOM SETTINGS========== #
-    viteConfigaddBasePath true # Ensures that assets are imported after building
-    viteConfigchangeDevPort true
+    viteConfigAddBasePath true # Ensures that assets are imported after building
+    viteConfigChangeDevPort true
 
     # Import shorthand (@)
     addImportShorthand
@@ -68,14 +68,14 @@ main() {
     local testPackages=("jest" "@types/jest" "jsdom" "@testing-library/react" "@testing-library/jest-dom")
     append_dependencies "development" testPackages DEV_DEPENDENCIES
     addVitestReference
-    viteConfigaddTestConfig true
+    viteConfigAddTestConfig true
 
     # Express Server
     local serverPackages=("express" "cors")
     append_dependencies "production" serverPackages PRODUCTION_DEPENDENCIES
     local serverPackages=("@types/express" "@types/cors" "nodemon" "tsx")
     append_dependencies "development" serverPackages DEV_DEPENDENCIES
-    viteConfignewBuildOutput true
+    viteConfigNewBuildOutput true
     addDevAndStartScripts
     editTSConfig
     createServerEntryPoint
@@ -160,7 +160,7 @@ installAddedPackages() {
         pnpm install ${all_prod_dependencies[*]}
 }
 
-viteConfigchangeDevPort() {
+viteConfigChangeDevPort() {
     cd "$PROJECT_DIRECTORY" || return
 
     local isTurnedOn="$1"
@@ -488,7 +488,7 @@ editTSConfig() {
     # replaceLineAfterMatch "tsconfig.json" '\"include\": \[\"src\"\],' '\"exclude\": \[\"**\/*.tsx\"\],'
 }
 
-viteConfignewBuildOutput() {
+viteConfigNewBuildOutput() {
     cd "$PROJECT_DIRECTORY" || return
 
     local isTurnedOn="$1"
@@ -1097,7 +1097,7 @@ removeSetting() {
     echo "$result" >"$PROJECT_DIRECTORY/$file"
 }
 
-viteConfigaddBasePath() {
+viteConfigAddBasePath() {
     cd "$PROJECT_DIRECTORY" || return
 
     local isTurnedOn="$1"
@@ -1144,7 +1144,7 @@ EOF
     fi
 }
 
-viteConfigaddTestConfig() {
+viteConfigAddTestConfig() {
     cd "$PROJECT_DIRECTORY" || return
 
     local isTurnedOn="$1"
