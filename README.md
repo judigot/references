@@ -3549,14 +3549,14 @@ export default function App() {
 ```tsx
 import { create } from 'zustand';
 
-interface Store {
+interface IStore {
   count: number;
   increment: () => void;
   searchQuery: string;
   setSearchQuery: (query: string) => void;
 }
 
-export const useStore = create<Store>()((set) => ({
+export const useStore = create<IStore>()((set) => ({
   count: 1,
   increment: () => {
     set(({ count }) => ({ count: count + 1 }));
