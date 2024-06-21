@@ -993,16 +993,14 @@ echo Node.js version: $(node -v)
 readonly PROJECT_NAME="bigbang"
 
 readonly PRODUCTION_DEPENDENCIES=(
-    "axios"
-    "bootstrap"
     "dotenv"
+    "dotenv-expand"
 )
 
 readonly DEV_DEPENDENCIES=(
     "cross-env"
     "dotenv-cli"
     "prettier"
-    "styled-components"
     "tailwindcss"
     "esbuild"
     "esbuild-register"

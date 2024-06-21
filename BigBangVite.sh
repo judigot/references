@@ -6,6 +6,7 @@ readonly PROJECT_NAME="bigbang"
 
 PRODUCTION_DEPENDENCIES=(
     "dotenv"
+    "dotenv-expand"
 )
 
 DEV_DEPENDENCIES=(
