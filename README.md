@@ -5932,6 +5932,13 @@ echo "Git version: $version"
 
 # Git Commands
 
+*Tags: revert to previous version, revert repository using hash*
+
+```bash
+git reset --hard 112405exc9603e5f866d32xa47d61794exbe1a21
+git push origin HEAD --force
+```
+
 ## Hard-Reset Branch
 
 *Tags: revert back to main hard reset remove all changes*
