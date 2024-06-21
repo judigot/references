@@ -745,6 +745,12 @@ cat /etc/*-release
 
 ### Copy Files
 
+*Tags: copy folders, copy and paste folders, copy directories, copy and paste directory, copy and paste directories*
+
+```bash
+cp src dest
+```
+
 ```bash
 cp src/* dest
 ```
