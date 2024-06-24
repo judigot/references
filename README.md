@@ -8217,6 +8217,40 @@ Ctrl + Shift + Alt =====> ?
   - for querying very large data with expensive computation
 - Aggregated data using SQL
 - Common Table Expression, or CTE for combining queries e.g. selecting ids and insert the resulting ids into another table
+- Running jobs (background process)
+    # Types of Jobs in Backend Development
+
+    ## Scheduled Jobs (Cron Jobs)
+    - Tasks that run at specified times or intervals.
+    - Example: Sending daily emails, cleaning up old data, generating reports.
+
+    ## Asynchronous Jobs
+    - Tasks that run in the background without blocking the main application flow.
+    - Example: Processing file uploads, sending emails, performing complex computations.
+
+    ## Batch Jobs
+    - Processing large amounts of data in chunks.
+    - Example: Processing logs, importing/exporting data, performing bulk updates.
+
+    ## Event-Driven Jobs
+    - Tasks triggered by specific events in the application.
+    - Example: Sending a welcome email when a new user registers.
+
+    ## Worker Jobs
+    - Tasks handled by worker processes or threads, often used in microservices architecture or with a message queue system.
+    - Example: Resizing images, processing payments.
+
+    ## Maintenance Jobs
+    - Tasks that ensure the health and performance of the system.
+    - Example: Database backups, cache clearing, system monitoring.
+
+    ## Data Processing Jobs
+    - Transforming, aggregating, or analyzing data.
+    - Example: Processing data for machine learning models, generating analytics, migrating data between systems.
+
+    ## ETL (Extract, Transform, Load) Jobs
+    - Specialized data processing jobs that extract data from one source, transform it, and load it into another system.
+    - Example: Data warehousing, data integration.
 - ORM
   - Raw query option with replacements/placeholder
   - Indexing for faster data retrieval
