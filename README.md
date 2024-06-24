@@ -8251,6 +8251,9 @@ Ctrl + Shift + Alt =====> ?
     ## ETL (Extract, Transform, Load) Jobs
     - Specialized data processing jobs that extract data from one source, transform it, and load it into another system.
     - Example: Data warehousing, data integration.
+- Message Queues
+  - RabbitMQ
+  - Apache Kafka
 - ORM
   - Raw query option with replacements/placeholder
   - Indexing for faster data retrieval
