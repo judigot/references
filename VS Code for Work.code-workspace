@@ -1,0 +1,31 @@
+{
+    "folders": [
+      {
+        "path": "./api"
+      }
+    ],
+    "settings": {
+      "terminal.integrated.env.linux": {
+        "IS_VS_CODE_FOR_WORK": "true",
+        "GIT_AUTHOR_NAME": "git-username-for-work",
+        "GIT_COMMITTER_NAME": "git-username-for-work",
+        "GIT_AUTHOR_EMAIL": "work-email@gmail.com",
+        "GIT_COMMITTER_EMAIL": "work-email@gmail.com"
+      },
+      "terminal.integrated.env.osx": {
+        "IS_VS_CODE_FOR_WORK": "true",
+        "GIT_AUTHOR_NAME": "git-username-for-work",
+        "GIT_COMMITTER_NAME": "git-username-for-work",
+        "GIT_AUTHOR_EMAIL": "work-email@gmail.com",
+        "GIT_COMMITTER_EMAIL": "work-email@gmail.com"
+      },
+      "terminal.integrated.env.windows": {
+        "IS_VS_CODE_FOR_WORK": "true",
+        "GIT_AUTHOR_NAME": "git-username-for-work",
+        "GIT_COMMITTER_NAME": "git-username-for-work",
+        "GIT_AUTHOR_EMAIL": "work-email@gmail.com",
+        "GIT_COMMITTER_EMAIL": "work-email@gmail.com"
+      }
+    }
+  }
+  
