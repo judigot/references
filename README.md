@@ -6056,7 +6056,7 @@ git merge <new-branch>
 List all remote branches:
 git branch -a
 
-Create a new branch from an existing branch; create a new branch from an existing branch; create new branch from an existing branch:
+Create a new branch from an existing branch; create a new branch from an existing branch; create new branch from an existing branch, create branch:
 git checkout -b new-branch parent-branch
 
 Delete a local branch; delete local branch (checkout to another branch before deleting):
