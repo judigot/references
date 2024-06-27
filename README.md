@@ -5932,11 +5932,62 @@ echo "Git version: $version"
 
 # Git Commands
 
-*Tags: revert git version, revert version, revert to previous version, revert repository using hash*
+## Revert Version (Non-destructive)
+
+Creates a new commit that reverts the repository to a previous state while preserving the commit history.
+
+*Tags: reset git version, reset version, reset to previous version, reset repository using hash*
 
 ```bash
-git reset --hard 112405exc9603e5f866d32xa47d61794exbe1a21
+git revert --no-commit 112405e..HEAD
+git commit -m "Revert to commit 112405e"
+git push origin HEAD
+```
+
+Example:
+
+Before revert:
+
+```bash
+commit d5f8e8a (HEAD -> main) - Added feature
+commit c3b4a2b - Fixed bug
+commit 112405e - Initial commit
+```
+
+After revert:
+
+```bash
+commit f7b3c2d (HEAD -> main) - Reverted to commit 112405e
+commit d5f8e8a - Added feature
+commit c3b4a2b - Fixed bug
+commit 112405e - Initial commit
+```
+
+## Reset Version (Destructive)
+
+Deletes all changes that came after the specified commit.
+
+*Tags: reset git version, reset version, reset to previous version, reset repository using hash*
+
+```bash
+git reset --hard 112405e
 git push origin HEAD --force
+```
+
+Example:
+
+Before reset:
+
+```bash
+commit d5f8e8a (HEAD -> main) - Added feature
+commit c3b4a2b - Fixed bug
+commit 112405e - Initial commit
+```
+
+After reset:
+
+```bash
+commit 112405e (HEAD -> main) - Initial commit
 ```
 
 ## Hard-Reset Branch
