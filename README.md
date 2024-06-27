@@ -5932,7 +5932,7 @@ echo "Git version: $version"
 
 # Git Commands
 
-*Tags: revert to previous version, revert repository using hash*
+*Tags: revert git version, revert version, revert to previous version, revert repository using hash*
 
 ```bash
 git reset --hard 112405exc9603e5f866d32xa47d61794exbe1a21
