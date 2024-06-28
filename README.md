@@ -255,6 +255,16 @@ if (Test-Path -Path $nestedDirPath) {
 
 # Bash Scripting
 
+## Add An Empty Commit
+
+*Tags: empty commit message, blank commit message, no commit message*
+
+```bash
+git commit --allow-empty -m "Add blank Nx project"
+git push origin
+git status
+```
+
 ## Modify JSON Using Bash
 
 *Tags: modify package.json, edit package.json, modify json using bash, edit json using bash*
