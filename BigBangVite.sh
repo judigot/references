@@ -482,11 +482,11 @@ EOF
 
 editTSConfig() {
     cd "$PROJECT_DIRECTORY" || return
-    replaceLineAfterMatch "./tsconfig.json" '"noEmit":' "false,"
-    replace "tsconfig.json" '"allowImportingTsExtensions": true,' '// "allowImportingTsExtensions": true,'
-    # replaceLineAfterMatch "tsconfig.json" '\"compilerOptions\": {' "\\n\/\/ <server>\\n\"baseUrl\": \".\/src\", \"rootDir\": \".\/src\", \"outDir\": \".\/dist\", \"allowSyntheticDefaultImports\": true, \"esModuleInterop\": true,\\n\/\/ <server\/>"
-    replaceLineAfterMatch "tsconfig.json" '\"compilerOptions\": {' "\\n\/\/ <server>\\n\"outDir\": \".\/dist\", \"allowSyntheticDefaultImports\": true, \"esModuleInterop\": true,\\n\/\/ <server\/>"
-    # replaceLineAfterMatch "tsconfig.json" '\"include\": \[\"src\"\],' '\"exclude\": \[\"**\/*.tsx\"\],'
+    replaceLineAfterMatch "./tsconfig.app.json" '"noEmit":' "false,"
+    replace "tsconfig.app.json" '"allowImportingTsExtensions": true,' '// "allowImportingTsExtensions": true,'
+    # replaceLineAfterMatch "tsconfig.app.json" '\"compilerOptions\": {' "\\n\/\/ <server>\\n\"baseUrl\": \".\/src\", \"rootDir\": \".\/src\", \"outDir\": \".\/dist\", \"allowSyntheticDefaultImports\": true, \"esModuleInterop\": true,\\n\/\/ <server\/>"
+    replaceLineAfterMatch "tsconfig.app.json" '\"compilerOptions\": {' "\\n\/\/ <server>\\n\"outDir\": \".\/dist\", \"allowSyntheticDefaultImports\": true, \"esModuleInterop\": true,\\n\/\/ <server\/>"
+    # replaceLineAfterMatch "tsconfig.app.json" '\"include\": \[\"src\"\],' '\"exclude\": \[\"**\/*.tsx\"\],'
 }
 
 viteConfigNewBuildOutput() {
@@ -543,7 +543,7 @@ addDevAndStartScripts() {
 }
 
 addImportShorthand() {
-    appendToTextContent "$PROJECT_DIRECTORY/tsconfig.json" "\"compilerOptions\": {" "$(
+    appendToTextContent "$PROJECT_DIRECTORY/tsconfig.app.json" "\"compilerOptions\": {" "$(
         cat <<EOF
 "paths": {
     "@/*": ["./src/*"]
@@ -815,7 +815,7 @@ module.exports = {
     },
     ecmaVersion: 12,
     sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
+    project: ['./tsconfig.json', './tsconfig.app.json', './tsconfig.node.json'],
     tsconfigRootDir: __dirname,
   },
   //
