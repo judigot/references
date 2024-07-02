@@ -138,7 +138,7 @@ terraform apply -auto-approve
 
 2. Add New SSH Keys to EC2 Instance
 
-    *Tags: add ssh to virtual machine, add ssh to aws ec2, add ssh to ec2, add access to ec2 instance, add new keys, append new ssh keys, append new keys, add ssh keys, append ssh keys*
+    *Tags: ssh to ec2 instance, add ssh to virtual machine, add ssh to aws ec2, add ssh to ec2, add access to ec2 instance, add new keys, append new ssh keys, append new keys, add ssh keys, append ssh keys*
 
     - Log in to EC2 instance using AWS CloudShell or a machine with prior acces
 
