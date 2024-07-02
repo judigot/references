@@ -5946,7 +5946,7 @@ echo "Git version: $version"
 
 Creates a new commit that reverts the repository to a previous state while preserving the commit history.
 
-*Tags: reset git version, reset version, reset to previous version, reset repository using hash*
+*Tags: revert git branch, reset git version, reset version, reset to previous version, reset repository using hash*
 
 ```bash
 git revert --no-commit 112405e..HEAD
