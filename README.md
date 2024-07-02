@@ -257,7 +257,7 @@ if (Test-Path -Path $nestedDirPath) {
 
 ## Add An Empty Commit
 
-*Tags: empty commit message, blank commit message, no commit message*
+*Tags: allow empty commit message, allow blank commit message, empty commit message, blank commit message, no commit message*
 
 ```bash
 git commit --allow-empty -m "Add blank Nx project"
