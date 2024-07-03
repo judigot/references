@@ -136,6 +136,18 @@ cd terraform
 terraform apply -auto-approve
 ```
 
+Use env.production.tfvars:
+
+```bash
+terraform apply -auto-approve -var-file="env.production.tfvars"
+```
+
+Use env.development.tfvars:
+
+```bash
+terraform apply -auto-approve -var-file="env.production.tfvars"
+```
+
 2. Add New SSH Keys to EC2 Instance
 
     *Tags: ssh to ec2 instance, add ssh to virtual machine, add ssh to aws ec2, add ssh to ec2, add access to ec2 instance, add new keys, append new ssh keys, append new keys, add ssh keys, append ssh keys*
