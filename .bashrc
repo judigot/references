@@ -24,4 +24,6 @@ fi
 # Auto-update terminal files
 # curl -sL https://raw.githubusercontent.com/judigot/references/main/.bashrc -o "$HOME/.bashrc"
 # curl -sL https://raw.githubusercontent.com/judigot/references/main/.zshrc -o "$HOME/.zshrc"
-# curl -sL https://raw.githubusercontent.com/judigot/references/main/.snippetsrc -o "$HOME/.snippetsrc" && [[ -f "$HOME/.snippetsrc" ]] && source "$HOME/.snippetsrc"
+# curl -sL https://raw.githubusercontent.com/judigot/references/main/.snippetsrc -o "$HOME/.snippetsrc"
+
+[[ -f "$HOME/.snippetsrc" ]] && source "$HOME/.snippetsrc"
