@@ -9676,7 +9676,25 @@ sh "$script_name"
 
 # Dockerize Vite
 
-*Tags: dockerize pnpm application, dockerize node.js application, dockerize nodejs application, dockerize node application*
+*Tags: dockerize static app, dockerize express app, dockerize pnpm application, dockerize node.js application, dockerize nodejs application, dockerize node application*
+
+## Static App With Nginx Server
+
+```dockerfile
+FROM node:latest AS app
+WORKDIR /app
+COPY package.json pnpm-lock.yaml ./
+RUN npm install -g pnpm && pnpm install
+COPY . .
+RUN pnpm build
+
+FROM nginx:latest
+COPY --from=app /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+```
+
+## App With Backend Server
 
 ```dockerfile
 FROM node:alpine
@@ -9685,7 +9703,7 @@ COPY . /app
 RUN npm install -g pnpm
 RUN pnpm install
 RUN pnpm build
-EXPOSE 3000
+EXPOSE 80
 CMD node dist/index.js
 ```
 
