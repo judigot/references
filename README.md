@@ -9684,7 +9684,7 @@ WORKDIR /app
 COPY . /app
 RUN npm install -g pnpm
 RUN pnpm install
-RUN pnpm run build
+RUN pnpm build
 EXPOSE 3000
 CMD node dist/index.js
 ```
