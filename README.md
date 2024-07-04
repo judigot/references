@@ -6025,7 +6025,7 @@ git push origin target-branch --force
 
 ## Combine Branches
 
-*Tags: absorb branch integrate branch*
+*Tags: absorb branch, integrate branch, merge branch, combine branch*
 
 ### Merge Method (Non-linear History)
 
