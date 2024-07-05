@@ -10034,7 +10034,7 @@ console.log("User UUID v5:", userUUID);
 
 # Database Schema Introspection
 
-*Tags: introspect tables, introspect schema, introspect postgresql database schema, introspect database schema, introspect db schema, analyze database schema, analyze db schema, analyze schema, exctract database schema information, extract db schema information*
+*Tags: introspect tables, introspect schema, introspect postgresql database schema, introspect mysql database schema, introspect database schema, introspect db schema, analyze database schema, analyze db schema, analyze schema, exctract database schema information, extract db schema information*
 
 ## PostgreSQL
 
