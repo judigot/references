@@ -145,7 +145,7 @@ terraform apply -auto-approve -var-file="env.production.tfvars"
 Use env.development.tfvars:
 
 ```bash
-terraform apply -auto-approve -var-file="env.production.tfvars"
+terraform apply -auto-approve -var-file="env.development.tfvars"
 ```
 
 2. Add New SSH Keys to EC2 Instance
