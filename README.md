@@ -3089,6 +3089,14 @@ export const customFetch = {
     const { url, body, options } = params;
     return customFetchInternal<T>(url, { ...options, method: 'PUT', body });
   },
+  patch: async <T>(params: {
+    url: string;
+    body: DataBody;
+    options?: IFetchOptions;
+  }): Promise<T> => {
+    const { url, body, options } = params;
+    return customFetchInternal<T>(url, { ...options, method: 'PATCH', body });
+  },
   delete: async <T>(params: {
     url: string;
     options?: IFetchOptions;
