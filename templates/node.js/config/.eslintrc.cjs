@@ -32,6 +32,7 @@ module.exports = {
     '@typescript-eslint',
     'react-hooks',
     'jsx-a11y',
+    'no-type-assertion',
     //
   ],
   //
@@ -46,6 +47,7 @@ module.exports = {
   },
   //
   rules: {
+    "no-type-assertion/no-type-assertion": "error",
     'object-shorthand': ['error', 'always'],
     'react-refresh/only-export-components': [
       'warn',

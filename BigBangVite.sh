@@ -58,7 +58,7 @@ main() {
     modifyESLintConfig
     codeToBeRemoved=(".tsx")
     removeTextContent "codeToBeRemoved[@]"
-    local strictPackages=("@typescript-eslint/eslint-plugin" "@typescript-eslint/parser" "eslint" "eslint-config-prettier" "eslint-plugin-jsx-a11y" "eslint-plugin-prettier" "eslint-plugin-react" "eslint-plugin-react-hooks" "eslint-plugin-react-refresh")
+    local strictPackages=("@typescript-eslint/eslint-plugin" "@typescript-eslint/parser" "eslint" "eslint-config-prettier" "eslint-plugin-jsx-a11y" "eslint-plugin-prettier" "eslint-plugin-react" "eslint-plugin-react-hooks" "eslint-plugin-react-refresh" "eslint-plugin-no-type-assertion")
     append_dependencies "development" strictPackages DEV_DEPENDENCIES
 
     # tsconfig.node.json
