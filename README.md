@@ -3648,6 +3648,35 @@ export default function App() {
 
 ## Common
 
+### Type Guarding
+
+*Tags: type guards, type checking*
+
+```tsx
+interface IData {
+  property1: number;
+  property2: number;
+}
+
+export function isValidData(data: unknown): data is IData {
+  if (
+    // Check if data is not null
+    data !== null &&
+    // Check if data is an object
+    typeof data === 'object' &&
+    // Check if the required properties exist in the data object
+    'property1' in data &&
+    'property2' in data &&
+    // Check if the properties are of the correct type
+    typeof data.property1 === 'number' &&
+    typeof data.property2 === 'number'
+  ) {
+    return true;
+  }
+  return false;
+}
+```
+
 ### Check If Property Exists
 
 *Tags: focus on element, focus html element, focus element*
@@ -3657,6 +3686,9 @@ const person = {
   name: "John",
   age: 30,
 };
+
+// Shorthand
+console.log("name" in person); // true
 
 console.log(Object.prototype.hasOwnProperty.call(person, "name")); // true
 ```
