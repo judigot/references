@@ -8463,6 +8463,7 @@ Ctrl + Shift + Alt =====> ?
   - memcached
 - Decorators
 - Fluent interface like jQuery
+- Piping functions
 - Method chaining (builder pattern)
   - must be readable and eloquent (see Laravel's Eloquent ORM)
 
