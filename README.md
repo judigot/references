@@ -8462,6 +8462,7 @@ Ctrl + Shift + Alt =====> ?
   - redis
   - memcached
 - Decorators
+- Fluent interface like jQuery
 - Method chaining (builder pattern)
   - must be readable and eloquent (see Laravel's Eloquent ORM)
 
