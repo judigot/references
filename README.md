@@ -3650,7 +3650,7 @@ export default function App() {
 
 ### Type Guarding
 
-*Tags: type guards, type checking*
+*Tags: typeguards, type guards, typechecking, type checking*
 
 ```tsx
 interface IData {
