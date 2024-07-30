@@ -5581,12 +5581,11 @@ export function Form({ initialData }: IProps) {
     >,
   ) => {
     const { name, value, type } = e.target;
-    const checked =
-      type === 'checkbox' ? (e.target as HTMLInputElement).checked : undefined;
+    const checked = e.target instanceof HTMLInputElement && e.target.checked;
 
     setFormData((prevData) => ({
       ...prevData,
-      [name]: type === 'checkbox' ? !!(checked ?? false) : value,
+      [name]: type === 'checkbox' ? checked : value,
     }));
   };
 
