@@ -824,7 +824,7 @@ module.exports = {
     '@typescript-eslint/no-unnecessary-boolean-literal-compare': ['error'],
     '@typescript-eslint/no-unused-vars': [
       'error',
-      { args: 'all', argsIgnorePattern: '^_' },
+      { args: 'all', argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
     ],
     '@typescript-eslint/no-explicit-any': 'error',
     '@typescript-eslint/strict-boolean-expressions': 'error',
