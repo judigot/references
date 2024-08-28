@@ -47,7 +47,7 @@ module.exports = {
   },
   //
   rules: {
-    "no-type-assertion/no-type-assertion": "error",
+    'no-type-assertion/no-type-assertion': 'error',
     'object-shorthand': ['error', 'always'],
     'react-refresh/only-export-components': [
       'warn',
