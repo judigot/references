@@ -2437,7 +2437,7 @@ Expected output for Shell Script or Bash:
   }
   ```
 - Self-documenting code: dot notation to reference object values
-- Guard clauses or early returns
+- Guard clauses, early returns, early exits
 - Null guards
 - IFFEs (Immediately Invoked Function Expression)
 - Heredoc, EOF, multi-line strings
