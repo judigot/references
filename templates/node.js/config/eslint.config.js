@@ -63,8 +63,12 @@ export default [
           jsx: true,
         },
 
-        project: ['./tsconfig.json', './tsconfig.node.json'],
-        tsconfigRootDir: 'C:\\Users\\Jude\\Desktop\\scaffolder',
+        project: [
+          './tsconfig.app.json',
+          './tsconfig.json',
+          './tsconfig.node.json',
+        ],
+        tsconfigRootDir: __dirname,
       },
     },
 
