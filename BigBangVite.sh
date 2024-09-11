@@ -58,7 +58,7 @@ main() {
     modifyESLintConfig
     codeToBeRemoved=(".tsx")
     removeTextContent "codeToBeRemoved[@]"
-    local strictPackages=("@typescript-eslint/eslint-plugin" "@typescript-eslint/parser" "eslint" "eslint-config-prettier" "eslint-plugin-jsx-a11y" "eslint-plugin-prettier" "eslint-plugin-react" "eslint-plugin-react-hooks" "eslint-plugin-react-refresh" "eslint-plugin-no-type-assertion")
+    local strictPackages=("@eslint/compat" "globals" "@eslint/js" "@eslint/eslintrc" "@typescript-eslint/eslint-plugin" "@typescript-eslint/parser" "eslint" "eslint-config-prettier" "eslint-plugin-jsx-a11y" "eslint-plugin-prettier" "eslint-plugin-react" "eslint-plugin-react-hooks" "eslint-plugin-react-refresh" "eslint-plugin-no-type-assertion")
     append_dependencies "development" strictPackages DEV_DEPENDENCIES
 
     # tsconfig.node.json
@@ -747,125 +747,13 @@ EOF
 }
 
 modifyESLintConfig() {
-    # rm .eslintrc.cjs
-
     cd "$PROJECT_DIRECTORY" || return
 
     local content=""
-    local fileName=".eslintrc.cjs"
+    local fileName="eslint.config.js"
 
-    content=$(
-        cat <<EOF
-module.exports = {
-  root: true,
-  settings: {
-    react: {
-      version: 'detect',
-    },
-  },
-  env: { browser: true, es2020: true },
-  extends: [
-    'eslint:recommended',
-    'plugin:react-hooks/recommended',
-
-    'plugin:@typescript-eslint/strict-type-checked', // Very strict!
-    'plugin:@typescript-eslint/stylistic-type-checked', // Very strict!
-
-    'plugin:react/recommended',
-    'plugin:jsx-a11y/recommended',
-    //
-  ],
-  ignorePatterns: [
-    'dist',
-    '.eslintrc.cjs',
-    'tailwind.config.js',
-    'postcss.config.js',
-  ],
-  parser: '@typescript-eslint/parser',
-  plugins: [
-    'react-refresh',
-    //
-    'react',
-    '@typescript-eslint',
-    'react-hooks',
-    'jsx-a11y',
-    //
-  ],
-  //
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
-    ecmaVersion: 12,
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.app.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-  //
-  rules: {
-    'object-shorthand': ['error', 'always'],
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
-
-    //
-    'no-restricted-syntax': [
-      'error',
-      {
-        selector: 'TSEnumDeclaration',
-        message: 'Enums are not allowed. Use object literals instead.',
-      },
-    ],
-    'no-alert': ['error'],
-    'no-console': ['error', { allow: ['warn', 'error'] }], // Disable all console outputs except console.warn and console.error
-    'react/react-in-jsx-scope': 'off',
-    // '@typescript-eslint/explicit-function-return-type': 'error',
-    '@typescript-eslint/no-unnecessary-boolean-literal-compare': ['error'],
-    '@typescript-eslint/no-unused-vars': [
-      'error',
-      { args: 'all', argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
-    ],
-    '@typescript-eslint/no-explicit-any': 'error',
-    '@typescript-eslint/strict-boolean-expressions': 'error',
-    // complexity: ['error', 10],
-    // 'max-depth': ['error', 4],
-    // 'max-lines': ['error', 300],
-    'react/jsx-props-no-spreading': 'error',
-    'react/jsx-filename-extension': [1, { extensions: ['.tsx'] }],
-    'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'error',
-    'react/jsx-pascal-case': 'error',
-    '@typescript-eslint/naming-convention': [
-      'error',
-      {
-        selector: 'function',
-        format: ['camelCase', 'PascalCase'],
-      },
-      {
-        selector: 'function',
-        modifiers: ['exported'],
-        format: ['camelCase', 'PascalCase'],
-      },
-      {
-        selector: 'class',
-        format: ['PascalCase'],
-      },
-      {
-        selector: 'typeLike',
-        format: ['PascalCase'],
-      },
-      {
-        selector: 'interface',
-        format: ['PascalCase'],
-        prefix: ['I'],
-      },
-    ],
-  },
-};
-
-EOF
-    )
+    # Get content from github repository
+    content=$(curl -s https://raw.githubusercontent.com/judigot/references/main/templates/node.js/config/eslint.config.js)
 
     echo "$content" >"$fileName"
     # Check if the file was created successfully
@@ -875,6 +763,7 @@ EOF
         echo -e "\e[31mFailed to create $fileName.\e[0m" # Red
     fi
 }
+
 
 createFile() {
     cd "$PROJECT_DIRECTORY" || return
