@@ -21,3 +21,9 @@ Salesforce common sales objects:
 
 *must install Dreamhouse app
 Package ID: 04tKY000000LOv6YAG
+
+
+## Skills
+
+### Customizing objects:
+- Adding a `Prequalified?` tab
