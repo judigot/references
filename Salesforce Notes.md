@@ -13,3 +13,8 @@ Salesforce capabilities:
 - provides ways to **collaborate** with people you work with
 - gives you **process to nurture** prospective customers
 - stores the **customer data**
+
+Salesforce common sales objects:
+- accounts
+- contracts
+- leads
