@@ -18,3 +18,6 @@ Salesforce common sales objects:
 - accounts
 - contracts
 - leads
+
+*must install Dreamhouse app
+Package ID: 04tKY000000LOv6YAG
