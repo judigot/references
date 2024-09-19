@@ -27,3 +27,12 @@ Package ID: 04tKY000000LOv6YAG
 
 ### Customizing objects:
 - Adding a `Prequalified?` tab
+
+# Discover Use Cases for the Platform
+
+Learning Objectives
+
+- Describe sample use cases for the platform.
+- Discover reasons for using the platform across multiple departments.
+
+Salesforce helps you automate tasks
