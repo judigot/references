@@ -3720,7 +3720,10 @@ console.log(Object.prototype.hasOwnProperty.call(person, "name")); // true
 *Tags: focus on element, focus html element, focus element*
 
 ```tsx
-(document.querySelector("#snippet_content") as HTMLElement | null)?.focus();
+const element = document.querySelector(`#${id}`);
+if (element instanceof HTMLElement) {
+  element.focus();
+}
 ```
 
 ### Extract Object Property Values
