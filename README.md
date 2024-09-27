@@ -3632,7 +3632,7 @@ interface IStore {
 export const useStore = create<IStore>()((set) => ({
   count: 1,
   increment: () => {
-    set(({ count }) => ({ count: count + 1 }));
+    set(({ count }) => ({ count: ++count }));
   },
   searchQuery: 'Initial value',
   setSearchQuery: (searchQuery) => {
@@ -3652,17 +3652,21 @@ export default function App() {
   return (
     <>
       <h1>Zustand</h1>
+      <h2>Example 1</h2>
       <button type="button" onMouseDown={increment}>
         Count: {count}
       </button>
-      <button
-        type="button"
-        onMouseDown={() => {
-          setSearchQuery('newValue');
+
+      <h2>Example 2</h2>
+      <input
+        type="text"
+        value={searchQuery}
+        onChange={(e) => {
+          setSearchQuery(e.target.value);
         }}
-      >
-        Search Query: {searchQuery}
-      </button>
+        placeholder="Enter search query"
+      />
+      <p>Global Search Query Value: {searchQuery}</p>
     </>
   );
 }
