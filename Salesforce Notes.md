@@ -36,3 +36,29 @@ Learning Objectives
 - Discover reasons for using the platform across multiple departments.
 
 Salesforce helps you automate tasks
+
+When identifying processes to bring into Salesforce, what are some things to look for?
+    Manual processes with numerous steps
+    Documents shared on local directories
+    Teams relying on spreadsheets to run the business
+
+What are three use cases for Finance on the Salesforce platform?
+Help desk, Pricing, Facilities management
+    Budget management, Pricing, Contract management
+
+# Understand the Salesforce Architecture
+
+- Define key terms related to the Salesforce architecture.
+- Find information related to trust.
+- Explain at least one use case for Salesforce APIs.
+
+Data lakehouse - an architecture that handles both structured and structured data and harmonizes it.
+
+Metadata - data about data
+
+# Navigate Setup
+
+- Locate Setup and identify its key elements.
+- Identify important menus for customizing your org.
+- Use Quick Find to access menu items.
+
