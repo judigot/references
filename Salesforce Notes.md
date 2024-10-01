@@ -1,3 +1,6 @@
+Relevant Exercises:
+    https://trailhead.salesforce.com/content/learn/modules/data_modeling/objects_intro?trail_id=force_com_admin_beginner
+
 # Unlock Business Success with Salesforce Data Platform
 
 Learning Objectives
@@ -62,3 +65,8 @@ Metadata - data about data
 - Identify important menus for customizing your org.
 - Use Quick Find to access menu items.
 
+# Optimize Customer Data with Standard and Custom Objects
+
+- Describe the perks of using objects on the Salesforce CRM platform.
+- Explain the difference between standard objects and custom objects.
+- List the types of custom fields an object can have.
