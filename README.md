@@ -2847,6 +2847,8 @@ float: right;
 
 ## Center div/Custom modal
 
+*Tags: center a div*
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
