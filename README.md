@@ -3680,7 +3680,35 @@ export default function App() {
 
 ### Type Guarding
 
-*Tags: typeguards, type guards, typechecking, type checking*
+*Tags: typesafe keys, type-safe keys, typesafe property keys, type-safe property keys, typesafe object keys, type-safe object keys, typesafe map keys, type-safe map keys, typesafe property names, type-safe property names, typeguards, type guards, typechecking, type checking*
+
+```tsx
+function isKeyOf<T extends object>(
+  obj: T,
+  key: string,
+): key is Extract<keyof T, string> {
+  return key in obj;
+}
+
+// Usage:
+const pages = {
+  login: Login,
+  register: Register,
+} as const;
+
+{Object.keys(pages).map((page) => {
+if (isKeyOf(pages, page)) {
+  return (
+    <div
+      key={page}
+    >
+      {page.charAt(0).toUpperCase() + page.slice(1)}
+    </div>
+  );
+}
+return null;
+})}
+```
 
 ```tsx
 interface IData {
