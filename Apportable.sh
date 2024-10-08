@@ -112,6 +112,7 @@ rm -rf "$destinationDir"
 #=====DENO=====#
 repository="https://github.com/denoland/deno"
 HTMLPatternToMatch='<span class="css-truncate css-truncate-target text-bold mr-2" style="max-width: none;">'
+
 # Fetch HTML content and extract the version string
 versionString=$(curl -s "$repository" | awk -v pattern="$HTMLPatternToMatch" '
     $0 ~ pattern {
@@ -120,23 +121,30 @@ versionString=$(curl -s "$repository" | awk -v pattern="$HTMLPatternToMatch" '
         exit;
     }')
 
-# Remove first character "v" to get the version number
-denoLatestVersion="$versionString"
+# Check if versionString is not empty
+if [[ -z "$versionString" ]]; then
+    echo "Failed to fetch the version string."
+    exit 1
+fi
 
-curl -L -o "$rootDir/$environment/deno.zip" "https://github.com/denoland/deno/releases/download/$denoLatestVersion/deno-x86_64-pc-windows-msvc.zip"
+# Download the Deno zip file
+curl -L -o "$rootDir/$environment/deno.zip" "https://github.com/denoland/deno/releases/download/$versionString/deno-x86_64-pc-windows-msvc.zip"
+
 # Path to the zip file
 zipFile="$rootDir/$environment/deno.zip"
 # Destination directory for extraction
 destinationDir="$rootDir/$environment/deno"
+
 # Check if the zip file exists
 if [ -f "$zipFile" ]; then
     # Create the destination directory if it doesn't exist
     [ -d "$destinationDir" ] || mkdir -p "$destinationDir"
-    # Extract the zip file
-    unzip "$zipFile" -d "$destinationDir"
+    # Extract the zip file using 7-Zip
+    "$_7zip_path/7z.exe" x -y "$zipFile" -o"$destinationDir"
     echo "Extraction complete."
 else
     echo "Zip file not found: $zipFile"
+    exit 1
 fi
 #=====DENO=====#
 
