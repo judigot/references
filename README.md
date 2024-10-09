@@ -7585,6 +7585,37 @@ CREATE TABLE "order_product" (
    - Example: An order can contain multiple products, and a product can be part of multiple orders.
    - Entities: `Order`, `Product`, `OrderProduct` (junction table)
 
+   Schema
+
+   *take note of the composite primary key
+
+   ```sql
+    CREATE TABLE order (
+        order_id SERIAL PRIMARY KEY,
+        order_date DATE NOT NULL
+    );
+    CREATE TABLE product (
+        product_id SERIAL PRIMARY KEY,
+        product_name VARCHAR(100) NOT NULL,
+        price DECIMAL(10, 2) NOT NULL
+    );
+    -- Junction/Pivot table for the many-to-many relationship
+    CREATE TABLE order_product (
+        order_id INT REFERENCES order(order_id) ON DELETE CASCADE,
+        product_id INT REFERENCES product(product_id) ON DELETE CASCADE,
+        quantity INT NOT NULL,
+        PRIMARY KEY (order_id, product_id)
+    );
+   ```
+
+    API Endpoint
+
+   ```bash
+    PUT /orders/{order_id}/products/{product_id}
+    PUT /orders/1/products/1
+    PUT /order_product?order_id=1&product_id=1
+   ```
+
 4. **Self-Referencing Relationship**
 
    - Example: Employees can manage other employees.
