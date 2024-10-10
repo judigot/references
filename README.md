@@ -6224,8 +6224,7 @@ git status
 
 ```
 
-
-Rename a branch (must be in the branch you want to rename):
+Rename a branch, rename a branch (must be in the branch you want to rename):
 git branch -m <new-branch-name>
 
 Upload a renamed brach to the repository:
