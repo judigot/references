@@ -10410,3 +10410,563 @@ By following these steps, you'll set up a comprehensive implementation of the Re
   - **Code Scanning Tools**  
     - Required tools and alert thresholds:
       - **CodeQL**
+
+
+# =====================================
+
+# Relationships Overview
+
+*Tags: table relationships, entity relationships, model relationships*
+
+- **hasOne** ↔ **belongsTo**
+  - **Example**: User hasOne Profile
+  - **Laravel**:
+    ```php
+    class User extends Model {
+        public function profile() {
+            return $this->hasOne(Profile::class);
+        }
+    }
+
+    class Profile extends Model {
+        public function user() {
+            return $this->belongsTo(User::class);
+        }
+    }
+    ```
+  - **Java Spring Boot**:
+    ```java
+    @Entity
+    public class User {
+        @OneToOne(mappedBy = "user")
+        private Profile profile;
+    }
+
+    @Entity
+    public class Profile {
+        @OneToOne
+        @JoinColumn(name = "user_id")
+        private User user;
+    }
+    ```
+  - **Django**:
+    ```python
+    class User(models.Model):
+        profile = models.OneToOneField('Profile', on_delete=models.CASCADE)
+
+    class Profile(models.Model):
+        user = models.OneToOneField(User, on_delete=models.CASCADE)
+    ```
+  - **Flask**:
+    ```python
+    class User(db.Model):
+        id = db.Column(db.Integer, primary_key=True)
+        profile = db.relationship('Profile', backref='user', uselist=False)
+
+    class Profile(db.Model):
+        id = db.Column(db.Integer, primary_key=True)
+        user_id = db.Column(db.Integer, db.ForeignKey('users.id'));
+    ```
+  - **Sequelize**:
+    ```javascript
+    const User = sequelize.define('User', { /* attributes */ });
+    const Profile = sequelize.define('Profile', { /* attributes */ });
+
+    User.hasOne(Profile);
+    Profile.belongsTo(User);
+    ```
+
+  - **Sample Data**:
+
+    **users**
+    | **User ID** | User Name |
+    |--------------|-----------|
+    | `1`          | Alice     |
+    | 2            | Bob       |
+
+    **profiles**
+    | **Profile ID** | **User ID** | Bio            |
+    |----------------|--------------|----------------|
+    | 1              | `1`          | Developer      |
+    | 2              | 2            | Designer       |
+
+---
+
+- **hasMany** ↔ **belongsTo**
+  - **Example**: Post hasMany Comments
+  - **Laravel**:
+    ```php
+    class Post extends Model {
+        public function comments() {
+            return $this->hasMany(Comment::class);
+        }
+    }
+
+    class Comment extends Model {
+        public function post() {
+            return $this->belongsTo(Post::class);
+        }
+    }
+    ```
+  - **Java Spring Boot**:
+    ```java
+    @Entity
+    public class Post {
+        @OneToMany(mappedBy = "post")
+        private List<Comment> comments;
+    }
+
+    @Entity
+    public class Comment {
+        @ManyToOne
+        @JoinColumn(name = "post_id")
+        private Post post;
+    }
+    ```
+  - **Django**:
+    ```python
+    class Post(models.Model):
+        comments = models.ManyToManyField('Comment', related_name='posts')
+
+    class Comment(models.Model):
+        post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    ```
+  - **Flask**:
+    ```python
+    class Post(db.Model):
+        id = db.Column(db.Integer, primary_key=True)
+        comments = db.relationship('Comment', backref='post', lazy=True)
+
+    class Comment(db.Model):
+        id = db.Column(db.Integer, primary_key=True)
+        post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
+    ```
+  - **Sequelize**:
+    ```javascript
+    const Post = sequelize.define('Post', { /* attributes */ });
+    const Comment = sequelize.define('Comment', { /* attributes */ });
+
+    Post.hasMany(Comment);
+    Comment.belongsTo(Post);
+    ```
+
+  - **Sample Data**:
+
+    **posts**
+    | **Post ID** | Post Title        |
+    |--------------|-------------------|
+    | `1`          | My First Post     |
+    | 2            | Another Post      |
+
+    **comments**
+    | **Comment ID** | **Post ID** | Comment Text       |
+    |----------------|--------------|---------------------|
+    | 1              | `1`          | Great post!         |
+    | 2              | `1`          | Thanks for sharing! |
+    | 3              | 2            | Nice insights!      |
+
+---
+
+- **hasMany** ↔ **belongsToMany**
+  - **Example**: Orders and Products with Pivot Table
+  - **Laravel**:
+    ```php
+    class Order extends Model {
+        public function products() {
+            return $this->belongsToMany(Product::class, 'order_items')
+                        ->withPivot('quantity');
+        }
+    }
+
+    class Product extends Model {
+        public function orders() {
+            return $this->belongsToMany(Order::class, 'order_items')
+                        ->withPivot('quantity');
+        }
+    }
+    ```
+  - **Java Spring Boot**:
+    ```java
+    @Entity
+    public class Order {
+        @ManyToMany
+        @JoinTable(name = "order_items",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+        private List<Product> products;
+    }
+
+    @Entity
+    public class Product {
+        @ManyToMany(mappedBy = "products")
+        private List<Order> orders;
+    }
+    ```
+  - **Django**:
+    ```python
+    class Order(models.Model):
+        products = models.ManyToManyField('Product', through='OrderItem')
+
+    class Product(models.Model):
+        orders = models.ManyToManyField(Order, through='OrderItem')
+
+    class OrderItem(models.Model):
+        order = models.ForeignKey(Order, on_delete=models.CASCADE)
+        product = models.ForeignKey(Product, on_delete=models.CASCADE)
+        quantity = models.IntegerField()
+    ```
+  - **Flask**:
+    ```python
+    order_items = db.Table('order_items',
+        db.Column('order_id', db.Integer, db.ForeignKey('orders.id')),
+        db.Column('product_id', db.Integer, db.ForeignKey('products.id')),
+        db.Column('quantity', db.Integer)
+    )
+
+    class Order(db.Model):
+        id = db.Column(db.Integer, primary_key=True)
+        products = db.relationship('Product', secondary=order_items, backref='orders')
+
+    class Product(db.Model):
+        id = db.Column(db.Integer, primary_key=True)
+    ```
+  - **Sequelize**:
+    ```javascript
+    const Order = sequelize.define('Order', { /* attributes */ });
+    const Product = sequelize.define('Product', { /* attributes */ });
+
+    Order.belongsToMany(Product, { through: 'OrderItem', foreignKey: 'order_id' });
+    Product.belongsToMany(Order, { through: 'OrderItem', foreignKey: 'product_id' });
+    ```
+
+  - **Sample Data**:
+
+    **orders**
+    | **Order ID** | Customer Name |
+    |---------------|---------------|
+    | 1             | Alice         |
+    | 2             | Bob           |
+
+    **products**
+    | **Product ID** | Product Name    |
+    |----------------|------------------|
+    | 101            | Smartphone       |
+    | 102            | Laptop           |
+    | 103            | T-Shirt          |
+
+    **order_items**
+    | **Order ID** | **Product ID** | Quantity |
+    |---------------|----------------|----------|
+    | 1             | 101            | 2        |
+    | 1             | 102            | 1        |
+    | 2             | 103            | 4        |
+
+---
+
+- **hasOneThrough** ↔ **belongsTo**
+  - **Example**: User hasOneThrough Address via Profile
+  - **Laravel**:
+    ```php
+    class User extends Model {
+        public function address() {
+            return $this->hasOneThrough(Address::class, Profile::class);
+        }
+    }
+
+    class Address extends Model {
+        public function user() {
+            return $this->belongsTo(User::class);
+        }
+    }
+    ```
+  - **Java Spring Boot**:
+    ```java
+    @Entity
+    public class User {
+        @OneToOne
+        @JoinColumn(name = "profile_id")
+        private Profile profile;
+
+        @OneToOne(mappedBy = "user")
+        private Address address;
+    }
+
+    @Entity
+    public class Address {
+        @OneToOne
+        @JoinColumn(name = "user_id")
+        private User user;
+    }
+    ```
+  - **Django**:
+    ```python
+    class User(models.Model):
+        profile = models.OneToOneField('Profile', on_delete=models.CASCADE)
+
+        @property
+        def address(self):
+            return self.profile.address
+
+    class Profile(models.Model):
+        user = models.OneToOneField(User, on_delete=models.CASCADE)
+        address = models.OneToOneField('Address', on_delete=models.CASCADE)
+    ```
+  - **Flask**:
+    ```python
+    class User(db.Model):
+        id = db.Column(db.Integer, primary_key=True)
+        profile = db.relationship('Profile', backref='user', uselist=False)
+
+    class Address(db.Model):
+        id = db.Column(db.Integer, primary_key=True)
+        user_id = db.Column(db.Integer, db.ForeignKey('users.id'));
+    ```
+
+  - **Sample Data**:
+
+    **users**
+    | **User ID** | User Name |
+    |--------------|-----------|
+    | 1            | Alice     |
+    | 2            | Bob       |
+
+    **profiles**
+    | **Profile ID** | **User ID** | Bio            |
+    |----------------|--------------|----------------|
+    | 1              | 1            | Developer      |
+    | 2              | 2            | Designer       |
+
+    **addresses**
+    | **Address ID** | **User ID** | Address Details            |
+    |----------------|--------------|-----------------------------|
+    | 1              | 1            | 123 Main St, City, Country |
+    | 2              | 2            | 456 Elm St, City, Country   |
+
+---
+
+- **hasManyThrough** ↔ **belongsToMany**
+  - **Example**: User hasManyThrough Posts via Comments
+  - **Laravel**:
+    ```php
+    class User extends Model {
+        public function posts() {
+            return $this->hasManyThrough(Post::class, Comment::class);
+        }
+    }
+
+    class Post extends Model {
+        public function users() {
+            return $this->belongsToMany(User::class);
+        }
+    }
+    ```
+  - **Java Spring Boot**:
+    ```java
+    @Entity
+    public class User {
+        @OneToMany(mappedBy = "user")
+        private List<Comment> comments;
+
+        @ManyToMany(mappedBy = "users")
+        private List<Post> posts;
+    }
+
+    @Entity
+    public class Post {
+        @ManyToMany
+        @JoinTable(name = "post_user",
+            joinColumns = @JoinColumn(name = "post_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+        private List<User> users;
+    }
+    ```
+  - **Django**:
+    ```python
+    class User(models.Model):
+        comments = models.ManyToManyField('Comment', related_name='users')
+
+        @property
+        def posts(self):
+            return Post.objects.filter(comments__user=self)
+
+    class Post(models.Model):
+        users = models.ManyToManyField(User, related_name='posts')
+    ```
+  - **Flask**:
+    ```python
+    post_user = db.Table('post_user',
+        db.Column('post_id', db.Integer, db.ForeignKey('posts.id')),
+        db.Column('user_id', db.Integer, db.ForeignKey('users.id'))
+    )
+
+    class User(db.Model):
+        id = db.Column(db.Integer, primary_key=True)
+        comments = db.relationship('Comment', backref='user', lazy=True)
+        posts = db.relationship('Post', secondary=post_user, backref='users');
+
+    class Post(db.Model):
+        id = db.Column(db.Integer, primary_key=True);
+    ```
+
+  - **Sample Data**:
+
+    **users**
+    | **User ID** | User Name |
+    |--------------|-----------|
+    | 1            | Alice     |
+    | 2            | Bob       |
+
+    **comments**
+    | **Comment ID** | **User ID** | Comment Text       |
+    |----------------|--------------|---------------------|
+    | 1              | 1            | Great post!         |
+    | 2              | 1            | Thanks for sharing! |
+    | 3              | 2            | Nice insights!      |
+
+    **posts**
+    | **Post ID** | Post Title        |
+    |--------------|-------------------|
+    | 1            | My First Post     |
+    | 2            | Another Post      |
+
+- **Self-Referencing Relationship**
+  - **Example**: Employee hasMany Subordinates and belongs to a Supervisor
+  - **Laravel**:
+    ```php
+    class Employee extends Model {
+        public function supervisor() {
+            return $this->belongsTo(Employee::class, 'supervisor_id');
+        }
+
+        public function subordinates() {
+            return $this->hasMany(Employee::class, 'supervisor_id');
+        }
+    }
+    ```
+  - **Java Spring Boot**:
+    ```java
+    @Entity
+    public class Employee {
+        @ManyToOne
+        @JoinColumn(name = "supervisor_id")
+        private Employee supervisor;
+
+        @OneToMany(mappedBy = "supervisor")
+        private List<Employee> subordinates;
+    }
+    ```
+  - **Django**:
+    ```python
+    class Employee(models.Model):
+        supervisor = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, related_name='subordinates')
+    ```
+  - **Flask**:
+    ```python
+    class Employee(db.Model):
+        id = db.Column(db.Integer, primary_key=True)
+        supervisor_id = db.Column(db.Integer, db.ForeignKey('employee.id'))
+        supervisor = db.relationship('Employee', remote_side=[id], backref='subordinates')
+    ```
+  - **Sequelize**:
+    ```javascript
+    const Employee = sequelize.define('Employee', { /* attributes */ });
+
+    Employee.belongsTo(Employee, { as: 'supervisor', foreignKey: 'supervisor_id' });
+    Employee.hasMany(Employee, { as: 'subordinates', foreignKey: 'supervisor_id' });
+    ```
+
+  - **Sample Data**:
+
+    **employees**
+    | **Employee ID** | Employee Name | Supervisor ID |
+    |-----------------|----------------|---------------|
+    | 1               | Alice          | null          |
+    | 2               | Bob            | 1             |
+    | 3               | Carol          | 1             |
+
+---
+
+- **Composite Key Relationship**
+  - **Example**: Order hasMany OrderItems (Composite Key: Order ID + Product ID)
+  - **Laravel**:
+    ```php
+    class OrderItem extends Model {
+        protected $primaryKey = ['order_id', 'product_id'];
+        public $incrementing = false;
+
+        public function order() {
+            return $this->belongsTo(Order::class);
+        }
+
+        public function product() {
+            return $this->belongsTo(Product::class);
+        }
+    }
+    ```
+  - **Java Spring Boot**:
+    ```java
+    @Embeddable
+    public class OrderItemKey implements Serializable {
+        @Column(name = "order_id")
+        private Long orderId;
+
+        @Column(name = "product_id")
+        private Long productId;
+
+        // equals() and hashCode() methods
+    }
+
+    @Entity
+    public class OrderItem {
+        @EmbeddedId
+        private OrderItemKey id;
+
+        @ManyToOne
+        @MapsId("orderId")
+        private Order order;
+
+        @ManyToOne
+        @MapsId("productId")
+        private Product product;
+    }
+    ```
+  - **Django**:
+    ```python
+    class OrderItem(models.Model):
+        order = models.ForeignKey(Order, on_delete=models.CASCADE)
+        product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+        class Meta:
+            unique_together = ['order', 'product']
+    ```
+  - **Flask**:
+    ```python
+    class OrderItem(db.Model):
+        order_id = db.Column(db.Integer, db.ForeignKey('orders.id'), primary_key=True)
+        product_id = db.Column(db.Integer, db.ForeignKey('products.id'), primary_key=True)
+    ```
+  - **Sequelize**:
+    ```javascript
+    const OrderItem = sequelize.define('OrderItem', {
+      order_id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+      },
+      product_id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+      }
+    });
+
+    OrderItem.belongsTo(Order);
+    OrderItem.belongsTo(Product);
+    ```
+
+  - **Sample Data**:
+
+    **order_items**
+    | **Order ID** | **Product ID** | Quantity |
+    |--------------|----------------|----------|
+    | 1            | 101            | 2        |
+    | 1            | 102            | 1        |
+    | 2            | 103            | 4        |
