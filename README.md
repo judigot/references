@@ -6256,7 +6256,7 @@ Force delete a branch, even if it has unmerged changes
 *Tags: delete branch, remove branch, delete git branch, remove git branch*
 git branch -D <delete-this-branch>
 
-Delete a remote branch:
+Delete a remote branch, delete remote branch, remove remote branch, remove a remote branch:
 git push origin -d <delete-this-branch>
 
 Switch to another branch
