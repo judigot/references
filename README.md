@@ -6241,6 +6241,11 @@ Merge a branch to production:
 git checkout main
 git merge <new-branch>
 
+*Tags: create a new branch with the stashed files; other tags; git stash branch; create a new branch from stash; create new branches from stash; git create branch with stashed changes; how to apply stash to a new branch; git branch from stash; git stash usage; git stash command; git stash best practices; git branch management; version control with git; git stash tutorial; git branch commands; working with git stash; git stashing changes; new branch from unsaved work; create a branch from unsaved work; create branches from unsaved work; git branch from uncommitted work; branch from unstaged changes; new branch from an unsaved work; create a branch from unsaved changes; create branches from unsaved changes; git branch from an uncommitted work; branch from an unstaged change; new branch from unsaved file; create a branch from unsaved file; create branches from unsaved files; git branch from an unstaged file; branch from an unsaved file; new branches from unsaved files; new branch from unsaved files*
+
+    # Stash your files first using  git stash -u. This command will use the latest stash
+    git stash branch new-branch-name
+
 List all remote branches:
 git branch -a
 
