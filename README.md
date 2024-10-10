@@ -6253,6 +6253,7 @@ Delete a local branch; delete local branch (checkout to another branch before de
 git branch -d <delete-this-branch>
 
 Force delete a branch, even if it has unmerged changes
+*Tags: delete branch, remove branch, delete git branch, remove git branch*
 git branch -D <delete-this-branch>
 
 Delete a remote branch:
