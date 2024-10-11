@@ -6076,8 +6076,9 @@ Creates a new commit that reverts the repository to a previous state while prese
 *Tags: revert git branch, reset git version, reset version, reset to previous version, reset repository using hash*
 
 ```bash
-git revert --no-commit 112405e..HEAD
-git commit -m "Revert to commit 112405e"
+# git revert --no-commit j58c1688b438933ca547f77053c7fcf0e2d21492..HEAD # Revert changes from the specified commit to the latest commit without creating a commit yet.
+git revert --no-commit j58c1688b438933ca547f77053c7fcf0e2d21492..HEAD # Revert changes from the specified commit to the latest commit, allowing review or adjustments.
+git commit -m "Revert to commit j58c1688b438933ca547f77053c7fcf0e2d21492" # Commit the reverted changes with a message.
 git push origin HEAD
 ```
 
@@ -6107,7 +6108,8 @@ Deletes all changes that came after the specified commit.
 *Tags: reset git version, reset version, reset to previous version, reset repository using hash*
 
 ```bash
-git reset --hard 112405e
+# git reset --hard j58c1688b438933ca547f77053c7fcf0e2d21492 # Move the branch to a specific commit, losing all changes after that.
+git reset j58c1688b438933ca547f77053c7fcf0e2d21492 # Move the branch to a specific commit, keeping changes made after that in the working directory.
 git push origin HEAD --force
 ```
 
