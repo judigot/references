@@ -6078,7 +6078,7 @@ Creates a new commit that reverts the repository to a previous state while prese
 ```bash
 # git revert --no-commit j58c1688b438933ca547f77053c7fcf0e2d21492..HEAD # Revert changes from the specified commit to the latest commit without creating a commit yet.
 git revert --no-commit j58c1688b438933ca547f77053c7fcf0e2d21492..HEAD # Revert changes from the specified commit to the latest commit, allowing review or adjustments.
-git commit -m "Revert to commit j58c1688b438933ca547f77053c7fcf0e2d21492" # Commit the reverted changes with a message.
+git commit -m "Revert to previous commit without losing history"
 git push origin HEAD
 ```
 
