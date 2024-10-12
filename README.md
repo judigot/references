@@ -6538,7 +6538,6 @@ CONTROLLER COMMANDS:
 MIGRATION COMMANDS:
 •Rollback every migration; reset every migration; rollback all migrations; reset all migrations; reset database; reset tables
   php artisan migrate:reset
-
 •Define database tables from PHP classes (setup the database details in .env file first):
 	php artisan migrate
 •Create "migrations" table:
