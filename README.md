@@ -9170,6 +9170,9 @@ asyncFunction
 asyncAwaitTryCatch
 thenCatchFinally
 tryCatchFinallyBlock
+guardClauses, errorHandling; handleErrors
+earlyReturns, errorHandling; handleErrors
+earlyExits, errorHandling; handleErrors
 ```
 
 # =====================================
