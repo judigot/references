@@ -5335,9 +5335,9 @@ use custom hooks to fetch data
 always add a unique key (id) to elements (e.g. lists, comments, etc.)
 use uuid to generate unique random keys
 
-components must be functional components (class components is old)
+components must be functional components (class components are old)
 
-props/proponents - data that can be used by the componen (e.g. names)
+props/proponents - data that can be used by the component (e.g. names, database values to be rendered)
 
 Hot module replacement:
 if (module.hot) {
@@ -5346,7 +5346,7 @@ if (module.hot) {
 
 function vs arrow functions, optional return statement
 
-super(props) - to ensure that the React. Component 's constructor() function gets called
+super(props) - to ensure that the React Component 's constructor() function gets called
 			 - put in every constructor
 			 - When having a constructor in your ES6 class component, it is mandatory to call super();
 
