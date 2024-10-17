@@ -34,15 +34,28 @@ Remove-Item $installerPath
 #==========7-ZIP==========#
 
 #==========GIT==========#
-# Extract href attribute for the latest portable git
-$htmlContent = Invoke-WebRequest -Uri "https://git-scm.com/download/win"
-# Define the text content you're searching for in a variable
-$textContent = '64-bit Git for Windows Portable'
-# Use the textContent variable to filter the links and extract the href attribute
-$portableGitDownloadLink = ($htmlContent.Links | Where-Object { $_.innerText -eq $textContent }).href
+# Fetch the latest Git release using GitHub API
+$latestRelease = Invoke-RestMethod -Uri "https://api.github.com/repos/git-for-windows/git/releases/latest" -Headers @{ "User-Agent" = "PowerShell" }
+
+# Extract the latest version tag (e.g., v2.47.0.windows.1)
+$latestVersion = $latestRelease.tag_name
+
+# Remove the '.windows.*' part to get the core version (e.g., v2.47.0)
+$coreVersion = $latestVersion -replace '\.windows.*', ''
+
+# Construct the download URL for the latest 64-bit Portable Git based on the version
+$portableGitDownloadLink = "https://github.com/git-for-windows/git/releases/download/$latestVersion/PortableGit-$($coreVersion -replace 'v','')-64-bit.7z.exe"
+
+# Echo the constructed Portable Git download link to ensure it's correct
+Write-Host "Constructed URL for Portable Git: $portableGitDownloadLink"
+
+# Define the portable Git file name
 $portableGitFilename = "PortableGit.exe"
+
 # Install PortableGit
 curl -O $portableGitInstallationDir\$portableGitFilename $portableGitDownloadLink
+
+# Use 7-Zip to extract the Portable Git installer to the desired directory
 & "$7ZipInstallationDir\7z.exe" x "$portableGitInstallationDir\$portableGitFilename" -o"$portableGitInstallationDir\PortableGit" -aoa
 #==========GIT==========#
 
