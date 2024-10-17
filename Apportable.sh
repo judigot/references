@@ -431,19 +431,19 @@ environment="Audio Production"
 
 # #=====REAPER=====#
 # Clone audio-production
-[ -d "$rootDir/$environment" ] || mkdir -p "$rootDir/$environment" && cd "$_" || return
-git clone git@github.com:judigot/audio-production.git .
-# Clone "reaper"
-[ -d "$rootDir/$environment/REAPER" ] || mkdir -p "$rootDir/$environment/REAPER" && cd "$_" || return
-git clone git@github.com:judigot/reaper.git .
-URL="https://www.reaper.fm/download.php"
-htmlContent=$(curl -L --silent "$URL")
-reaperDownloadLink="https://www.reaper.fm/$(echo "$htmlContent" | awk '/x64-install\.exe/ && /href=/{print}' | sed -n 's/.*href="\([^"]*x64-install\.exe[^"]*\).*/\1/p')"
-# Download REAPER
-curl -L -o "$rootDir/$environment/reaper-install.exe" $reaperDownloadLink
-powershell.exe -Command "Start-Process -FilePath '\"$rootDir/$environment/reaper-install.exe\"'"
-reaperInstallationPath="$(echo "$rootDir/$environment/REAPER"  | sed 's|/|\\\\|g')"
-echo -e "\e[32mREAPER Portable Installation Directory:\n\n$reaperInstallationPath\e[0m" # Green
+# [ -d "$rootDir/$environment" ] || mkdir -p "$rootDir/$environment" && cd "$_" || return
+# git clone git@github.com:judigot/audio-production.git .
+# # Clone "reaper"
+# [ -d "$rootDir/$environment/REAPER" ] || mkdir -p "$rootDir/$environment/REAPER" && cd "$_" || return
+# git clone git@github.com:judigot/reaper.git .
+# URL="https://www.reaper.fm/download.php"
+# htmlContent=$(curl -L --silent "$URL")
+# reaperDownloadLink="https://www.reaper.fm/$(echo "$htmlContent" | awk '/x64-install\.exe/ && /href=/{print}' | sed -n 's/.*href="\([^"]*x64-install\.exe[^"]*\).*/\1/p')"
+# # Download REAPER
+# curl -L -o "$rootDir/$environment/reaper-install.exe" $reaperDownloadLink
+# powershell.exe -Command "Start-Process -FilePath '\"$rootDir/$environment/reaper-install.exe\"'"
+# reaperInstallationPath="$(echo "$rootDir/$environment/REAPER"  | sed 's|/|\\\\|g')"
+# echo -e "\e[32mREAPER Portable Installation Directory:\n\n$reaperInstallationPath\e[0m" # Green
 # #=====REAPER=====#
 
 #==========AUDIO PRODUCTION==========#
