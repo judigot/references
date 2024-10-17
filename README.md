@@ -8371,47 +8371,59 @@ Ctrl + Shift + Alt =====> ?
 
 ### Framework Files
 
-| Framework (Programming Language) | Package Manager File | Environment File                            | Database Configuration File                 | Configuration File                   | Testing Configuration File                       | Log Files                  |
-| :------------------------------- | :------------------- | :------------------------------------------ | :------------------------------------------ | :----------------------------------- | :----------------------------------------------- | :------------------------- |
-| Java Spring Boot (Java)          | ./pom.xml            | ./src/main/resources/application.properties | ./src/main/resources/application.properties | ./src/main/resources/application.yml | ./src/test/resources/application-test.properties | ./logs/application.log     |
-| Next.js (TypeScript/JavaScript)  | ./package.json       | ./.env                                      | ./.env                                      | ./config/default.json                | ./config/test.json                               | ./logs/app.log             |
-| Django (Python)                  | ./requirements.txt   | ./.env                                      | ./.env                                      | ./settings.py                        | ./settings_test.py                               | ./logs/django.log          |
-| Flask (Python)                   | ./requirements.txt   | ./.env                                      | ./.env                                      | ./config.py                          | ./config_test.py                                 | ./logs/flask.log           |
-| Laravel (PHP)                    | ./composer.json      | ./.env                                      | .env                                        | ./config/app.php                     | ./phpunit.xml                                    | ./storage/logs/laravel.log |
+### Framework Files
+
+| File Type                   | Laravel (PHP)              | Java Spring Boot (Java)                          | Next.js (TypeScript/JavaScript) | Django (Python)    | Flask (Python)     |
+| --------------------------- | -------------------------- | ------------------------------------------------ | ------------------------------- | ------------------ | ------------------ |
+| Package Manager File        | ./composer.json            | ./pom.xml                                        | ./package.json                  | ./requirements.txt | ./requirements.txt |
+| Environment File            | ./.env                     | ./src/main/resources/application.properties      | ./.env                          | ./.env             | ./.env             |
+| Database Configuration File | .env                       | ./src/main/resources/application.properties      | ./.env                          | ./.env             | ./.env             |
+| Configuration File          | ./config/app.php           | ./src/main/resources/application.yml             | ./config/default.json           | ./settings.py      | ./config.py        |
+| Testing Configuration File  | ./phpunit.xml              | ./src/test/resources/application-test.properties | ./config/test.json              | ./settings_test.py | ./config_test.py   |
+| Log Files                   | ./storage/logs/laravel.log | ./logs/application.log                           | ./logs/app.log                  | ./logs/django.log  | ./logs/flask.log   |
+
 
 ### Framework Directories
+| File Type/Directory       | Laravel (PHP)                             | Java Spring Boot (Java)                | Next.js (TypeScript/JavaScript) | Django (Python) | Flask (Python)             |
+| ------------------------- | ----------------------------------------- | -------------------------------------- | ------------------------------- | --------------- | -------------------------- |
+| Routes File/Directory     | ./routes/web.php                          | ./src/main/java/com/example/routes     | ./app (file-based routing)      | ./urls.py       | ./routes.py                |
+| Middleware File           | ./app/Http/Middleware                     | ./src/main/java/com/example/middleware | ./middleware/logger.ts          | ./middleware.py | ./middleware.py            |
+| Service/Controller Files  | ./app/Http/Controllers/UserController.php | ./src/main/java/com/example/service    | ./app/api/user.ts               | ./views.py      | ./services/user_service.py |
+| Views/Templates Directory | ./resources/views                         | ./src/main/resources/templates         | ./app                           | ./templates     | ./templates                |
+| Static Files Directory    | ./public                                  | ./src/main/resources/static            | ./public                        | ./static        | ./static                   |
+| Models                    | ./app/Models                              | ./src/main/java/com/example/models     |                                 | ./models.py     | ./models.py                |
+| Services                  | ./app/Http/Controllers                    | ./src/main/java/com/example/service    | ./app/api/services              | ./services.py   | ./services/user_service.py |
+| Repositories              | ./app/Repositories                        |                                        |                                 |                 |                            |
+| Providers                 | ./app/Providers                           |                                        |                                 |                 |                            |
+| Jobs                      | ./app/Jobs                                |                                        |                                 |                 |                            |
+| Helpers                   | ./app/Helpers                             |                                        |                                 |                 |                            |
+| Exceptions                | ./app/Exceptions                          |                                        |                                 |                 |                            |
 
-| Framework (Programming Language) | Routes File/Directory              | Middleware File                        | Service/Controller Files                  | Views/Templates Directory      | Static Files Directory      | Models                             | Services                            | Repositories       | Providers       | Jobs          | Helpers       | Exceptions       |
-| :------------------------------- | :--------------------------------- | :------------------------------------- | :---------------------------------------- | :----------------------------- | :-------------------------- | :--------------------------------- | :---------------------------------- | :----------------- | :-------------- | :------------ | :------------ | :--------------- |
-| Java Spring Boot (Java)          | ./src/main/java/com/example/routes | ./src/main/java/com/example/middleware | ./src/main/java/com/example/service       | ./src/main/resources/templates | ./src/main/resources/static | ./src/main/java/com/example/models | ./src/main/java/com/example/service | Not available      | Not available   | Not available | Not available | Not available    |
-| Next.js (TypeScript/JavaScript)  | ./app (file-based routing)         | ./middleware/logger.ts                 | ./app/api/user.ts                         | ./app                          | ./public                    | Not available                      | ./app/api/services                  | Not available      | Not available   | Not available | Not available | Not available    |
-| Django (Python)                  | ./urls.py                          | ./middleware.py                        | ./views.py                                | ./templates                    | ./static                    | ./models.py                        | ./services.py                       | Not available      | Not available   | Not available | Not available | Not available    |
-| Flask (Python)                   | ./routes.py                        | ./middleware.py                        | ./services/user_service.py                | ./templates                    | ./static                    | ./models.py                        | ./services/user_service.py          | Not available      | Not available   | Not available | Not available | Not available    |
-| Laravel (PHP)                    | ./routes/web.php                   | ./app/Http/Middleware                  | ./app/Http/Controllers/UserController.php | ./resources/views              | ./public                    | ./app/Models                       | ./app/Http/Controllers              | ./app/Repositories | ./app/Providers | ./app/Jobs    | ./app/Helpers | ./app/Exceptions |
 
 ### Commands
 
-| Command                    | Java Spring Boot (Java)          | Next.js (TypeScript/JavaScript)       | Django (Python)                           | Flask (Python)                     | Laravel (PHP)                                 |
-| :------------------------- | :------------------------------- | :------------------------------------ | :---------------------------------------- | :--------------------------------- | :-------------------------------------------- |
-| Dev Mode Command           | mvn spring-boot:run              | pnpm dev                              | python manage.py runserver                | flask run                          | php artisan serve                             |
-| Build Command              | mvn package                      | pnpm build                            | python manage.py collectstatic            | flask collect                      | php artisan config:cache                      |
-| Linting Command            | mvn checkstyle:check             | pnpm lint                             | pylint projectName                        | pylint projectName                 | php artisan lint                              |
-| Testing Command            | mvn test                         | pnpm test                             | pytest                                    | pytest                             | php artisan test                              |
-| Start Command              | java -jar target/\*.jar          | pnpm start                            | gunicorn projectName.wsgi:application     | gunicorn projectName:app           | php artisan serve --env=production            |
-| Install Command            | mvn install                      | pnpm install                          | pip install -r requirements.txt           | pip install -r requirements.txt    | composer install                              |
-| Dependency Update Command  | mvn versions:use-latest-releases | pnpm update                           | pip install -U -r requirements.txt        | pip install -U -r requirements.txt | composer update                               |
-| Framework Version Command  | mvn --version                    | pnpm -v                               | python -m django --version                | flask --version                    | php artisan --version                         |
-| Run Migration Command      | mvn flyway:migrate               | pnpm prisma migrate deploy            | python manage.py migrate                  | flask db upgrade                   | php artisan migrate                           |
-| Generate Migration Command | mvn flyway:repair                | pnpm prisma migrate dev               | python manage.py makemigrations           | flask db migrate                   | php artisan make:migration                    |
-| Rollback Migration Command | mvn flyway:undo                  | pnpm prisma migrate reset             | python manage.py migrate <migration_name> | flask db downgrade                 | php artisan migrate:rollback                  |
-| Seed Command               | mvn flyway:seed                  | pnpm prisma db seed                   | python manage.py loaddata <fixture>       | flask db-seed                      | php artisan db:seed                           |
-| Drop Database Command      | mvn flyway:drop                  | n/a                                   | python manage.py flush                    | flask db drop                      | php artisan db:wipe                           |
-| Create Database Command    | mvn flyway:create                | pnpm prisma db push                   | python manage.py migrate                  | flask db create                    | php artisan db:create                         |
-| Dump Command               | mvn flyway:dump                  | n/a                                   | python manage.py dumpdata                 | flask db dump                      | php artisan db:dump                           |
-| Restore Command            | mvn flyway:restore               | n/a                                   | python manage.py loaddata <backup>        | flask db restore                   | php artisan db:restore                        |
-| Create Controller Command  | n/a                              | npx create-next-app pages/api/example | python manage.py startapp example         | n/a                                | php artisan make:controller ExampleController |
-| Create Repository Command  | n/a                              | npx prisma init                       | n/a                                       | n/a                                | php artisan make:repository ExampleRepository |
-| Create Service Command     | n/a                              | npx prisma init                       | n/a                                       | n/a                                | php artisan make:service ExampleService       |
+| Command                      | Laravel (PHP)                                 | Java Spring Boot (Java)          | Next.js (TypeScript/JavaScript)                  | Django (Python)                                               | Flask (Python)                     |
+| ---------------------------- | --------------------------------------------- | -------------------------------- | ------------------------------------------------ | ------------------------------------------------------------- | ---------------------------------- |
+| Dev Mode Command             | php artisan serve                             | mvn spring-boot:run              | pnpm dev                                         | python manage.py runserver                                    | flask run                          |
+| Build Command                | php artisan config:cache                      | mvn package                      | pnpm build                                       | python manage.py collectstatic                                | flask collect                      |
+| Linting Command              | php artisan lint                              | mvn checkstyle:check             | pnpm lint                                        | pylint projectName                                            | pylint projectName                 |
+| Testing Command              | php artisan test                              | mvn test                         | pnpm test                                        | pytest                                                        | pytest                             |
+| Start Command                | php artisan serve --env=production            | java -jar target/\*.jar          | pnpm start                                       | gunicorn projectName.wsgi:application                         | gunicorn projectName:app           |
+| Install Command              | composer install                              | mvn install                      | pnpm install                                     | pip install -r requirements.txt                               | pip install -r requirements.txt    |
+| Dependency Update Command    | composer update                               | mvn versions:use-latest-releases | pnpm update                                      | pip install -U -r requirements.txt                            | pip install -U -r requirements.txt |
+| Framework Version Command    | php artisan --version                         | mvn --version                    | pnpm -v                                          | python -m django --version                                    | flask --version                    |
+| Run Migration Command        | php artisan migrate                           | mvn flyway:migrate               | pnpm prisma migrate deploy                       | python manage.py migrate                                      | flask db upgrade                   |
+| Generate Migration Command   | php artisan make:migration                    | mvn flyway:repair                | pnpm prisma migrate dev                          | python manage.py makemigrations                               | flask db migrate                   |
+| Rollback Migration Command   | php artisan migrate:rollback                  | mvn flyway:undo                  | pnpm prisma migrate reset                        | python manage.py migrate <migration_name>                     | flask db downgrade                 |
+| Seed Command                 | php artisan db:seed                           | mvn flyway:seed                  | pnpm prisma db seed                              | python manage.py loaddata <fixture>                           | flask db-seed                      |
+| Fresh Migrate & Seed Command | php artisan migrate:fresh --seed              | mvn flyway:migrate               | pnpm prisma migrate reset && pnpm prisma db seed | python manage.py flush && python manage.py loaddata <fixture> | flask db drop && flask db-seed     |
+| Drop Database Command        | php artisan db:wipe                           | mvn flyway:drop                  |                                                  | python manage.py flush                                        | flask db drop                      |
+| Create Database Command      | php artisan db:create                         | mvn flyway:create                | pnpm prisma db push                              | python manage.py migrate                                      | flask db create                    |
+| Dump Command                 | php artisan db:dump                           | mvn flyway:dump                  |                                                  | python manage.py dumpdata                                     | flask db dump                      |
+| Restore Command              | php artisan db:restore                        | mvn flyway:restore               |                                                  | python manage.py loaddata <backup>                            | flask db restore                   |
+| Create Controller Command    | php artisan make:controller ExampleController |                                  | npx create-next-app pages/api/example            | python manage.py startapp example                             |                                    |
+| Create Repository Command    | php artisan make:repository ExampleRepository |                                  | npx prisma init                                  |                                                               |                                    |
+| Create Service Command       | php artisan make:service ExampleService       |                                  | npx prisma init                                  |                                                               |                                    |
 
 
 ## Back End Tests
@@ -8422,6 +8434,7 @@ Ctrl + Shift + Alt =====> ?
 
 *Tags: back end development, backend revelopment, back end skills, backend skills*
 
+- automating migration files creation by introspecting the existing database
 - JSON schema validator (zod, ajv)
 - Deduplication/deduping data
 - WSL2 as linux environment. See WSL2 vs docker environment
