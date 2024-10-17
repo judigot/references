@@ -6546,6 +6546,8 @@ MIGRATION COMMANDS:
 	php artisan migrate:rollback
 •Redefine database tables:
 	php artisan migrate:fresh
+•Redefine database tables with data:
+	php artisan migrate:fresh --seed
 •Create table:
 	php artisan make:migration create_sample_table
 •Update table:
