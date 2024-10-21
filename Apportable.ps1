@@ -13,14 +13,6 @@ if (!(Test-Path -Path "$portableGitInstallationDir")) {
     New-Item -Path "$portableGitInstallationDir" -ItemType Directory
 }
 
-#==========.BASHRC==========#
-$bashrc_content = ((Invoke-WebRequest -Uri "https://raw.githubusercontent.com/judigot/references/main/.bashrc").Content)
-$filename = ".bashrc"
-$file_path = Join-Path $env:USERPROFILE -ChildPath $filename
-Set-Content -Path $file_path -Value $bashrc_content
-Write-Host "$filename created successfully at: $file_path"
-#==========.BASHRC==========#
-
 #==========7-ZIP==========#
 $downloadURL = 'https://7-zip.org/' + (Invoke-WebRequest -UseBasicParsing -Uri 'https://7-zip.org/' | Select-Object -ExpandProperty Links | Where-Object {($_.outerHTML -match 'Download') -and ($_.href -like "a/*") -and ($_.href -like "*-x64.exe")} | Select-Object -First 1 | Select-Object -ExpandProperty href)
 $7ZipInstallationDir = "$portableGitInstallationDir\7-Zip"
