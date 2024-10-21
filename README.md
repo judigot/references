@@ -10096,12 +10096,26 @@ export const down = async (): Promise<void> => {
 
 # MSYS2
 
+## Update Packages
+
+```bash
+pacman -Syu --noconfirm # Yes to all
+# pacman -Syu
+```
+
 ## Must-have Packages
 
 ```bash
 pacman -S --noconfirm vim
 pacman -S --noconfirm zsh
 pacman -S --noconfirm openssh
+```
+
+## Install Packages
+
+```bash
+pacman -S --noconfirm git # Yes to all
+# pacman -S zsh
 ```
 
 ## ZSH Configuration
@@ -10127,20 +10141,6 @@ vim ~/.zshrc
 plugins=(git zsh-autosuggestions)
 
 # Restart terminal
-```
-
-## Update Packages
-
-```bash
-pacman -Syu --noconfirm # Yes to all
-# pacman -Syu
-```
-
-## Install Packages
-
-```bash
-pacman -S --noconfirm git # Yes to all
-# pacman -S zsh
 ```
 
 # =====================================
