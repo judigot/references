@@ -27,8 +27,10 @@ git config --global core.editor "vim"
 BAT_PATH="$rootDir/$environment/Bash.bat"
 cat << EOF > "$BAT_PATH"
 @echo off
-set HOME=%USERPROFILE%
-set BASH_ENV=%USERPROFILE%\.bashrc
+
+@REM set HOME=%USERPROFILE%
+set HOME=C:\apportable\Programming\msys64\home\%USERNAME%
+set BASH_ENV=%HOME%\.bashrc
 
 :: Check if a script file is passed as an argument
 if "%~1"=="" (
