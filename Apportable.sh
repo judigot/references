@@ -245,7 +245,7 @@ npm install -g pnpm
 #=====NVM=====#
 
 #=====JAVA OPENJDK=====#
-URL="https://jdk.java.net/21/"
+URL="https://jdk.java.net/23/"
 htmlContent=$(curl -L --silent "$URL")
 innerHTML="zip" # Keep the full innerHTML text, including spaces and parentheses
 targetAttribute="href"
@@ -275,16 +275,18 @@ curl -L -o "$rootDir/$environment/jdk.zip" $JDK_URL
 zipFile="$rootDir/$environment/jdk.zip"
 # Destination directory for extraction
 destinationDir="$rootDir/$environment/jdk_temp"
+
 # Check if the zip file exists
 if [ -f "$zipFile" ]; then
     # Create the destination directory if it doesn't exist
     [ -d "$destinationDir" ] || mkdir -p "$destinationDir"
+    
     # Extract the zip file
-    unzip "$zipFile" -d "$destinationDir"
-    echo "Extraction complete."
+    "$_7zip_path/7z.exe" x -y "$zipFile" -o"$destinationDir"
 else
     echo "Zip file not found: $zipFile"
 fi
+
 extractedContentFolderName=$(find "$destinationDir" -maxdepth 1 -mindepth 1 -type d -exec basename {} \;)
 # Move and rename
 mv "$destinationDir/$extractedContentFolderName" "$rootDir/$environment/jdk"
