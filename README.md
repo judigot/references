@@ -10094,13 +10094,14 @@ export const down = async (): Promise<void> => {
 </html>
 ```
 
-# MYSYS2
+# MSYS2
 
 ## Must-have Packages
 
 ```bash
 pacman -S --noconfirm vim
 pacman -S --noconfirm zsh
+pacman -S --noconfirm openssh
 ```
 
 ## ZSH Configuration
