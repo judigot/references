@@ -11,6 +11,16 @@ environment="Programming"
 # Create "apportable" directory if it doesn't exist
 [ -d "$rootDir/$environment" ] || mkdir -p "$rootDir/$environment"
 
+#=====.BASHRC=====#
+bashrc_url="https://raw.githubusercontent.com/judigot/references/main/.bashrc"
+curl -L "$bashrc_url" -o "$HOME/.bashrc"
+if [[ -f "$HOME/.bashrc" ]]; then
+    echo ".bashrc created successfully at: $HOME/.bashrc"
+else
+    echo "Failed to create .bashrc."
+    exit 1
+fi
+#=====.BASHRC=====#
 
 #=====GIT CONFIG=====#
 # Set "main" as default branch
