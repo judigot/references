@@ -3,10 +3,10 @@
 portableFolderName="apportable"
 rootDir="C:/$portableFolderName"
 
-_7zip_path="$rootDir/$environment/7-Zip"
-
 #==========PROGRAMMING==========#
 environment="Programming"
+
+_7zip_path="$rootDir/$environment/7-Zip"
 
 # Create "apportable" directory if it doesn't exist
 [ -d "$rootDir/$environment" ] || mkdir -p "$rootDir/$environment"
