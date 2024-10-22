@@ -1,4 +1,5 @@
 #!/bin/bash
+
 function helloWorld() {
     echo -e "\e[32mHello, $USERNAME!\e[0m" # Green
 }
