@@ -5,8 +5,8 @@ rootDir="C:/$portableFolderName"
 
 #==========PROGRAMMING==========#
 environment="Programming"
-# custom_home="C:/Users/$USERNAME" # Set the custom home directory dynamically using $USER
-custom_home="C:/apportable/Programming/msys64/home/$USERNAME" # Set the custom home directory dynamically using $USER
+custom_home="C:/Users/$USERNAME" # Set the custom home directory dynamically using $USER
+# custom_home="C:/apportable/Programming/msys64/home/$USERNAME" # Set the custom home directory dynamically using $USER
 _7zip_path="$rootDir/$environment/7-Zip"
 
 # Create "apportable" directory if it doesn't exist
