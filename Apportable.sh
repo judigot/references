@@ -224,6 +224,108 @@ npm config set script-shell "$rootDir/$environment/PortableGit/bin/bash.exe" # U
 npm install -g pnpm
 #=====NVM=====#
 
+#=====PHP=====#
+versionString=$(curl -s https://www.php.net/releases/feed.php | awk -F'<php:version>|</php:version>' '/<php:version>/{print $2; exit}')
+echo -e "$latestPHPVersion"
+
+# Check if versionString is not empty
+if [[ -z "$versionString" ]]; then
+    echo "Failed to fetch the version string."
+    exit 1
+fi
+
+# Download the php zip file
+curl -L -o "$rootDir/$environment/php.zip" "https://windows.php.net/downloads/releases/php-$versionString-nts-Win32-vs16-x64.zip"
+
+# Path to the zip file
+zipFile="$rootDir/$environment/php.zip"
+# Destination directory for extraction
+destinationDir="$rootDir/$environment/php"
+
+# Check if the zip file exists
+if [ -f "$zipFile" ]; then
+    # Create the destination directory if it doesn't exist
+    [ -d "$destinationDir" ] || mkdir -p "$destinationDir"
+    # Extract the zip file using 7-Zip
+    "$_7zip_path/7z.exe" x -y "$zipFile" -o"$destinationDir"
+    echo "Extraction complete."
+else
+    echo "Zip file not found: $zipFile"
+    exit 1
+fi
+#=====PHP=====#
+
+#=====COMPOSER=====#
+composerDir="$rootDir/$environment/composer"  # Set the directory for Composer
+
+# Create Composer directory if it doesn't exist
+[ -d "$composerDir" ] || mkdir -p "$composerDir"
+
+# Download Composer using the provided URL
+curl -L -o "$composerDir/composer.phar" "https://getcomposer.org/download/latest-stable/composer.phar"
+
+# Ensure Composer is executable
+chmod +x "$composerDir/composer.phar"
+
+# Create "composer" file
+cat << 'EOF' > "$composerDir/composer"
+#!/bin/bash
+
+# Get the directory of the script
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+# Call composer.phar from the script directory
+php "$SCRIPT_DIR/composer.phar" "$@"
+EOF
+
+# Ensure the "composer" script is executable
+chmod +x "$composerDir/composer"
+#=====COMPOSER=====#
+
+#=====PHP.INI=====#
+php_ini_path="$rootDir/$environment/php/php.ini"  # Path to the php.ini file
+php_ini_development="$rootDir/$environment/php/php.ini-development"  # Path to the development ini file
+
+# Recreate php.ini from php.ini-development
+cp "$php_ini_development" "$php_ini_path"
+
+# Append required PHP extensions and custom settings
+{
+    echo ""
+    cat <<EOF
+;=====CUSTOM=====;
+; Enable extensions directory
+extension_dir = "ext"
+
+; Extensions to enable
+;extension=bcmath
+;extension=calendar
+;extension=xmlrpc
+
+extension=exif
+extension=gettext
+extension=mysqli
+extension=pdo_mysql
+extension=pdo_pgsql
+extension=curl
+extension=mbstring
+extension=zip
+extension=gd
+extension=intl
+extension=soap
+
+; Overrides
+date.timezone = "Asia/Manila"
+post_max_size = 200M
+max_file_uploads = 200M
+upload_max_filesize = 2000M
+max_execution_time = 200
+max_input_time = 200
+;=====CUSTOM=====;
+EOF
+} >> "$php_ini_path"
+#=====PHP.INI=====#
+
 #=====JAVA OPENJDK=====#
 URL="https://jdk.java.net/23/"
 htmlContent=$(curl -L --silent "$URL")
