@@ -5,8 +5,8 @@ rootDir="C:/$portableFolderName"
 
 #==========PROGRAMMING==========#
 environment="Programming"
-custom_home="C:/Users/$USERNAME" # Set the custom home directory dynamically using $USER
-# custom_home="C:/apportable/Programming/msys64/home/$USERNAME" # Set the custom home directory dynamically using $USER
+HOME="C:/Users/$USERNAME" # Set the custom home directory dynamically using $USER
+# HOME="C:/apportable/Programming/msys64/home/$USERNAME" # Set the custom home directory dynamically using $USER
 _7zip_path="$rootDir/$environment/7-Zip"
 
 # Create "apportable" directory if it doesn't exist
@@ -69,31 +69,11 @@ mv "$destinationDir/$extractedContentFolderName" "$rootDir/$environment/msys64"
 rm -rf "$destinationDir"
 #=====MSYS2=====#
 
-#=====.BASHRC & .PROFILE=====#
-bashrc_url="https://raw.githubusercontent.com/judigot/references/main/.bashrc"
-profile_url="https://raw.githubusercontent.com/judigot/references/main/.profile"
-
-# Ensure the custom home directory exists
-mkdir -p "$custom_home"
-
-# Fetch and save the .bashrc file in the custom home directory
-curl -L "$bashrc_url" -o "$custom_home/.bashrc"
-if [[ -f "$custom_home/.bashrc" ]]; then
-    echo ".bashrc created successfully at: $custom_home/.bashrc"
-else
-    echo "Failed to create .bashrc."
-    exit 1
-fi
-
-# Fetch and save the .profile file in the custom home directory
-curl -L "$profile_url" -o "$custom_home/.profile"
-if [[ -f "$custom_home/.profile" ]]; then
-    echo ".profile created successfully at: $custom_home/.profile"
-else
-    echo "Failed to create .profile."
-    exit 1
-fi
-#=====.BASHRC & .PROFILE=====#
+#=====RC FILES=====#
+curl -sL https://raw.githubusercontent.com/judigot/references/main/.bashrc -o "$HOME/.bashrc"
+curl -sL https://raw.githubusercontent.com/judigot/references/main/.zshrc -o "$HOME/.zshrc"
+curl -sL https://raw.githubusercontent.com/judigot/references/main/.snippetsrc -o "$HOME/.snippetsrc"
+#=====RC FILES=====#
 
 #=====GIT CONFIG=====#
 # Set "main" as default branch
