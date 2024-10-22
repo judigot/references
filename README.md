@@ -10096,6 +10096,34 @@ export const down = async (): Promise<void> => {
 
 # MSYS2
 
+## Initial MSYS Setup
+
+```bash
+#=====UPDATE PACKAGES=====#
+pacman -Syu --noconfirm # Yes to all
+#=====UPDATE PACKAGES=====#
+
+#=====MUST-HAVE PACKAGES=====#
+pacman -S --noconfirm vim
+pacman -S --noconfirm openssh
+pacman -S --noconfirm zsh
+#=====MUST-HAVE PACKAGES=====#
+
+#=====ZSH CONFIGURATION=====#
+# Create an empty .zshrc file
+touch .zshrc
+# Run ZHS
+exec /usr/bin/zsh
+# Install Oh My Zsh framework
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# Install zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+# Add zsh-autosuggestions to the list of plugins in .zshrc: vim ~/.zshrc
+# It should look like this: plugins=(git zsh-autosuggestions)
+# Restart terminal
+#=====ZSH CONFIGURATION=====#
+```
+
 ## Update Packages
 
 ```bash
@@ -10103,44 +10131,11 @@ pacman -Syu --noconfirm # Yes to all
 # pacman -Syu
 ```
 
-## Must-have Packages
-
-```bash
-pacman -S --noconfirm vim
-pacman -S --noconfirm zsh
-pacman -S --noconfirm openssh
-```
-
 ## Install Packages
+*Tags: install pacman packages*
 
 ```bash
 pacman -S --noconfirm git # Yes to all
-# pacman -S zsh
-```
-
-## ZSH Configuration
-
-Add the line below to your .bashrc
-
-```bash
-# Create an empty .zshrc file
-touch .zshrc
-
-exec /usr/bin/zsh
-
-# Install Oh My Zsh framework
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-# Install zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-
-# Add zsh-autosuggestions to the list of plugins in .zshrc
-vim ~/.zshrc
-
-# It should look like this
-plugins=(git zsh-autosuggestions)
-
-# Restart terminal
 ```
 
 # =====================================
