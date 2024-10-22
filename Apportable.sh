@@ -2,7 +2,7 @@
 
 portableFolderName="apportable"
 rootDir="C:/$portableFolderName"
-
+# Test
 #==========PROGRAMMING==========#
 environment="Programming"
 # custom_home="C:/Users/$USERNAME" # Set the custom home directory dynamically using $USER
