@@ -6,12 +6,6 @@ function helloWorld() {
 alias hi='helloWorld'
 alias hello='helloWorld'
 
-function bigBangVite() {
-    curl -L "https://raw.githubusercontent.com/judigot/references/main/BigBangVite.sh" | bash
-}
-alias bbv='bigBangVite'
-alias bigbangvite='bigBangVite'
-
 function updateRCFiles() {
     curl -sL https://raw.githubusercontent.com/judigot/references/main/.bashrc -o "$HOME/.bashrc"
     curl -sL https://raw.githubusercontent.com/judigot/references/main/.zshrc -o "$HOME/.zshrc"
@@ -19,5 +13,18 @@ function updateRCFiles() {
 }
 alias update='updateRCFiles'
 alias updatercfiles='updateRCFiles'
-alias updateRCFiles='updateRCFiles'
 alias updatebashsnippets='updateRCFiles'
+
+function bigBangVite() {
+    curl -L "https://raw.githubusercontent.com/judigot/references/main/BigBangVite.sh" | bash
+}
+alias bbvite='bigBangVite'
+alias bigbangvite='bigBangVite'
+alias newprojectvite='bigBangVite'
+
+function bigBangLaravel() {
+    curl -L "https://raw.githubusercontent.com/judigot/references/main/BigBangLaravel.sh" | bash
+}
+alias bblaravel='bigBangLaravel'
+alias bigbanglaravel='bigBangLaravel'
+alias newprojectlaravel='bigBangLaravel'
