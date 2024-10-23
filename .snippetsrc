@@ -6,18 +6,25 @@ function helloWorld() {
 alias hi='helloWorld'
 alias hello='helloWorld'
 
-function updateRCFiles() {
-    curl -sL https://raw.githubusercontent.com/judigot/references/main/.bashrc -o "$HOME/.bashrc"
-    curl -sL https://raw.githubusercontent.com/judigot/references/main/.zshrc -o "$HOME/.zshrc"
-    curl -sL https://raw.githubusercontent.com/judigot/references/main/.snippetsrc -o "$HOME/.snippetsrc"
+updateRCFiles() {
+    curl -sL https://raw.githubusercontent.com/judigot/references/main/.bashrc -o "$HOME/.bashrc" || { echo "Failed to download .bashrc"; return 1; }
+    curl -sL https://raw.githubusercontent.com/judigot/references/main/.zshrc -o "$HOME/.zshrc" || { echo "Failed to download .zshrc"; return 1; }
+    curl -sL https://raw.githubusercontent.com/judigot/references/main/.snippetsrc -o "$HOME/.snippetsrc" || { echo "Failed to download .snippetsrc"; return 1; }
 
-    if [[ "$SHELL" == *"zsh" ]]; then
+    # Source the appropriate configuration based on the current shell
+    if [[ "$0" == *"zsh"* ]]; then
         [[ -f "$HOME/.zshrc" ]] && source "$HOME/.zshrc"
-    elif [[ "$SHELL" == *"bash" ]]; then
+    elif [[ "$0" == *"bash"* ]]; then
         [[ -f "$HOME/.bashrc" ]] && source "$HOME/.bashrc"
     fi
+
+    # Source the shared snippets configuration
     [[ -f "$HOME/.snippetsrc" ]] && source "$HOME/.snippetsrc"
+    
+    echo "Configuration files updated and sourced successfully."
+    return 0
 }
+
 alias update='updateRCFiles'
 alias updatercfiles='updateRCFiles'
 alias updatebashsnippets='updateRCFiles'
