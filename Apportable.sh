@@ -271,14 +271,38 @@ curl -L -o "$composerDir/composer.phar" "https://getcomposer.org/download/latest
 chmod +x "$composerDir/composer.phar"
 
 # Create "composer" file
+# cat << 'EOF' > "$composerDir/composer"
+# #!/bin/bash
+
+# # Get the directory of the script
+# SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+# # Call composer.phar from the script directory
+# php "$SCRIPT_DIR/composer.phar" "$@"
+# EOF
+
 cat << 'EOF' > "$composerDir/composer"
-#!/bin/bash
+#!/bin/sh
 
-# Get the directory of the script
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+dir=$(cd "${0%[/\\]*}" > /dev/null; pwd)
 
-# Call composer.phar from the script directory
-php "$SCRIPT_DIR/composer.phar" "$@"
+if [ -d /proc/cygdrive ]; then
+    case $(which php) in
+        $(readlink -n /proc/cygdrive)/*)
+            # We are in Cygwin using Windows php, so the path must be translated
+            dir=$(cygpath -m "$dir");
+            ;;
+    esac
+fi
+
+php "${dir}/composer.phar" "$@"
+EOF
+
+cat << 'EOF' > "$composerDir/composer.bat"
+@echo OFF
+:: in case DelayedExpansion is on and a path contains ! 
+setlocal DISABLEDELAYEDEXPANSION
+php "%~dp0composer.phar" %*
 EOF
 
 # Ensure the "composer" script is executable
