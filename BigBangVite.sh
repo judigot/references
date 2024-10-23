@@ -2,15 +2,7 @@
 
 # ====================PROJECT SETTINGS==================== #
 
-# Prompt the user for a folder name
-read -e -p "Enter the project name (press Enter for current directory): " userInput
-
-# Set the project name to the user-provided name or current directory if empty
-if [[ -n "$userInput" ]]; then
-    readonly PROJECT_NAME="$userInput"  # Set to the user-provided name
-else
-    readonly PROJECT_NAME="."  # Set to current directory if no input is given
-fi
+readonly PROJECT_NAME="bigbang"
 
 PRODUCTION_DEPENDENCIES=(
     "dotenv"
