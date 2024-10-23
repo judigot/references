@@ -15,7 +15,6 @@ main() {
 
     enable_api
     configure_api_guard
-    create_passport_clients
 
     create_models
     create_auth_controller
@@ -36,11 +35,6 @@ initializeGit() {
     else
         echo "Git is not installed."
     fi
-}
-
-create_passport_clients() {
-    php artisan passport:client --name="My Personal Access Client" --personal
-    echo -e "\n" | php artisan passport:client --name="My Password Grant Client" --password
 }
 
 create_repositories_folder() {
