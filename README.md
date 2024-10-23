@@ -10098,6 +10098,8 @@ export const down = async (): Promise<void> => {
 
 ## Initial MSYS Setup
 
+*Tags: zsh setup, install zsh, zsh installation, download zsh*
+
 ```bash
 #=====UPDATE PACKAGES=====#
 pacman -Syu --noconfirm # Yes to all
