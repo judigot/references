@@ -305,6 +305,7 @@ extension_dir = "ext"
 ;extension=calendar
 ;extension=xmlrpc
 
+extension=openssl
 extension=exif
 extension=gettext
 extension=mysqli
