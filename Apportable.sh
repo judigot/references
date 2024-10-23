@@ -299,6 +299,7 @@ cp "$php_ini_development" "$php_ini_path"
 ;=====CUSTOM=====;
 ; Enable extensions directory
 extension_dir = "ext"
+zend_extension=opcache
 
 ; Extensions to enable
 ;extension=bcmath
@@ -306,13 +307,17 @@ extension_dir = "ext"
 ;extension=xmlrpc
 
 extension=openssl
-extension=exif
+extension=fileinfo
 extension=gettext
 extension=mysqli
 extension=pdo_mysql
+extension=pgsql
 extension=pdo_pgsql
+extension=sqlite3
+extension=pdo_sqlite
 extension=curl
 extension=mbstring
+extension=exif
 extension=zip
 extension=gd
 extension=intl
