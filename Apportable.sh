@@ -84,6 +84,9 @@ git config --global core.autocrlf input
 
 # Use Vim as default Git editor
 git config --global core.editor "vim"
+
+# Use Windows' SSH since Git's SSH has problems cloning repositories
+git config --global core.sshCommand "C:/Windows/System32/OpenSSH/ssh.exe"
 #=====GIT CONFIG=====#
 
 #=====BATCH FILE TO EXECUTE .SH FILES USING BASH=====#
