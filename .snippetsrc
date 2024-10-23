@@ -10,6 +10,13 @@ function updateRCFiles() {
     curl -sL https://raw.githubusercontent.com/judigot/references/main/.bashrc -o "$HOME/.bashrc"
     curl -sL https://raw.githubusercontent.com/judigot/references/main/.zshrc -o "$HOME/.zshrc"
     curl -sL https://raw.githubusercontent.com/judigot/references/main/.snippetsrc -o "$HOME/.snippetsrc"
+
+    if [[ "$SHELL" == *"zsh" ]]; then
+        [[ -f "$HOME/.zshrc" ]] && source "$HOME/.zshrc"
+    elif [[ "$SHELL" == *"bash" ]]; then
+        [[ -f "$HOME/.bashrc" ]] && source "$HOME/.bashrc"
+    fi
+    [[ -f "$HOME/.snippetsrc" ]] && source "$HOME/.snippetsrc"
 }
 alias update='updateRCFiles'
 alias updatercfiles='updateRCFiles'
