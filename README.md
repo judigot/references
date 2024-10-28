@@ -4060,7 +4060,7 @@ const anotherPromise = (parameter) => {
   });
 };
 
-// Promise.all for resolving multiple promises
+// Promise.all for resolving multiple promises; multiple async calls; multiple asynchronous calls
 Promise.all([promise("param1"), anotherPromise("param2")])
 .then(([response1, response2]) => Promise.all([response1.json(), response2.json()]),)
 .then(([result1, result2]: [unknown, unknown]) => {
