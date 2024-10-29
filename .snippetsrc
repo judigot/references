@@ -1,7 +1,8 @@
 #!/bin/bash
 
 function helloWorld() {
-    echo -e "\e[32mHello, $USERNAME!\e[0m" # Green
+    local user=${USER:-$USERNAME}  # Use $USER if available, otherwise fallback to $USERNAME
+    echo -e "\e[32mHello, $user!\e[0m"  # Green
 }
 alias hi='helloWorld'
 alias hello='helloWorld'
