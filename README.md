@@ -757,6 +757,9 @@ ssh -T git@github.com -o StrictHostKeyChecking=no # Skip answering yes
 apt install -y python3-certbot-nginx
 certbot --nginx -d example.com
 certbot --nginx -d app.example.com
+
+# Auto-renew the SSL certificate (Certbot automatically installs a cron job for this)
+certbot renew --dry-run
 # *keys are located in /etc/letsencrypt
 ```
 
