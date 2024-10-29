@@ -176,7 +176,7 @@ viteConfigChangeDevPort() {
     local textToAppend=""
     textToAppend=$(
         cat <<EOF
-        $startDelimiter server: { port: 3000, }, $endDelimiter
+        $startDelimiter server: { host: true, port: 3000, }, $endDelimiter
 EOF
     )
 
