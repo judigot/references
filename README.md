@@ -125,7 +125,7 @@ const x = "123";
 
 ## Create An EC2 Instance Using AWS CloudShell
 
-*Tags: create ec2 instance, create virtual machine, deploy application, create instance*
+*Tags: create ec2 instance, create virtual machine, deploy application, create instance, create production instance*
 
 1. Create instance
 
