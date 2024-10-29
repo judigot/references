@@ -182,6 +182,7 @@ Use env.production.tfvars (Uses c5ad.large):
     - SSH to EC2 Instance using the new machine
 
       ```bash
+      ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@domain-name-or-ip-address # Skip prompt
       ssh -i ~/.ssh/id_rsa ubuntu@domain-name-or-ip-address
       ```
 
@@ -863,6 +864,7 @@ ssh-keygen -t ed25519 -f C:\Users\Jude\.ssh\key_name
 ### SSH to AWS
 
 ```bash
+ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@domain-name-or-ip-address # Skip prompt
 ssh -i ~/.ssh/id_rsa ubuntu@domain-name-or-ip-address
 ssh -i C:/Users/<user>/.ssh/<key-name> ubuntu@<public-IP-address>
 ```
