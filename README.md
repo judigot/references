@@ -136,13 +136,13 @@ cd terraform
 terraform apply -auto-approve
 ```
 
-Use env.production.tfvars:
+Use env.production.tfvars (Uses c5ad.large):
 
 ```bash
 terraform apply -auto-approve -var-file="env.production.tfvars"
 ```
 
-Use env.development.tfvars:
+Use env.development.tfvars (Uses free-tier t2.micro):
 
 ```bash
 terraform apply -auto-approve -var-file="env.development.tfvars"
