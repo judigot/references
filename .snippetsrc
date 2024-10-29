@@ -6,6 +6,7 @@ function helloWorld() {
 }
 alias hi='helloWorld'
 alias hello='helloWorld'
+alias helloworld='helloWorld'
 
 updateRCFiles() {
     curl -sL https://raw.githubusercontent.com/judigot/references/main/.bashrc -o "$HOME/.bashrc" || { echo "Failed to download .bashrc"; return 1; }
