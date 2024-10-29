@@ -136,17 +136,29 @@ cd terraform
 terraform apply -auto-approve
 ```
 
-Use env.production.tfvars (Uses c5ad.large):
-
-```bash
-terraform apply -auto-approve -var-file="env.production.tfvars"
-```
-
 Use env.development.tfvars (Uses free-tier t2.micro):
 
-```bash
-terraform apply -auto-approve -var-file="env.development.tfvars"
-```
+  ```bash
+  terraform apply -auto-approve -var-file="env.development.tfvars"
+  ```
+
+  With database (RDS):
+
+  ```bash
+  terraform apply -auto-approve -var-file env.development.tfvars -var create_rds_instance=true
+  ```
+
+Use env.production.tfvars (Uses c5ad.large):
+
+  ```bash
+  terraform apply -auto-approve -var-file="env.production.tfvars"
+  ```
+
+  With database (RDS):
+
+  ```bash
+  terraform apply -auto-approve -var-file env.production.tfvars -var create_rds_instance=true
+  ```
 
 2. Add New SSH Keys to EC2 Instance
 
