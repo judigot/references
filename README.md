@@ -162,10 +162,10 @@ Use env.production.tfvars (Uses c5ad.large):
 
 2. Add New SSH Keys to EC2 Instance
 
-    *Tags: ssh to ec2 instance, add ssh to virtual machine, add ssh to aws ec2, add ssh to ec2, add access to ec2 instance, add new keys, append new ssh keys, append new keys, add ssh keys, append ssh keys, connect to ec2 instance, connect to virtual machine, access ec2 instance*
+    *Tags: ssh to ec2 instance, add ssh to virtual machine, add ssh to aws ec2, add ssh to ec2, add access to ec2 instance, add new keys, append new ssh keys, append new keys, add ssh keys, append ssh keys, connect to ec2 instance, connect to virtual machine, access ec2 instance, add computer to ec2 instance, add machin to ec2 instance, add PC to ec2 instance*
     
 
-    - Log in to EC2 instance using AWS CloudShell or a machine with prior acces
+    - Log in to EC2 instance using AWS CloudShell or a machine with prior access
 
     - On the new machine, generate a new key pair if not already done. Click [here](https://github.com/judigot/references?tab=readme-ov-file#generate-ssh-key-for-github) to generate SSH keys
 
