@@ -817,8 +817,8 @@ ssh-keygen -t rsa -f ~/.ssh/id_rsa -P "" && clear && echo -e "Copy and paste the
 ssh -T git@github.com -o StrictHostKeyChecking=no # Skip answering yes
 ```
 
-## Generate SSL using Certbot - HTTPS; 443
-*Tags: add SSL certifiicate, add certificate, add https, setup SSL certificate, setup certificate, setup https*
+## Generate SSL using Certbot - HTTPS
+*Tags: 443, add SSL certifiicate, add certificate, add https, setup SSL certificate, setup certificate, setup https*
 
 ```bash
 apt install -y python3-certbot-nginx
