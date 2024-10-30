@@ -281,6 +281,59 @@ if (Test-Path -Path $nestedDirPath) {
 
 # Bash Scripting
 
+## Sync Directories
+
+*Tags: synchronize directories, synchronize directory, sync directories, sync directory, synchronize folders, sync folders, synchronize files, sync files*
+
+```bash
+#!/bin/bash
+
+# Define the source and destination directories as variables
+SOURCE_DIR="/home/ubuntu/app"      # Directory to monitor for changes
+DEST_DIR="/var/www/html"           # Directory to sync changes to
+
+# Monitor the source directory for changes and sync with the destination directory
+while inotifywait -r -e modify,create,delete,move "$SOURCE_DIR"; do
+    rsync -av --delete "$SOURCE_DIR/" "$DEST_DIR/"
+done
+```
+
+### Run the Script
+
+```bash
+sudo chmod +x ./sync_files.sh
+sudo nohup ./sync_files.sh &
+tail -f nohup.out           # Check the Output: By default, nohup redirects output to nohup.out. You can view the output and logs with:
+```
+
+### Kill the Process
+
+Command to Output the Processes the Uses the Sync Script
+
+```bash
+ps aux | grep sync_files.sh     # Verify that the script is running: You can check if the script is running by listing the background processes:
+```
+
+Output
+
+```
+root       15777  0.0  0.1  11896  5376 pts/0    S    02:06   0:00 sudo nohup ./sync_files.sh
+root       15778  0.0  0.0  11896  2300 pts/1    Ss+  02:06   0:00 sudo nohup ./sync_files.sh
+root       15779  0.0  0.0   7764  3328 pts/1    S    02:06   0:00 /bin/bash ./sync_files.sh
+ubuntu     15810  0.0  0.0   7012  2304 pts/0    S+   02:13   0:00 grep --color=auto sync_files.sh
+```
+
+Process to Kill
+```
+root       15779  0.0  0.0   7764  3328 pts/1    S    02:05   0:00 /bin/bash ./sync_files.sh
+```
+
+Kill the Process
+
+```bash
+sudo kill 15779
+```
+
 ## Add An Empty Commit
 
 *Tags: allow empty commit, allow blank commit, empty commit, blank commit, no commit*
