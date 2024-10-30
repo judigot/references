@@ -805,10 +805,17 @@ echo "$result"
 
 ## Generate SSH Key for GitHub
 
-*Tags: generate ssh keys for github, create ssh keys for github*
+*Tags: generate ssh keys for github, create ssh keys for github, generate ssh keys for aws, create ssh keys for aws, generate pem files for aws, create pem files for aws, generate pem file for aws, create pem file for aws*
 
+GitHub SSH Keys:
 ```bash
 ssh-keygen -t rsa -f ~/.ssh/id_rsa -P "" && clear && echo -e "Copy and paste the public key below to your GitHub account:\n\n\e[32m$(cat ~/.ssh/id_rsa.pub) \e[0m\n" # Green
+```
+
+AWS SSH Keys:
+```bash
+ssh-keygen -t rsa -b 2048 -m PEM -f ~/.ssh/aws.pem -P ""
+ssh-keygen -y -f ~/.ssh/aws.pem > ~/.ssh/aws.pem.pub
 ```
 
 ## Test SSH Key
