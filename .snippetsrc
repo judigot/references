@@ -28,6 +28,7 @@ updateRCFiles() {
 }
 
 alias update='updateRCFiles'
+alias updaterc='updateRCFiles'
 alias updatercfiles='updateRCFiles'
 alias updatebashsnippets='updateRCFiles'
 
