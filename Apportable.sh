@@ -94,8 +94,8 @@ BAT_PATH="$rootDir/$environment/Bash.bat"
 cat << EOF > "$BAT_PATH"
 @echo off
 
-@REM set HOME=%USERPROFILE%
-set HOME=C:\apportable\Programming\msys64\home\%USERNAME%
+set HOME=%USERPROFILE%
+@REM set HOME=C:\apportable\Programming\msys64\home\%USERNAME%
 set BASH_ENV=%HOME%\.bashrc
 
 :: Check if a script file is passed as an argument
