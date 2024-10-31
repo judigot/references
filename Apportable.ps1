@@ -45,7 +45,7 @@ if (-not ($htmlContent -match $pattern)) {
 $portableGitDownloadLink = $matches[1]
 
 # Echo the constructed Portable Git download link to ensure it's correct
-Write-Host "Constructed URL for Portable Git: $portableGitDownloadLink"
+# Write-Host "Constructed URL for Portable Git: $portableGitDownloadLink"
 
 # Define the portable Git file name
 $portableGitFilename = "PortableGit.exe"
