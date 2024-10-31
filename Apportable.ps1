@@ -26,17 +26,23 @@ Remove-Item $installerPath
 #==========7-ZIP==========#
 
 #==========GIT==========#
-# Fetch the latest Git release using GitHub API
-$latestRelease = Invoke-RestMethod -Uri "https://api.github.com/repos/git-for-windows/git/releases/latest" -Headers @{ "User-Agent" = "PowerShell" }
+# API Version
+# $latestRelease = Invoke-RestMethod -Uri "https://api.github.com/repos/git-for-windows/git/releases/latest" -Headers @{ "User-Agent" = "PowerShell" }
+# # Extract the latest version tag (e.g., v2.47.0.windows.1)
+# $latestVersion = $latestRelease.tag_name
+# # Remove the '.windows.*' part to get the core version (e.g., v2.47.0)
+# $coreVersion = $latestVersion -replace '\.windows.*', ''
+# # Construct the download URL for the latest 64-bit Portable Git based on the version
+# $portableGitDownloadLink = "https://github.com/git-for-windows/git/releases/download/$latestVersion/PortableGit-$($coreVersion -replace 'v','')-64-bit.7z.exe"
 
-# Extract the latest version tag (e.g., v2.47.0.windows.1)
-$latestVersion = $latestRelease.tag_name
-
-# Remove the '.windows.*' part to get the core version (e.g., v2.47.0)
-$coreVersion = $latestVersion -replace '\.windows.*', ''
-
-# Construct the download URL for the latest 64-bit Portable Git based on the version
-$portableGitDownloadLink = "https://github.com/git-for-windows/git/releases/download/$latestVersion/PortableGit-$($coreVersion -replace 'v','')-64-bit.7z.exe"
+# HTML Content Extraction Version
+$url = "https://git-scm.com/downloads/win"
+$htmlContent = Invoke-WebRequest -Uri $url -UseBasicParsing | Select-Object -ExpandProperty Content
+$pattern = '<a href="([^"]*PortableGit[^"]*)">64-bit Git for Windows Portable<\/a>'
+if (-not ($htmlContent -match $pattern)) {
+    Write-Output "Git download link not found."
+}
+$portableGitDownloadLink = $matches[1]
 
 # Echo the constructed Portable Git download link to ensure it's correct
 Write-Host "Constructed URL for Portable Git: $portableGitDownloadLink"
