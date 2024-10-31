@@ -22,12 +22,6 @@ else
     eval "$(ssh-agent -s)" >/dev/null 2>&1 && ssh-add ~/.ssh/id_rsa >/dev/null 2>&1
 fi
 
-# Source ASDF if it's installed
-if [ -d "$HOME/.asdf" ]; then
-    . "$HOME/.asdf/asdf.sh"
-    . "$HOME/.asdf/completions/asdf.bash"
-fi
-
 # Auto-update terminal files
 # curl -sL https://raw.githubusercontent.com/judigot/references/main/.bashrc -o "$HOME/.bashrc" || { echo "Failed to download .bashrc"; return 1; }
 # curl -sL https://raw.githubusercontent.com/judigot/references/main/.zshrc -o "$HOME/.zshrc" || { echo "Failed to download .zshrc"; return 1; }
