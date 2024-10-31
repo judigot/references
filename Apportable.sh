@@ -100,11 +100,10 @@ set BASH_ENV=%HOME%\.bashrc
 
 :: Check if a script file is passed as an argument
 if "%~1"=="" (
-    $rootDir/$environment/msys64/usr/bin/bash.exe --login
+    C:/apportable/Programming/msys64/usr/bin/bash.exe --login -i -c "source '%BASH_ENV%'; exec bash"
 ) else (
-    set FULL_PATH=%~f1
     cd /d %~dp1
-    $rootDir/$environment/msys64/usr/bin/bash.exe --login -c "cd '%~dp1' && bash '%~f1'"
+    C:/apportable/Programming/msys64/usr/bin/bash.exe --login -c "source '%BASH_ENV%'; cd '%~dp1'; bash '%~f1'"
 )
 EOF
 echo "Bash.bat has been created successfully."
@@ -114,16 +113,17 @@ echo "Bash.bat has been created successfully."
 BAT_PATH="$rootDir/$environment/Zsh.bat"
 cat << EOF > "$BAT_PATH"
 @echo off
+
 set HOME=%USERPROFILE%
-set BASH_ENV=%USERPROFILE%\.bashrc
+@REM set HOME=C:\apportable\Programming\msys64\home\%USERNAME%
+set BASH_ENV=%HOME%\.bashrc
 
 :: Check if a script file is passed as an argument
 if "%~1"=="" (
-    $rootDir/$environment/msys64/usr/bin/zsh.exe --login
+    C:/apportable/Programming/msys64/usr/bin/bash.exe --login -i -c "source '%BASH_ENV%'; exec zsh"
 ) else (
-    set FULL_PATH=%~f1
     cd /d %~dp1
-    $rootDir/$environment/msys64/usr/bin/zsh.exe --login -c "cd '%~dp1' && zsh '%~f1'"
+    C:/apportable/Programming/msys64/usr/bin/bash.exe --login -c "source '%BASH_ENV%'; cd '%~dp1'; zsh '%~f1'"
 )
 EOF
 echo "Zsh.bat has been created successfully."
