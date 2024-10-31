@@ -8,8 +8,8 @@ pathsLinux=$(echo "$paths" | awk -v home="$HOME" '{
     gsub(/\$HOME/, home);
     printf "%s:", $0
 }')
-# export PATH="$PATH:$pathsLinux"
-echo -e "$pathsLinux"
+# echo -e "$pathsLinux"
+export PATH="$PATH:$pathsLinux"
 
 export JAVA_HOME="/c/apportable/Programming/jdk"
 export NVM_HOME="/c/apportable/Programming/nvm"
