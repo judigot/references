@@ -229,7 +229,6 @@ npm install -g pnpm
 
 #=====PHP=====#
 versionString=$(curl -s https://www.php.net/releases/feed.php | awk -F'<php:version>|</php:version>' '/<php:version>/{print $2; exit}')
-echo -e "$latestPHPVersion"
 
 # Check if versionString is not empty
 if [[ -z "$versionString" ]]; then
