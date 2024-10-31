@@ -10192,9 +10192,7 @@ pacman -S --noconfirm zsh
 
 #=====ZSH CONFIGURATION=====#
 # Create an empty .zshrc file
-touch .zshrc
-# Run ZHS
-exec /usr/bin/zsh
+[[ -f "$HOME/.zshrc" ]] && touch .zshrc
 # Install Oh My Zsh framework
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 # Install zsh-autosuggestions
