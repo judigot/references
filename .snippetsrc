@@ -27,6 +27,7 @@ updateRCFiles() {
     return 0
 }
 
+alias updater='updateRCFiles'
 alias updaterc='updateRCFiles'
 alias updateenv='updateRCFiles'
 alias updatercfiles='updateRCFiles'
