@@ -10188,7 +10188,7 @@ pacman -Syu --noconfirm # Yes to all
 
 #=====MUST-HAVE PACKAGES=====#
 pacman -S --noconfirm vim
-pacman -S --noconfirm openssh
+# pacman -S --noconfirm openssh # No need to install this. Just use the native Windows SSH by adding it to PATH variable
 pacman -S --noconfirm zsh
 #=====MUST-HAVE PACKAGES=====#
 
