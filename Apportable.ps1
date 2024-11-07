@@ -1,3 +1,10 @@
+if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator"))
+{
+    Write-Host "Please run this script as an administrator." -ForegroundColor Red
+    Read-Host "Press Enter to exit"
+    exit
+}
+
 $portableFolderName = "apportable"
 $rootDir = "C:\$portableFolderName"
 $portableGitInstallationDir = "$rootDir\Programming"
@@ -12,6 +19,11 @@ $env:PATH += ";$pathsWindows"
 if (!(Test-Path -Path "$portableGitInstallationDir")) {
     New-Item -Path "$portableGitInstallationDir" -ItemType Directory
 }
+
+#==========SSH AGENT==========#
+Set-Service -Name ssh-agent -StartupType Automatic # Enable and start the SSH Agent service on Windows startup.
+Start-Service -Name ssh-agent # SSH Agent will be used by Terraform
+#==========SSH AGENT==========#
 
 #==========7-ZIP==========#
 $downloadURL = 'https://7-zip.org/' + (Invoke-WebRequest -UseBasicParsing -Uri 'https://7-zip.org/' | Select-Object -ExpandProperty Links | Where-Object {($_.outerHTML -match 'Download') -and ($_.href -like "a/*") -and ($_.href -like "*-x64.exe")} | Select-Object -First 1 | Select-Object -ExpandProperty href)
