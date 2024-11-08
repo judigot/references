@@ -99,7 +99,7 @@ const x = "123";
 
 **userModel.js (Models: User Data Interaction)**: Interacts with the database to retrieve and validate user information against the provided credentials.
 
-**okenUtils.js (Utils: Token Generation and Validation)**: Utility functions for generating and validating authentication tokens.
+**tokenUtils.js (Utils: Token Generation and Validation)**: Utility functions for generating and validating authentication tokens.
 
 **passwordUtils.js (Utils: Password Hashing and Validation)**: Utility functions for secure password hashing and comparison.
 
@@ -8513,7 +8513,24 @@ Most internet traffic focuses on downloads, making it crucial to optimize read o
 
 ## Back End Roadmap:
 
-*Tags: back end development, backend revelopment, back end skills, backend skills*
+*Tags: back end development, backend development, back end skills, backend skills*
+
+```
+Authentication
+Authorization based on ownership/role
+Middleware
+Data validation
+Data sanitization
+
+Rate limiting in front of all API endpoints(nginx, redis or database):
+
+    ```tsx
+    const maxRequests = 20;
+    const maxRequestsInterval: 10_000; // 1 minute
+    ```
+DTO to strip out sensitive data from the database
+Encrypt or obfuscate backend endpoint from inspect element (api/v1/users)
+```
 
 - automating migration files creation by introspecting the existing database
 - JSON schema validator (zod, ajv)
