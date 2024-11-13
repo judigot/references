@@ -6918,6 +6918,27 @@ pg_dump --schema-only -d database_name -h localhost -p 5432 -U root > database_n
 pg_dump --data-only -d database_name -h localhost -p 5432 -U root > database_name_data.sql
 ```
 
+# Deno
+
+## Vite
+
+```bash
+deno run -A npm:create-vite@latest bigbang --template react-swc-ts
+```
+
+## Next.js
+
+```bash
+deno run -A npm:create-next-app@latest bigbang-next --use-pnpm --ts --tailwind --eslint --app --src-dir --import-alias @/* --turbopack
+```
+
+## Install Packages
+
+```bash
+deno add npm:axios
+deno add -D npm:@tanstack/react-router
+```
+
 # =====================================
 
 # Node.js & NPM Commands & Configurations
