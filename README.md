@@ -9522,7 +9522,7 @@ echo "Next.js API endpoints have been generated."
 
 # Directory Structure Cloner
 
-*Tags: directory cloner, clone directories, clone directory, copy directories, copy directory*
+*Tags: directory cloner, directory analyzer, clone directories, clone directory, copy directories, copy directory*
 
 ```bash
 #!/bin/bash
