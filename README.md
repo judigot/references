@@ -2465,8 +2465,11 @@ Expected output for Shell Script or Bash:
 
 # Coding Conventions & Best Practices
 
+*Tags: coding rules, programming rules, programming conventions*
+
 ## Dos
 
+- Decouple your business logic from the framework to easily migrate from one framework to another
 - Object Parameter instead of individual arguments for readability
 
   Don't:
