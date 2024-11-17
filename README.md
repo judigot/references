@@ -2469,7 +2469,7 @@ Expected output for Shell Script or Bash:
 
 ## Dos
 
-- Decouple your business logic from the framework to easily migrate from one framework to another
+- Defensive programming; Decouple your business logic from the framework to easily migrate from one framework to another
 - Object Parameter instead of individual arguments for readability
 
   Don't:
