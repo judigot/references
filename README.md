@@ -6890,9 +6890,30 @@ sudo -u postgres createuser --interactive
 
 ### Delete All Tables; Delete Tables; Remove All Tables
 
+PostgreSQL
 ```sql
 DROP SCHEMA public CASCADE;
 CREATE SCHEMA public;
+```
+
+MySQL
+```sql
+USE $DB_NAME;
+
+SET FOREIGN_KEY_CHECKS = 0;
+
+SET @tables = NULL;
+SELECT GROUP_CONCAT('\`', table_name, '\`') INTO @tables
+FROM information_schema.tables 
+WHERE table_schema = (SELECT DATABASE());
+
+SET @tables = IFNULL(@tables, 'dummy');
+SET @sql = CONCAT('DROP TABLE IF EXISTS ', @tables);
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+SET FOREIGN_KEY_CHECKS = 1;
 ```
 
 ### Use database:
