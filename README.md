@@ -8576,7 +8576,7 @@ Rate limiting in front of all API endpoints(nginx, redis or database):
 DTO to strip out sensitive data from the database
 Encrypt or obfuscate backend endpoint from inspect element (api/v1/users)
 ```
-
+- hide some fields in API responses e.g. passwords, tokens, etc.
 - automating migration files creation by introspecting the existing database
 - JSON schema validator (zod, ajv)
 - Deduplication/deduping data
