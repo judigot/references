@@ -5,6 +5,8 @@
 readonly PROJECT_NAME="bigbang"
 
 PRODUCTION_DEPENDENCIES=(
+    "axios"
+    "@tanstack/react-query"
     "dotenv"
     "dotenv-expand"
 )

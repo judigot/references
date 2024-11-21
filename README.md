@@ -1096,6 +1096,8 @@ echo Node.js version: $(node -v)
 readonly PROJECT_NAME="bigbang"
 
 readonly PRODUCTION_DEPENDENCIES=(
+    "axios"
+    "@tanstack/react-query"
     "dotenv"
     "dotenv-expand"
 )
