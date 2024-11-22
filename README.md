@@ -3568,8 +3568,7 @@ HKEY_CLASSES_ROOT\Directory\Background\shellex\ContextMenuHandlers\ACE
 <div
   role="button"
   onKeyDown={() => { return; }}
-  tabIndex={0}
-  aria-label="Close modal"
+  tabIndex={-1} // -1 means it cannot be tabbed
 ></div>
 ```
 
