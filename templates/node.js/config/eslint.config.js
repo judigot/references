@@ -79,6 +79,7 @@ export default [
     },
 
     rules: {
+      curly: ['error', 'all'],
       'no-type-assertion/no-type-assertion': 'error',
       'object-shorthand': ['error', 'always'],
 
