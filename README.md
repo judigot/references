@@ -7815,6 +7815,18 @@ CREATE TABLE "order_product" (
     - Example: An order contains line items, where line items cannot exist without the order.
     - Entities: `Order`, `LineItem`
 
+See:
+One-to-One (1:1)
+One-to-Many (1:N)
+Many-to-Many (M:N)
+Self-Referencing One-to-Many
+Self-Referencing Many-to-Many
+Polymorphic One-to-Many
+Polymorphic Many-to-Many
+Hierarchical Relationship (Tree Structure)
+Ternary Relationships
+Compound (or Multi-Level) Relationships
+
 
 ## PostgreSQL Indexing Best Practices
 
