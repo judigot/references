@@ -3642,9 +3642,26 @@ const animals: {
 } as const;
 
 // TSX
-<select>
+const [selectedValue, setSelectedValue] = useState< (typeof animals)[keyof typeof animals] >(animals.CAT);
+
+<select
+  value={selectedValue}
+  onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+    const isValueInObject = <T extends object>(
+      obj: T,
+      value: unknown,
+    ): value is T[keyof T] => {
+      return Object.values(obj).includes(value);
+    };
+
+    const selected = event.target.value;
+    if (isValueInObject(CREATION_MODES, selected)) {
+      setSelectedValue(selected);
+    }
+  }}
+>
   {Object.entries(animals).map(([animalEng, animalLatin]: [string, string], i: number) => (
-        <option key={animalEng}>
+        <option key={animalEng} value={animalEng} >
           {animalLatin}
         </option>
   ))}
