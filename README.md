@@ -3661,7 +3661,7 @@ const [selectedValue, setSelectedValue] = useState< (typeof animals)[keyof typeo
   }}
 >
   {Object.entries(animals).map(([animalEng, animalLatin]: [string, string], i: number) => (
-        <option key={animalEng} value={animalEng} >
+        <option key={animalEng} value={animalLatin} >
           {animalLatin}
         </option>
   ))}
