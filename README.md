@@ -9276,7 +9276,7 @@ mutateObject
 mutateNestedObject
 mutateArray
 existsInArray; valueExistsInArray;
-recursion
+recursion; recursiveFunction
 cloneArray; duplicateArray
 cloneObject; duplicateObject
 getObjectKeys
@@ -9292,8 +9292,11 @@ prependToObject
 arrayToCSV
 multilineString; heredoc
 builderPattern; methodChaining
+namespace
 import
 export
+
+multiplePromises
 
 TODOs:
 convertStringsToArray - store every word in a string into an array; et table details using the strings from the array
