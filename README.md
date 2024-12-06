@@ -9287,7 +9287,8 @@ serializeData; stringer
 stringerInterpolation; templateLiteral
 debug
 lambda; anonymous function; lambda expression; arrow function body
-IIFE; self-invoking expression; self-calling expression; self-invoking function; self-calling function;
+IIFE; self-invoking expression; self-calling expression; self-invoking function; self-calling function
+searchObjects, searchArrayOfObjects, findObject, findArrayOfObjects, findObjectInArrayOfObjects, filterObjects, filterData, searchData, findData, filterArrayOfObjects, findObjectInData, filterObjectInArray, searchObjectInArray, findDataInArray, searchObjectInData
 findObjectIndex
 mutateObject
 mutateNestedObject
