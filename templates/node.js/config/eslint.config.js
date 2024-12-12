@@ -24,7 +24,8 @@ export default [
   {
     ignores: [
       '**/dist',
-      '**/eslint.config.js',
+      '**/eslint.config.js', // Comment out for Next.js to prevent "The Next.js plugin was not detected in your ESLint configuration" error
+      '**/vitest.config.ts',
       '**/tailwind.config.js',
       '**/postcss.config.js',
     ],
@@ -37,6 +38,8 @@ export default [
       'plugin:@typescript-eslint/stylistic-type-checked',
       'plugin:react/recommended',
       'plugin:jsx-a11y/recommended',
+      // 'next/core-web-vitals', // Next.js
+      // 'next/typescript', // Next.js
     ),
   ),
   {
@@ -64,9 +67,9 @@ export default [
         },
 
         project: [
-          './tsconfig.app.json',
           './tsconfig.json',
-          './tsconfig.node.json',
+          './tsconfig.app.json', // Comment out for Next.js
+          './tsconfig.node.json', // Comment out for Next.js
         ],
         tsconfigRootDir: __dirname,
       },
