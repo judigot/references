@@ -6248,6 +6248,13 @@ echo "Git version: $version"
 
 # Git Commands
 
+## Publish Repository
+*Tags: publish local repository, publish existing repository*
+```bash
+git remote set-url origin git@github.com:judigot/<repository-name>.git
+git push -u origin main
+```
+
 ## Revert Version (Non-destructive)
 
 Creates a new commit that reverts the repository to a previous state while preserving the commit history.
