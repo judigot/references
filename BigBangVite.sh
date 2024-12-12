@@ -14,9 +14,8 @@ PRODUCTION_DEPENDENCIES=(
 DEV_DEPENDENCIES=(
     "dotenv-cli"
     "prettier"
-    
+
     "vite-tsconfig-paths"
-    "vitest"
 )
 
 # ====================PROJECT SETTINGS==================== #
@@ -67,7 +66,7 @@ main() {
     addStrictNullChecks
 
     # Testing
-    local testPackages=("jest" "@types/jest" "jsdom" "@testing-library/react" "@testing-library/jest-dom")
+    local testPackages=("vitest" "jest" "@types/jest" "jsdom" "@testing-library/react" "@testing-library/jest-dom")
     append_dependencies "development" testPackages DEV_DEPENDENCIES
     addVitestReference
     viteConfigAddTestConfig true
