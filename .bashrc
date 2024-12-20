@@ -15,11 +15,16 @@ export JAVA_HOME="/c/apportable/Programming/jdk"
 export NVM_HOME="/c/apportable/Programming/nvm"
 export NVM_SYMLINK="/c/apportable/Programming/nodejs"
 
+# Delete all identities (private keys) from the SSH agent to prevent key conflicts
+eval "$(ssh-agent -s)" >/dev/null 2>&1 && ssh-add -D >/dev/null 2>&1
+
 # Start the SSH agent and add the default SSH key to the agent
 if [[ "$IS_VS_CODE_FOR_WORK" == "true" ]]; then
     eval "$(ssh-agent -s)" >/dev/null 2>&1 && ssh-add ~/.ssh/id_rsa_work >/dev/null 2>&1
+    eval "$(ssh-agent -s)" >/dev/null 2>&1 && ssh-add ~/.ssh/aws.pem >/dev/null 2>&1
 else
     eval "$(ssh-agent -s)" >/dev/null 2>&1 && ssh-add ~/.ssh/id_rsa >/dev/null 2>&1
+    eval "$(ssh-agent -s)" >/dev/null 2>&1 && ssh-add ~/.ssh/aws.pem >/dev/null 2>&1
 fi
 
 # Auto-update terminal files
