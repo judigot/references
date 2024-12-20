@@ -60,3 +60,34 @@ function generateSSHKey() {
 }
 alias createsshkey='generateSSHKey'
 alias generatesshkey='generateSSHKey'
+
+function testSSH() {
+    ssh -T git@github.com -o StrictHostKeyChecking=no
+}
+alias testssh='testSSH'
+
+function usePersonalSSH() {
+    # Delete all identities (private keys) from the SSH agent to prevent key conflicts
+    eval "$(ssh-agent -s)" >/dev/null 2>&1 && ssh-add -D >/dev/null 2>&1
+
+    # Add personal SSH key and AWS key to the agent
+    eval "$(ssh-agent -s)" >/dev/null 2>&1 && ssh-add ~/.ssh/id_rsa >/dev/null 2>&1
+    eval "$(ssh-agent -s)" >/dev/null 2>&1 && ssh-add ~/.ssh/aws.pem >/dev/null 2>&1
+
+    echo -e "\e[32mNow using personal SSH key\e[0m" # Green
+}
+alias usepersonalssh='usePersonalSSH'
+alias personalssh='usePersonalSSH'
+
+function useWorkSSH() {
+    # Delete all identities (private keys) from the SSH agent to prevent key conflicts
+    eval "$(ssh-agent -s)" >/dev/null 2>&1 && ssh-add -D >/dev/null 2>&1
+
+    # Add work SSH key and AWS key to the agent
+    eval "$(ssh-agent -s)" >/dev/null 2>&1 && ssh-add ~/.ssh/id_rsa_work >/dev/null 2>&1
+    eval "$(ssh-agent -s)" >/dev/null 2>&1 && ssh-add ~/.ssh/aws.pem >/dev/null 2>&1
+
+    echo -e "\e[32mNow using work SSH key\e[0m" # Green
+}
+alias useworkssh='useWorkSSH'
+alias workssh='useWorkSSH'
