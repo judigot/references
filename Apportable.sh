@@ -71,6 +71,7 @@ rm -rf "$destinationDir"
 
 #=====RC FILES=====#
 curl -sL https://raw.githubusercontent.com/judigot/references/main/.bashrc -o "$HOME/.bashrc"
+curl -sL https://raw.githubusercontent.com/judigot/references/main/.profile -o "$HOME/.profile"
 curl -sL https://raw.githubusercontent.com/judigot/references/main/.zshrc -o "$HOME/.zshrc"
 curl -sL https://raw.githubusercontent.com/judigot/references/main/.snippetsrc -o "$HOME/.snippetsrc"
 #=====RC FILES=====#
