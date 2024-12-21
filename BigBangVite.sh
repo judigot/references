@@ -59,7 +59,7 @@ main() {
     modifyESLintConfig
     codeToBeRemoved=(".tsx")
     removeTextContent "codeToBeRemoved[@]"
-    local strictPackages=("@eslint/compat" "globals" "@eslint/js" "@eslint/eslintrc" "@typescript-eslint/eslint-plugin" "@typescript-eslint/parser" "eslint" "eslint-config-prettier" "eslint-plugin-jsx-a11y" "eslint-plugin-prettier" "eslint-plugin-react" "eslint-plugin-react-hooks" "eslint-plugin-react-refresh" "eslint-plugin-no-type-assertion")
+    local strictPackages=("eslint-plugin-import" "eslint-import-resolver-typescript" "@eslint/compat" "globals" "@eslint/js" "@eslint/eslintrc" "@typescript-eslint/eslint-plugin" "@typescript-eslint/parser" "eslint" "eslint-config-prettier" "eslint-plugin-jsx-a11y" "eslint-plugin-prettier" "eslint-plugin-react" "eslint-plugin-react-hooks" "eslint-plugin-react-refresh" "eslint-plugin-no-type-assertion")
     append_dependencies "development" strictPackages DEV_DEPENDENCIES
 
     # tsconfig.node.json
@@ -69,7 +69,7 @@ main() {
     local testPackages=("vitest" "jest" "@types/jest" "jsdom" "@testing-library/react" "@testing-library/jest-dom")
     append_dependencies "development" testPackages DEV_DEPENDENCIES
     addVitestReference
-    viteConfigAddTestConfig true
+    addVitestConfig
 
     # Express Server
     local serverPackages=("express" "cors")
@@ -482,8 +482,9 @@ EOF
 
 editTSConfig() {
     cd "$PROJECT_DIRECTORY" || return
-    replaceLineAfterMatch "./tsconfig.app.json" '"noEmit":' "false,"
-    replace "tsconfig.app.json" '"allowImportingTsExtensions": true,' '// "allowImportingTsExtensions": true,'
+    # replaceLineAfterMatch "./tsconfig.app.json" '"noEmit":' "false," // Commented to allow allowImportingTsExtensions: true for deno
+    # replace "tsconfig.app.json" '"allowImportingTsExtensions": true,' '// "allowImportingTsExtensions": true,'
+
     # replaceLineAfterMatch "tsconfig.app.json" '\"compilerOptions\": {' "\\n\/\/ <server>\\n\"baseUrl\": \".\/src\", \"rootDir\": \".\/src\", \"outDir\": \".\/dist\", \"allowSyntheticDefaultImports\": true, \"esModuleInterop\": true,\\n\/\/ <server\/>"
     replaceLineAfterMatch "tsconfig.app.json" '\"compilerOptions\": {' "\\n\/\/ <server>\\n\"outDir\": \".\/dist\", \"allowSyntheticDefaultImports\": true, \"esModuleInterop\": true,\\n\/\/ <server\/>"
     # replaceLineAfterMatch "tsconfig.app.json" '\"include\": \[\"src\"\],' '\"exclude\": \[\"**\/*.tsx\"\],'
@@ -1019,50 +1020,40 @@ EOF
     fi
 }
 
-viteConfigAddTestConfig() {
+addVitestConfig() {
     cd "$PROJECT_DIRECTORY" || return
 
-    local isTurnedOn="$1"
+    local content=""
+    local fileName="vitest.config.ts"
 
-    local settingID="testConfig"
-    local startDelimiter="/* <$settingID> */"
-    local endDelimiter="/* </$settingID> */"
-
-    # File to edit
-    local file="vite.config.ts"
-
-    # Text to append
-    local textToAppend=""
-    textToAppend=$(
+    content=$(
         cat <<EOF
-        $startDelimiter test: { globals: true, environment: 'jsdom', }, $endDelimiter
+import { defineConfig } from 'vitest/config';
+import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
+
+export default defineConfig({
+  test: {
+    globals: true,
+    environment: 'jsdom',
+  },
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, './src'),
+    },
+  },
+});
 EOF
     )
 
-    if [ "$isTurnedOn" = true ]; then
-
-        if grep -q "$settingID" "$file"; then
-            echo -e "\e[33mThe following setting is already in $file:\n\n\t$textToAppend\e[0m" # Yellow
-        else
-            replace "$PROJECT_DIRECTORY/$file" 'export default defineConfig({' "export default defineConfig({ $textToAppend"
-
-            echo -e "\e[32mAdded the following setting to $file:\n\n\t$textToAppend\e[0m"
-
-        fi
-    fi
-
-    if [ "$isTurnedOn" = false ]; then
-
-        if grep -q "$settingID" "$file"; then
-
-            removeSetting $settingID
-
-            echo -e "\e[32mSuccessfully removed the following setting from $file:\n\n\t$textToAppend\e[0m" # Green
-
-        else
-            echo -e "\e[33mThe following setting is not in $file:\n\n\t$textToAppend\e[0m"
-        fi
-
+    echo "$content" >"$fileName"
+    # Check if the file was created successfully
+    if [ -e "$fileName" ]; then
+        echo -e "\e[32mFile ($fileName) was successfully created.\e[0m" # Green
+    else
+        echo -e "\e[31mFailed to create $fileName.\e[0m" # Red
     fi
 }
 

@@ -11,6 +11,7 @@ import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import js from '@eslint/js';
 import { FlatCompat } from '@eslint/eslintrc';
+import importPlugin from 'eslint-plugin-import';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -50,6 +51,7 @@ export default [
       'react-hooks': fixupPluginRules(reactHooks),
       'jsx-a11y': fixupPluginRules(jsxA11Y),
       'no-type-assertion': noTypeAssertion,
+      import: importPlugin,
     },
 
     languageOptions: {
@@ -79,9 +81,22 @@ export default [
       react: {
         version: 'detect',
       },
+      'import/resolver': {
+        typescript: {
+          alwaysTryTypes: true, // Ensures TypeScript types are always considered
+        },
+      },
     },
 
     rules: {
+      'import/extensions': [
+        'error',
+        'always', // Always require extensions in imports
+        {
+          ts: 'always', // Always require .ts extension for TypeScript files
+          tsx: 'always', // Always require .tsx extension for React files
+        },
+      ],
       curly: ['error', 'all'],
       'no-type-assertion/no-type-assertion': 'error',
       'object-shorthand': ['error', 'always'],
