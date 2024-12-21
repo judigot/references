@@ -104,7 +104,7 @@ addDenoSupport() {
         cat <<EOF
 {
   "compilerOptions": {
-    "lib": ["deno.ns", "dom"],
+    "lib": ["deno.ns", "ESNext", "DOM", "DOM.Iterable"],
     "jsx": "react-jsx",
     "strict": true
   },
