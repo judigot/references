@@ -224,7 +224,7 @@ viteConfigaddPathAlias() {
     local textToAppend=""
     textToAppend=$(
         cat <<EOF
-        import path from 'path'; export default defineConfig({ $startDelimiter resolve: { alias: { '@': path.resolve(__dirname, './src') } }, $endDelimiter
+        import path from 'node:path'; export default defineConfig({ $startDelimiter resolve: { alias: { '@': path.resolve(__dirname, './src') } }, $endDelimiter
 EOF
     )
 
@@ -362,7 +362,7 @@ createServerEntryPoint() {
         cat <<EOF
 import express, { Request, Response } from 'express';
 import cors from 'cors';
-import path from 'path';
+import path from 'node:path';
 import dotenv from 'dotenv';
 dotenv.config();
 
