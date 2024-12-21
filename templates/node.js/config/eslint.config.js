@@ -26,6 +26,7 @@ export default [
     ignores: [
       '**/dist',
       '**/eslint.config.js', // Comment out for Next.js to prevent "The Next.js plugin was not detected in your ESLint configuration" error
+      '**/vite.config.ts',
       '**/vitest.config.ts',
       '**/tailwind.config.js',
       '**/postcss.config.js',
@@ -91,10 +92,11 @@ export default [
     rules: {
       'import/extensions': [
         'error',
-        'always', // Always require extensions in imports
+        'ignorePackages', // Always require extensions in imports
         {
           ts: 'always', // Always require .ts extension for TypeScript files
           tsx: 'always', // Always require .tsx extension for React files
+          index: 'never',
         },
       ],
       curly: ['error', 'all'],
