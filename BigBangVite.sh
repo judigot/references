@@ -82,6 +82,9 @@ main() {
     createServerEntryPoint
     createComponentWithAPICall
     recreateMainForLint
+
+    # Deno Support
+    addDenoSupport
     # ==========CUSTOM SETTINGS========== #
 
     installDefaultPackages &
@@ -89,6 +92,36 @@ main() {
     formatCode
     initializeGit
     echo -e "Big Bang successfully scaffolded."
+}
+
+addDenoSupport() {
+    cd "$PROJECT_DIRECTORY" || return
+
+    local content=""
+    local fileName="deno.json"
+
+    content=$(
+        cat <<EOF
+{
+  "compilerOptions": {
+    "lib": ["deno.ns", "dom"],
+    "jsx": "react-jsx",
+    "strict": true
+  },
+  "imports": {
+    "@/": "./src/"
+  }
+}
+EOF
+    )
+
+    echo "$content" >"$fileName"
+    # Check if the file was created successfully
+    if [ -e "$fileName" ]; then
+        echo -e "\e[32mFile ($fileName) was successfully created.\e[0m" # Green
+    else
+        echo -e "\e[31mFailed to create $fileName.\e[0m" # Red
+    fi
 }
 
 append_dependencies() {
