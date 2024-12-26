@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function helloWorld() {
+helloWorld() {
     local user=${USER:-$USERNAME}  # Use $USER if available, otherwise fallback to $USERNAME
     echo -e "\e[32mHello, $user!\e[0m"  # Green
 }
@@ -33,21 +33,21 @@ alias updateenv='updateRCFiles'
 alias updatercfiles='updateRCFiles'
 alias updatebashsnippets='updateRCFiles'
 
-function bigBangVite() {
+bigBangVite() {
     curl -L "https://raw.githubusercontent.com/judigot/references/main/BigBangVite.sh" | bash
 }
 alias bbvite='bigBangVite'
 alias bigbangvite='bigBangVite'
 alias newprojectvite='bigBangVite'
 
-function bigBangLaravel() {
+bigBangLaravel() {
     curl -L "https://raw.githubusercontent.com/judigot/references/main/BigBangLaravel.sh" | bash
 }
 alias bblaravel='bigBangLaravel'
 alias bigbanglaravel='bigBangLaravel'
 alias newprojectlaravel='bigBangLaravel'
 
-function echoSSH() {
+echoSSH() {
     echo -e "Copy and paste the public key below to your GitHub account:\n\n\e[32m$(cat ~/.ssh/id_rsa.pub) \e[0m\n" # Green
 }
 alias echossh='echoSSH'
@@ -55,18 +55,18 @@ alias echosshkey='echoSSH'
 alias getssh='echoSSH'
 alias getsshkey='echoSSH'
 
-function generateSSHKey() {
+generateSSHKey() {
     ssh-keygen -t rsa -f ~/.ssh/id_rsa -P "" && clear && echoSSH
 }
 alias createsshkey='generateSSHKey'
 alias generatesshkey='generateSSHKey'
 
-function testSSH() {
+testSSH() {
     ssh -T git@github.com -o StrictHostKeyChecking=no
 }
 alias testssh='testSSH'
 
-function usePersonalSSH() {
+usePersonalSSH() {
     # Delete all identities (private keys) from the SSH agent to prevent key conflicts
     eval "$(ssh-agent -s)" >/dev/null 2>&1 && ssh-add -D >/dev/null 2>&1
 
@@ -79,7 +79,7 @@ function usePersonalSSH() {
 alias usepersonalssh='usePersonalSSH'
 alias personalssh='usePersonalSSH'
 
-function useWorkSSH() {
+useWorkSSH() {
     # Delete all identities (private keys) from the SSH agent to prevent key conflicts
     eval "$(ssh-agent -s)" >/dev/null 2>&1 && ssh-add -D >/dev/null 2>&1
 
@@ -91,3 +91,10 @@ function useWorkSSH() {
 }
 alias useworkssh='useWorkSSH'
 alias workssh='useWorkSSH'
+
+deleteAll() {
+    read -rp 'Are you sure you want to delete everything? (y/N) ' confirm
+    [ "$confirm" = 'y' ] && rm -rf .[!.]* *
+}
+alias deleteall="deleteAll"
+alias deleteeverything="deleteAll"
