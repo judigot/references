@@ -47,17 +47,20 @@ alias bblaravel='bigBangLaravel'
 alias bigbanglaravel='bigBangLaravel'
 alias newprojectlaravel='bigBangLaravel'
 
-echoSSH() {
+logSSH() {
     echo -e "Copy and paste the public key below to your GitHub account:\n\n\e[32m$(cat ~/.ssh/id_rsa.pub) \e[0m\n" # Green
 }
-alias echossh='echoSSH'
-alias echosshkey='echoSSH'
-alias getssh='echoSSH'
-alias getsshkey='echoSSH'
+alias logssh='logSSH'
+alias logsshkey='logSSH'
+alias echossh='logSSH'
+alias echosshkey='logSSH'
+alias getssh='logSSH'
+alias getsshkey='logSSH'
 
 generateSSHKey() {
-    ssh-keygen -t rsa -f ~/.ssh/id_rsa -P "" && clear && echoSSH
+    ssh-keygen -t rsa -f ~/.ssh/id_rsa -P "" && clear && logSSH
 }
+alias makesshkey='generateSSHKey'
 alias createsshkey='generateSSHKey'
 alias generatesshkey='generateSSHKey'
 
