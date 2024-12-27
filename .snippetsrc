@@ -59,10 +59,12 @@ alias getsshkey='logSSH'
 
 generateSSHKey() {
     ssh-keygen -t rsa -f ~/.ssh/id_rsa -P "" && clear && logSSH
+    ssh-keygen -t rsa -f ~/.ssh/id_rsa -P "" && chmod 600 ~/.ssh/id_rsa && clear && echoSSH
 }
 alias makesshkey='generateSSHKey'
 alias createsshkey='generateSSHKey'
 alias generatesshkey='generateSSHKey'
+alias generatessh='generateSSHKey'
 
 testSSH() {
     ssh -T git@github.com -o StrictHostKeyChecking=no
