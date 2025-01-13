@@ -2812,12 +2812,6 @@ margin: auto;
 
 ## Toggle Switch
 
-### CSS
-
-```css
-/*====================Toggle Switch====================*/
-```
-
 ### HTML
 
 ```html
@@ -2882,7 +2876,6 @@ input:checked + .slider:before {
 .slider.round {
   border-radius: 50px !important;
 }
-/*====================Toggle Switch====================*/
 ```
 
 ## NEVER USE IDs WHEN STYLING
