@@ -9055,6 +9055,7 @@ app.delete("/orders/:id", async (req, res) => {
   - get URL parameters (useSearchParams)
   - routes controller (react router)
   - dynamic titles
+- eval() injection in JSON formats
 - CSRF/XSRF protection
 - Render data as html to prevent running malicious scripts
 - Templating
