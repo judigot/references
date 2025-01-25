@@ -2550,6 +2550,10 @@ Expected output for Shell Script or Bash:
 
 ## Dos
 
+- Fix Order: Browser, Tests, Lint
+  - Browser Errors (Runtime): Highest priority—fix immediately to restore functionality.
+  - Testing Errors (Logic): Second priority—ensure the app behaves as expected.
+  - Lint Errors (Style/Best Practices): Fix last to ensure code maintainability and prevent regressions in future development.
 - Defensive programming; Decouple your business logic from the framework to easily migrate from one framework to another
 - Object Parameter instead of individual arguments for readability
 
