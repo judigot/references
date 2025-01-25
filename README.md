@@ -3797,6 +3797,7 @@ export default function App() {
 
 ```tsx
 import { create } from 'zustand';
+import { persist, createJSONStorage, PersistOptions } from 'zustand/middleware';
 
 interface IStore {
   count: number;
@@ -3805,6 +3806,9 @@ interface IStore {
   setSearchQuery: (query: string) => void;
 }
 
+/*
+ * Basic store without persisting
+ */
 export const useStore = create<IStore>()((set, get) => ({
   count: 1,
   increment: () => {
@@ -3812,14 +3816,58 @@ export const useStore = create<IStore>()((set, get) => ({
   },
   searchQuery: 'Initial value',
   setSearchQuery: (query) => {
-    const currentCount = get().count;
-    if (currentCount > 5) {
-      console.log(`Count is greater than 5: ${currentCount}`);
-    }
+    const count = get().count; // Access a different state variable
+
+    // eslint-disable-next-line no-console
+    console.log(`Count: ${String(count)}`);
+
     set({ searchQuery: query });
   },
 }));
 
+const persistConfig: PersistOptions<IStore, Partial<IStore>> = {
+  /* 
+    The unique key for this store
+  */
+  name: 'storeData',
+
+  /*
+    Storage mechanism to use (localStorage, sessionStorage, etc.) 
+   */
+  storage: createJSONStorage(() => localStorage),
+
+  /*
+    Optional: Determines which parts of the state should be persisted.
+    If omitted, the entire state will be persisted.
+   */
+  partialize: ({ searchQuery }) => ({
+    searchQuery, // Persist only 'searchQuery'
+  }),
+};
+
+/*
+ * Store with persisting
+ */
+export const useStoreWithPersist = create<IStore>()(
+  persist(
+    (set, get) => ({
+      count: 1,
+      increment: () => {
+        set((state) => ({ count: state.count + 1 }));
+      },
+      searchQuery: 'Initial value',
+      setSearchQuery: (query) => {
+        const count = get().count; // Access a different state variable
+
+        // eslint-disable-next-line no-console
+        console.log(`Count: ${String(count)}`);
+
+        set({ searchQuery: query });
+      },
+    }),
+    persistConfig, // Optional: Configuration for persisting Zustand state
+  ),
+);
 ```
 
 #### Usage
