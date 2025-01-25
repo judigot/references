@@ -3805,16 +3805,21 @@ interface IStore {
   setSearchQuery: (query: string) => void;
 }
 
-export const useStore = create<IStore>()((set) => ({
+export const useStore = create<IStore>()((set, get) => ({
   count: 1,
   increment: () => {
-    set(({ count }) => ({ count: ++count }));
+    set((state) => ({ count: state.count + 1 }));
   },
   searchQuery: 'Initial value',
-  setSearchQuery: (searchQuery) => {
-    set({ searchQuery });
+  setSearchQuery: (query) => {
+    const currentCount = get().count;
+    if (currentCount > 5) {
+      console.log(`Count is greater than 5: ${currentCount}`);
+    }
+    set({ searchQuery: query });
   },
 }));
+
 ```
 
 #### Usage
