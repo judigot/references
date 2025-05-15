@@ -8882,6 +8882,32 @@ app.delete("/orders/:id", async (req, res) => {
 
 *Tags: front end development, frontend revelopment, front end skills, frontend skills, frontend roadmap, front end roadmap*
 
+Bulk save operation:
+    - Data:
+
+    ```tsx
+    {
+        "create": [
+            { "fieldA": "value", "fieldB": "value", "parent_id": 1 }
+        ],
+        "update": [
+            { "id": 3, "fieldA": "new value", "fieldB": "value" }
+        ],
+        "delete": [ 4, 7 ]
+    }
+    ```
+    - Return:
+
+    ```tsx
+    {
+        "success": true,
+        "created": [ { "id": 10, "fieldA": "value", ... } ],
+        "updated": [ { "id": 3, "fieldA": "new value", ... } ],
+        "deleted": [ 4, 7 ],
+        "errors": []
+    }
+    ```
+
 - Feature flags
   - Environment Variables for Build-Time Flags:
   Set feature flags at build time to enable tree shaking and exclude disabled features.
