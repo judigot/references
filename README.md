@@ -2,217 +2,6 @@
 
 # =====================================
 
-# Coding Conventions & Best Practices
-
-*Tags: coding rules, programming rules, programming conventions*
-
-## Dos
-
-- Fix Order: Browser, Tests, Lint
-  - Browser Errors (Runtime): Highest priority—fix immediately to restore functionality.
-  - Testing Errors (Logic): Second priority—ensure the app behaves as expected.
-  - Lint Errors (Style/Best Practices): Fix last to ensure code maintainability and prevent regressions in future development.
-- Defensive programming; Decouple your business logic from the framework to easily migrate from one framework to another
-- Object Parameter instead of individual arguments for readability
-
-  Don't:
-
-  ```tsx
-  function calculateRectangleArea(length: number, width: number): number {
-    return length * width;
-  }
-
-  // Unclear usage; values lack context and purpose
-  const area = calculateRectangleArea(5, 10);
-  ```
-
-  Do:
-
-  ```tsx
-  function calculateRectangleArea({
-    length,
-    width,
-  }: {
-    length: number;
-    width: number;
-  }): number {
-    return length * width;
-  }
-
-  // Clear usage; values provide context and purpose
-  const area2 = calculateRectangleArea({ length: 5, width: 10 });
-  ```
-
-- Use readable boolean variables instead of vague conditions
-
-  Before:
-  ```tsx
-  if (user.isActive && user.age > 18 && user.hasVerifiedEmail) {
-      console.log("Success!")
-  }
-  ```
-  After:
-  ```tsx
-  const isActiveUser: boolean = user.isActive;
-  const isAdult: boolean = user.age > 18;
-  const hasVerifiedEmail: boolean = user.hasVerifiedEmail;
-
-  const isUserEligible: boolean = isActiveUser && isAdult && hasVerifiedEmail;
-
-  if (isUserEligible) {
-      console.log("Success!")
-  }
-  ```
-- Self-documenting code: dot notation to reference object values
-- Guard clauses, early returns, early exits
-- Null guards
-- IFFEs (Immediately Invoked Function Expression)
-- Heredoc, EOF, multi-line strings
-- Ternary operators
-- Logical operators:
-
-  Nullish coalescing operator (?? or ||): execute "first" if true. Else, fallback to "second"
-
-  ```tsx
-  console.log("first" || "second");
-  ```
-
-  Execute "second" if left argument is true
-
-  ```tsx
-  console.log("first" && "second");
-  ```
-
-  Chaining: assign the first true to the variable
-
-  ```tsx
-  const x = false || false || "last condition";
-  console.log(x); // Will output "last condition"
-  ```
-
-- Method chaining or builder pattern
-
-  Class:
-
-  ```tsx
-  class Calculator {
-    private result: number;
-
-    constructor(initialValue: number) {
-      this.result = initialValue;
-    }
-
-    add(value: number): Calculator {
-      this.result += value;
-      return this;
-    }
-    subtract(value: number): Calculator {
-      this.result -= value;
-      return this;
-    }
-    multiply(value: number): Calculator {
-      this.result *= value;
-      return this;
-    }
-    divide(value: number): Calculator {
-      this.result /= value;
-      return this;
-    }
-    getResult(): number {
-      return this.result;
-    }
-  }
-
-  const initialValue = 10;
-  console.log(
-    new Calculator(initialValue)
-      .add(5)
-      .multiply(2)
-      .subtract(10)
-      .divide(5)
-      .getResult()
-  );
-  ```
-
-  Function:
-
-  ```tsx
-  const calculator = (initialValue: number) => {
-    let result = initialValue;
-
-    const builder = {
-      add: (value: number) => {
-        result += value;
-        return builder;
-      },
-      subtract: (value: number) => {
-        result -= value;
-        return builder;
-      },
-      multiply: (value: number) => {
-        result *= value;
-        return builder;
-      },
-      divide: (value: number) => {
-        result /= value;
-        return builder;
-      },
-      getResult: () => result,
-    };
-    return builder;
-  };
-
-  const initialValue = 10;
-  console.log(
-    calculator(initialValue)
-      .add(5)
-      .multiply(2)
-      .subtract(10)
-      .divide(5)
-      .getResult()
-  );
-  ```
-
-  ```tsx
-  const modifyString = (initialValue: string) => {
-    let result: string = initialValue;
-
-    const builder = {
-      get: () => result,
-      capitalize: () => {
-        result = result.toUpperCase();
-        return builder;
-      },
-      append: (str: string) => {
-        result += str;
-        return builder;
-      },
-    };
-    return builder;
-  };
-  console.log(
-    modifyString("Hello")
-      .capitalize()
-      .append(", world")
-      .capitalize()
-      .append("!")
-      .capitalize()
-      .get()
-  );
-  ```
-
-- State logic: see React's useReducer
-- Async/await
-
-## Don'ts
-
-- Nested ternary
-- Global namespace pollution
-- Callback hell - use async/await
-- If/else hell: avoid nested if/else statements. Keep the code linear
-
-# =====================================
-
 # CSS
 
 [Google HTML/CSS Style Guide](https://google.github.io/styleguide/htmlcssguide.html)
@@ -5957,37 +5746,37 @@ Encrypt or obfuscate backend endpoint from inspect element (api/v1/users)
 - Aggregated data using SQL
 - Common Table Expression, or CTE for combining queries e.g. selecting ids and insert the resulting ids into another table
 - Running jobs (background process)
-    # Types of Jobs in Backend Development
+    ### Types of Jobs in Backend Development
 
-    ## Scheduled Jobs (Cron Jobs)
+    #### Scheduled Jobs (Cron Jobs)
     - Tasks that run at specified times or intervals.
     - Example: Sending daily emails, cleaning up old data, generating reports.
 
-    ## Asynchronous Jobs
+    #### Asynchronous Jobs
     - Tasks that run in the background without blocking the main application flow.
     - Example: Processing file uploads, sending emails, performing complex computations.
 
-    ## Batch Jobs
+    #### Batch Jobs
     - Processing large amounts of data in chunks.
     - Example: Processing logs, importing/exporting data, performing bulk updates.
 
-    ## Event-Driven Jobs
+    #### Event-Driven Jobs
     - Tasks triggered by specific events in the application.
     - Example: Sending a welcome email when a new user registers.
 
-    ## Worker Jobs
+    #### Worker Jobs
     - Tasks handled by worker processes or threads, often used in microservices architecture or with a message queue system.
     - Example: Resizing images, processing payments.
 
-    ## Maintenance Jobs
+    #### Maintenance Jobs
     - Tasks that ensure the health and performance of the system.
     - Example: Database backups, cache clearing, system monitoring.
 
-    ## Data Processing Jobs
+    #### Data Processing Jobs
     - Transforming, aggregating, or analyzing data.
     - Example: Processing data for machine learning models, generating analytics, migrating data between systems.
 
-    ## ETL (Extract, Transform, Load) Jobs
+    #### ETL (Extract, Transform, Load) Jobs
     - Specialized data processing jobs that extract data from one source, transform it, and load it into another system.
     - Example: Data warehousing, data integration.
 - Message Queues
@@ -7472,6 +7261,8 @@ console.log(oneToManyRelationships);
 //====================FUNCTIONS====================//
 ```
 
+# =====================================
+
 # SQL Stored Procedures
 
 ## PostgreSQL
@@ -7620,6 +7411,8 @@ export const down = async (): Promise<void> => {
   </body>
 </html>
 ```
+
+# =====================================
 
 # MSYS2
 
