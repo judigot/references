@@ -2,67 +2,6 @@
 
 # =====================================
 
-# PowerShell Scripting
-
-## Generate Symlinks
-
-*Tags: create symlinks*
-
-```powershell
-New-Item -ItemType SymbolicLink -Path "C:\User\Jude\Desktop\samplesymlink" -Target "C:\target\directory"
-```
-
-## Execute Remote Script from GitHub Using PowerShell
-
-*Tags: execute remote github script, execute raw github script, execute github script remotely, execute github script, execute raw script, run remote script*
-
-```bash
-curl.exe -L "https://raw.githubusercontent.com/judigot/references/main/Apportable.ps1" | powershell -NoProfile -
-```
-
-## Download GitHub Repository
-
-*Tags: download git repository using powershell, clone github repository, clone git repository, clone repository using powershell*
-
-```powershell
-$repositoryName = "inventory"
-$branchName = "main"
-$githubUser = "judigot"
-$targetDirectory = "bigbang"
-$repositoryURL = "https://github.com/$githubUser/$repositoryName"
-
-# Ensure target directory exists
-if (-not (Test-Path -Path $targetDirectory)) {
-    New-Item -ItemType Directory -Path $targetDirectory
-}
-
-# Download the ZIP file
-$zipFilePath = "$targetDirectory\$repositoryName.zip"
-curl.exe -L "$repositoryURL/archive/refs/heads/$branchName.zip" -o $zipFilePath
-
-# Extract the ZIP file and remove it if extraction is successful
-try {
-    Expand-Archive -Force -Path $zipFilePath -DestinationPath $targetDirectory
-    Remove-Item -Path $zipFilePath
-} catch {
-    Write-Error "Extraction failed: $_"
-    exit 1
-}
-
-# Move contents of the nested directory to the target directory and clean up
-$nestedDirPath = Join-Path -Path $targetDirectory -ChildPath "$repositoryName-$branchName"
-
-if (Test-Path -Path $nestedDirPath) {
-    Get-ChildItem -Path $nestedDirPath -Recurse | Move-Item -Destination $targetDirectory -Force
-    Remove-Item -Path $nestedDirPath -Force -Recurse
-} else {
-    Write-Error "The extracted directory '$nestedDirPath' does not exist."
-    exit 1
-}
-```
-
-# =====================================
-
 # Bash Scripting
 
 ## Sync Directories
