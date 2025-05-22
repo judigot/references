@@ -6163,6 +6163,23 @@ After reset:
 commit 112405e (HEAD -> main) - Initial commit
 ```
 
+## Test Feature Branch
+
+*Tags: merge feature branch to main, abort merge if conflict, check for bugs*
+
+```bash
+git switch main
+git pull origin main
+git merge feat/feature-branch --no-commit --no-ff
+```
+
+If there are bugs or conflicts, abort the merge.
+
+If everything is fine, abort the merge then merge the pull request on GitHub.
+```bash
+git merge --abort
+```
+
 ## Hard-Reset Branch
 
 *Tags: revert back to main hard reset remove all changes*
