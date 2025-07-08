@@ -431,9 +431,9 @@ app.get('/', (_req, res) => {
   res.sendFile(publicDirectory);
 });
 
-app.get('/api', (_req: Request, res: Response) =>
-  res.json({ message: path.join(publicDirectory, 'index.html') }),
-);
+app.get('/api', (_req: Request, res: Response) => {
+  res.json({ message: path.join(publicDirectory, 'index.html') });
+});
 
 // Start server
 app.listen(PORT, () => {
