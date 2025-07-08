@@ -397,6 +397,8 @@ import express, { Request, Response } from 'express';
 import cors from 'cors';
 import path from 'node:path';
 import dotenv from 'dotenv';
+import process from 'node:process';
+
 dotenv.config();
 
 const app = express();
