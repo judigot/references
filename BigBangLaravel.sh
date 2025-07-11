@@ -1,9 +1,17 @@
 #!/bin/bash
 
+DB_CONNECTION=pgsql
+DB_HOST=postgres.cr2uqoqi4exh.us-east-2.rds.amazonaws.com
+DB_PORT=5432
+DB_DATABASE=app_db
+DB_USERNAME=root
+DB_PASSWORD=password
+
 # Global variables
 main() {
-    php artisan migrate:reset && rm -rf * .* .git
+    # php artisan migrate:reset && rm -rf * .* .git
     echo -e "\e[32mInitializing...\e[0m"
+
     download_laravel
     configure_env_for_postgresql
     generate_migrations
@@ -21,6 +29,9 @@ main() {
     create_auth_routes
 
     migrate_and_seed
+
+    # composer install
+    # generate key: php artisan key:generate
 
     initializeGit
     echo -e "Big Bang successfully scaffolded."
@@ -804,13 +815,15 @@ EOL
 configure_env_for_postgresql() {
     echo -e "Configuring .env for PostgreSQL..."
 
+    clone .env.example .env
+
     # Update .env values for PostgreSQL
-    sed -i 's/DB_CONNECTION=sqlite/DB_CONNECTION=pgsql/' .env
-    sed -i 's/# DB_HOST=127.0.0.1/DB_HOST=127.0.0.1/' .env
-    sed -i 's/# DB_PORT=3306/DB_PORT=5432/' .env
-    sed -i 's/# DB_DATABASE=laravel/DB_DATABASE=laravel/' .env
-    sed -i 's/# DB_USERNAME=root/DB_USERNAME=root/' .env
-    sed -i 's/# DB_PASSWORD=/DB_PASSWORD=123/' .env
+    sed -i "s/^DB_CONNECTION=[^ ]*/DB_CONNECTION=$DB_CONNECTION/" .env
+    sed -i "s/^# DB_HOST=[^ ]*/DB_HOST=$DB_HOST/" .env
+    sed -i "s/^# DB_PORT=[^ ]*/DB_PORT=$DB_PORT/" .env
+    sed -i "s/^# DB_DATABASE=[^ ]*/DB_DATABASE=$DB_DATABASE/" .env
+    sed -i "s/^# DB_USERNAME=[^ ]*/DB_USERNAME=$DB_USERNAME/" .env
+    sed -i "s/^# DB_PASSWORD=[^ ]*/DB_PASSWORD=$DB_PASSWORD/" .env
 
     echo -e ".env configured for PostgreSQL."
 }
