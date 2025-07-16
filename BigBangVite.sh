@@ -438,7 +438,7 @@ app.get('/api', (_req: Request, res: Response) => {
 // Start server
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
-  console.log(\`\${platform.charAt(0).toUpperCase() + platform.slice(1)} is running on http://localhost:\${PORT}\`);
+  console.log(\`\${platform.charAt(0).toUpperCase() + platform.slice(1)} is running on http://127.0.0.1:\${PORT}\`);
 });
 EOF
     )
@@ -1218,12 +1218,12 @@ createEnv() {
 DATABASE_URL="mysql://<username>:<password>@<host>:<port>/<database>"
 
 # Local PostgreSQL
-# DATABASE_URL="postgresql://root:123@localhost:5432/bigbang"
+# DATABASE_URL="postgresql://root:123@127.0.0.1:5432/bigbang"
 
 NODE_ENV="development"
 
-VITE_FRONTEND_URL="http://localhost:3000"
-VITE_BACKEND_URL="http://localhost:5000"
+VITE_FRONTEND_URL="http://127.0.0.1:3000"
+VITE_BACKEND_URL="http://127.0.0.1:5000"
 VITE_API_URL="api"
 
 ACCESS_TOKEN_SECRET=
@@ -1260,12 +1260,12 @@ createEnvExample() {
 DATABASE_URL="mysql://<username>:<password>@<host>:<port>/<database>"
 
 # Local PostgreSQL
-# DATABASE_URL="postgresql://root:123@localhost:5432/bigbang"
+# DATABASE_URL="postgresql://root:123@127.0.0.1:5432/bigbang"
 
 NODE_ENV="development"
 
-VITE_FRONTEND_URL="http://localhost:3000"
-VITE_BACKEND_URL="http://localhost:5000"
+VITE_FRONTEND_URL="http://127.0.0.1:3000"
+VITE_BACKEND_URL="http://127.0.0.1:5000"
 VITE_API_URL="api"
 
 ACCESS_TOKEN_SECRET=
