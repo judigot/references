@@ -502,7 +502,7 @@ downloadNextJS() {
         rm -rf $PROJECT_NAME
     fi
 
-    pnpm create next-app $PROJECT_NAME --use-pnpm --ts --tailwind --eslint --app --src-dir --import-alias @/* --turbopack
+    pnpm create next-app@latest $PROJECT_NAME --use-pnpm --ts --tailwind --eslint --app --src-dir --import-alias @/* --turbopack
 
     # Check if the file was created successfully
     if [ -d "$PROJECT_NAME" ]; then
