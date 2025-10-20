@@ -66,7 +66,7 @@ main() {
     addStrictNullChecks
 
     # Testing
-    local testPackages=("vitest" "jest" "@types/jest" "jsdom" "@testing-library/react" "@testing-library/jest-dom")
+    local testPackages=("vitest" "jest" "@types/jest" "jsdom" "@testing-library/react" "@testing-library/dom" "@testing-library/jest-dom")
     append_dependencies "development" testPackages DEV_DEPENDENCIES
     addVitestReference
     addVitestConfig
