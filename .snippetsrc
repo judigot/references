@@ -70,6 +70,7 @@ testSSH() {
     ssh -T git@github.com -o StrictHostKeyChecking=no
 }
 alias testssh='testSSH'
+alias checkssh='testSSH'
 
 usePersonalSSH() {
     # Delete all identities (private keys) from the SSH agent to prevent key conflicts
