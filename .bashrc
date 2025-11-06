@@ -18,6 +18,10 @@ export JAVA_HOME="/c/apportable/Programming/jdk"
 export NVM_HOME="/c/apportable/Programming/nvm"
 export NVM_SYMLINK="/c/apportable/Programming/nodejs"
 
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/c/apportable/Programming/sdkman"
+[[ -s "/c/apportable/Programming/sdkman/bin/sdkman-init.sh" ]] && source "/c/apportable/Programming/sdkman/bin/sdkman-init.sh"
+
 # Start the SSH agent and add the default SSH key to the agent
 if [[ "$IS_VS_CODE_FOR_WORK" == "true" ]]; then
     useworkssh
