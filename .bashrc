@@ -14,7 +14,7 @@ pathsLinux=$(echo "$paths" | awk -v home="$HOME" '{
 # echo -e "$pathsLinux"
 export PATH="$PATH:$pathsLinux"
 
-export JAVA_HOME="/c/apportable/Programming/jdk"
+# export JAVA_HOME="/c/apportable/Programming/jdk" # Uncomment only if not using SDKMAN
 export NVM_HOME="/c/apportable/Programming/nvm"
 export NVM_SYMLINK="/c/apportable/Programming/nodejs"
 
