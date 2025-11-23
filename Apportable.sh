@@ -181,7 +181,8 @@ versionString=$(curl -s "$repository" | awk -v pattern="$HTMLPatternToMatch" '
     }')
 
 # Remove first character "v" to get the version number
-nvmLatestVersion="${versionString:1}"
+# nvmLatestVersion="${versionString:1}"
+nvmLatestVersion="1.2.2"
 
 curl -L -o "$rootDir/$environment/nvm-noinstall.zip" "https://github.com/coreybutler/nvm-windows/releases/download/$nvmLatestVersion/nvm-noinstall.zip"
 # Path to the zip file
@@ -486,10 +487,11 @@ versionString=$(curl -s "$repository" | awk -v pattern="$HTMLPatternToMatch" '
     }')
 
 # Remove first character "v" to get the version number
-heidisqlLatestVersion="$versionString"
+heidisqlLatestVersion=$(echo "$versionString" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+') # 12.13.0.7147
 
 # Extract the first href
-JDK_URL="https://www.heidisql.com/downloads/releases/HeidiSQL_${heidisqlLatestVersion}_64_Portable.zip"
+JDK_URL="https://github.com/HeidiSQL/HeidiSQL/releases/download/v12.13.0.7147/HeidiSQL_12.13_64_Portable.zip"
+
 curl -L -o "$rootDir/$environment/heidisql.zip" $JDK_URL
 # Path to the zip file
 zipFile="$rootDir/$environment/heidisql.zip"
