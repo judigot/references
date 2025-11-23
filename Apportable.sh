@@ -226,7 +226,7 @@ echo "proxy: none" >>"$NVM_HOME/settings.txt"
 nvm install lts
 nvm use lts
 npm config set script-shell "$rootDir/$environment/PortableGit/bin/bash.exe" # Use Git Bash for running scripts in VS Code NPM Scripts panel
-npm install -g pnpm
+npm install -g bun pnpm
 #=====NVM=====#
 
 #=====PHP=====#
