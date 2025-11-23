@@ -15,6 +15,41 @@ $pathsWindows = $paths -replace '\n', ';'
 $pathsLinux = $paths -replace '\n', ':' -replace '\\', '/' -replace 'C:', '/c'
 $env:PATH += ";$pathsWindows"
 
+#==========POWERSHELL PROFILE==========#
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+
+$profileDir = Join-Path $env:USERPROFILE "Documents\WindowsPowerShell"
+if (!(Test-Path -Path $profileDir)) {
+    New-Item -Path $profileDir -ItemType Directory | Out-Null
+}
+
+$mainProfilePath = Join-Path $env:USERPROFILE "profile.ps1"
+$profileContent = @"
+`$paths = (Invoke-WebRequest -Uri "https://raw.githubusercontent.com/judigot/references/main/PATH" -UseBasicParsing).Content
+`$pathsWindows = (`$paths -split "``n" | Where-Object { `$_.Trim() -ne "" }) -join ";"
+`$env:PATH += ";`$pathsWindows"
+
+`$env:NVM_HOME = "C:\apportable\Programming\nvm"
+`$env:NVM_SYMLINK = "C:\apportable\Programming\nodejs"
+`$env:NVM_DIR = "`$env:USERPROFILE\.nvm"
+
+`$env:SDKMAN_DIR = "C:\apportable\Programming\sdkman"
+"@
+Set-Content -Path $mainProfilePath -Value $profileContent
+
+$loaderContent = @"
+if (Test-Path "`$env:USERPROFILE\profile.ps1") {
+    . "`$env:USERPROFILE\profile.ps1"
+}
+"@
+
+$currentHostProfile = Join-Path $profileDir "Microsoft.PowerShell_profile.ps1"
+$allHostsProfile = Join-Path $profileDir "profile.ps1"
+
+Set-Content -Path $currentHostProfile -Value $loaderContent
+Set-Content -Path $allHostsProfile -Value $loaderContent
+#==========POWERSHELL PROFILE==========#
+
 # Create "Programming" folder if it doesn't exist
 if (!(Test-Path -Path "$portableGitInstallationDir")) {
     New-Item -Path "$portableGitInstallationDir" -ItemType Directory
@@ -38,37 +73,26 @@ Remove-Item $installerPath
 #==========7-ZIP==========#
 
 #==========GIT==========#
-# API Version
-# $latestRelease = Invoke-RestMethod -Uri "https://api.github.com/repos/git-for-windows/git/releases/latest" -Headers @{ "User-Agent" = "PowerShell" }
-# # Extract the latest version tag (e.g., v2.47.0.windows.1)
-# $latestVersion = $latestRelease.tag_name
-# # Remove the '.windows.*' part to get the core version (e.g., v2.47.0)
-# $coreVersion = $latestVersion -replace '\.windows.*', ''
-# # Construct the download URL for the latest 64-bit Portable Git based on the version
-# $portableGitDownloadLink = "https://github.com/git-for-windows/git/releases/download/$latestVersion/PortableGit-$($coreVersion -replace 'v','')-64-bit.7z.exe"
+$latestRelease = Invoke-RestMethod -Uri "https://api.github.com/repos/git-for-windows/git/releases/latest" -Headers @{ "User-Agent" = "PowerShell" }
+$latestVersion = $latestRelease.tag_name
+$coreVersion = $latestVersion -replace '\.windows.*', ''
+$portableGitDownloadLink = "https://github.com/git-for-windows/git/releases/download/$latestVersion/PortableGit-$($coreVersion -replace 'v','')-64-bit.7z.exe"
 
-# HTML Content Extraction Version
-$url = "https://git-scm.com/downloads/win"
-$htmlContent = Invoke-WebRequest -Uri $url -UseBasicParsing | Select-Object -ExpandProperty Content
-$pattern = '<a href="([^"]*PortableGit[^"]*)">64-bit Git for Windows Portable<\/a>'
-if (-not ($htmlContent -match $pattern)) {
-    Write-Output "Git download link not found."
+if ([string]::IsNullOrEmpty($portableGitDownloadLink)) {
+    Write-Host "Failed to construct Git download link." -ForegroundColor Red
+    exit 1
 }
-$portableGitDownloadLink = $matches[1]
 
-# Echo the constructed Portable Git download link to ensure it's correct
-# Write-Host "Constructed URL for Portable Git: $portableGitDownloadLink"
-
-# Define the portable Git file name
 $portableGitFilename = "PortableGit.exe"
+$portableGitFilePath = Join-Path $portableGitInstallationDir $portableGitFilename
 
-# Install PortableGit
-curl -O $portableGitInstallationDir\$portableGitFilename $portableGitDownloadLink
+Invoke-WebRequest -Uri $portableGitDownloadLink -OutFile $portableGitFilePath
 
 # Use 7-Zip to extract the Portable Git installer to the desired directory
 & "$7ZipInstallationDir\7z.exe" x "$portableGitInstallationDir\$portableGitFilename" -o"$portableGitInstallationDir\PortableGit" -aoa
 #==========GIT==========#
 
 #==========RUN APPORTABLE==========#
-curl.exe -L https://raw.githubusercontent.com/judigot/references/main/Apportable.sh | C:/apportable/Programming/PortableGit/bin/bash.exe
+$bashPath = Join-Path $portableGitInstallationDir "PortableGit\bin\bash.exe"
+curl.exe -L https://raw.githubusercontent.com/judigot/references/main/Apportable.sh | & $bashPath
 #==========RUN APPORTABLE==========#
