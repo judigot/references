@@ -363,7 +363,7 @@ recreateMainForLint() {
         cat <<EOF
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import App from './App.tsx';
 
 const rootElement = document.getElementById('root');
 
@@ -393,7 +393,7 @@ createServerEntryPoint() {
     local content=""
     content=$(
         cat <<EOF
-import express, { Request, Response } from 'express';
+import express, { type Request, type Response } from 'express';
 import cors from 'cors';
 import path from 'node:path';
 import dotenv from 'dotenv';
