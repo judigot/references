@@ -29,14 +29,13 @@ readonly PACKAGE_JSON_PATH="$PROJECT_DIRECTORY/package.json"
 main() {
     echo -e "\e[32mInitializing...\e[0m"
     downloadVite
-    createEnv
     createEnvExample
     deleteFiles "css"
     codeToBeRemoved=("import './index.css'" "import './App.css'")
     removeTextContent "codeToBeRemoved[@]"
     codeToBeRemoved=("import reactLogo from './assets/react.svg'" "import viteLogo from '/vite.svg'")
     removeTextContent "codeToBeRemoved[@]"
-    directories=("api" "components" "helpers" "images" "styles" "tests" "types" "utils")
+    directories=("components" "helpers" "images" "styles" "tests" "types" "utils")
     createDirectories "$PROJECT_DIRECTORY/src" "directories[@]"
     removeBoilerplate
 
@@ -74,6 +73,7 @@ main() {
 
     # Express Server
     local serverPackages=("express" "cors")
+    createAPIDirectory
     append_dependencies "production" serverPackages PRODUCTION_DEPENDENCIES
     local serverPackages=("@types/express" "@types/cors" "nodemon" "tsx")
     append_dependencies "development" serverPackages DEV_DEPENDENCIES
@@ -93,6 +93,15 @@ main() {
     formatCode
     initializeGit
     echo -e "Big Bang successfully scaffolded."
+}
+
+function createAPIDirectory() {
+    cd "$PROJECT_DIRECTORY" || return
+
+    mkdir "api"
+    touch "api/.gitkeep"
+
+    echo -e "\e[32mFolder \e[33mapi\e[0m was successfully created.\e[0m" # Green
 }
 
 addDenoSupport() {
@@ -388,7 +397,7 @@ EOF
 }
 
 createServerEntryPoint() {
-    cd "$PROJECT_DIRECTORY/src" || return
+    cd "$PROJECT_DIRECTORY/" || return
 
     local htmlFileName="index.ts"
     local content=""
@@ -575,7 +584,7 @@ EOF
 
 addDevAndStartScripts() {
     cd "$PROJECT_DIRECTORY" || return
-    replace "package.json" '"dev": "vite",' '"dev": "vite & tsc --noEmit --watch & nodemon --exec tsx src/index.ts", "test": "vitest",'
+    replace "package.json" '"dev": "vite",' '"dev": "vite & tsc --noEmit --watch & nodemon --exec tsx api/index.ts", "test": "vitest",'
     replace "package.json" '"lint":' '"start": "node dist/index.js","lint":'
 }
 
@@ -1219,13 +1228,13 @@ createEnv() {
 DATABASE_URL="mysql://<username>:<password>@<host>:<port>/<database>"
 
 # Local PostgreSQL
-# DATABASE_URL="postgresql://root:123@127.0.0.1:5432/bigbang"
+# DATABASE_URL="postgresql://root:123@localhost:5432/bigbang"
 
 NODE_ENV="development"
 
-VITE_FRONTEND_URL="http://127.0.0.1:3000"
-VITE_BACKEND_URL="http://127.0.0.1:5000"
+VITE_BACKEND_HOST="http://localhost"
 VITE_API_URL="api"
+VITE_BACKEND_PORT=5000
 
 ACCESS_TOKEN_SECRET=
 REFRESH_TOKEN_SECRET=
@@ -1261,13 +1270,13 @@ createEnvExample() {
 DATABASE_URL="mysql://<username>:<password>@<host>:<port>/<database>"
 
 # Local PostgreSQL
-# DATABASE_URL="postgresql://root:123@127.0.0.1:5432/bigbang"
+# DATABASE_URL="postgresql://root:123@localhost:5432/bigbang"
 
 NODE_ENV="development"
 
-VITE_FRONTEND_URL="http://127.0.0.1:3000"
-VITE_BACKEND_URL="http://127.0.0.1:5000"
+VITE_BACKEND_HOST="http://localhost"
 VITE_API_URL="api"
+VITE_BACKEND_PORT=5000
 
 ACCESS_TOKEN_SECRET=
 REFRESH_TOKEN_SECRET=
