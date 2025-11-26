@@ -397,7 +397,7 @@ EOF
 }
 
 createServerEntryPoint() {
-    cd "$PROJECT_DIRECTORY/" || return
+    cd "$PROJECT_DIRECTORY/api" || return
 
     local htmlFileName="index.ts"
     local content=""
