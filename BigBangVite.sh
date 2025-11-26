@@ -2,7 +2,7 @@
 
 # ====================PROJECT SETTINGS==================== #
 
-readonly PROJECT_NAME="bigbang"
+readonly PROJECT_NAME="bigbangvite"
 
 PRODUCTION_DEPENDENCIES=(
     "axios"

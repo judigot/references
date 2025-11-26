@@ -2,7 +2,7 @@
 
 # ====================PROJECT SETTINGS==================== #
 
-readonly PROJECT_NAME="vue"
+readonly PROJECT_NAME="bigbangvue"
 
 PRODUCTION_DEPENDENCIES=(
     "dotenv"
