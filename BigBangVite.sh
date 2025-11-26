@@ -99,7 +99,6 @@ function createAPIDirectory() {
     cd "$PROJECT_DIRECTORY" || return
 
     mkdir "api"
-    touch "api/.gitkeep"
 
     echo -e "\e[32mFolder \e[33mapi\e[0m was successfully created.\e[0m" # Green
 }
