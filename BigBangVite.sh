@@ -26,7 +26,7 @@ readonly ROOT_DIRECTORY="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null
 readonly PROJECT_DIRECTORY="$ROOT_DIRECTORY/$PROJECT_NAME"
 readonly PACKAGE_JSON_PATH="$PROJECT_DIRECTORY/package.json"
 
-main() {
+main() {    
     echo -e "\e[32mInitializing...\e[0m"
     downloadVite
     createEnvExample
@@ -74,6 +74,7 @@ main() {
     # Express Server
     local serverPackages=("express" "cors")
     createAPIDirectory
+    addAPIToTSConfig
     append_dependencies "production" serverPackages PRODUCTION_DEPENDENCIES
     local serverPackages=("@types/express" "@types/cors" "nodemon" "tsx")
     append_dependencies "development" serverPackages DEV_DEPENDENCIES
@@ -93,6 +94,14 @@ main() {
     formatCode
     initializeGit
     echo -e "Big Bang successfully scaffolded."
+}
+
+function addAPIToTSConfig() {
+    cd "$PROJECT_DIRECTORY" || return
+
+    echo $PROJECT_DIRECTORY
+
+    replaceLineAfterMatch "tsconfig.app.json" '"include": ' '["src", "api"]'
 }
 
 function createAPIDirectory() {
@@ -478,8 +487,13 @@ function App() {
   const [data, setData] = React.useState<IData | undefined>(undefined);
 
   useEffect(() => {
-    fetch(
-      \`\${String(import.meta.env.VITE_BACKEND_URL)}/\${String(import.meta.env.VITE_API_URL)}\`,
+    const backendHost = String(import.meta.env.VITE_BACKEND_HOST ?? '');
+    const port = String(import.meta.env.VITE_BACKEND_PORT ?? '5000');
+    const apiPath = String(import.meta.env.VITE_API_URL ?? 'api');
+    const backendUrl = backendHost ? `\${backendHost}:\${port}` : '';
+    const baseUrl = backendUrl ? `\${backendUrl}/\${apiPath}` : `/\${apiPath}`;
+
+    fetch(baseUrl,
       {
         method: 'GET',
         headers: {
@@ -489,16 +503,12 @@ function App() {
         },
       },
     )
-      .then((response) => response.json())
-      .then((result: IData | undefined) => {
-        // Success
-        if (result) {
-          setData(result);
-        }
+      .then((res) => res.json())
+      .then((data: { message: string }) => {
+        setMessage(`\${data.message} - React`);
       })
-      .catch((error: unknown) => {
-        // Failure
-        throw error instanceof Error ? error : new Error(String(error));
+      .catch(() => {
+        setMessage('Backend unavailable');
       });
   }, []);
 
