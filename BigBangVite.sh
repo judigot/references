@@ -85,7 +85,7 @@ main() {
     recreateMainForLint
 
     # Deno Support
-    addDenoSupport
+    # addDenoSupport
     # ==========CUSTOM SETTINGS========== #
 
     installDefaultPackages &
