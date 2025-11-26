@@ -6,6 +6,7 @@ readonly PROJECT_NAME="bigbang"
 
 PRODUCTION_DEPENDENCIES=(
     "axios"
+    "clsx"
     "@tanstack/react-query"
     "dotenv"
     "dotenv-expand"
@@ -35,7 +36,7 @@ main() {
     removeTextContent "codeToBeRemoved[@]"
     codeToBeRemoved=("import reactLogo from './assets/react.svg'" "import viteLogo from '/vite.svg'")
     removeTextContent "codeToBeRemoved[@]"
-    directories=("api" "components" "helpers" "styles" "tests" "types" "utils")
+    directories=("api" "components" "helpers" "images" "styles" "tests" "types" "utils")
     createDirectories "$PROJECT_DIRECTORY/src" "directories[@]"
     removeBoilerplate
 
@@ -48,7 +49,7 @@ main() {
     viteConfigaddPathAlias true
 
     # Tailwind
-    local tailwindPackages=("tailwindcss" "autoprefixer" "postcss" "sass")
+    local tailwindPackages=("tailwindcss" "@tailwindcss/postcss" "autoprefixer" "postcss" "sass")
     append_dependencies "development" tailwindPackages DEV_DEPENDENCIES
     postCSSConfig
     tailwindConfig
