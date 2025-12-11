@@ -22,6 +22,7 @@ main() {
     create_base_interface
 
     enable_api
+    register_api_routes
     configure_api_guard
 
     create_models
@@ -730,6 +731,35 @@ enable_api() {
     # php artisan install:api --passport
     echo -e "\n" | php artisan install:api --passport
     echo -e "API has been enabled!"
+}
+
+register_api_routes() {
+    echo -e "Registering API routes in bootstrap/app.php..."
+    
+    APP_FILE="bootstrap/app.php"
+    
+    if [ ! -f "$APP_FILE" ]; then
+        echo -e "Error: $APP_FILE not found!"
+        return 1
+    fi
+    
+    # Check if API routes are already registered
+    if grep -q "api: __DIR__.'/../routes/api.php'" "$APP_FILE"; then
+        echo -e "API routes already registered in $APP_FILE"
+        return 0
+    fi
+    
+    # Check if withRouting exists
+    if ! grep -q "withRouting" "$APP_FILE"; then
+        echo -e "Error: withRouting() not found in $APP_FILE"
+        return 1
+    fi
+    
+    # Add API route registration after web route
+    # This uses sed to insert the line after the web: line
+    sed -i "/web: __DIR__.'\/..\/routes\/web.php',/a \        api: __DIR__.'/../routes/api.php'," "$APP_FILE"
+    
+    echo -e "API routes registered successfully in $APP_FILE"
 }
 
 laravel_passport_setup() {
