@@ -1,11 +1,11 @@
 #!/bin/bash
 
 DB_CONNECTION=pgsql
-DB_HOST=postgres.cr2uqoqi4exh.us-east-2.rds.amazonaws.com
+DB_HOST=https://localhost
 DB_PORT=5432
-DB_DATABASE=app_db
+DB_DATABASE=laravel
 DB_USERNAME=root
-DB_PASSWORD=password
+DB_PASSWORD=123
 
 # Global variables
 main() {
