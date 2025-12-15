@@ -1,0 +1,36 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "remote.SSH.configFile": "~/.ssh/config",
+    "remote.SSH.defaultExtensions": [],
+    "remote.SSH.useLocalServer": false,
+    "remote.SSH.remotePlatform": {
+      "default": "linux"
+    },
+    "terminal.integrated.env.windows": {
+      "SSH_KEY_PATH": "~/.ssh/id_ed25519_work",
+      "GIT_SSH_COMMAND": "ssh -i ~/.ssh/id_ed25519_work"
+    },
+    "terminal.integrated.env.linux": {
+      "SSH_KEY_PATH": "~/.ssh/id_ed25519_work",
+      "GIT_SSH_COMMAND": "ssh -i ~/.ssh/id_ed25519_work"
+    },
+    "terminal.integrated.env.osx": {
+      "SSH_KEY_PATH": "~/.ssh/id_ed25519_work",
+      "GIT_SSH_COMMAND": "ssh -i ~/.ssh/id_ed25519_work"
+    },
+    "terminal.integrated.profiles.windows": {
+      "MSYS2": {
+        "path": "C:/apportable/Programming/msys64/usr/bin/bash.exe",
+        "args": ["--login", "-i", "-c", "SSH_DIR=\"$HOME/.ssh\"; mkdir -p \"$SSH_DIR\" 2>/dev/null; WORK_KEY=\"$SSH_DIR/id_ed25519_work\"; DEFAULT_KEY=\"$SSH_DIR/id_ed25519_work\"; DEFAULT_PUB=\"$SSH_DIR/id_ed25519_work.pub\"; WORK_PUB=\"$SSH_DIR/id_ed25519_work.pub\"; if [ -f \"$WORK_KEY\" ]; then rm -f \"$DEFAULT_KEY\" \"$DEFAULT_PUB\" 2>/dev/null; cp \"$WORK_KEY\" \"$DEFAULT_KEY\" && chmod 600 \"$DEFAULT_KEY\"; [ -f \"$WORK_PUB\" ] && cp \"$WORK_PUB\" \"$DEFAULT_PUB\" && chmod 644 \"$DEFAULT_PUB\"; fi; exec bash"]
+      }
+    }
+  },
+  "extensions": {
+    "recommendations": []
+  }
+}

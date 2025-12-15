@@ -1,0 +1,33 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "remote.SSH.configFile": "~/.ssh/config",
+    "remote.SSH.defaultExtensions": [],
+    "remote.SSH.useLocalServer": false,
+    "terminal.integrated.env.windows": {
+      "SSH_KEY_PATH": "~/.ssh/id_ed25519_personal",
+      "GIT_SSH_COMMAND": "ssh -i ~/.ssh/id_ed25519_personal"
+    },
+    "terminal.integrated.env.linux": {
+      "SSH_KEY_PATH": "~/.ssh/id_ed25519_personal",
+      "GIT_SSH_COMMAND": "ssh -i ~/.ssh/id_ed25519_personal"
+    },
+    "terminal.integrated.env.osx": {
+      "SSH_KEY_PATH": "~/.ssh/id_ed25519_personal",
+      "GIT_SSH_COMMAND": "ssh -i ~/.ssh/id_ed25519_personal"
+    },
+    "terminal.integrated.profiles.windows": {
+      "MSYS2": {
+        "path": "C:/apportable/Programming/msys64/usr/bin/bash.exe",
+        "args": ["--login", "-i", "-c", "SSH_DIR=\"$HOME/.ssh\"; mkdir -p \"$SSH_DIR\" 2>/dev/null; PERSONAL_KEY=\"$SSH_DIR/id_ed25519_personal_personal\"; DEFAULT_KEY=\"$SSH_DIR/id_ed25519_personal\"; DEFAULT_PUB=\"$SSH_DIR/id_ed25519_personal.pub\"; PERSONAL_PUB=\"$SSH_DIR/id_ed25519_personal_personal.pub\"; if [ -f \"$PERSONAL_KEY\" ]; then rm -f \"$DEFAULT_KEY\" \"$DEFAULT_PUB\" 2>/dev/null; cp \"$PERSONAL_KEY\" \"$DEFAULT_KEY\" && chmod 600 \"$DEFAULT_KEY\"; [ -f \"$PERSONAL_PUB\" ] && cp \"$PERSONAL_PUB\" \"$DEFAULT_PUB\" && chmod 644 \"$DEFAULT_PUB\"; fi; exec bash"]
+      }
+    }
+  },
+  "extensions": {
+    "recommendations": []
+  }
+}
