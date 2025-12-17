@@ -510,6 +510,106 @@ else
 fi
 #=====HEIDISQL=====#
 
+#=====SET MSYS2 AS DEFAULT TERMINAL PROFILE=====#
+set_windows_terminal_msys2_default() {
+  set -eu
+
+  WT_GUID='{1e38f9e3-abb4-41c5-85e7-2608453b8738}'
+  WT_NAME='MSYS2'
+  WT_COMMANDLINE='C:\apportable\Programming\Bash.bat'
+  WT_ICON='C:\apportable\Programming\msys64\msys2.ico'
+
+  TMP_PS="$(mktemp -t wt_msys2_default_XXXXXX.ps1)"
+  trap 'rm -f "$TMP_PS"' 0 1 2 3 15
+
+  cat > "$TMP_PS" <<'POWERSHELL'
+param(
+  [Parameter(Mandatory = $true)][string]$Guid,
+  [Parameter(Mandatory = $true)][string]$Name,
+  [Parameter(Mandatory = $true)][string]$CommandLine,
+  [Parameter(Mandatory = $true)][string]$Icon
+)
+
+function Get-WtSettingsJsonPath {
+  $candidates = @(
+    "Microsoft.WindowsTerminal",
+    "Microsoft.WindowsTerminalPreview",
+    "Microsoft.WindowsTerminalCanary"
+  )
+
+  foreach ($pkgName in $candidates) {
+    $pkg = Get-AppxPackage -Name $pkgName -ErrorAction SilentlyContinue | Select-Object -First 1
+    if ($null -ne $pkg) {
+      $path = Join-Path $env:LOCALAPPDATA "Packages\$($pkg.PackageFamilyName)\LocalState\settings.json"
+      if (Test-Path $path) { return $path }
+    }
+  }
+
+  $unpackaged = Join-Path $env:LOCALAPPDATA "Microsoft\Windows Terminal\settings.json"
+  if (Test-Path $unpackaged) { return $unpackaged }
+
+  throw "Windows Terminal settings.json not found."
+}
+
+$settingsPath = Get-WtSettingsJsonPath
+Copy-Item -Path $settingsPath -Destination "$settingsPath.bak" -Force
+
+$settings = Get-Content -Path $settingsPath -Raw | ConvertFrom-Json
+
+if ($null -eq $settings.profiles) { $settings | Add-Member -NotePropertyName profiles -NotePropertyValue ([pscustomobject]@{}) }
+if ($null -eq $settings.profiles.list) { $settings.profiles | Add-Member -NotePropertyName list -NotePropertyValue @() }
+
+$desired = [pscustomobject]@{
+  commandline       = $CommandLine
+  guid              = $Guid
+  hidden            = $false
+  icon              = $Icon
+  name              = $Name
+  startingDirectory = $null
+}
+
+$target = $settings.profiles.list | Where-Object { $_.guid -eq $Guid } | Select-Object -First 1
+if ($null -eq $target) {
+  $target = $settings.profiles.list | Where-Object { $_.name -eq $Name } | Select-Object -First 1
+}
+
+if ($null -eq $target) {
+  $settings.profiles.list += $desired
+} else {
+  $target.commandline       = $desired.commandline
+  $target.guid              = $desired.guid
+  $target.hidden            = $desired.hidden
+  $target.icon              = $desired.icon
+  $target.name              = $desired.name
+  $target.startingDirectory = $desired.startingDirectory
+}
+
+# Remove duplicates by name that don't match the desired GUID
+$settings.profiles.list = @(
+  $settings.profiles.list | Where-Object { $_.name -ne $Name -or $_.guid -eq $Guid }
+)
+
+$settings.defaultProfile = $Guid
+
+$settings | ConvertTo-Json -Depth 80 | Set-Content -Path $settingsPath -Encoding utf8
+
+Write-Output ("Updated: " + $settingsPath)
+Write-Output ("Backup : " + $settingsPath + ".bak")
+Write-Output "Restart Windows Terminal (close all Terminal windows first)."
+POWERSHELL
+
+  TMP_PS_WIN="$(cygpath -w "$TMP_PS")"
+
+  powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$TMP_PS_WIN" \
+    -Guid "$WT_GUID" \
+    -Name "$WT_NAME" \
+    -CommandLine "$WT_COMMANDLINE" \
+    -Icon "$WT_ICON"
+}
+
+set_windows_terminal_msys2_default
+#=====SET MSYS2 AS DEFAULT TERMINAL PROFILE=====#
+
 #==========PROGRAMMING==========#
 
 #==========AUDIO PRODUCTION==========#
