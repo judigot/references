@@ -41,6 +41,49 @@ pathsLinux=$(echo "$paths" | awk -v home="$HOME" '{
 
 export PATH="$PATH:$pathsLinux"
 
+# Load Windows PATH entries (System and User)
+load_windows_path() {
+    local windows_path=""
+    
+    # Get Windows system PATH (Machine level)
+    if command -v powershell.exe >/dev/null 2>&1; then
+        local system_path=$(powershell.exe -NoProfile -Command "[Environment]::GetEnvironmentVariable('Path', 'Machine')" 2>/dev/null)
+        if [[ -n "$system_path" ]]; then
+            windows_path="$windows_path;$system_path"
+        fi
+        
+        # Get Windows user PATH (User level)
+        local user_path=$(powershell.exe -NoProfile -Command "[Environment]::GetEnvironmentVariable('Path', 'User')" 2>/dev/null)
+        if [[ -n "$user_path" ]]; then
+            windows_path="$windows_path;$user_path"
+        fi
+    fi
+    
+    # Convert Windows paths to MSYS2 format and add to PATH
+    if [[ -n "$windows_path" ]]; then
+        local msys_path=$(echo "$windows_path" | awk -F';' '{
+            for (i=1; i<=NF; i++) {
+                if ($i != "") {
+                    gsub("\\\\", "/", $i);
+                    gsub("^[Cc]:", "/c", $i);
+                    gsub("^[Dd]:", "/d", $i);
+                    gsub("^[Ee]:", "/e", $i);
+                    gsub("^[Ff]:", "/f", $i);
+                    if ($i ~ /^\/[a-z]/) {
+                        printf "%s:", $i
+                    }
+                }
+            }
+        }')
+        
+        if [[ -n "$msys_path" ]]; then
+            export PATH="$PATH:$msys_path"
+        fi
+    fi
+}
+
+load_windows_path
+
 # Trigger async path update in background
 update_path_cache
 
