@@ -72,29 +72,22 @@ testSSH() {
 alias testssh='testSSH'
 alias checkssh='testSSH'
 
-usePersonalSSH() {
-    # Delete all identities (private keys) from the SSH agent to prevent key conflicts
-    eval "$(ssh-agent -s)" >/dev/null 2>&1 && ssh-add -D >/dev/null 2>&1
+useSSHKey() {
+  key="$1"
 
-    # Add personal SSH key and AWS key to the agent
-    eval "$(ssh-agent -s)" >/dev/null 2>&1 && ssh-add ~/.ssh/id_ed25519 >/dev/null 2>&1
-    eval "$(ssh-agent -s)" >/dev/null 2>&1 && ssh-add ~/.ssh/aws.pem >/dev/null 2>&1
+  [ -S "${SSH_AUTH_SOCK:-}" ] || eval "$(ssh-agent -s)" >/dev/null
 
-    echo -e "\e[32mNow using personal SSH key\e[0m" # Green
+  ssh-add -D >/dev/null 2>&1 || true
+  ssh-add "$HOME/.ssh/$key" >/dev/null
+
+  ssh-add -l
 }
+
+usePersonalSSH() { useSSHKey "id_ed25519"; }
 alias usepersonalssh='usePersonalSSH'
 alias personalssh='usePersonalSSH'
 
-useWorkSSH() {
-    # Delete all identities (private keys) from the SSH agent to prevent key conflicts
-    eval "$(ssh-agent -s)" >/dev/null 2>&1 && ssh-add -D >/dev/null 2>&1
-
-    # Add work SSH key and AWS key to the agent
-    eval "$(ssh-agent -s)" >/dev/null 2>&1 && ssh-add ~/.ssh/id_ed25519_work >/dev/null 2>&1
-    eval "$(ssh-agent -s)" >/dev/null 2>&1 && ssh-add ~/.ssh/aws.pem >/dev/null 2>&1
-
-    echo -e "\e[32mNow using work SSH key\e[0m" # Green
-}
+useWorkSSH() { useSSHKey "id_ed25519_work"; }
 alias useworkssh='useWorkSSH'
 alias workssh='useWorkSSH'
 
