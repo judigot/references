@@ -21,6 +21,7 @@ update_path_cache() {
             rm -f "$tmp_file" 2>/dev/null
         fi
     } >/dev/null 2>&1 &
+    disown
 }
 
 # Load from local PATH file
