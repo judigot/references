@@ -75,11 +75,16 @@ alias checkssh='testSSH'
 useSSHKey() {
   key="$1"
 
-  [ -S "${SSH_AUTH_SOCK:-}" ] || eval "$(ssh-agent -s)" >/dev/null
+  # Start agent if needed
+  if [ -z "${SSH_AUTH_SOCK:-}" ] || ! ssh-add -l >/dev/null 2>&1; then
+    eval "$(ssh-agent -s)" >/dev/null
+  fi
 
+  # Reset keys, then add personal
   ssh-add -D >/dev/null 2>&1 || true
-  ssh-add "$HOME/.ssh/$key" >/dev/null
+  ssh-add "$HOME/.ssh/$key"
 
+  # Quick confirmation
   ssh-add -l
 }
 
