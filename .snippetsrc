@@ -102,3 +102,11 @@ deleteAll() {
 }
 alias deleteall="deleteAll"
 alias deleteeverything="deleteAll"
+
+loadSnippets() {
+    grep -q '#<SNIPPETS>' "$HOME/.bashrc" 2>/dev/null || printf '%s\n' '#<SNIPPETS>' '[[ -f "$HOME/.snippetsrc" ]] && source "$HOME/.snippetsrc"' '#<SNIPPETS/>' >> "$HOME/.bashrc"
+}
+alias loadsnippets='loadSnippets'
+alias loadsnippetsrc='loadSnippets'
+alias usesnippets='loadSnippets'
+alias usesnippetssrc='loadSnippets'
