@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 readonly portableFolderName="apportable"
 readonly rootDir="C:/$portableFolderName"
