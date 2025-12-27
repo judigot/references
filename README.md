@@ -2,6 +2,8 @@
 
 # Apportable Setup
 
+Run this in PowerShell as administrator
+
 ```sh
 curl.exe -L "https://raw.githubusercontent.com/judigot/references/main/Apportable.ps1" | powershell -NoProfile -
 ```
