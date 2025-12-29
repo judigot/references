@@ -8,6 +8,13 @@ alias hi='helloWorld'
 alias hello='helloWorld'
 alias helloworld='helloWorld'
 
+updateCurrentBranch() {
+    git merge origin/main && git push
+}
+alias git-updatecurrentbranch='updateCurrentBranch'
+alias git-mergemaintocurrentbranch='updateCurrentBranch'
+alias git-getupdatesfrommain='updateCurrentBranch'
+
 updateRCFiles() {
     curl -sL https://raw.githubusercontent.com/judigot/references/main/.bashrc -o "$HOME/.bashrc" || { echo "Failed to download .bashrc"; return 1; }
     curl -sL https://raw.githubusercontent.com/judigot/references/main/.zshrc -o "$HOME/.zshrc" || { echo "Failed to download .zshrc"; return 1; }
