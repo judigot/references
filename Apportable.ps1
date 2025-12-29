@@ -19,6 +19,7 @@ function main {
     install_7zip
     install_git
     run_apportable
+    # run_apportable -useLocalScript $true
 }
 
 function load_path_from_github {
@@ -206,20 +207,24 @@ function install_git {
 
 #==========RUN APPORTABLE==========#
 function run_apportable {
+    param(
+        [bool]$useLocalScript = $true
+    )
+    
     $bashPath = Join-Path $portableGitInstallationDir "PortableGit\bin\bash.exe"
-
-    # Run remote script using curl
-    # curl.exe -L "https://raw.githubusercontent.com/judigot/references/main/Apportable.sh" | & $bashPath
     
-    # Run local script using & $bashPath
-    $scriptDir = if ($PSScriptRoot) { $PSScriptRoot } else { Get-Location }
-    $apportableShPath = Join-Path $scriptDir "Apportable.sh"
-    
-    if (Test-Path -Path $apportableShPath) {
-        & $bashPath $apportableShPath
+    if ($useLocalScript) {
+        $scriptDir = if ($PSScriptRoot) { $PSScriptRoot } else { Get-Location }
+        $apportableShPath = Join-Path $scriptDir "Apportable.sh"
+        
+        if (Test-Path -Path $apportableShPath) {
+            & $bashPath $apportableShPath
+        } else {
+            Write-Host "Apportable.sh not found at: $apportableShPath" -ForegroundColor Red
+            Write-Host "Falling back to GitHub version..." -ForegroundColor Yellow
+            curl.exe -L "https://raw.githubusercontent.com/judigot/references/main/Apportable.sh" | & $bashPath
+        }
     } else {
-        Write-Host "Apportable.sh not found at: $apportableShPath" -ForegroundColor Red
-        Write-Host "Falling back to GitHub version..." -ForegroundColor Yellow
         curl.exe -L "https://raw.githubusercontent.com/judigot/references/main/Apportable.sh" | & $bashPath
     }
 }
