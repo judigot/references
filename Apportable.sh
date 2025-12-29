@@ -235,7 +235,7 @@ install_php_and_composer() {
     INSTALL_DIR_WIN="C:\\apportable\\Programming\\php"
     INSTALL_DIR="/c/apportable/Programming/php"
     SCRIPT_URL="https://php.new/install/windows/$PHP_VERSION"
-    
+
     CREATE_WRAPPERS_ONLY="${CREATE_WRAPPERS_ONLY:-false}"
     
     info() {
@@ -252,6 +252,7 @@ install_php_and_composer() {
         
         info "Modifying installation directory to $INSTALL_DIR_WIN..."
         INSTALL_DIR_ESCAPED=$(echo "$INSTALL_DIR_WIN" | sed 's|\\|\\\\|g')
+        # Replace INSTALL_DIR variable to use our portable location instead of $HOME\.config\herd-lite\bin
         sed -i "s|\\\$INSTALL_DIR = \"\\\$HOME\\\\.config\\\\herd-lite\\\\bin\"|\\\$INSTALL_DIR = \"$INSTALL_DIR_ESCAPED\"|g" "$TEMP_SCRIPT"
         
         info "Running installer via PowerShell..."
@@ -259,26 +260,16 @@ install_php_and_composer() {
         powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$TEMP_SCRIPT_WIN"
         
         rm -f "$TEMP_SCRIPT"
-    fi
-    
-    info "Creating/updating bash wrapper for composer..."
-    if [ -f "$INSTALL_DIR/composer.phar" ]; then
-        cat > "$INSTALL_DIR/composer" << 'EOF'
-#!/bin/bash
-dir=$(cd "${0%[/\\]*}" > /dev/null; pwd)
-php "$dir/composer.phar" "$@"
+        
+        # Create php.bat wrapper for MSYS2 compatibility (installer doesn't create this)
+        info "Creating php.bat wrapper for MSYS2..."
+        if [ -f "$INSTALL_DIR/php.exe" ]; then
+            cat > "$INSTALL_DIR/php.bat" << 'EOF'
+@echo off
+"%~dp0php.exe" %*
 EOF
-        chmod +x "$INSTALL_DIR/composer"
-    fi
-    
-    info "Creating/updating bash wrapper for laravel..."
-    if [ -f "$INSTALL_DIR/laravel.phar" ]; then
-        cat > "$INSTALL_DIR/laravel" << 'EOF'
-#!/bin/bash
-dir=$(cd "${0%[/\\]*}" > /dev/null; pwd)
-php "$dir/laravel.phar" "$@"
-EOF
-        chmod +x "$INSTALL_DIR/laravel"
+            echo "php.bat wrapper created successfully."
+        fi
     fi
     
     echo "PHP installation completed at $INSTALL_DIR"
