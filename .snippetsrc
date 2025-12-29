@@ -9,7 +9,8 @@ alias hello='helloWorld'
 alias helloworld='helloWorld'
 
 updateCurrentBranch() {
-    git merge origin/main && git push
+    git merge origin/main
+    git push
 }
 alias git-updatecurrentbranch='updateCurrentBranch'
 alias git-mergemaintocurrentbranch='updateCurrentBranch'
