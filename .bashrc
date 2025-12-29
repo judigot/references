@@ -26,23 +26,6 @@ update_path_cache() {
     disown
 }
 
-# Load from local PATH file
-if [[ -f "$PATH_LOCAL_FILE" ]]; then
-    paths=$(<"$PATH_LOCAL_FILE")
-else
-    paths=$(curl -fsSL "$PATH_REMOTE_URL" 2>/dev/null)
-fi
-
-# Convert Windows-style paths to Linux format
-pathsLinux=$(echo "$paths" | awk -v home="$HOME" '{
-    gsub("\\\\", "/");
-    gsub("C:", "/c");
-    gsub(/\$HOME/, home);
-    printf "%s:", $0
-}')
-
-export PATH="$PATH:$pathsLinux"
-
 # Load Windows PATH entries (System and User)
 load_windows_path() {
     local windows_path=""
@@ -89,6 +72,23 @@ load_windows_path
 # Trigger async path update in background
 update_path_cache
 
+# Load from local PATH file
+if [[ -f "$PATH_LOCAL_FILE" ]]; then
+    paths=$(<"$PATH_LOCAL_FILE")
+else
+    paths=$(curl -fsSL "$PATH_REMOTE_URL" 2>/dev/null)
+fi
+
+# Convert Windows-style paths to Linux format
+pathsLinux=$(echo "$paths" | awk -v home="$HOME" '{
+    gsub("\\\\", "/");
+    gsub("C:", "/c");
+    gsub(/\$HOME/, home);
+    printf "%s:", $0
+}')
+
+export PATH="$PATH:$pathsLinux"
+
 # NVM and Node settings
 export NVM_HOME="/c/apportable/Programming/nvm"
 export NVM_SYMLINK="/c/apportable/Programming/nodejs"
@@ -107,6 +107,12 @@ if [[ "$IS_VS_CODE_FOR_WORK" == "true" ]]; then
     useworkssh
 # else
     # usepersonalssh
+fi
+
+if [[ "$IS_UBUNTU" == "true" ]]; then
+    alias php='/mnt/c/apportable/Programming/php/php.exe'
+    alias composer='php /mnt/c/apportable/Programming/php/composer.phar'
+    alias laravel='php /mnt/c/apportable/Programming/php/laravel.phar'
 fi
 
 # Auto-update terminal files (commented out for manual control)

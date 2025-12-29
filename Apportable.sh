@@ -12,6 +12,7 @@ _7zip_path="$rootDir/$environment/7-Zip"
 main() {
     setup_programming_environment
     install_msys2
+    # install_cygwin
     create_bash_bat
     open_bash_bat
     setup_rc_files
@@ -33,6 +34,40 @@ main() {
 
 setup_programming_environment() {
     [ -d "$rootDir/$environment" ] || mkdir -p "$rootDir/$environment"
+}
+
+install_cygwin() {
+    destinationDir="$rootDir/$environment/cygwin"
+    [ -d "$destinationDir" ] || mkdir -p "$destinationDir"
+    
+    destinationDirWin=$(cygpath -w "$destinationDir")
+    usePortableInstaller=false
+    
+    if command -v winget >/dev/null 2>&1; then
+        if ! winget install --id Cygwin.Cygwin --location "$destinationDirWin" --silent --accept-package-agreements --accept-source-agreements 2>/dev/null; then
+            echo "Winget installation failed or Cygwin not available via winget. Using portable installer..."
+            usePortableInstaller=true
+        fi
+    else
+        usePortableInstaller=true
+    fi
+    
+    if [ "$usePortableInstaller" = "true" ]; then
+        portableInstallerUrl="https://raw.githubusercontent.com/vegardit/cygwin-portable-installer/master/cygwin-portable-installer.cmd"
+        installerScript="$destinationDir/cygwin-portable-installer.cmd"
+        
+        curl -L -o "$installerScript" "$portableInstallerUrl"
+        
+        if [ -f "$installerScript" ]; then
+            installerScriptWin=$(cygpath -w "$installerScript")
+            cmd.exe //c "cd /d \"$destinationDirWin\" && \"$installerScriptWin\""
+        else
+            echo "Failed to download cygwin-portable-installer."
+            exit 1
+        fi
+    fi
+    
+    echo "Cygwin installation complete."
 }
 
 #=====MSYS2=====#
