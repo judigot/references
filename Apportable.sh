@@ -254,6 +254,7 @@ install_nvm() {
     nvm use lts
     npm config set script-shell "$rootDir/$environment/PortableGit/bin/bash.exe"
     npm install -g bun pnpm
+    pnpm config set store-dir ~/.pnpm-store
 }
 #=====NVM=====#
 
