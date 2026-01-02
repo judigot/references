@@ -92,6 +92,7 @@ export PATH="$PATH:$pathsLinux"
 # NVM and Node settings
 export NVM_HOME="/c/apportable/Programming/nvm"
 export NVM_SYMLINK="/c/apportable/Programming/nodejs"
+export BUN_INSTALL_CACHE_DIR="$HOME/.cache/bun"
 
 # These are only needed in Linux terminal. If you are using Windows, you can comment them out.
 # export NVM_DIR="$HOME/.nvm"
