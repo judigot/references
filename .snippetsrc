@@ -118,3 +118,19 @@ alias loadsnippets='loadSnippets'
 alias loadsnippetsrc='loadSnippets'
 alias usesnippets='loadSnippets'
 alias usesnippetssrc='loadSnippets'
+
+claude() {
+    # Install claude-code if not installed
+    if ! command -v claude >/dev/null 2>&1; then
+        npm install -g @anthropic-ai/claude-code
+    fi
+
+    # Clone or pull ai directory
+    if [ ! -d ~/ai ]; then
+        git clone git@github.com:judigot/ai.git ~/ai
+    else
+        git -C ~/ai pull
+    fi
+
+    command claude --plugin-dir ~/ai "$@"
+}
