@@ -132,5 +132,5 @@ claude() {
         git -C ~/ai pull >/dev/null 2>&1
     fi
 
-    command claude --plugin-dir ~/ai "$@"
+    command claude --plugin-dir ~/ai --plugin-dir . "$@"
 }
