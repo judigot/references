@@ -120,11 +120,18 @@ alias usesnippets='loadSnippets'
 alias usesnippetssrc='loadSnippets'
 
 installClaudeCode() {
-    npm install -g @anthropic-ai/claude-code
+    powershell.exe -Command '
+        $GCS_BUCKET = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases"
+        $version = Invoke-RestMethod -Uri "$GCS_BUCKET/stable"
+        $platform = "win32-x64"
+        New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.local\bin" | Out-Null
+        Invoke-WebRequest -Uri "$GCS_BUCKET/$version/$platform/claude.exe" -OutFile "$env:USERPROFILE\.local\bin\claude.exe"
+        Write-Host "Installed claude.exe to ~/.local/bin/"
+    '
 }
-alias installclaudecode='installClaudeCode'
-alias installclaude='installClaudeCode'
 alias installai='installClaudeCode'
+alias installclaude='installClaudeCode'
+alias installclaudecode='installClaudeCode'
 
 claude() {
     if [ ! -d ~/ai ]; then
@@ -138,7 +145,7 @@ claude() {
 alias ai='claude'
 
 addCursorBoilerplate() {
-    ghget judigot/cursor
+    downloadGithubRepo judigot/cursor
 }
 alias addagenticworkflow='addCursorBoilerplate'
 alias addagentfiles='addCursorBoilerplate'
@@ -162,13 +169,13 @@ alias createnewlocalagents='addCursorBoilerplate'
 # Download GitHub repo without cloning (no .git)
 # Usage: ghget <user/repo> [branch] [target_dir]
 # Example: ghget judigot/cursor main .
-ghget() {
+downloadGithubRepo() {
     local repo="$1"
     local branch="${2:-main}"
     local target="${3:-.}"
     
     if [ -z "$repo" ]; then
-        echo "Usage: ghget <user/repo> [branch] [target_dir]"
+        echo "Usage: downloadGithubRepo <user/repo> [branch] [target_dir]"
         return 1
     fi
     
@@ -187,9 +194,9 @@ ghget() {
     
     echo "Downloaded $repo to $target"
 }
-alias downloadrepo='ghget'
-alias downloadrepository='ghget'
-alias gitget='ghget'
+alias downloadgithubrepo='downloadGithubRepo'
+alias downloadrepo='downloadGithubRepo'
+alias ghget='downloadGithubRepo'
 
 # ==============================================================================
 # AGENT ALIASES (AI agents only - optimized for token efficiency)
