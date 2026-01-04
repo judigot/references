@@ -67,90 +67,10 @@ function load_path_from_github {
 
 #==========POWERSHELL PROFILE==========#
 function setup_powershell_profile {
-    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force -ErrorAction SilentlyContinue
-
-    $profileDir = Join-Path $env:USERPROFILE "Documents\WindowsPowerShell"
-    if (!(Test-Path -Path $profileDir)) {
-        New-Item -Path $profileDir -ItemType Directory | Out-Null
-    }
-
-    $mainProfilePath = Join-Path $env:USERPROFILE "profile.ps1"
-    $profileContent = @"
-`$PATH_REMOTE_URL = "https://raw.githubusercontent.com/judigot/references/main/PATH"
-`$PATH_LOCAL_FILE = "`$env:USERPROFILE\PATH"
-
-function Update-PathCache {
-    `$tmpFile = "`$PATH_LOCAL_FILE.tmp"
-    try {
-        `$response = Invoke-WebRequest -Uri `$PATH_REMOTE_URL -UseBasicParsing -ErrorAction Stop
-        if (`$response.Content.Trim().Length -gt 0) {
-            Set-Content -Path `$tmpFile -Value `$response.Content -NoNewline
-            Move-Item -Path `$tmpFile -Destination `$PATH_LOCAL_FILE -Force
-        } else {
-            Remove-Item -Path `$tmpFile -ErrorAction SilentlyContinue
-        }
-    } catch {
-        Remove-Item -Path `$tmpFile -ErrorAction SilentlyContinue
-    }
-}
-
-if (Test-Path -Path `$PATH_LOCAL_FILE) {
-    `$paths = Get-Content -Path `$PATH_LOCAL_FILE -Raw
-} else {
-    try {
-        `$paths = (Invoke-WebRequest -Uri `$PATH_REMOTE_URL -UseBasicParsing -ErrorAction Stop).Content
-    } catch {
-        `$paths = ""
-    }
-}
-
-if (`$paths) {
-    `$pathsWindows = (`$paths -split "``n" | Where-Object { `$_.Trim() -ne "" }) -join ";"
-    
-    `$currentPaths = `$env:PATH -split ';' | Where-Object { `$_.Trim() -ne '' }
-    `$newPaths = `$pathsWindows -split ';' | Where-Object { `$_.Trim() -ne '' }
-    `$pathsToAdd = `$newPaths | Where-Object { `$currentPaths -notcontains `$_ }
-    
-    if (`$pathsToAdd.Count -gt 0) {
-        `$env:PATH += ';' + (`$pathsToAdd -join ';')
-    }
-}
-
-Start-Job -ScriptBlock {
-    param(`$RemoteUrl, `$LocalFile)
-    `$tmpFile = "`$LocalFile.tmp"
-    try {
-        `$response = Invoke-WebRequest -Uri `$RemoteUrl -UseBasicParsing -ErrorAction Stop
-        if (`$response.Content.Trim().Length -gt 0) {
-            Set-Content -Path `$tmpFile -Value `$response.Content -NoNewline
-            Move-Item -Path `$tmpFile -Destination `$LocalFile -Force
-        } else {
-            Remove-Item -Path `$tmpFile -ErrorAction SilentlyContinue
-        }
-    } catch {
-        Remove-Item -Path `$tmpFile -ErrorAction SilentlyContinue
-    }
-} -ArgumentList `$PATH_REMOTE_URL, `$PATH_LOCAL_FILE | Out-Null
-
-`$env:NVM_HOME = "C:\apportable\Programming\nvm"
-`$env:NVM_SYMLINK = "C:\apportable\Programming\nodejs"
-`$env:NVM_DIR = "`$env:USERPROFILE\.nvm"
-
-`$env:SDKMAN_DIR = "C:\apportable\Programming\sdkman"
-"@
-    Set-Content -Path $mainProfilePath -Value $profileContent
-
-    $loaderContent = @"
-if (Test-Path "`$env:USERPROFILE\profile.ps1") {
-    . "`$env:USERPROFILE\profile.ps1"
-}
-"@
-
-    $currentHostProfile = Join-Path $profileDir "Microsoft.PowerShell_profile.ps1"
-    $allHostsProfile = Join-Path $profileDir "profile.ps1"
-
-    Set-Content -Path $currentHostProfile -Value $loaderContent
-    Set-Content -Path $allHostsProfile -Value $loaderContent
+    $url = "https://raw.githubusercontent.com/judigot/references/main/profile.ps1"
+    $dest = "$env:USERPROFILE\profile.ps1"
+    Invoke-WebRequest -Uri $url -OutFile $dest
+    Write-Host "Downloaded profile.ps1 to $dest"
 }
 #==========POWERSHELL PROFILE==========#
 
